@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TCF Canada — Tâche 3</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="questions.js"></script>
 <style>
   :root {
     --bg:#f7f4f0;--surface:#fff;--surface2:#f2ede8;--border:#e8e0d8;
@@ -37,15 +38,16 @@
   .search-input{flex:1;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .15s;}
   .search-input:focus{border-color:var(--accent);}
   .search-input::placeholder{color:var(--text-muted);}
-  .add-btn{background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);padding:10px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:opacity .15s;}
-  .add-btn:hover{opacity:.88;}
 
   .cards-wrap{padding:16px;display:flex;flex-direction:column;gap:12px;}
+  @media(min-width:600px){.cards-wrap{max-width:700px;margin:0 auto;}}
+
   .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:box-shadow .15s;}
   .q-card:hover{box-shadow:var(--shadow-md);}
   .q-card-top{padding:14px 16px 10px;display:flex;align-items:flex-start;gap:10px;}
   .cat-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:600;white-space:nowrap;flex-shrink:0;margin-top:3px;}
   .q-text{font-size:14px;line-height:1.55;color:var(--text);flex:1;}
+
   .q-card-body{display:none;padding:0 16px 14px;}
   .q-card-body.open{display:block;}
   .q-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px;padding-top:10px;border-top:1px solid var(--border);}
@@ -55,39 +57,25 @@
   .star:hover{transform:scale(1.2);}
   .status-sel{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-soft);padding:5px 8px;outline:none;cursor:pointer;}
   .date-lbl{font-size:11.5px;color:var(--text-muted);}
+
   .script-link{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--accent);text-decoration:none;margin-bottom:12px;transition:background .15s;}
   .script-link:hover{background:#fce8d8;}
   .no-script{font-size:12px;color:var(--text-muted);font-style:italic;margin-bottom:12px;display:block;}
+
   .remark-wrap{margin-top:4px;}
   .remark-lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:4px;}
   .remark-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);padding:7px 10px;outline:none;transition:border-color .15s;resize:vertical;min-height:48px;}
   .remark-input:focus{border-color:var(--accent);}
   .remark-input::placeholder{color:var(--text-muted);font-style:italic;}
+
   .expand-btn{width:100%;padding:9px 16px;background:none;border:none;border-top:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);cursor:pointer;text-align:center;transition:background .1s;display:flex;align-items:center;justify-content:center;gap:5px;}
   .expand-btn:hover{background:var(--surface2);color:var(--text-soft);}
   .empty{text-align:center;padding:48px 20px;color:var(--text-muted);font-size:14px;font-style:italic;}
 
-  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:flex-end;justify-content:center;}
-  .overlay.open{display:flex;}
-  .modal{background:var(--surface);border-radius:var(--radius) var(--radius) 0 0;padding:24px 20px 36px;width:100%;max-width:600px;box-shadow:var(--shadow-md);max-height:90vh;overflow-y:auto;}
-  .modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 20px;}
-  .modal h3{font-family:'Fraunces',serif;font-size:19px;font-weight:400;color:var(--accent);margin-bottom:18px;}
-  .form-row{margin-bottom:14px;}
-  .form-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:5px;display:block;}
-  .form-el{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);padding:9px 13px;outline:none;transition:border-color .15s;}
-  .form-el:focus{border-color:var(--accent);}
-  textarea.form-el{resize:vertical;min-height:80px;}
-  .form-hint{font-size:11.5px;color:var(--text-muted);margin-top:4px;font-style:italic;}
-  .modal-btns{display:flex;gap:10px;margin-top:20px;}
-  .btn-cancel{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:11px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text-soft);cursor:pointer;}
-  .btn-save{flex:2;background:var(--accent);border:none;border-radius:var(--radius-sm);padding:11px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#fff;cursor:pointer;}
-
-  @media(min-width:600px){
-    .overlay{align-items:center;padding:20px;}
-    .modal{border-radius:var(--radius);max-height:80vh;}
-    .modal-handle{display:none;}
-    .cards-wrap{max-width:700px;margin:0 auto;}
-  }
+  /* source badge */
+  .src-badge{font-size:10px;padding:1px 6px;border-radius:8px;margin-left:6px;font-weight:500;}
+  .src-list{background:#e8f2ff;color:#185fa5;}
+  .src-local{background:#eaf4ef;color:#2d6a4f;}
 </style>
 </head>
 <body>
@@ -103,86 +91,104 @@
 
 <div class="toolbar">
   <input class="search-input" type="text" id="searchBox" placeholder="Rechercher une question…" oninput="render()">
-  <button class="add-btn" onclick="openModal()">+ Ajouter</button>
 </div>
 
 <div class="cards-wrap" id="cardsWrap"></div>
 <div class="empty" id="emptyState" style="display:none">Aucune question dans cette catégorie.</div>
 
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>Ajouter une question</h3>
-    <div class="form-row">
-      <label class="form-lbl">Catégorie</label>
-      <select class="form-el" id="fCat"></select>
-    </div>
-    <div class="form-row">
-      <label class="form-lbl">Question</label>
-      <textarea class="form-el" id="fQ" placeholder="Copiez la question ici…"></textarea>
-    </div>
-    <div class="form-row">
-      <label class="form-lbl">Fichier script</label>
-      <input class="form-el" id="fLink" type="text" placeholder="sante/urban_rural.html">
-      <div class="form-hint">Chemin relatif · ex: sante/urban_rural.html · education/etudes.html</div>
-    </div>
-    <div class="form-row">
-      <label class="form-lbl">Remarques</label>
-      <input class="form-el" id="fRemark" placeholder="Notes personnelles…">
-    </div>
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal()">Annuler</button>
-      <button class="btn-save" onclick="saveQ()">Enregistrer</button>
-    </div>
-  </div>
-</div>
-
 <script>
-const CATS=[
-  {id:'all',label:'Toutes',color:'#c8703a',bg:'#fdf0e8'},
-  {id:'education',label:'Éducation',color:'#2563eb',bg:'#eff6ff'},
-  {id:'famille',label:'Famille',color:'#dc2626',bg:'#fff5f5'},
-  {id:'culture',label:'Culture',color:'#7c3aed',bg:'#f5f0ff'},
-  {id:'sante',label:'Santé',color:'#0891b2',bg:'#f0fafe'},
-  {id:'technologie',label:'Technologie',color:'#d97706',bg:'#fffbeb'},
+// ── CATEGORIES ────────────────────────────────────────────────────────────────
+const CATS = [
+  {id:'all',        label:'Toutes',        color:'#c8703a', bg:'#fdf0e8'},
+  {id:'education',  label:'Éducation',     color:'#2563eb', bg:'#eff6ff'},
+  {id:'famille',    label:'Famille',       color:'#dc2626', bg:'#fff5f5'},
+  {id:'culture',    label:'Culture',       color:'#7c3aed', bg:'#f5f0ff'},
+  {id:'sante',      label:'Santé',         color:'#0891b2', bg:'#f0fafe'},
+  {id:'technologie',label:'Technologie',   color:'#d97706', bg:'#fffbeb'},
   {id:'environnement',label:'Environnement',color:'#16a34a',bg:'#f0fdf4'},
-  {id:'economique',label:'Économique',color:'#be185d',bg:'#fdf2f8'},
+  {id:'economique', label:'Économique',    color:'#be185d', bg:'#fdf2f8'},
 ];
-const KEY='tcf_v3';
-const DEFAULTS=[{id:1,cat:'sante',question:'Selon certains, la vie rurale est plus bénéfique pour la santé que la vie urbaine. Quel est votre avis ?',scriptUrl:'sante/urban_rural.html',stars:4,status:'Prêt',date:'2025-05-05',remark:'Deux positions préparées. Exemples Calgary : Cochrane, Okotoks, Fish Creek.',open:false}];
-function load(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):DEFAULTS;}catch{return DEFAULTS;}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(qs));}catch{}}
-let qs=load(),activeCat='all';
 
-function renderStats(){
-  document.getElementById('statsRow').innerHTML=`
+// ── MERGE questions.js list with localStorage user data ────────────────────
+const LKEY = 'tcf_userdata_v1'; // stores {id: {stars, status, remark, open}}
+
+function loadUserData() {
+  try { return JSON.parse(localStorage.getItem(LKEY) || '{}'); }
+  catch { return {}; }
+}
+function saveUserData(ud) {
+  try { localStorage.setItem(LKEY, JSON.stringify(ud)); } catch {}
+}
+
+// Merge: TCF_QUESTIONS is source of truth for question text/url/date
+// localStorage only stores per-question user state
+function mergedList() {
+  const ud = loadUserData();
+  return TCF_QUESTIONS.map(q => ({
+    ...q,
+    stars:  (ud[q.id] || {}).stars  || 0,
+    status: (ud[q.id] || {}).status || 'À faire',
+    remark: (ud[q.id] || {}).remark || q.note || '',
+    open:   (ud[q.id] || {}).open   || false,
+  }));
+}
+
+function saveField(id, field, val) {
+  const ud = loadUserData();
+  if (!ud[id]) ud[id] = {};
+  ud[id][field] = val;
+  saveUserData(ud);
+}
+
+let activeCat = 'all';
+
+// ── STATS ─────────────────────────────────────────────────────────────────────
+function renderStats() {
+  const qs = mergedList();
+  const ready = qs.filter(q => q.status==='Prêt'||q.status==='Maîtrisé').length;
+  document.getElementById('statsRow').innerHTML = `
     <div class="stat-pill"><strong>${qs.length}</strong>&nbsp;questions</div>
-    <div class="stat-pill"><strong>${qs.filter(q=>q.status==='Prêt'||q.status==='Maîtrisé').length}</strong>&nbsp;prêtes</div>
-    <div class="stat-pill"><strong>${qs.filter(q=>q.status==='Maîtrisé').length}</strong>&nbsp;maîtrisées</div>`;}
+    <div class="stat-pill"><strong>${ready}</strong>&nbsp;prêtes</div>
+    <div class="stat-pill"><strong>${qs.filter(q=>q.status==='Maîtrisé').length}</strong>&nbsp;maîtrisées</div>`;
+}
 
-function renderCats(){
-  document.getElementById('catPills').innerHTML=CATS.map(c=>{
-    const n=c.id==='all'?qs.length:qs.filter(q=>q.cat===c.id).length;
-    return`<button class="cat-pill ${activeCat===c.id?'active':''}" onclick="setCat('${c.id}')">
+// ── CATEGORIES ────────────────────────────────────────────────────────────────
+function renderCats() {
+  const qs = mergedList();
+  document.getElementById('catPills').innerHTML = CATS.map(c => {
+    const n = c.id==='all' ? qs.length : qs.filter(q=>q.cat===c.id).length;
+    return `<button class="cat-pill ${activeCat===c.id?'active':''}" onclick="setCat('${c.id}')">
       <span class="dot" style="background:${c.color}"></span>${c.label}
-      <span class="cnt">${n}</span></button>`;}).join('');}
-function setCat(id){activeCat=id;renderCats();render();}
+      <span class="cnt">${n}</span></button>`;
+  }).join('');
+}
+function setCat(id) { activeCat = id; renderCats(); render(); }
 
-function render(){
-  const s=document.getElementById('searchBox').value.toLowerCase();
-  const f=qs.filter(q=>(activeCat==='all'||q.cat===activeCat)&&q.question.toLowerCase().includes(s));
-  const wrap=document.getElementById('cardsWrap');
-  const empty=document.getElementById('emptyState');
-  if(!f.length){wrap.innerHTML='';empty.style.display='block';return;}
-  empty.style.display='none';
-  wrap.innerHTML=f.map(q=>{
-    const cat=CATS.find(c=>c.id===q.cat)||CATS[1];
-    const stars=[1,2,3,4,5].map(i=>`<span class="star ${i<=(q.stars||0)?'on':''}" onclick="setStar(${q.id},${i})">★</span>`).join('');
-    const link=q.scriptUrl
-      ?`<a class="script-link" href="${q.scriptUrl}">📄 Voir le script →</a>`
-      :`<span class="no-script">Pas encore de script · chemin suggéré : ${cat.label.toLowerCase()}/<em>nom</em>.html</span>`;
-    const opts=['À faire','En cours','Prêt','Maîtrisé'].map(s=>`<option ${q.status===s?'selected':''}>${s}</option>`).join('');
-    return`<div class="q-card" id="card-${q.id}">
+// ── CARDS ─────────────────────────────────────────────────────────────────────
+function render() {
+  const search = document.getElementById('searchBox').value.toLowerCase();
+  const qs = mergedList();
+  const f = qs.filter(q =>
+    (activeCat==='all' || q.cat===activeCat) &&
+    q.question.toLowerCase().includes(search)
+  );
+  const wrap = document.getElementById('cardsWrap');
+  const empty = document.getElementById('emptyState');
+  if (!f.length) { wrap.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display = 'none';
+
+  wrap.innerHTML = f.map(q => {
+    const cat = CATS.find(c=>c.id===q.cat) || CATS[1];
+    const stars = [1,2,3,4,5].map(i =>
+      `<span class="star ${i<=(q.stars||0)?'on':''}" onclick="setStar(${q.id},${i})">★</span>`
+    ).join('');
+    const opts = ['À faire','En cours','Prêt','Maîtrisé'].map(s =>
+      `<option ${q.status===s?'selected':''}>${s}</option>`).join('');
+    const link = q.scriptUrl
+      ? `<a class="script-link" href="${q.scriptUrl}">📄 Voir le script →</a>`
+      : `<span class="no-script">Pas encore de script</span>`;
+
+    return `<div class="q-card" id="card-${q.id}">
       <div class="q-card-top">
         <span class="cat-badge" style="background:${cat.bg};color:${cat.color}">
           <span style="width:6px;height:6px;border-radius:50%;background:${cat.color};display:inline-block;flex-shrink:0"></span>
@@ -198,32 +204,43 @@ function render(){
         </div>
         <div class="remark-wrap">
           <div class="remark-lbl">Remarques</div>
-          <textarea class="remark-input" rows="2" placeholder="Ajouter une note…" onchange="setRemark(${q.id},this.value)">${q.remark||''}</textarea>
+          <textarea class="remark-input" rows="2"
+            placeholder="Ajouter une note…"
+            onchange="setRemark(${q.id},this.value)">${q.remark||''}</textarea>
         </div>
       </div>
       <button class="expand-btn" onclick="toggleCard(${q.id})">
         <span id="arr-${q.id}">${q.open?'▲ Réduire':'▼ Détails'}</span>
       </button>
-    </div>`}).join('');}
+    </div>`;
+  }).join('');
+}
 
-function toggleCard(id){const q=qs.find(q=>q.id===id);if(!q)return;q.open=!q.open;save();document.getElementById(`body-${id}`).classList.toggle('open',q.open);document.getElementById(`arr-${id}`).textContent=q.open?'▲ Réduire':'▼ Détails';}
-function setStar(id,val){const q=qs.find(q=>q.id===id);if(!q)return;q.stars=q.stars===val?0:val;save();render();renderCats();}
-function setStatus(id,val){const q=qs.find(q=>q.id===id);if(!q)return;q.status=val;save();renderStats();renderCats();}
-function setRemark(id,val){const q=qs.find(q=>q.id===id);if(!q)return;q.remark=val;save();}
+// ── INTERACTIONS ──────────────────────────────────────────────────────────────
+function toggleCard(id) {
+  const ud = loadUserData();
+  if (!ud[id]) ud[id] = {};
+  ud[id].open = !ud[id].open;
+  saveUserData(ud);
+  const isOpen = ud[id].open;
+  document.getElementById(`body-${id}`).classList.toggle('open', isOpen);
+  document.getElementById(`arr-${id}`).textContent = isOpen ? '▲ Réduire' : '▼ Détails';
+}
+function setStar(id, val) {
+  const ud = loadUserData();
+  if (!ud[id]) ud[id] = {};
+  ud[id].stars = ud[id].stars===val ? 0 : val;
+  saveUserData(ud); render(); renderCats();
+}
+function setStatus(id, val) {
+  saveField(id, 'status', val); renderStats(); renderCats();
+}
+function setRemark(id, val) {
+  saveField(id, 'remark', val);
+}
 
-function openModal(){
-  const sel=document.getElementById('fCat');
-  sel.innerHTML=CATS.filter(c=>c.id!=='all').map(c=>`<option value="${c.id}" ${activeCat===c.id?'selected':''}>${c.label}</option>`).join('');
-  document.getElementById('overlay').classList.add('open');}
-function closeModal(){document.getElementById('overlay').classList.remove('open');['fQ','fLink','fRemark'].forEach(id=>document.getElementById(id).value='');}
-function saveQ(){
-  const q=document.getElementById('fQ').value.trim();if(!q)return;
-  const today=new Date().toISOString().split('T')[0];
-  qs.push({id:Date.now(),cat:document.getElementById('fCat').value,question:q,scriptUrl:document.getElementById('fLink').value.trim()||null,stars:0,status:'À faire',date:today,remark:document.getElementById('fRemark').value.trim(),open:false});
-  save();closeModal();renderCats();render();renderStats();}
-
-renderStats();renderCats();render();
-document.getElementById('overlay').addEventListener('click',e=>{if(e.target===document.getElementById('overlay'))closeModal();});
+// ── INIT ──────────────────────────────────────────────────────────────────────
+renderStats(); renderCats(); render();
 </script>
 </body>
 </html>
