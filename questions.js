@@ -18,5 +18,13 @@ const TCF_QUESTIONS = [
     scriptUrl: 'culture/vivre_etranger_jeune.html',
     date: '2025-05-06',
     note: 'Deux positions. PVT Canada, ressources financières, expérience de vie.'
+  },
+  {
+    id: 3,
+    cat: 'famille',
+    question: 'Pensez-vous que l\'on puisse être épanoui en vivant seul ? Pourquoi ?',
+    scriptUrl: 'famille/epanoui_seul.html',
+    date: '2025-05-06',
+    note: 'Deux positions. Solitude choisie vs subie. Indépendance émotionnelle vs soutien des proches.'
   }
 ];
