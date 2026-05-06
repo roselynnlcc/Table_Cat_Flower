@@ -1,7 +1,3 @@
-// TCF Canada — Question Bank
-// Add new questions here. index.html reads this file automatically.
-// File path is relative to index.html (root of your GitHub repo).
-
 const TCF_QUESTIONS = [
   {
     id: 1,
@@ -26,5 +22,13 @@ const TCF_QUESTIONS = [
     scriptUrl: 'famille/epanoui_seul.html',
     date: '2025-05-06',
     note: 'Deux positions. Solitude choisie vs subie. Indépendance émotionnelle vs soutien des proches.'
+  },
+  {
+    id: 4,
+    cat: 'environnement',
+    question: 'Selon vous, doit-on protéger tous les animaux en voie de disparition ? Pourquoi ?',
+    scriptUrl: 'environnement/animaux_disparition.html',
+    date: '2025-05-06',
+    note: 'Deux positions. Chaîne alimentaire, irréversibilité, espèces invasives, espèces clés.'
   }
 ];
