@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Être épanoui en vivant seul</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --amber:#92400e;--amber-bg:#fef3c7;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--green-bg);color:var(--green);border:1px solid #c3e6d4;}
+  .badge-orig{background:var(--amber-bg);color:var(--amber);border:1px solid #fcd34d;}
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;}
+  .script-text p:last-child{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .hl-p2{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+  .single-view .script-card{max-width:620px;margin:0 auto;}
+  /* WORD LIST */
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:170px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-prep{font-size:11px;color:#7a5230;background:#fef3c7;border-radius:4px;padding:1px 5px;margin-left:4px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Tâche 3</span></h1>
+  <div class="question-title">Pensez-vous que l'on puisse être épanoui en vivant seul ? Pourquoi ?</div>
+</header>
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<!-- WORD LIST -->
+<div id="words" class="content">
+  <div class="wl-page">
+    <div class="wl-section">
+      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Vie seule / épanouissement ★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">l'épanouissement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">fulfilment, flourishing</span></div>
+          <div class="wl-row"><span class="wl-fr">la solitude <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">solitude / loneliness</span></div>
+          <div class="wl-row"><span class="wl-fr">la solitude choisie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">chosen solitude (positive)</span></div>
+          <div class="wl-row"><span class="wl-fr">la solitude subie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">forced / unwanted solitude (negative)</span></div>
+          <div class="wl-row"><span class="wl-fr">l'autonomie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">autonomy, independence</span></div>
+          <div class="wl-row"><span class="wl-fr">l'indépendance émotionnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">emotional independence</span></div>
+          <div class="wl-row"><span class="wl-fr">la liberté <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">freedom</span></div>
+          <div class="wl-row"><span class="wl-fr">la connaissance de soi <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">self-knowledge</span></div>
+          <div class="wl-row"><span class="wl-fr">le bien-être <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">wellbeing</span></div>
+          <div class="wl-row"><span class="wl-fr">l'isolement social <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">social isolation</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Relations et liens sociaux</div>
+          <div class="wl-row"><span class="wl-fr">les liens sociaux <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">social bonds</span></div>
+          <div class="wl-row"><span class="wl-fr">le soutien <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">support</span></div>
+          <div class="wl-row"><span class="wl-fr">le partage <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">sharing</span></div>
+          <div class="wl-row"><span class="wl-fr">un sentiment d'appartenance <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a sense of belonging</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie à deux <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">life as a couple / shared life</span></div>
+          <div class="wl-row"><span class="wl-fr">un colocataire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">flatmate / housemate</span></div>
+          <div class="wl-row"><span class="wl-fr">la proximité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">closeness, proximity</span></div>
+          <div class="wl-row"><span class="wl-fr">les proches <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">loved ones / close ones</span></div>
+          <div class="wl-row"><span class="wl-fr">la dépendance affective <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">emotional dependency</span></div>
+          <div class="wl-row"><span class="wl-fr">la personnalité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">personality</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs — relative pronoun in yellow</div>
+        <div class="wl-row"><span class="wl-fr">s'épanouir <em>(dans)</em><span class="wl-star">★</span></span><span class="wl-en">to thrive, to flourish<span class="wl-prep">dans lequel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">dépendre <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to depend on<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">souffrir <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to suffer from<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">manquer <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to lack<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">avoir besoin <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to need<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">faire face <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to cope with<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">s'appuyer <em>sur</em><span class="wl-star">★</span></span><span class="wl-en">to rely on<span class="wl-prep">sur lequel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">tisser <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to build / weave (bonds) — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">nourrir <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to nurture / feed (fulfilment) — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">traverser <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to go through (hardship) — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">se construire</span><span class="wl-en">to build oneself / grow as a person — no prep</span></div>
+      </div>
+    </div>
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectives</div>
+        <div class="wl-row"><span class="wl-fr">épanoui<span class="wl-star">★</span></span><span class="wl-en">fulfilled, flourishing</span></div>
+        <div class="wl-row"><span class="wl-fr">autonome<span class="wl-star">★</span></span><span class="wl-en">independent, self-sufficient</span></div>
+        <div class="wl-row"><span class="wl-fr">isolé<span class="wl-star">★</span></span><span class="wl-en">isolated, lonely</span></div>
+        <div class="wl-row"><span class="wl-fr">introverti / extraverti<span class="wl-star">★</span></span><span class="wl-en">introverted / extroverted</span></div>
+        <div class="wl-row"><span class="wl-fr">soudé<span class="wl-star">★</span></span><span class="wl-en">tight-knit, bonded (community)</span></div>
+        <div class="wl-row"><span class="wl-fr">irremplaçable<span class="wl-star">★</span></span><span class="wl-en">irreplaceable</span></div>
+        <div class="wl-row"><span class="wl-fr">enrichissant<span class="wl-star">★</span></span><span class="wl-en">enriching</span></div>
+        <div class="wl-row"><span class="wl-fr">propice <em>à</em><span class="wl-star">★</span></span><span class="wl-en">conducive to, favourable for</span></div>
+        <div class="wl-row"><span class="wl-fr">nuisible <em>à</em><span class="wl-star">★</span></span><span class="wl-en">harmful to</span></div>
+      </div>
+    </div>
+    <div class="wl-section">
+      <div class="wl-section-title">Paire contrastée</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">OUI — on peut s'épanouir seul</div>
+          <div class="contrast-item">organiser sa vie sans compromis</div>
+          <div class="contrast-item">développer une vraie connaissance de soi</div>
+          <div class="contrast-item">cultiver une indépendance émotionnelle</div>
+          <div class="contrast-item">choisir ses interactions librement</div>
+          <div class="contrast-item">consacrer son temps à ses propres projets</div>
+          <div class="contrast-item">vivre sans les conflits du quotidien partagé</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">NON — les autres sont essentiels</div>
+          <div class="contrast-item">le soutien des proches est irremplaçable</div>
+          <div class="contrast-item">les relations nourrissent l'épanouissement</div>
+          <div class="contrast-item">partager le quotidien crée un sentiment d'appartenance</div>
+          <div class="contrast-item">traverser les épreuves seul est plus difficile</div>
+          <div class="contrast-item">l'humain est fondamentalement un être social</div>
+          <div class="contrast-item">la solitude subie nuit à la santé mentale</div>
+        </div>
+      </div>
+    </div>
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">l'épanouissement dont chacun a besoin dépend avant tout de sa personnalité</div>
+          <div class="chunk-en">the fulfilment everyone needs depends above all on their personality</div>
+          <div class="chunk-note">dont + avoir besoin de — C1 relative pronoun · nuance universelle</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">vivre seul, c'est apprendre à se construire sans dépendre du regard des autres</div>
+          <div class="chunk-en">living alone means learning to grow without depending on others' approval</div>
+          <div class="chunk-note">se construire = C1 verb · le regard des autres = a very natural French phrase</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">le soutien des proches auquel on peut faire appel dans les moments difficiles est irremplaçable</div>
+          <div class="chunk-en">the support of loved ones that one can call on in difficult times is irreplaceable</div>
+          <div class="chunk-note">auquel + faire appel à — C1 relative pronoun · faire appel à = to call on / appeal to</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">la solitude choisie est une source d'enrichissement, tandis que la solitude subie devient un facteur de souffrance</div>
+          <div class="chunk-en">chosen solitude is a source of enrichment, whereas unwanted solitude becomes a source of suffering</div>
+          <div class="chunk-note">solitude choisie vs subie — distinction C1 essentielle pour ce sujet</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il serait réducteur d'affirmer que vivre seul empêche nécessairement de s'épanouir</div>
+          <div class="chunk-en">it would be reductive to claim that living alone necessarily prevents fulfilment</div>
+          <div class="chunk-note">il serait réducteur de — ouverture C1 réutilisable · nécessairement = necessarily</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il faudrait que chacun puisse choisir son mode de vie selon sa personnalité, sans jugement</div>
+          <div class="chunk-en">everyone should be able to choose their lifestyle according to their personality, without judgement</div>
+          <div class="chunk-note">subjonctif après il faudrait que — signal C1 · parfait en conclusion</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const scriptA = {
+  header: '✅ Position A — Oui, on peut s\'épanouir en vivant seul',
+  headerClass:'card-header-green', titleClass:'card-title-green',
+  badge:'Plus facile à défendre', badgeClass:'badge-easy',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
+<p>Certaines personnes pensent que <span class="hl-pink">vivre seul peut tout à fait mener à un épanouissement personnel</span>, tandis que d'autres estiment le contraire.</p>
+<p>À mon avis, cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">la solitude choisie peut être une véritable source d'épanouissement, à condition d'être bien vécue.</span></p>
+<p>Alors, je vais expliquer mes raisons.</p>`, note:'' },
+    { label:'Point 1 — La liberté totale', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
+      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">vivre seul offre une liberté totale dans l'organisation de sa vie quotidienne.</span> Sans avoir à faire de compromis, une personne peut structurer son temps, son espace et ses priorités exactement comme elle le souhaite. <span class="hl-pink">Cette liberté crée un environnement propice à la croissance personnelle et à la réalisation de soi.</span> Par exemple, beaucoup de personnes qui vivent seules témoignent d'une meilleure connaissance d'elles-mêmes et d'un sentiment de maîtrise sur leur propre vie.</p>`,
+      note:'💬 <em>propice à</em> = conducive to · <em>la réalisation de soi</em> = self-fulfilment · <em>témoigner de</em> = to testify to · <em>la maîtrise</em> = control, mastery' },
+    { label:'Point 2 — L\'indépendance émotionnelle', timing:'~1 min', nuance:false, wc:'~80 mots ✓',
+      text:`<p>En plus, <span class="hl-pink">vivre seul permet de développer une véritable indépendance émotionnelle.</span> En apprenant à gérer ses émotions sans s'appuyer constamment sur les autres, on se construit une résilience intérieure précieuse. Ce n'est pas de l'isolement — c'est une forme de maturité. <span class="hl-pink">Une personne qui ne dépend pas des autres pour son bonheur est souvent plus stable émotionnellement et plus épanouie dans ses relations.</span> Vivre seul, c'est donc aussi apprendre à être bien avec soi-même.</p>`,
+      note:'💬 <em>s\'appuyer sur</em> = to rely on · <em>se construire</em> = to build oneself · <em>la résilience intérieure</em> = inner resilience · <em>être bien avec soi-même</em> = to be at peace with oneself' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓',
+      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">l'épanouissement en solitaire n'est pas accessible à tout le monde.</span> Certaines personnalités ont fondamentalement besoin des autres pour se sentir bien — c'est une réalité qu'il faut respecter. <span class="hl-blue">Pour autant, cela ne signifie pas que vivre seul empêche nécessairement de s'épanouir — tout dépend de si cette solitude est choisie ou subie.</span></p>`,
+      note:'💬 <em>fondamentalement</em> = fundamentally · <em>nécessairement</em> = necessarily · <em>choisie ou subie</em> = chosen or endured — the key distinction for this topic' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, <span class="hl-blue">bien que vivre seul ne convienne pas à toutes les personnalités,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages sont indéniables pour ceux qui le choisissent — que ce soit en termes de liberté, de connaissance de soi ou d'indépendance émotionnelle.</span></p>
+<p>Il faudrait que <span class="hl-p1">la société cesse de percevoir le fait de vivre seul comme un échec ou un manque</span> / <span class="hl-p2">chacun puisse choisir son mode de vie selon sa personnalité, sans jugement.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+const scriptB = {
+  header: '🔄 Position B — Non, les autres sont essentiels à l\'épanouissement',
+  headerClass:'card-header-blue', titleClass:'card-title-blue',
+  badge:'Plus nuancé', badgeClass:'badge-orig',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
+<p>Certaines personnes pensent que <span class="hl-pink">l'on peut tout à fait s'épanouir en vivant seul</span>, tandis que d'autres estiment le contraire.</p>
+<p>À mon avis, cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">l'épanouissement véritable a besoin des autres — le soutien, le partage et les liens profonds sont des besoins humains fondamentaux.</span></p>
+<p>Alors, je vais expliquer mes raisons.</p>`, note:'💬 <em>un besoin fondamental</em> = a fundamental need · <em>l\'épanouissement véritable</em> = true / genuine fulfilment' },
+    { label:'Point 1 — Le soutien irremplaçable des proches', timing:'~1 min', nuance:false, wc:'~80 mots ✓',
+      text:`<p>Tout d'abord, <span class="hl-pink">force est de constater que le soutien des proches est irremplaçable, surtout dans les moments difficiles.</span> Traverser une épreuve — une maladie, une perte d'emploi, un deuil — seul, sans personne sur qui s'appuyer, est bien plus difficile qu'avec des proches à ses côtés. <span class="hl-pink">Ce soutien émotionnel que nous offrent les autres est quelque chose dont aucune liberté individuelle ne peut tenir lieu.</span> L'humain est fondamentalement un être social — c'est une réalité que la science confirme.</p>`,
+      note:'💬 <em>un deuil</em> = bereavement · <em>à ses côtés</em> = by one\'s side · <em>tenir lieu de</em> = to substitute for · <em>confirme</em> = confirms' },
+    { label:'Point 2 — Les relations nourrissent l\'épanouissement', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
+      text:`<p>En plus, <span class="hl-pink">les relations intimes — qu'il s'agisse du couple, de la famille ou même de colocataires — nourrissent l'épanouissement d'une façon que la vie solitaire ne peut pas offrir.</span> Partager le quotidien avec quelqu'un crée des souvenirs, un sentiment d'appartenance et une raison de se dépasser. <span class="hl-pink">Ces liens dont nous avons besoin pour nous sentir pleinement vivants sont difficiles à tisser quand on rentre chaque soir dans un foyer vide.</span></p>`,
+      note:'💬 <em>nourrir</em> = to nurture · <em>se dépasser</em> = to surpass oneself · <em>un foyer vide</em> = an empty home · <em>pleinement vivants</em> = fully alive' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~68 mots ✓',
+      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">vivre seul ne signifie pas nécessairement être isolé.</span> Beaucoup de personnes qui vivent seules maintiennent des liens sociaux riches en dehors de leur foyer — amis, famille, collègues. <span class="hl-blue">Pour autant, il existe une différence entre les relations que l'on choisit ponctuellement et le soutien quotidien que seule la cohabitation peut offrir.</span></p>`,
+      note:'💬 <em>ponctuellement</em> = occasionally, at specific times · <em>la cohabitation</em> = living together · <em>en dehors de</em> = outside of' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, <span class="hl-blue">bien que vivre seul puisse offrir une certaine liberté et des moments d'épanouissement,</span> il n'en demeure pas moins que <span class="hl-pink">les liens profonds, le soutien des proches et le partage du quotidien sont des piliers indéniables d'une vie épanouie.</span></p>
+<p>Il faudrait que <span class="hl-p1">la société investisse davantage dans le lien social pour lutter contre l'isolement croissant</span> / <span class="hl-p2">chacun puisse choisir son mode de vie selon sa personnalité, sans jugement.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+function buildCard(s){
+  const blocks=s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${b.text}</div>
+      ${b.note?`<div class="en-note">${b.note}</div>`:''}
+      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+    </div>`).join('');
+  return`<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;}
+
+document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
+document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
+document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');}
+</script>
+</body>
+</html>
