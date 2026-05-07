@@ -33,7 +33,7 @@ const TCF_QUESTIONS = [
   },
   {
     id: 5,
-    cat: 'securite',
+    cat: 'technologie',
     question: 'La présence de caméras dans les lieux publics améliore la sécurité des personnes. Êtes-vous d\'accord ?',
     scriptUrl: 'securite/cameras_securite.html',
     date: '2025-05-07',
