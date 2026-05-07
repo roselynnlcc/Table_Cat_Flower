@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Sélection universitaire</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --amber:#92400e;--amber-bg:#fef3c7;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--green-bg);color:var(--green);border:1px solid #c3e6d4;}
+  .badge-orig{background:var(--amber-bg);color:var(--amber);border:1px solid #fcd34d;}
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;}
+  .script-text p:last-child{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .hl-p2{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+  .single-view .script-card{max-width:620px;margin:0 auto;}
+  /* WORD LIST */
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:180px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-prep{font-size:11px;color:#7a5230;background:#fef3c7;border-radius:4px;padding:1px 5px;margin-left:4px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Tâche 3</span></h1>
+  <div class="question-title">Les universités doivent accepter tous les étudiants sans processus de sélection. Partagez-vous cette opinion ?</div>
+</header>
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<!-- WORD LIST -->
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Université et accès ★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la sélection <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">selection, screening</span></div>
+          <div class="wl-row"><span class="wl-fr">un concours <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">competitive entrance exam</span></div>
+          <div class="wl-row"><span class="wl-fr">une filière <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">academic track / programme</span></div>
+          <div class="wl-row"><span class="wl-fr">l'égalité des chances <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">equal opportunity</span></div>
+          <div class="wl-row"><span class="wl-fr">le milieu social <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">social background</span></div>
+          <div class="wl-row"><span class="wl-fr">le potentiel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">potential</span></div>
+          <div class="wl-row"><span class="wl-fr">le taux d'échec <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">failure rate</span></div>
+          <div class="wl-row"><span class="wl-fr">le décrochage scolaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">dropping out</span></div>
+          <div class="wl-row"><span class="wl-fr">un diplôme <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a degree / diploma</span></div>
+          <div class="wl-row"><span class="wl-fr">la méritocratie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">meritocracy</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Ressources et système</div>
+          <div class="wl-row"><span class="wl-fr">les ressources pédagogiques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">teaching resources</span></div>
+          <div class="wl-row"><span class="wl-fr">les effectifs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">student numbers / class sizes</span></div>
+          <div class="wl-row"><span class="wl-fr">l'encadrement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">supervision / teaching support</span></div>
+          <div class="wl-row"><span class="wl-fr">une formation professionnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">vocational training</span></div>
+          <div class="wl-row"><span class="wl-fr">un BTS <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">two-year vocational diploma (France)</span></div>
+          <div class="wl-row"><span class="wl-fr">l'orientation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">academic / career guidance</span></div>
+          <div class="wl-row"><span class="wl-fr">la qualité de l'enseignement <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">quality of teaching</span></div>
+          <div class="wl-row"><span class="wl-fr">le marché du travail <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">job market / labour market</span></div>
+          <div class="wl-row"><span class="wl-fr">les inégalités sociales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">social inequalities</span></div>
+          <div class="wl-row"><span class="wl-fr">la persévérance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">perseverance</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs — relative pronoun in yellow</div>
+        <div class="wl-row"><span class="wl-fr">accéder <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to access / gain entry to<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">bénéficier <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to benefit from<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">manquer <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to lack<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">nuire <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to harm<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">contribuer <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to contribute to<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">être confronté <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to face / be confronted with<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">réduire <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to reduce — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">reproduire <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to reproduce / perpetuate — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">orienter <em>(qqn vers)</em><span class="wl-star">★</span></span><span class="wl-en">to guide / steer (someone towards) — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">diluer <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to dilute / water down — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">tenir compte <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to take into account<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">s'adapter <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to adapt to<span class="wl-prep">auquel</span></span></div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectives</div>
+        <div class="wl-row"><span class="wl-fr">accessible<span class="wl-star">★</span></span><span class="wl-en">accessible, open (to all)</span></div>
+        <div class="wl-row"><span class="wl-fr">surchargé<span class="wl-star">★</span></span><span class="wl-en">overloaded, overwhelmed</span></div>
+        <div class="wl-row"><span class="wl-fr">sélectif / sélective<span class="wl-star">★</span></span><span class="wl-en">selective</span></div>
+        <div class="wl-row"><span class="wl-fr">inégalitaire<span class="wl-star">★</span></span><span class="wl-en">unequal, creating inequalities</span></div>
+        <div class="wl-row"><span class="wl-fr">défavorisé<span class="wl-star">★</span></span><span class="wl-en">disadvantaged (socially)</span></div>
+        <div class="wl-row"><span class="wl-fr">compétent<span class="wl-star">★</span></span><span class="wl-en">competent, qualified</span></div>
+        <div class="wl-row"><span class="wl-fr">motivé<span class="wl-star">★</span></span><span class="wl-en">motivated</span></div>
+        <div class="wl-row"><span class="wl-fr">limité<span class="wl-star">★</span></span><span class="wl-en">limited (resources, places)</span></div>
+        <div class="wl-row"><span class="wl-fr">coûteux / coûteuse<span class="wl-star">★</span></span><span class="wl-en">costly (in time and money)</span></div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paire contrastée</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">OUI — pas de sélection</div>
+          <div class="contrast-item">garantir l'égalité des chances pour tous</div>
+          <div class="contrast-item">ne pas exclure les étudiants issus de milieux défavorisés</div>
+          <div class="contrast-item">les critères de sélection ne reflètent pas le potentiel réel</div>
+          <div class="contrast-item">la persévérance fait la différence, pas le niveau d'entrée</div>
+          <div class="contrast-item">l'université est un droit, pas un privilège</div>
+          <div class="contrast-item">accueillir la diversité enrichit le débat intellectuel</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">NON — la sélection est nécessaire</div>
+          <div class="contrast-item">éviter la surcharge et préserver la qualité de l'enseignement</div>
+          <div class="contrast-item">orienter chacun vers la filière qui lui correspond</div>
+          <div class="contrast-item">réduire le taux d'échec et le décrochage scolaire</div>
+          <div class="contrast-item">les ressources universitaires sont limitées</div>
+          <div class="contrast-item">protéger la valeur et la crédibilité du diplôme</div>
+          <div class="contrast-item">les formations alternatives offrent d'excellents parcours</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">les étudiants issus de milieux défavorisés auxquels l'université reste trop souvent inaccessible</div>
+          <div class="chunk-en">students from disadvantaged backgrounds for whom university remains too often inaccessible</div>
+          <div class="chunk-note">auquel + rester inaccessible à — structure C1 · issu de = from (a background)</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">les critères de sélection dont bénéficient les élèves des milieux favorisés</div>
+          <div class="chunk-en">the selection criteria that pupils from privileged backgrounds benefit from</div>
+          <div class="chunk-note">dont + bénéficier de — pronom relatif C1 naturel</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">sans sélection, les universités sont confrontées à des effectifs ingérables qui nuisent à la qualité de l'encadrement</div>
+          <div class="chunk-en">without selection, universities face unmanageable student numbers that harm teaching quality</div>
+          <div class="chunk-note">être confronté à + nuire à — deux verbes C1 enchaînés naturellement</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">orienter un étudiant vers une filière professionnelle, c'est lui offrir un parcours adapté à ses compétences, pas l'exclure</div>
+          <div class="chunk-en">guiding a student towards a vocational track means offering them a path suited to their skills, not excluding them</div>
+          <div class="chunk-note">argument clé Position B · orienter ≠ exclure — distinction importante à l'oral</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il serait réducteur de penser que la sélection garantit à elle seule la réussite universitaire</div>
+          <div class="chunk-en">it would be reductive to think that selection alone guarantees academic success</div>
+          <div class="chunk-note">il serait réducteur de — ouverture C1 réutilisable · à elle seule = on its own</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">tenir compte du parcours global de l'étudiant, et non seulement de ses notes</div>
+          <div class="chunk-en">to take into account the student's overall background, not just their grades</div>
+          <div class="chunk-note">tenir compte de — C1 · clé de la nuance : une sélection plus juste</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il faudrait que les établissements universitaires diversifient leurs critères d'admission pour tenir compte des inégalités sociales</div>
+          <div class="chunk-en">universities should diversify their admission criteria to account for social inequalities</div>
+          <div class="chunk-note">subjonctif après il faudrait que — signal C1 · parfait en conclusion</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptA = {
+  header: '✅ Position A — Oui, l\'université doit être ouverte à tous',
+  headerClass:'card-header-green', titleClass:'card-title-green',
+  badge:'Plus facile à défendre', badgeClass:'badge-easy',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
+<p>Certaines personnes pensent que <span class="hl-pink">les universités devraient accepter tous les étudiants sans distinction</span>, tandis que d'autres estiment le contraire.</p>
+<p>Cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">l'université doit rester accessible à tous, car la sélection creuse les inégalités plutôt qu'elle ne les réduit.</span></p>
+<p>Alors, je vais expliquer mes raisons.</p>`, note:'' },
+    { label:'Point 1 — L\'égalité des chances', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
+      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">la sélection à l'entrée de l'université creuse les inégalités sociales, en favorisant les étudiants issus de milieux aisés.</span> En effet, les élèves des familles favorisées bénéficient de cours particuliers, de préparations aux concours et d'un environnement propice aux études. <span class="hl-pink">À l'inverse, ceux qui viennent de milieux défavorisés n'ont pas accès à ces ressources, ce qui fausse la compétition dès le départ.</span> En plus, l'éducation supérieure est un droit fondamental — la bloquer derrière un concours, c'est en faire un privilège.</p>`,
+      note:'💬 <em>issu de</em> = from (a background) · <em>aisé</em> = well-off · <em>fausser la compétition</em> = to skew the competition · <em>dès le départ</em> = from the outset' },
+    { label:'Point 2 — La sélection ne prédit pas le succès', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
+      text:`<p>En plus, <span class="hl-pink">les critères de sélection — notes, concours, dossiers — ne reflètent pas le potentiel réel d'un étudiant.</span> Beaucoup de personnes brillantes ont un parcours scolaire irrégulier mais possèdent une curiosité intellectuelle et une motivation que les examens ne mesurent pas. <span class="hl-pink">C'est souvent la persévérance qui fait la différence dans les études supérieures, bien plus que le niveau d'entrée.</span> Sélectionner trop tôt, c'est fermer des portes à des individus qui auraient pu réussir.</p>`,
+      note:'💬 <em>irrégulier</em> = uneven, inconsistent · <em>mesurer</em> = to measure · <em>la persévérance</em> = perseverance · <em>fermer des portes</em> = to close doors' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓',
+      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">la sélection peut reproduire les inégalités sociales — les élèves issus de milieux favorisés ont plus de ressources pour se préparer aux concours.</span> Pour autant, cela ne signifie pas qu'il faille supprimer toute sélection — <span class="hl-blue">il faudrait plutôt la rendre plus juste, en tenant compte du parcours global de l'étudiant et non seulement de ses notes.</span></p>`,
+      note:'💬 <em>tenir compte de</em> = to take into account · <em>le parcours global</em> = overall background · <em>non seulement</em> = not only' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, <span class="hl-blue">bien qu'une sélection trop stricte puisse poser des problèmes de gestion des effectifs,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages d'un accès universel sont indéniables — que ce soit en termes d'égalité des chances, de diversité ou de respect du droit à l'éducation.</span></p>
+<p>Il faudrait que <span class="hl-p1">les établissements universitaires diversifient leurs critères d'admission pour tenir compte des inégalités sociales</span> / <span class="hl-p2">les gouvernements investissent davantage dans l'accompagnement des étudiants défavorisés pour qu'ils puissent réussir.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+const scriptB = {
+  header: '🔄 Position B — Non, la sélection est nécessaire',
+  headerClass:'card-header-blue', titleClass:'card-title-blue',
+  badge:'Plus original', badgeClass:'badge-orig',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
+<p>Certaines personnes pensent que <span class="hl-pink">toute forme de sélection universitaire est injuste et devrait être abolie</span>, tandis que d'autres estiment le contraire.</p>
+<p>Cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">contrairement aux idées reçues, un certain niveau de sélection est indispensable pour garantir la qualité de l'enseignement et la réussite des étudiants eux-mêmes.</span></p>
+<p>Alors, je vais expliquer mes raisons.</p>`,
+      note:'💬 <em>contrairement aux idées reçues</em> = contrary to popular belief — ouverture C1 forte · <em>abolir</em> = to abolish' },
+    { label:'Point 1 — La qualité de l\'enseignement', timing:'~1 min', nuance:false, wc:'~80 mots ✓',
+      text:`<p>Tout d'abord, <span class="hl-pink">force est de constater que sans sélection, les universités sont confrontées à des effectifs ingérables, ce qui nuit directement à la qualité de l'enseignement.</span> Quand un amphithéâtre accueille cinq cents étudiants, les professeurs ne peuvent plus accompagner chaque étudiant individuellement ni adapter leur pédagogie. <span class="hl-pink">Les ressources pédagogiques sont diluées, et au final, c'est tout le monde qui en pâtit — y compris les étudiants les plus motivés.</span> La surcharge des universités françaises sans sélection illustre bien ce problème.</p>`,
+      note:'💬 <em>un amphithéâtre</em> = a lecture hall · <em>en pâtir</em> = to suffer for it · <em>diluer</em> = to dilute · <em>ingérable</em> = unmanageable' },
+    { label:'Point 2 — Les ressources limitées', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
+      text:`<p>En plus, <span class="hl-pink">les universités disposent de ressources limitées — salles, équipements, personnel enseignant. Accepter tous les étudiants sans filtre, c'est diluer ces ressources et nuire à la qualité pour tous.</span> En plus, un étudiant qui s'inscrit dans une filière qui ne lui correspond pas risque d'abandonner en cours de route — un gaspillage coûteux en temps et en argent, pour lui comme pour l'État. <span class="hl-pink">La sélection protège aussi les étudiants eux-mêmes en les orientant vers les parcours adaptés à leurs compétences.</span></p>`,
+      note:'💬 <em>un gaspillage</em> = a waste · <em>en cours de route</em> = along the way · <em>adapté à</em> = suited to · <em>disposer de</em> = to have / be equipped with' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓',
+      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">la sélection peut reproduire les inégalités sociales — les élèves issus de milieux favorisés ont plus de ressources pour se préparer aux concours.</span> Pour autant, cela ne signifie pas qu'il faille supprimer toute sélection — <span class="hl-blue">il faudrait plutôt la rendre plus juste, en tenant compte du parcours global de l'étudiant et non seulement de ses notes.</span></p>`,
+      note:'💬 <em>tenir compte de</em> = to take into account · <em>le parcours global</em> = overall background · <em>non seulement</em> = not only' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, <span class="hl-blue">bien qu'une sélection trop rigide risque de perpétuer certaines inégalités sociales,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages sont indéniables — que ce soit en termes de qualité de l'enseignement, de gestion des ressources ou de protection des étudiants contre l'échec.</span></p>
+<p>Il faudrait que <span class="hl-p1">les établissements universitaires diversifient leurs critères d'admission pour tenir compte des inégalités sociales</span> / <span class="hl-p2">les gouvernements investissent davantage dans l'accompagnement des étudiants défavorisés pour qu'ils puissent réussir.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+function buildCard(s){
+  const blocks=s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${b.text}</div>
+      ${b.note?`<div class="en-note">${b.note}</div>`:''}
+      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+    </div>`).join('');
+  return`<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;}
+
+document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
+document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
+document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');}
+</script>
+</body>
+</html>
