@@ -30,5 +30,13 @@ const TCF_QUESTIONS = [
     scriptUrl: 'environnement/animaux_disparition.html',
     date: '2025-05-06',
     note: 'Deux positions. Chaîne alimentaire, irréversibilité, espèces invasives, espèces clés.'
+  },
+  {
+    id: 5,
+    cat: 'education',
+    question: 'Les universités doivent accepter tous les étudiants sans processus de sélection. Partagez-vous cette opinion ?',
+    scriptUrl: 'education/selection_universitaire.html',
+    date: '2025-05-07',
+    note: 'Deux positions. Égalité des chances vs qualité de l\'enseignement. Ressources limitées, taux d\'échec, méritocratie.'
   }
 ];
