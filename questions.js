@@ -33,10 +33,10 @@ const TCF_QUESTIONS = [
   },
   {
     id: 5,
-    cat: 'technologie',
-    question: 'La présence de caméras dans les lieux publics améliore la sécurité des personnes. Êtes-vous d\'accord ?',
-    scriptUrl: 'technologie/cameras_securite.html',
-    date: '2025-05-07',
-    note: 'Deux positions. Résolution des crimes, dissuasion vs libertés fondamentales, coût/bénéfice.'
+    cat: 'education',
+    question: 'Il y a des parents qui décident de s\'occuper eux-mêmes de l\'éducation de leurs enfants à la maison. Quel est votre avis ?',
+    scriptUrl: 'education/homeschool.html',
+    date: '2025-05-08',
+    note: 'Deux positions. Apprentissage personnalisé, lien parent-enfant vs socialisation, expertise pédagogique.'
   }
 ];
