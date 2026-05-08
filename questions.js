@@ -34,6 +34,22 @@ const TCF_QUESTIONS = [
   {
     id: 5,
     cat: 'education',
+    question: 'Les universités doivent accepter tous les étudiants sans processus de sélection. Partagez-vous cette opinion ?',
+    scriptUrl: 'education/selection_universitaire.html',
+    date: '2025-05-07',
+    note: 'Deux positions. Égalité des chances vs qualité de l\'enseignement. Ressources limitées, taux d\'échec, méritocratie.'
+  },
+  {
+    id: 6,
+    cat: 'technologie',
+    question: 'La présence de caméras dans les lieux publics améliore la sécurité des personnes. Êtes-vous d\'accord ?',
+    scriptUrl: 'securite/cameras_securite.html',
+    date: '2025-05-07',
+    note: 'Deux positions. Résolution des crimes, dissuasion vs libertés fondamentales, coût/bénéfice.'
+  },
+  {
+    id: 7,
+    cat: 'education',
     question: 'Il y a des parents qui décident de s\'occuper eux-mêmes de l\'éducation de leurs enfants à la maison. Quel est votre avis ?',
     scriptUrl: 'education/homeschool.html',
     date: '2025-05-08',
