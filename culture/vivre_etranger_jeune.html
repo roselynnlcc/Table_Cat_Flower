@@ -14,6 +14,8 @@
     --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
     --green:#2d6a4f;--green-bg:#eaf4ef;
     --amber:#92400e;--amber-bg:#fef3c7;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
     --accent:#c8955a;--radius:12px;--radius-sm:6px;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -46,9 +48,8 @@
   .card-title-green{color:var(--green);}
   .card-title-blue{color:#185fa5;}
   .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
-  .badge-easy{background:var(--green-bg);color:var(--green);border:1px solid #c3e6d4;}
-  .badge-orig{background:var(--amber-bg);color:var(--amber);border:1px solid #fcd34d;}
-
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
   .block{padding:14px 18px;border-bottom:1px solid var(--border);}
   .block:last-child{border-bottom:none;}
   .block-nuance{background:#fff;}
@@ -290,9 +291,9 @@ const scriptA = {
 };
 
 const scriptB = {
-  header: '🔄 Position B — L\'âge n\'est pas le facteur principal',
+  header: '❎ Position B — L\'âge n\'est pas le facteur principal',
   headerClass:'card-header-blue', titleClass:'card-title-blue',
-  badge:'Plus original', badgeClass:'badge-orig',
+  badge:'Plus ardu', badgeClass:'badge-hard',
   blocks:[
     { label:'Introduction', timing:'~40s', nuance:false,
       text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
