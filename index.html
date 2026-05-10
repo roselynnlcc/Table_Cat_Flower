@@ -178,42 +178,39 @@ function render() {
   if (!f.length) { wrap.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display = 'none';
 
-  wrap.innerHTML = f.map(q => {
-    const cat = CATS.find(c=>c.id===q.cat) || CATS[1];
-    const stars = [1,2,3,4,5].map(i =>
-      `<span class="star ${i<=(q.stars||0)?'on':''}" onclick="setStar(${q.id},${i})">★</span>`
-    ).join('');
-    const opts = ['À faire','En cours','Prêt','Maîtrisé'].map(s =>
-      `<option ${q.status===s?'selected':''}>${s}</option>`).join('');
+    wrap.innerHTML = f.map(q => {
+    const cat = CATS.find(c => c.id === q.cat) || CATS[1];
     const link = q.scriptUrl
       ? `<a class="script-link" href="${q.scriptUrl}">📄 Voir le script →</a>`
       : `<span class="no-script">Pas encore de script</span>`;
-
-    return `<div class="q-card" id="card-${q.id}">
-      <div class="q-card-top">
-        <span class="cat-badge" style="background:${cat.bg};color:${cat.color}">
-          <span style="width:6px;height:6px;border-radius:50%;background:${cat.color};display:inline-block;flex-shrink:0"></span>
-          ${cat.label}</span>
-        <div class="q-text">${q.question}</div>
-      </div>
-      <div class="q-card-body ${q.open?'open':''}" id="body-${q.id}">
-        ${link}
-        <div class="q-meta">
-          <div class="stars">${stars}</div>
-          <select class="status-sel" onchange="setStatus(${q.id},this.value)">${opts}</select>
-          <span class="date-lbl">${q.date||'—'}</span>
+  
+    return `
+      <div class="q-card" id="card-${q.id}">
+        <div class="q-card-top" style="flex-direction: column; gap: 8px;">
+          <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <span class="cat-badge" style="background:${cat.bg};color:${cat.color}; margin-top:0;">
+              <span style="width:6px;height:6px;border-radius:50%;background:${cat.color};display:inline-block;"></span>
+              ${cat.label}
+            </span>
+            <span class="date-lbl" style="margin:0;">${q.date || '—'}</span>
+          </div>
+          <div class="q-text" style="font-weight: 600; font-size: 15px;">${q.question}</div>
         </div>
-        <div class="remark-wrap">
-          <div class="remark-lbl">Remarques</div>
-          <textarea class="remark-input" rows="2"
-            placeholder="Ajouter une note…"
-            onchange="setRemark(${q.id},this.value)">${q.remark||''}</textarea>
+  
+        <div class="q-card-body open" style="padding-top: 0;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; background: var(--surface2); padding: 10px; border-radius: var(--radius-sm);">
+            <div style="font-size: 12px; border-left: 3px solid var(--green); padding-left: 8px;">
+              <strong style="color: var(--green); display: block; font-size: 10px; text-transform: uppercase;">Pos A</strong>
+              ${q.posA || 'À définir...'}
+            </div>
+            <div style="font-size: 12px; border-left: 3px solid var(--accent); padding-left: 8px;">
+              <strong style="color: var(--accent); display: block; font-size: 10px; text-transform: uppercase;">Pos B</strong>
+              ${q.posB || 'À définir...'}
+            </div>
+          </div>
+          ${link}
         </div>
-      </div>
-      <button class="expand-btn" onclick="toggleCard(${q.id})">
-        <span id="arr-${q.id}">${q.open?'▲ Réduire':'▼ Détails'}</span>
-      </button>
-    </div>`;
+      </div>`;
   }).join('');
 }
 
