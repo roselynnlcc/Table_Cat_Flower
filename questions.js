@@ -55,7 +55,7 @@ const TCF_QUESTIONS = [
     date: '2025-05-08',
     note: 'Deux positions. Apprentissage personnalisé, lien parent-enfant vs socialisation, expertise pédagogique.'
   },
-    {
+  {
     id: 8,
     cat: 'culture',
     question: 'De nombreuses personnes n\'apprécient pas de voyager seuls. Partagez-vous cette opinion ? Pourquoi ?',
@@ -63,4 +63,12 @@ const TCF_QUESTIONS = [
     date: '2026-05-09',
     note: 'Deux positions. Pos B (facile) : liberté totale + rencontres authentiques. Pos A : sécurité + manque de partage.'
   },
+  {
+  id: 9,
+  cat: 'economique',
+  question: 'Les ONG et les associations sont-elles les seules capables d\'aider les personnes pauvres ? Qu\'en pensez-vous ?',
+  scriptUrl: 'economique/ong_pauvrete.html',
+  date: '2026-05-10',
+  note: 'Deux positions. Pos B (facile) : rôle de l\'État + entreprises. Pos A : expertise ONG + lien de confiance.'
+  }
 ];
