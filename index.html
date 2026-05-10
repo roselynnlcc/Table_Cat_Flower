@@ -125,7 +125,7 @@ function saveUserData(ud) {
 // localStorage only stores per-question user state
 function mergedList() {
   const ud = loadUserData();
-  return TCF_QUESTIONS.map(q => ({
+  return TCF_QUESTIONS.slice().reverse().map(q => ({
     ...q,
     stars:  (ud[q.id] || {}).stars  || 0,
     status: (ud[q.id] || {}).status || 'À faire',
