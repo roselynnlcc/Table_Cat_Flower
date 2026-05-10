@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — ONG et pauvreté</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --amber:#92400e;--amber-bg:#fef3c7;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;}
+  .script-text p:last-child{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .hl-p2{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+  .single-view .script-card{max-width:620px;margin:0 auto;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:180px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-prep{font-size:11px;color:#7a5230;background:#fef3c7;border-radius:4px;padding:1px 5px;margin-left:4px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Tâche 3</span></h1>
+  <div class="question-title">Les ONG et les associations sont-elles les seules capables d'aider les personnes pauvres ? Qu'en pensez-vous ?</div>
+</header>
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Acteurs et institutions ★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">une ONG <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">an NGO (non-governmental organisation)</span></div>
+          <div class="wl-row"><span class="wl-fr">une association <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">a non-profit organisation / charity</span></div>
+          <div class="wl-row"><span class="wl-fr">l'État <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">the State / government</span></div>
+          <div class="wl-row"><span class="wl-fr">les pouvoirs publics <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">public authorities</span></div>
+          <div class="wl-row"><span class="wl-fr">une entreprise <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">a company / business</span></div>
+          <div class="wl-row"><span class="wl-fr">un bénévole <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a volunteer</span></div>
+          <div class="wl-row"><span class="wl-fr">un bénéficiaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a beneficiary / recipient of aid</span></div>
+          <div class="wl-row"><span class="wl-fr">un acteur <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a stakeholder / actor (in a system)</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Pauvreté et aide sociale</div>
+          <div class="wl-row"><span class="wl-fr">la pauvreté <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">poverty</span></div>
+          <div class="wl-row"><span class="wl-fr">la précarité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">precariousness / financial insecurity</span></div>
+          <div class="wl-row"><span class="wl-fr">l'exclusion sociale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">social exclusion</span></div>
+          <div class="wl-row"><span class="wl-fr">l'insertion professionnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">professional integration / getting into work</span></div>
+          <div class="wl-row"><span class="wl-fr">un filet de sécurité sociale <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a social safety net</span></div>
+          <div class="wl-row"><span class="wl-fr">les inégalités <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">inequalities</span></div>
+          <div class="wl-row"><span class="wl-fr">l'autonomie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">autonomy / self-sufficiency</span></div>
+          <div class="wl-row"><span class="wl-fr">la redistribution <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">redistribution (of wealth)</span></div>
+          <div class="wl-row"><span class="wl-fr">la responsabilité sociale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">social responsibility (of companies)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs — relative pronoun in yellow</div>
+        <div class="wl-row"><span class="wl-fr">aider <em>(qqn)</em><span class="wl-star">★</span></span><span class="wl-en">to help — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">financer <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to fund — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">dépendre <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to depend on<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">faire appel <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to call on / appeal to<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">se décharger <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to offload / shirk (a responsibility)<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">disposer <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to have access to / to possess<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">contribuer <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to contribute to<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">lutter <em>contre</em><span class="wl-star">★</span></span><span class="wl-en">to fight against — no rel. pronoun needed</span></div>
+        <div class="wl-row"><span class="wl-fr">favoriser <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to promote / foster — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">pallier <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to compensate for / make up for — no prep<span class="wl-prep">que</span></span></div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectives</div>
+        <div class="wl-row"><span class="wl-fr">précaire<span class="wl-star">★</span></span><span class="wl-en">precarious, insecure (situation)</span></div>
+        <div class="wl-row"><span class="wl-fr">durable<span class="wl-star">★</span></span><span class="wl-en">lasting, sustainable</span></div>
+        <div class="wl-row"><span class="wl-fr">complémentaire<span class="wl-star">★</span></span><span class="wl-en">complementary</span></div>
+        <div class="wl-row"><span class="wl-fr">structurel<span class="wl-star">★</span></span><span class="wl-en">structural (cause, problem)</span></div>
+        <div class="wl-row"><span class="wl-fr">vulnérable<span class="wl-star">★</span></span><span class="wl-en">vulnerable</span></div>
+        <div class="wl-row"><span class="wl-fr">insuffisant<span class="wl-star">★</span></span><span class="wl-en">insufficient, not enough</span></div>
+        <div class="wl-row"><span class="wl-fr">stable<span class="wl-star">★</span></span><span class="wl-en">stable (income, employment)</span></div>
+        <div class="wl-row"><span class="wl-fr">indispensable<span class="wl-star">★</span></span><span class="wl-en">essential, indispensable</span></div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paire contrastée</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">OUI — les ONG sont irremplaçables</div>
+          <div class="contrast-item">une expertise pointue que l'État ne possède pas</div>
+          <div class="contrast-item">un lien de confiance avec les bénéficiaires</div>
+          <div class="contrast-item">une réactivité que les institutions ne peuvent pas égaler</div>
+          <div class="contrast-item">elles atteignent les plus exclus du système</div>
+          <div class="contrast-item">elles agissent sans agenda politique</div>
+          <div class="contrast-item">elles mobilisent dons et bénévolat à grande échelle</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">NON — d'autres acteurs sont aussi essentiels</div>
+          <div class="contrast-item">l'État dispose des ressources pour agir à grande échelle</div>
+          <div class="contrast-item">les entreprises créent des emplois stables et durables</div>
+          <div class="contrast-item">les ONG dépendent de financements fragiles</div>
+          <div class="contrast-item">les causes profondes relèvent des politiques publiques</div>
+          <div class="contrast-item">la complémentarité des acteurs produit de meilleurs résultats</div>
+          <div class="contrast-item">l'insertion économique dépasse le mandat des ONG</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">les ONG disposent d'une expertise pointue dont les institutions publiques ne bénéficient pas toujours</div>
+          <div class="chunk-en">NGOs have specialised expertise that public institutions don't always have access to</div>
+          <div class="chunk-note">dont + bénéficier de — pronom relatif C1 · disposer de = C1 verb · argument clé Position A</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">le lien de confiance que les associations tissent avec les bénéficiaires est difficile à reproduire</div>
+          <div class="chunk-en">the bond of trust that associations build with beneficiaries is difficult to replicate</div>
+          <div class="chunk-note">tisser un lien = C1 idiom ("to weave / build a bond") · argument clé Position A Point 2</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">l'État est le seul acteur à disposer des ressources légales et financières pour agir à grande échelle</div>
+          <div class="chunk-en">the State is the only actor with the legal and financial resources to act on a large scale</div>
+          <div class="chunk-note">agir à grande échelle = C1 fixed phrase · argument clé Position B Point 1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">contrairement à une aide ponctuelle, un emploi stable permet de sortir durablement de la précarité</div>
+          <div class="chunk-en">unlike one-off aid, a stable job allows people to escape precariousness in a lasting way</div>
+          <div class="chunk-note">sortir de la précarité = C1 collocation · aide ponctuelle = one-off assistance · Position B Point 2</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">même si l'État et les entreprises jouent un rôle crucial, les ONG restent irremplaçables pour atteindre les plus vulnérables</div>
+          <div class="chunk-en">even if the State and businesses play a crucial role, NGOs remain irreplaceable for reaching the most vulnerable</div>
+          <div class="chunk-note">phrase de nuance Position B · même si + indicatif — structure C1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il serait souhaitable que les gouvernements, les entreprises et les ONG unissent leurs efforts pour lutter contre la pauvreté</div>
+          <div class="chunk-en">it would be desirable for governments, businesses and NGOs to unite their efforts to fight poverty</div>
+          <div class="chunk-note">subjonctif après il serait souhaitable que — signal C1 · parfait en conclusion</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptA = {
+  header: '✅ Position A — Oui, les ONG sont irremplaçables',
+  headerClass:'card-header-green', titleClass:'card-title-green',
+  badge:'Plus ardu', badgeClass:'badge-hard',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il est légitime de se demander si les ONG et les associations sont les seules capables d'aider les personnes pauvres, et les avis sont divergents.</p>
+<p>Cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">les ONG et les associations sont effectivement les mieux placées pour venir en aide aux personnes pauvres,</span> à un certain point.</p>
+<p>Alors, je vais expliquer mes raisons.</p>`, note:'' },
+    { label:'Point 1 — Spécialisation et expertise', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
+      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">les ONG et les associations se consacrent exclusivement à la lutte contre la pauvreté, ce qui leur permet de développer une expertise pointue dont ni l'État ni les entreprises ne bénéficient.</span> Elles connaissent les besoins réels sur le terrain, savent comment approcher les personnes vulnérables et proposent des solutions adaptées à chaque situation. Par exemple, des associations comme la Croix-Rouge ou les Restos du Cœur répondent à des besoins concrets que les institutions publiques peinent souvent à couvrir.</p>`,
+      note:'💬 <em>se consacrer à</em> = to dedicate oneself to · <em>une expertise pointue</em> = specialised expertise · <em>peiner à</em> = to struggle to · <em>couvrir</em> = to cover / address' },
+    { label:'Point 2 — Confiance et lien humain', timing:'~1 min', nuance:false, wc:'~76 mots ✓',
+      text:`<p>En plus, <span class="hl-pink">le lien de confiance que les associations tissent avec les bénéficiaires est un atout que les institutions gouvernementales ont du mal à reproduire.</span> Beaucoup de personnes en situation de précarité perçoivent l'État comme distant ou bureaucratique, et hésitent à faire appel à lui. En revanche, les associations créent un environnement humain et bienveillant où les personnes se sentent écoutées. <span class="hl-pink">Cette confiance est souvent la condition pour que l'aide soit réellement acceptée et efficace.</span></p>`,
+      note:'💬 <em>tisser un lien</em> = to build / weave a bond · <em>un atout</em> = an asset · <em>bienveillant</em> = caring, benevolent · <em>faire appel à</em> = to turn to / call on' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓',
+      text:`<p>Ceci dit, il est certes vrai que <span class="hl-blue">les ressources des ONG sont souvent limitées et fragiles, car elles dépendent en grande partie de dons privés qui peuvent se tarir à tout moment.</span> Sans un financement stable, leur action reste difficile à maintenir à grande échelle. <span class="hl-blue">Pour autant, ce manque de moyens ne remet pas en cause leur rôle essentiel — il souligne plutôt la nécessité d'un soutien accru de l'État envers ces organisations.</span></p>`,
+      note:'💬 <em>se tarir</em> = to dry up · <em>à grande échelle</em> = on a large scale · <em>remettre en cause</em> = to call into question · <em>un soutien accru</em> = increased support' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">la dépendance aux dons privés présente certains inconvénients, comme l'instabilité du financement et la difficulté d'agir à grande échelle,</span> il n'en demeure pas moins que les avantages des ONG, comme leur spécialisation et le lien de confiance qu'elles créent avec les bénéficiaires, sont indéniables.</p>
+<p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les gouvernements accordent davantage de financements stables aux associations qui luttent contre la pauvreté</span> / <span class="hl-p2">les pouvoirs publics travaillent en étroite collaboration avec les ONG pour maximiser leur impact sur le terrain.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+const scriptB = {
+  header: '❎ Position B — Non, d\'autres acteurs sont aussi essentiels',
+  headerClass:'card-header-blue', titleClass:'card-title-blue',
+  badge:'Plus facile à défendre', badgeClass:'badge-easy',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il est légitime de se demander si les ONG et les associations sont les seules capables d'aider les personnes pauvres, et les avis sont divergents.</p>
+<p>Cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">les ONG et les associations ne sont pas les seules à pouvoir venir en aide aux personnes pauvres,</span> à un certain point.</p>
+<p>Alors, je vais expliquer mes raisons.</p>`, note:'' },
+    { label:'Point 1 — Le rôle central de l\'État', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
+      text:`<p>Tout d'abord, force est de constater que <span class="hl-pink">c'est avant tout à l'État de garantir des filets de sécurité sociale, car lui seul dispose des ressources légales et financières pour agir à grande échelle et de façon durable.</span> Les allocations, les logements sociaux, l'accès aux soins gratuits — ces mesures structurelles touchent des millions de personnes que les ONG, avec leurs ressources limitées, ne peuvent pas atteindre seules. <span class="hl-pink">Lutter contre la pauvreté exige donc des politiques publiques ambitieuses, pas seulement une aide associative.</span></p>`,
+      note:'💬 <em>un filet de sécurité sociale</em> = a social safety net · <em>une allocation</em> = a benefit / allowance · <em>structurel</em> = structural · <em>ambitieux</em> = ambitious' },
+    { label:'Point 2 — Les entreprises comme moteur d\'insertion', timing:'~1 min', nuance:false, wc:'~77 mots ✓',
+      text:`<p>En plus, <span class="hl-pink">contrairement à une aide ponctuelle, un emploi stable permet aux personnes pauvres de sortir durablement de la précarité — et ce sont les entreprises, pas les ONG, qui peuvent créer ces emplois.</span> À travers leur responsabilité sociale, les entreprises peuvent aussi financer des programmes de formation professionnelle et investir dans des communautés défavorisées. De ce fait, <span class="hl-pink">leur impact économique contribue à réduire les inégalités de façon bien plus durable que l'aide d'urgence.</span></p>`,
+      note:'💬 <em>ponctuel</em> = one-off, short-term · <em>sortir de la précarité</em> = to escape precariousness · <em>la responsabilité sociale des entreprises</em> = CSR · <em>défavorisé</em> = disadvantaged' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~68 mots ✓',
+      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">certaines populations — les sans-abri, les réfugiés, les personnes en grande exclusion — sont souvent ignorées par les institutions et les entreprises. Les ONG restent les seules à les atteindre dans les situations les plus extrêmes.</span> <span class="hl-blue">Pour autant, cela ne signifie pas qu'elles doivent agir seules — au contraire, c'est la complémentarité entre tous ces acteurs qui produit les résultats les plus durables.</span></p>`,
+      note:'💬 <em>un sans-abri</em> = a homeless person · <em>la grande exclusion</em> = extreme social exclusion · <em>la complémentarité</em> = complementarity · <em>produire des résultats</em> = to produce results' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">les ONG restent irremplaçables pour atteindre les populations les plus vulnérables,</span> il n'en demeure pas moins que les avantages d'une approche collective, comme le rôle de l'État dans les politiques sociales et celui des entreprises dans l'insertion économique, sont indéniables.</p>
+<p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les gouvernements, les entreprises et les ONG unissent leurs efforts pour lutter contre la pauvreté de façon coordonnée</span> / <span class="hl-p2">les pouvoirs publics mettent en place des partenariats structurels avec les associations pour garantir une aide durable aux personnes dans le besoin.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+function buildCard(s){
+  const blocks=s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${b.text}</div>
+      ${b.note?`<div class="en-note">${b.note}</div>`:''}
+      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+    </div>`).join('');
+  return`<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;}
+
+document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
+document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
+document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');}
+</script>
+</body>
+</html>
