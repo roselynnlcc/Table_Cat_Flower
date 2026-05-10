@@ -69,6 +69,8 @@ const TCF_QUESTIONS = [
   question: 'Les ONG et les associations sont-elles les seules capables d\'aider les personnes pauvres ? Qu\'en pensez-vous ?',
   scriptUrl: 'economique/ong_pauvrete.html',
   date: '2026-05-10',
-  note: 'Deux positions. Pos B (facile) : rôle de l\'État + entreprises. Pos A : expertise ONG + lien de confiance.'
+  note: 'Deux positions. Pos B (facile) : rôle de l\'État + entreprises. Pos A : expertise ONG + lien de confiance.',
+  posA: "Expertise de terrain et lien de confiance unique.",
+  posB: "Ressources de l'État et création d'emplois par les entreprises."
   }
 ];
