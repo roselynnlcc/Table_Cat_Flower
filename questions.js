@@ -54,5 +54,13 @@ const TCF_QUESTIONS = [
     scriptUrl: 'education/homeschool.html',
     date: '2025-05-08',
     note: 'Deux positions. Apprentissage personnalisé, lien parent-enfant vs socialisation, expertise pédagogique.'
-  }
+  },
+    {
+    id: 8,
+    cat: 'culture',
+    question: 'De nombreuses personnes n\'apprécient pas de voyager seuls. Partagez-vous cette opinion ? Pourquoi ?',
+    scriptUrl: 'voyage/voyage_solo.html',
+    date: '2026-05-09',
+    note: 'Deux positions. Pos B (facile) : liberté totale + rencontres authentiques. Pos A : sécurité + manque de partage.'
+  },
 ];
