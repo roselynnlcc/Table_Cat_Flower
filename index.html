@@ -77,6 +77,39 @@
   .src-badge{font-size:10px;padding:1px 6px;border-radius:8px;margin-left:6px;font-weight:500;}
   .src-list{background:#e8f2ff;color:#185fa5;}
   .src-local{background:#eaf4ef;color:#2d6a4f;}
+  /* Styles importés du script pour la Paire Contrastée */
+  .contrast-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  @media (max-width: 600px) {
+    .contrast-grid { grid-template-columns: 1fr; } /* Empilement vertical sur mobile */
+  }
+  .contrast-card {
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .contrast-header {
+    padding: 6px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid var(--border);
+  }
+  .contrast-header.pos-a { background: #eaf4ef; color: #2d6a4f; }
+  .contrast-header.pos-b { background: #e8f2ff; color: #185fa5; }
+  .contrast-item {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    line-height: 1.4;
+  }
+  .contrast-item:last-child { border-bottom: none; }
 </style>
 </head>
 <body>
@@ -238,17 +271,27 @@ async function toggleCard(id) {
         
         // Extraction des colonnes de la "Paire contrastée"
         const cards = doc.querySelectorAll('.contrast-card');
-        if (cards.length >= 2) {
-          const listA = cards[0].innerHTML; 
-          const listB = cards[1].innerHTML;
-          
-          container.innerHTML = `
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
-              <div style="background:var(--green-bg); border-radius:var(--radius-sm); padding:8px; font-size:12px;">${listA}</div>
-              <div style="background:#e8f2ff; border-radius:var(--radius-sm); padding:8px; font-size:12px;">${listB}</div>
-            </div>`;
-        }
-      } catch (e) {
+// Dans votre fonction toggleCard(id), remplacez le bloc container.innerHTML par celui-ci :
+    if (cards.length >= 2) {
+      // On extrait les titres et les points des deux colonnes du script
+      const titleA = cards[0].querySelector('.contrast-header').innerText;
+      const itemsA = Array.from(cards[0].querySelectorAll('.contrast-item')).map(i => i.outerHTML).join('');
+      
+      const titleB = cards[1].querySelector('.contrast-header').innerText;
+      const itemsB = Array.from(cards[1].querySelectorAll('.contrast-item')).map(i => i.outerHTML).join('');
+      
+      container.innerHTML = `
+        <div class="contrast-grid">
+          <div class="contrast-card">
+            <div class="contrast-header pos-a">${titleA}</div>
+            ${itemsA}
+          </div>
+          <div class="contrast-card">
+            <div class="contrast-header pos-b">${titleB}</div>
+            ${itemsB}
+          </div>
+        </div>`;
+    } catch (e) {
         container.innerHTML = "<small>Arguments indisponibles</small>";
       }
     }
