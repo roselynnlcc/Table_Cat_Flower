@@ -215,14 +215,49 @@ function render() {
 }
 
 // ── INTERACTIONS ──────────────────────────────────────────────────────────────
-function toggleCard(id) {
+async function toggleCard(id) {
   const ud = loadUserData();
   if (!ud[id]) ud[id] = {};
   ud[id].open = !ud[id].open;
   saveUserData(ud);
+
+  const body = document.getElementById(`body-${id}`);
   const isOpen = ud[id].open;
-  document.getElementById(`body-${id}`).classList.toggle('open', isOpen);
+  
+  body.classList.toggle('open', isOpen);
   document.getElementById(`arr-${id}`).textContent = isOpen ? '▲ Réduire' : '▼ Détails';
+
+  // Si on ouvre la carte et que les points ne sont pas encore chargés
+  if (isOpen) {
+    const q = TCF_QUESTIONS.find(item => item.id === id);
+    const container = body.querySelector('.paire-display');
+    
+    // On ne charge que si le container est vide et qu'un script existe
+    if (q && q.scriptUrl && container.innerHTML === "") {
+      container.innerHTML = "<small style='color:var(--text-muted)'>Chargement des arguments...</small>";
+      try {
+        const response = await fetch(q.scriptUrl);
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // Extraction des colonnes de la "Paire contrastée"
+        const cards = doc.querySelectorAll('.contrast-card');
+        if (cards.length >= 2) {
+          const listA = cards[0].innerHTML; 
+          const listB = cards[1].innerHTML;
+          
+          container.innerHTML = `
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
+              <div style="background:var(--green-bg); border-radius:var(--radius-sm); padding:8px; font-size:12px;">${listA}</div>
+              <div style="background:#e8f2ff; border-radius:var(--radius-sm); padding:8px; font-size:12px;">${listB}</div>
+            </div>`;
+        }
+      } catch (e) {
+        container.innerHTML = "<small>Arguments indisponibles</small>";
+      }
+    }
+  }
 }
 function setStar(id, val) {
   const ud = loadUserData();
