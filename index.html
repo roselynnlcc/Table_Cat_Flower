@@ -19,6 +19,18 @@
   .header h1{font-family:'Fraunces',serif;font-size:20px;font-weight:300;}
   .header em{color:var(--accent);font-style:italic;}
 
+  /* Nouvelle barre de motivation */
+  .motivation-bar {
+    background: var(--text);
+    padding: 0 20px 15px;
+    color: var(--accent);
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
   /* Barre de catégories */
   .cat-scroll{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
   .cat-scroll::-webkit-scrollbar{display:none;}
@@ -66,6 +78,9 @@
   <h1>TCF Canada — <em>Tâche 3</em></h1>
 </header>
 
+<div class="motivation-bar" id="quoteBar">
+  </div>
+
 <div class="cat-scroll">
   <div class="cat-pills" id="catPills"></div>
 </div>
@@ -73,6 +88,13 @@
 <div class="cards-wrap" id="cardsWrap"></div>
 
 <script>
+ const MOTIVATION = [
+  "« Le succès est la somme de petits efforts répétés jour après jour. » 📈",
+  "« Crois en toi, tu es capable de décrocher ton C1 ! » 🏆",
+  "« Chaque question étudiée est un pas de plus vers ton objectif. » 👣",
+  "« La discipline est le pont entre tes objectifs et tes accomplissements. » 🌉",
+  "« Courage ! Ton travail acharné finira par porter ses fruits. » 🌱"
+];
 const CATS = [
   {id:'all', label:'Toutes', color:'#c8703a', bg:'#fdf0e8'},
   {id:'education', label:'Éducation', color:'#2563eb', bg:'#eff6ff'},
@@ -83,6 +105,11 @@ const CATS = [
   {id:'environnement',label:'Environnement',color:'#16a34a',bg:'#f0fdf4'},
   {id:'economique', label:'Économique', color:'#be185d', bg:'#fdf2f8'}
 ];
+
+function renderMotivation() {
+  const randomIdx = Math.floor(Math.random() * MOTIVATION.length);
+  document.getElementById('quoteBar').innerText = MOTIVATION[randomIdx];
+}
 
 let activeCat = 'all';
 
