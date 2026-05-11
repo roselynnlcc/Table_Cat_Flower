@@ -15,25 +15,22 @@
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding-bottom:40px;}
 
-  /* Header & Navigation */
   .header{background:var(--text);padding:20px 20px 16px;position:sticky;top:0;z-index:100;color:#fff;}
   .header h1{font-family:'Fraunces',serif;font-size:20px;font-weight:300;}
   .header em{color:var(--accent);font-style:italic;}
 
+  /* Barre de catégories */
   .cat-scroll{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
   .cat-scroll::-webkit-scrollbar{display:none;}
   .cat-pills{display:flex;gap:8px;width:max-content;}
   .cat-pill{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:13px;color:var(--text-soft);cursor:pointer;transition:all .15s;white-space:nowrap;}
-  .cat-pill.active{border-color:var(--accent);background:var(--accent-bg);color:var(--accent);font-weight:600;}
+  .cat-pill.active{border-color:var(--accent);background:#fdf0e8;color:var(--accent);font-weight:600;}
+  .cat-pill .cnt{font-size:10px; opacity:0.6; margin-left:4px;}
   .cat-pill .dot{width:8px;height:8px;border-radius:50%;}
 
-  .toolbar{padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;justify-content:center;}
-  .search-input{width:100%;max-width:670px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;}
-
-  /* Cards Layout */
+  /* Cartes */
   .cards-wrap{padding:16px;display:flex;flex-direction:column;gap:16px;max-width:700px;margin:0 auto;}
   .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);}
-  
   .q-card-top{padding:16px;display:flex;flex-direction:column;gap:8px;}
   .cat-badge {display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 12px; font-size: 11px; font-weight: 600;}
   .q-text{font-size:14px; font-weight: 600; line-height: 1.5;}
@@ -41,31 +38,26 @@
   .q-card-body{display:none;padding:0 16px 16px;}
   .q-card-body.open{display:block;}
 
-  /* Paire Contrastée Styles */
+  /* Positions A & B */
   .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
   @media (max-width: 600px) { .contrast-grid { grid-template-columns: 1fr; } }
-  
   .contrast-card { border-radius: var(--radius-sm); border: 1px solid var(--border); overflow: hidden; }
   .card-pos-a { background-color: #f4faf7; } 
   .card-pos-b { background-color: #f5f9ff; }
-
   .contrast-header { padding: 6px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid var(--border); }
   .contrast-header.pos-a { background: #eaf4ef; color: #2d6a4f; }
   .contrast-header.pos-b { background: #e8f2ff; color: #185fa5; }
-  
   .contrast-item { padding: 8px 10px; font-size: 14px; border-bottom: 1px solid rgba(0,0,0,0.03); line-height: 1.4; display: flex; gap: 8px; }
   .contrast-item::before { content: "•"; color: var(--accent); font-weight: bold; flex-shrink: 0; }
 
-  /* Controls */
+  /* Bas de carte */
   .q-controls { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
   .stars { color: #f59e0b; font-size: 16px; letter-spacing: 2px; }
   .status-badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: var(--bg); color: var(--text-soft); border: 1px solid var(--border); }
   .status-Prêt { background: #eaf4ef; color: #2d6a4f; border-color: #c2e0d1; }
   .status-Maîtrisé { background: #2d6a4f; color: #fff; border-color: #2d6a4f; }
-
   .script-link { font-size: 13px; font-weight: 600; color: var(--accent); text-decoration: none; padding: 6px 12px; background: #fdf0e8; border-radius: 6px; border: 1px solid #f0c8a8; }
   .expand-btn { width: 100%; padding: 10px; background: none; border: none; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); cursor: pointer; }
-  .empty { text-align: center; padding: 40px; color: var(--text-muted); font-style: italic; }
 </style>
 </head>
 <body>
@@ -78,12 +70,7 @@
   <div class="cat-pills" id="catPills"></div>
 </div>
 
-<div class="toolbar">
-  <input class="search-input" type="text" id="searchBox" placeholder="Rechercher une question…" oninput="render()">
-</div>
-
 <div class="cards-wrap" id="cardsWrap"></div>
-<div id="emptyState" class="empty" style="display:none;">Aucune question trouvée.</div>
 
 <script>
 const CATS = [
@@ -101,11 +88,16 @@ let activeCat = 'all';
 
 function renderCats() {
   const container = document.getElementById('catPills');
-  container.innerHTML = CATS.map(c => `
-    <button class="cat-pill ${activeCat === c.id ? 'active' : ''}" onclick="setCat('${c.id}')">
-      <span class="dot" style="background:${c.color}"></span>${c.label}
-    </button>
-  `).join('');
+  container.innerHTML = CATS.map(c => {
+    const count = c.id === 'all' 
+      ? TCF_QUESTIONS.length 
+      : TCF_QUESTIONS.filter(q => q.cat === c.id).length;
+    return `
+      <button class="cat-pill ${activeCat === c.id ? 'active' : ''}" onclick="setCat('${c.id}')">
+        <span class="dot" style="background:${c.color}"></span>
+        ${c.label} <span class="cnt">(${count})</span>
+      </button>`;
+  }).join('');
 }
 
 function setCat(id) {
@@ -115,15 +107,8 @@ function setCat(id) {
 }
 
 function render() {
-  const search = document.getElementById('searchBox').value.toLowerCase();
   const wrap = document.getElementById('cardsWrap');
-  
-  const filtered = TCF_QUESTIONS.slice().reverse().filter(q => 
-    (activeCat === 'all' || q.cat === activeCat) &&
-    q.question.toLowerCase().includes(search)
-  );
-
-  document.getElementById('emptyState').style.display = filtered.length ? 'none' : 'block';
+  const filtered = TCF_QUESTIONS.slice().reverse().filter(q => (activeCat === 'all' || q.cat === activeCat));
 
   wrap.innerHTML = filtered.map(q => {
     const stars = q.stars || 0;
