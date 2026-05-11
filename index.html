@@ -73,42 +73,14 @@
   .expand-btn:hover{background:var(--surface2);color:var(--text-soft);}
   .empty{text-align:center;padding:48px 20px;color:var(--text-muted);font-size:14px;font-style:italic;}
 
-  /* source badge */
-  .src-badge{font-size:10px;padding:1px 6px;border-radius:8px;margin-left:6px;font-weight:500;}
-  .src-list{background:#e8f2ff;color:#185fa5;}
-  .src-local{background:#eaf4ef;color:#2d6a4f;}
-  /* Styles importés du script pour la Paire Contrastée */
-  .contrast-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 10px;
-  }
-  @media (max-width: 600px) {
-    .contrast-grid { grid-template-columns: 1fr; } /* Empilement vertical sur mobile */
-  }
-  .contrast-card {
-    background: var(--surface2);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    overflow: hidden;
-  }
-  .contrast-header {
-    padding: 6px 10px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    border-bottom: 1px solid var(--border);
-  }
+  /* Styles importés pour la Paire Contrastée */
+  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  @media (max-width: 600px) { .contrast-grid { grid-template-columns: 1fr; } }
+  .contrast-card { background: var(--surface2); border-radius: var(--radius-sm); border: 1px solid var(--border); overflow: hidden; }
+  .contrast-header { padding: 6px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; border-bottom: 1px solid var(--border); }
   .contrast-header.pos-a { background: #eaf4ef; color: #2d6a4f; }
   .contrast-header.pos-b { background: #e8f2ff; color: #185fa5; }
-  .contrast-item {
-    padding: 6px 10px;
-    font-size: 12px;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-    line-height: 1.4;
-  }
+  .contrast-item { padding: 6px 10px; font-size: 11px; border-bottom: 1px solid rgba(0,0,0,0.04); line-height: 1.4; }
   .contrast-item:last-child { border-bottom: none; }
 </style>
 </head>
@@ -131,20 +103,18 @@
 <div class="empty" id="emptyState" style="display:none">Aucune question dans cette catégorie.</div>
 
 <script>
-// ── CATEGORIES ────────────────────────────────────────────────────────────────
 const CATS = [
-  {id:'all',        label:'Toutes',        color:'#c8703a', bg:'#fdf0e8'},
-  {id:'education',  label:'Éducation',     color:'#2563eb', bg:'#eff6ff'},
-  {id:'famille',    label:'Famille',       color:'#dc2626', bg:'#fff5f5'},
-  {id:'culture',    label:'Culture',       color:'#7c3aed', bg:'#f5f0ff'},
-  {id:'sante',      label:'Santé',         color:'#0891b2', bg:'#f0fafe'},
-  {id:'technologie',label:'Technologie',   color:'#d97706', bg:'#fffbeb'},
+  {id:'all', label:'Toutes', color:'#c8703a', bg:'#fdf0e8'},
+  {id:'education', label:'Éducation', color:'#2563eb', bg:'#eff6ff'},
+  {id:'famille', label:'Famille', color:'#dc2626', bg:'#fff5f5'},
+  {id:'culture', label:'Culture', color:'#7c3aed', bg:'#f5f0ff'},
+  {id:'sante', label:'Santé', color:'#0891b2', bg:'#f0fafe'},
+  {id:'technologie',label:'Technologie', color:'#d97706', bg:'#fffbeb'},
   {id:'environnement',label:'Environnement',color:'#16a34a',bg:'#f0fdf4'},
-  {id:'economique', label:'Économique',    color:'#be185d', bg:'#fdf2f8'},
+  {id:'economique', label:'Économique', color:'#be185d', bg:'#fdf2f8'},
 ];
 
-// ── MERGE questions.js list with localStorage user data ────────────────────
-const LKEY = 'tcf_userdata_v1'; // stores {id: {stars, status, remark, open}}
+const LKEY = 'tcf_userdata_v1';
 
 function loadUserData() {
   try { return JSON.parse(localStorage.getItem(LKEY) || '{}'); }
@@ -154,16 +124,14 @@ function saveUserData(ud) {
   try { localStorage.setItem(LKEY, JSON.stringify(ud)); } catch {}
 }
 
-// Merge: TCF_QUESTIONS is source of truth for question text/url/date
-// localStorage only stores per-question user state
 function mergedList() {
   const ud = loadUserData();
   return TCF_QUESTIONS.slice().reverse().map(q => ({
     ...q,
-    stars:  (ud[q.id] || {}).stars  || 0,
+    stars: (ud[q.id] || {}).stars || 0,
     status: (ud[q.id] || {}).status || 'À faire',
     remark: (ud[q.id] || {}).remark || q.note || '',
-    open:   (ud[q.id] || {}).open   || false,
+    open: (ud[q.id] || {}).open || false,
   }));
 }
 
@@ -176,17 +144,14 @@ function saveField(id, field, val) {
 
 let activeCat = 'all';
 
-// ── STATS ─────────────────────────────────────────────────────────────────────
 function renderStats() {
   const qs = mergedList();
   const ready = qs.filter(q => q.status==='Prêt'||q.status==='Maîtrisé').length;
   document.getElementById('statsRow').innerHTML = `
-    <div class="stat-pill"><strong>${qs.length}</strong>&nbsp;questions</div>
-    <div class="stat-pill"><strong>${ready}</strong>&nbsp;prêtes</div>
-    <div class="stat-pill"><strong>${qs.filter(q=>q.status==='Maîtrisé').length}</strong>&nbsp;maîtrisées</div>`;
+    <div class="stat-pill"><strong>${qs.length}</strong> questions</div>
+    <div class="stat-pill"><strong>${ready}</strong> prêtes</div>`;
 }
 
-// ── CATEGORIES ────────────────────────────────────────────────────────────────
 function renderCats() {
   const qs = mergedList();
   document.getElementById('catPills').innerHTML = CATS.map(c => {
@@ -198,7 +163,6 @@ function renderCats() {
 }
 function setCat(id) { activeCat = id; renderCats(); render(); }
 
-// ── CARDS ─────────────────────────────────────────────────────────────────────
 function render() {
   const search = document.getElementById('searchBox').value.toLowerCase();
   const qs = mergedList();
@@ -211,12 +175,18 @@ function render() {
   if (!f.length) { wrap.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display = 'none';
 
-    wrap.innerHTML = f.map(q => {
+  wrap.innerHTML = f.map(q => {
     const cat = CATS.find(c => c.id === q.cat) || CATS[1];
     const link = q.scriptUrl
       ? `<a class="script-link" href="${q.scriptUrl}">📄 Voir le script →</a>`
       : `<span class="no-script">Pas encore de script</span>`;
-  
+    
+    let stars = '';
+    for(let i=1; i<=3; i++) stars += `<span class="star ${q.stars>=i?'on':''}" onclick="event.stopPropagation();setStar(${q.id},${i})">★</span>`;
+
+    const opts = ['À faire','En cours','Prêt','Maîtrisé'].map(s => 
+      `<option value="${s}" ${q.status===s?'selected':''}>${s}</option>`).join('');
+
     return `
       <div class="q-card" id="card-${q.id}">
         <div class="q-card-top" style="flex-direction: column; gap: 8px;">
@@ -233,6 +203,15 @@ function render() {
         <div class="q-card-body ${q.open?'open':''}" id="body-${q.id}">
           <div class="paire-display" id="paire-display-${q.id}" style="margin-bottom:12px;"></div>
           ${link}
+          
+          <div class="q-meta">
+            <div class="stars">${stars}</div>
+            <select class="status-sel" onchange="setStatus(${q.id},this.value)">${opts}</select>
+          </div>
+          <div class="remark-wrap">
+            <div class="remark-lbl">Remarques / Aide-mémoire</div>
+            <textarea class="remark-input" placeholder="Ajouter une note..." onchange="setRemark(${q.id},this.value)">${q.remark||''}</textarea>
+          </div>
         </div>
 
         <button class="expand-btn" onclick="toggleCard(${q.id})">
@@ -242,7 +221,6 @@ function render() {
   }).join('');
 }
 
-// ── INTERACTIONS ──────────────────────────────────────────────────────────────
 async function toggleCard(id) {
   const ud = loadUserData();
   if (!ud[id]) ud[id] = {};
@@ -251,66 +229,52 @@ async function toggleCard(id) {
 
   const body = document.getElementById(`body-${id}`);
   const isOpen = ud[id].open;
-  
   body.classList.toggle('open', isOpen);
   document.getElementById(`arr-${id}`).textContent = isOpen ? '▲ Réduire' : '▼ Détails';
 
-  // Si on ouvre la carte et que les points ne sont pas encore chargés
   if (isOpen) {
     const q = TCF_QUESTIONS.find(item => item.id === id);
     const container = body.querySelector('.paire-display');
-    
-    // On ne charge que si le container est vide et qu'un script existe
     if (q && q.scriptUrl && container.innerHTML === "") {
-      container.innerHTML = "<small style='color:var(--text-muted)'>Chargement des arguments...</small>";
+      container.innerHTML = "<small style='color:var(--text-muted)'>Chargement...</small>";
       try {
         const response = await fetch(q.scriptUrl);
         const html = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        
-        // Extraction des colonnes de la "Paire contrastée"
         const cards = doc.querySelectorAll('.contrast-card');
-// Dans votre fonction toggleCard(id), remplacez le bloc container.innerHTML par celui-ci :
-    if (cards.length >= 2) {
-      // On extrait les titres et les points des deux colonnes du script
-      const titleA = cards[0].querySelector('.contrast-header').innerText;
-      const itemsA = Array.from(cards[0].querySelectorAll('.contrast-item')).map(i => i.outerHTML).join('');
-      
-      const titleB = cards[1].querySelector('.contrast-header').innerText;
-      const itemsB = Array.from(cards[1].querySelectorAll('.contrast-item')).map(i => i.outerHTML).join('');
-      
-      container.innerHTML = `
-        <div class="contrast-grid">
-          <div class="contrast-card">
-            <div class="contrast-header pos-a">${titleA}</div>
-            ${itemsA}
-          </div>
-          <div class="contrast-card">
-            <div class="contrast-header pos-b">${titleB}</div>
-            ${itemsB}
-          </div>
-        </div>`;
-    } catch (e) {
-        container.innerHTML = "<small>Arguments indisponibles</small>";
-      }
+        if (cards.length >= 2) {
+          const titleA = cards[0].querySelector('.contrast-header').innerText;
+          const itemsA = Array.from(cards[0].querySelectorAll('.contrast-item')).map(i => i.outerHTML).join('');
+          const titleB = cards[1].querySelector('.contrast-header').innerText;
+          const itemsB = Array.from(cards[1].querySelectorAll('.contrast-item')).map(i => i.outerHTML).join('');
+          
+          container.innerHTML = `
+            <div class="contrast-grid">
+              <div class="contrast-card">
+                <div class="contrast-header pos-a">${titleA}</div>
+                ${itemsA}
+              </div>
+              <div class="contrast-card">
+                <div class="contrast-header pos-b">${titleB}</div>
+                ${itemsB}
+              </div>
+            </div>`;
+        }
+      } catch (e) { container.innerHTML = "<small>Indisponible</small>"; }
     }
   }
 }
+
 function setStar(id, val) {
   const ud = loadUserData();
   if (!ud[id]) ud[id] = {};
   ud[id].stars = ud[id].stars===val ? 0 : val;
-  saveUserData(ud); render(); renderCats();
+  saveUserData(ud); render();
 }
-function setStatus(id, val) {
-  saveField(id, 'status', val); renderStats(); renderCats();
-}
-function setRemark(id, val) {
-  saveField(id, 'remark', val);
-}
+function setStatus(id, val) { saveField(id, 'status', val); renderStats(); }
+function setRemark(id, val) { saveField(id, 'remark', val); }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
 renderStats(); renderCats(); render();
 </script>
 </body>
