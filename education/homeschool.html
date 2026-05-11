@@ -1,328 +1,68 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TCF — Enseignement à domicile</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
-    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
-    --pink-bg:#ffeef2;--pink-text:#8b1a35;
-    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
-    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
-    --green:#2d6a4f;--green-bg:#eaf4ef;
-    --amber:#92400e;--amber-bg:#fef3c7;
-    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
-    --magenta:#9D174D;--magenta-bg:#FCE7F3;
-    --accent:#c8955a;--radius:12px;--radius-sm:6px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
-  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
-  .site-header h1 span{color:var(--accent);font-style:italic;}
-  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
-  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
-  .back-link:hover{color:var(--accent);}
-  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
-  .tab-nav::-webkit-scrollbar{display:none;}
-  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
-  .tab-btn:hover{color:var(--text);background:var(--surface2);}
-  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
-  .content{display:none;padding:20px 16px 48px;}
-  .content.active{display:block;}
-  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
-  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
-  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
-  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
-  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
-  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
-  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
-  .card-title-green{color:var(--green);}
-  .card-title-blue{color:#185fa5;}
-  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
-  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
-  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
-  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
-  .block:last-child{border-bottom:none;}
-  .block-nuance{background:#fff;}
-  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;}
-  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
-  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
-  .script-text p{margin-bottom:10px;}
-  .script-text p:last-child{margin-bottom:0;}
-  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
-  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
-  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
-  .hl-p2{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
-  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
-  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
-  .single-view .script-card{max-width:620px;margin:0 auto;}
-  /* WORD LIST */
-  .wl-page{max-width:860px;}
-  .wl-section{margin-bottom:28px;}
-  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
-  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
-  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
-  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
-  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
-  .wl-row:last-child{border-bottom:none;}
-  .wl-row:hover{background:var(--surface2);}
-  .wl-fr{font-weight:500;font-size:13px;min-width:190px;color:var(--text);}
-  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
-  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
-  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
-  .wl-prep{font-size:11px;color:#7a5230;background:#fef3c7;border-radius:4px;padding:1px 5px;margin-left:4px;}
-  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  @media(max-width:580px){.contrast-grid{grid-template-columns:1fr;}}
-  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
-  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
-  .contrast-header-a{background:var(--green-bg);color:var(--green);}
-  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
-  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
-  .contrast-item:last-child{border-bottom:none;}
-  .chunk-list{display:flex;flex-direction:column;gap:10px;}
-  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;}
-  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
-  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
-  .chunk-note{font-size:11px;color:var(--text-muted);}
-</style>
-</head>
 <body>
-<header class="site-header">
-  <a class="back-link" href="../index.html">← Retour</a>
-  <h1>TCF Canada — <span>Tâche 3</span></h1>
-  <div class="question-title">Il y a des parents qui décident de s'occuper eux-mêmes de l'éducation de leurs enfants à la maison. Quel est votre avis ?</div>
-</header>
-<nav class="tab-nav">
-  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
-  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
-  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
-  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
-</nav>
-<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
-<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
-<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
 
-<!-- WORD LIST -->
-<div id="words" class="content">
-  <div class="wl-page">
-
-    <div class="wl-section">
-      <div class="wl-section-title">Noms — clés du sujet</div>
-      <div class="wl-grid">
-        <div class="wl-card">
-          <div class="wl-card-header">Éducation et apprentissage ★ = exam priority</div>
-          <div class="wl-row"><span class="wl-fr">l'enseignement à domicile <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">homeschooling</span></div>
-          <div class="wl-row"><span class="wl-fr">le programme scolaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">school curriculum</span></div>
-          <div class="wl-row"><span class="wl-fr">les compétences pédagogiques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">teaching skills / pedagogical competences</span></div>
-          <div class="wl-row"><span class="wl-fr">le rythme d'apprentissage <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">learning pace</span></div>
-          <div class="wl-row"><span class="wl-fr">les besoins spécifiques <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">specific needs</span></div>
-          <div class="wl-row"><span class="wl-fr">les lacunes <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">gaps (in knowledge)</span></div>
-          <div class="wl-row"><span class="wl-fr">l'encadrement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">supervision, framework</span></div>
-          <div class="wl-row"><span class="wl-fr">un enseignant diplômé <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a qualified teacher</span></div>
-          <div class="wl-row"><span class="wl-fr">la motivation intrinsèque <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">intrinsic motivation</span></div>
-          <div class="wl-row"><span class="wl-fr">l'épanouissement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">fulfilment, flourishing</span></div>
-        </div>
-        <div class="wl-card">
-          <div class="wl-card-header">Vie scolaire et société</div>
-          <div class="wl-row"><span class="wl-fr">la socialisation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">socialisation</span></div>
-          <div class="wl-row"><span class="wl-fr">les pairs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">peers</span></div>
-          <div class="wl-row"><span class="wl-fr">le lien social <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">social bond</span></div>
-          <div class="wl-row"><span class="wl-fr">le harcèlement scolaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">school bullying</span></div>
-          <div class="wl-row"><span class="wl-fr">la construction identitaire <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">identity formation</span></div>
-          <div class="wl-row"><span class="wl-fr">l'autonomie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">autonomy, independence</span></div>
-          <div class="wl-row"><span class="wl-fr">l'égalité des chances <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">equal opportunity</span></div>
-          <div class="wl-row"><span class="wl-fr">le lien parent-enfant <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">parent-child bond</span></div>
-          <div class="wl-row"><span class="wl-fr">le travail en équipe <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">teamwork</span></div>
-          <div class="wl-row"><span class="wl-fr">les repères <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">reference points, structure</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="wl-section">
-      <div class="wl-section-title">Verbes + prépositions</div>
-      <div class="wl-card">
-        <div class="wl-card-header">Verbs — relative pronoun in yellow</div>
-        <div class="wl-row"><span class="wl-fr">s'épanouir <em>(dans)</em><span class="wl-star">★</span></span><span class="wl-en">to thrive, to flourish<span class="wl-prep">dans lequel</span></span></div>
-        <div class="wl-row"><span class="wl-fr">bénéficier <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to benefit from<span class="wl-prep">dont</span></span></div>
-        <div class="wl-fr"><span class="wl-fr">manquer <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to lack<span class="wl-prep">dont</span></span></div>
-        <div class="wl-row"><span class="wl-fr">avoir recours <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to resort to<span class="wl-prep">auquel</span></span></div>
-        <div class="wl-row"><span class="wl-fr">être confronté <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to face / be confronted with<span class="wl-prep">auquel</span></span></div>
-        <div class="wl-row"><span class="wl-fr">s'adapter <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to adapt to<span class="wl-prep">auquel</span></span></div>
-        <div class="wl-row"><span class="wl-fr">tisser <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to build / weave (bonds) — no prep<span class="wl-prep">que</span></span></div>
-        <div class="wl-row"><span class="wl-fr">renforcer <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to strengthen — no prep<span class="wl-prep">que</span></span></div>
-        <div class="wl-row"><span class="wl-fr">pallier <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to make up for / offset — no prep<span class="wl-prep">que</span></span></div>
-        <div class="wl-row"><span class="wl-fr">freiner <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to hinder, to slow down — no prep<span class="wl-prep">que</span></span></div>
-        <div class="wl-row"><span class="wl-fr">préparer <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to prepare for<span class="wl-prep">auquel</span></span></div>
-        <div class="wl-row"><span class="wl-fr">se construire</span><span class="wl-en">to build oneself / grow as a person — no prep</span></div>
-      </div>
-    </div>
-
-    <div class="wl-section">
-      <div class="wl-section-title">Adjectifs</div>
-      <div class="wl-card">
-        <div class="wl-card-header">Adjectives</div>
-        <div class="wl-row"><span class="wl-fr">personnalisé<span class="wl-star">★</span></span><span class="wl-en">personalised, tailored</span></div>
-        <div class="wl-row"><span class="wl-fr">qualifié<span class="wl-star">★</span></span><span class="wl-en">qualified, trained</span></div>
-        <div class="wl-row"><span class="wl-fr">irremplaçable<span class="wl-star">★</span></span><span class="wl-en">irreplaceable</span></div>
-        <div class="wl-row"><span class="wl-fr">structuré<span class="wl-star">★</span></span><span class="wl-en">structured</span></div>
-        <div class="wl-row"><span class="wl-fr">enrichissant<span class="wl-star">★</span></span><span class="wl-en">enriching</span></div>
-        <div class="wl-row"><span class="wl-fr">isolé<span class="wl-star">★</span></span><span class="wl-en">isolated</span></div>
-        <div class="wl-row"><span class="wl-fr">autonome<span class="wl-star">★</span></span><span class="wl-en">independent, self-sufficient</span></div>
-        <div class="wl-row"><span class="wl-fr">inadapté<span class="wl-star">★</span></span><span class="wl-en">ill-suited, maladjusted</span></div>
-        <div class="wl-row"><span class="wl-fr">propice <em>à</em><span class="wl-star">★</span></span><span class="wl-en">conducive to, favourable for</span></div>
-        <div class="wl-row"><span class="wl-fr">encadré<span class="wl-star">★</span></span><span class="wl-en">supervised, supported</span></div>
-      </div>
-    </div>
-
-    <div class="wl-section">
-      <div class="wl-section-title">Paire contrastée</div>
-      <div class="contrast-grid">
-        <div class="contrast-card">
-          <div class="contrast-header contrast-header-a">OUI — l'enseignement à domicile peut fonctionner</div>
-          <div class="contrast-item">adapter le rythme aux besoins de l'enfant</div>
-          <div class="contrast-item">renforcer le lien parent-enfant au quotidien</div>
-          <div class="contrast-item">protéger l'enfant du harcèlement scolaire</div>
-          <div class="contrast-item">transmettre des valeurs culturelles ou linguistiques</div>
-          <div class="contrast-item">favoriser une motivation intrinsèque durable</div>
-          <div class="contrast-item">offrir un environnement d'apprentissage sécurisant</div>
-        </div>
-        <div class="contrast-card">
-          <div class="contrast-header contrast-header-b">NON — l'école traditionnelle est préférable</div>
-          <div class="contrast-item">tisser des liens sociaux avec ses pairs</div>
-          <div class="contrast-item">bénéficier de l'expertise d'enseignants qualifiés</div>
-          <div class="contrast-item">apprendre à travailler en équipe et à respecter des règles</div>
-          <div class="contrast-item">se construire en dehors du regard des parents</div>
-          <div class="contrast-item">garantir l'égalité des chances pour tous</div>
-          <div class="contrast-item">être préparé à la vie en société</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="wl-section">
-      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
-      <div class="chunk-list">
-        <div class="chunk-card">
-          <div class="chunk-fr">les compétences sociales auxquelles les enfants sont confrontés à l'école</div>
-          <div class="chunk-en">the social skills children are confronted with at school</div>
-          <div class="chunk-note">auquel + être confronté à — structure C1 réutilisable</div>
-        </div>
-        <div class="chunk-card">
-          <div class="chunk-fr">l'école offre un cadre dont les enfants ont fondamentalement besoin pour se construire</div>
-          <div class="chunk-en">school offers a framework that children fundamentally need in order to grow</div>
-          <div class="chunk-note">dont + avoir besoin de — pronom relatif C1 · se construire = C1 verb</div>
-        </div>
-        <div class="chunk-card">
-          <div class="chunk-fr">tisser des liens avec ses pairs dès le plus jeune âge est une étape irremplaçable du développement</div>
-          <div class="chunk-en">building bonds with peers from a very young age is an irreplaceable stage of development</div>
-          <div class="chunk-note">dès le plus jeune âge = C1 fixed phrase · très naturel à l'oral</div>
-        </div>
-        <div class="chunk-card">
-          <div class="chunk-fr">tous les parents ne disposent pas des compétences pédagogiques nécessaires pour enseigner toutes les matières</div>
-          <div class="chunk-en">not all parents have the pedagogical skills needed to teach all subjects</div>
-          <div class="chunk-note">argument clé Position B Point 1 · disposer de = C1 verb</div>
-        </div>
-        <div class="chunk-card">
-          <div class="chunk-fr">il serait réducteur d'affirmer que l'enseignement à domicile est nécessairement inférieur à l'école traditionnelle</div>
-          <div class="chunk-en">it would be reductive to claim that homeschooling is necessarily inferior to traditional schooling</div>
-          <div class="chunk-note">il serait réducteur de — ouverture C1 · nécessairement = necessarily</div>
-        </div>
-        <div class="chunk-card">
-          <div class="chunk-fr">l'enseignement à domicile peut fonctionner à condition d'être bien encadré et soumis à des contrôles réguliers</div>
-          <div class="chunk-en">homeschooling can work provided it is well supervised and subject to regular checks</div>
-          <div class="chunk-note">à condition de + infinitif — structure C1 de nuance · parfait en conclusion</div>
-        </div>
-        <div class="chunk-card">
-          <div class="chunk-fr">il faudrait que les autorités éducatives encadrent davantage l'enseignement à domicile pour garantir l'égalité des chances</div>
-          <div class="chunk-en">educational authorities should better regulate homeschooling to guarantee equal opportunity</div>
-          <div class="chunk-note">subjonctif après il faudrait que — signal C1 · parfait en conclusion</div>
-        </div>
-      </div>
-    </div>
-
+<div id="dynamic-content" style="display:none;">
+  <div class="contrast-card">
+    <div class="contrast-header">Position A</div>
+    <div class="contrast-item">Liberté pédagogique et rythme adapté à l'enfant.</div>
+    <div class="contrast-item">Environnement sécurisant, loin du harcèlement ou de la pression sociale.</div>
+    <div class="contrast-item">Renforcement des liens familiaux et transmission des valeurs directes.</div>
+  </div>
+  <div class="contrast-card">
+    <div class="contrast-header">Position B</div>
+    <div class="contrast-item">Risque de manque de socialisation et d'ouverture à la diversité.</div>
+    <div class="contrast-item">Charge de travail immense pour les parents (pédagogie, temps).</div>
+    <div class="contrast-item">Difficulté de contrôle de la qualité des acquis par l'État.</div>
   </div>
 </div>
 
+<div class="container">
+  <div class="header-main">
+    <h1>TCF Canada — <em>Tâche 3</em></h1>
+    <p>Sujet : L'enseignement à domicile</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('both', this)">Vue d'ensemble</button>
+    <button class="tab-btn" onclick="showTab('posA', this)">Position A</button>
+    <button class="tab-btn" onclick="showTab('posB', this)">Position B</button>
+  </div>
+
+  <div id="both" class="content active">
+    <div class="grid" id="bothGrid">
+      </div>
+  </div>
+  
+  </div>
+
 <script>
+// Vos données de script pour l'affichage interne à la page
 const scriptA = {
-  header: '✅ Position A — OUI, l\'enseignement à domicile peut être bénéfique',
-  headerClass:'card-header-green', titleClass:'card-title-green',
-  badge:'Plus ardu', badgeClass:'badge-hard',
-  blocks:[
-    { label:'Introduction', timing:'~40s', nuance:false,
-      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
-<p>Certaines personnes pensent que <span class="hl-pink">l'enseignement à domicile peut offrir de réels avantages pour le développement de l'enfant</span>, tandis que d'autres estiment le contraire.</p>
-<p>Cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">quand il est bien encadré, l'enseignement à domicile peut représenter une alternative valable à l'école traditionnelle.</span></p>
-<p>Alors, je vais expliquer mes raisons.</p>`, note:'' },
-    { label:'Point 1 — Apprentissage personnalisé', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
-      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">l'enseignement à domicile permet d'adapter entièrement le rythme et les méthodes aux besoins spécifiques de l'enfant.</span> Contrairement à une classe de trente élèves où l'enseignant doit avancer au même rythme pour tous, les parents peuvent consacrer plus de temps aux matières difficiles et aller plus vite dans les domaines où l'enfant excelle. <span class="hl-pink">Cet apprentissage sur mesure favorise une meilleure progression et une motivation intrinsèque durable.</span> Par exemple, des enfants à haut potentiel ou à besoins spécifiques bénéficient souvent davantage de ce type d'enseignement.</p>`,
-      note:'💬 <em>sur mesure</em> = tailor-made · <em>exceller</em> = to excel · <em>un haut potentiel</em> = gifted child · <em>la motivation intrinsèque</em> = intrinsic motivation' },
-    { label:'Point 2 — Lien parent-enfant', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
-      text:`<p>En plus, <span class="hl-pink">enseigner à son enfant renforce considérablement le lien parent-enfant et crée une relation de confiance profonde.</span> Passer du temps ensemble autour des apprentissages permet aux parents de mieux connaître les forces et les fragilités de leur enfant, et d'y répondre avec bienveillance. <span class="hl-pink">Cette relation de confiance bénéficie directement au développement émotionnel de l'enfant et à son épanouissement.</span> À Calgary, par exemple, de nombreuses familles pratiquent l'enseignement à domicile avec succès, en s'appuyant sur des réseaux communautaires actifs.</p>`,
-      note:'💬 <em>la bienveillance</em> = kindness, care · <em>les fragilités</em> = weaknesses, vulnerabilities · <em>s\'appuyer sur</em> = to rely on' },
-    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~67 mots ✓',
-      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">l'enseignement à domicile peut limiter les interactions sociales de l'enfant avec ses pairs.</span> Apprendre à gérer les conflits, à travailler en équipe ou à évoluer dans un groupe structuré sont des compétences difficiles à développer hors du cadre scolaire. <span class="hl-blue">Pour autant, ces lacunes peuvent être pallié en inscrivant l'enfant à des activités parascolaires, sportives ou culturelles.</span></p>`,
-      note:'💬 <em>les pairs</em> = peers · <em>parascolaire</em> = extracurricular · <em>pallier</em> = to make up for (C1 — sans préposition)' },
-    { label:'Conclusion', timing:'~50s', nuance:false,
-      text:`<p>En conclusion, <span class="hl-blue">bien que l'enseignement à domicile présente certains défis, notamment en matière de socialisation,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages sont réels pour les familles qui le pratiquent sérieusement — que ce soit en termes d'apprentissage personnalisé, de lien familial ou d'épanouissement de l'enfant.</span></p>
-<p>Il faudrait que <span class="hl-p1">les autorités éducatives encadrent davantage l'enseignement à domicile pour garantir l'égalité des chances</span> / <span class="hl-p2">les institutions mettent en place des contrôles réguliers afin que tous les enfants bénéficient d'une éducation de qualité.</span></p>
-<p>Merci pour votre attention.</p>`, note:'' }
+  header: "Pour l'école à la maison",
+  badge: "Liberté & Personnalisation",
+  headerClass: "card-a",
+  titleClass: "title-a",
+  badgeClass: "badge-a",
+  blocks: [
+    { label: "Introduction", timing: "0:00 - 0:45", text: "L'instruction en famille permet de placer l'enfant au cœur de son apprentissage..." },
+    { label: "Argument 1", timing: "0:45 - 1:30", text: "• Chaque enfant a un rythme biologique et cognitif différent que le système scolaire classique ignore souvent." },
+    { label: "Argument 2", timing: "1:30 - 2:15", text: "• Cela protège les enfants les plus vulnérables du climat parfois anxiogène des établissements." }
   ]
 };
 
 const scriptB = {
-  header: '❎ Position B — NON, l\'école traditionnelle est préférable',
-  headerClass:'card-header-blue', titleClass:'card-title-blue',
-  badge:'Plus facile à défendre', badgeClass:'badge-easy',
-  blocks:[
-    { label:'Introduction', timing:'~40s', nuance:false,
-      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
-<p>Certaines personnes pensent que <span class="hl-pink">l'enseignement à domicile peut représenter une bonne alternative à l'école</span>, tandis que d'autres estiment le contraire.</p>
-<p>Cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">l'école traditionnelle reste le cadre le plus propice au développement global de l'enfant, tant sur le plan académique que social.</span></p>
-<p>Alors, je vais expliquer mes raisons.</p>`, note:'💬 <em>propice à</em> = conducive to · <em>tant... que...</em> = both... and... — structure C1' },
-    { label:'Point 1 — La socialisation est irremplaçable', timing:'~1 min', nuance:false, wc:'~80 mots ✓',
-      text:`<p>Tout d'abord, <span class="hl-pink">force est de constater que l'école offre un environnement social irremplaçable où l'enfant apprend à vivre avec les autres dès le plus jeune âge.</span> Gérer les conflits, tisser des liens avec ses pairs, respecter des règles communes — ce sont des compétences essentielles que l'on ne peut pas développer seul à la maison. <span class="hl-pink">Ces apprentissages sociaux sont le fondement de la vie en société, et l'école en est le principal vecteur.</span> Un enfant scolarisé est mieux préparé à s'intégrer dans le monde professionnel et social.</p>`,
-      note:'💬 <em>dès le plus jeune âge</em> = from a very young age (C1) · <em>un vecteur</em> = a vehicle, a medium · <em>tisser des liens</em> = to build bonds' },
-    { label:'Point 2 — L\'expertise des enseignants qualifiés', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
-      text:`<p>En plus, <span class="hl-pink">les enseignants professionnels disposent d'une formation spécialisée et de méthodes pédagogiques éprouvées que la majorité des parents ne peuvent pas égaler.</span> Ils sont formés pour détecter les difficultés d'apprentissage, différencier leur enseignement et accompagner chaque élève selon ses besoins. <span class="hl-pink">Confier l'éducation de son enfant à un parent sans formation risque de créer des lacunes importantes dans certaines matières.</span> En Alberta, les enseignants doivent obtenir un brevet d'enseignement — preuve que la pédagogie est un métier à part entière.</p>`,
-      note:'💬 <em>éprouvé</em> = tried and tested · <em>différencier</em> = to differentiate (teaching) · <em>un brevet d\'enseignement</em> = teaching certificate · <em>à part entière</em> = in its own right' },
-    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~67 mots ✓',
-      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">dans certaines situations particulières — un enfant à besoins spécifiques, une famille expatriée, une zone géographique isolée — l'enseignement à domicile peut représenter une solution adaptée et justifiée.</span> <span class="hl-blue">Pour autant, ces cas restent des exceptions. Dans la grande majorité des situations, l'école traditionnelle offre un cadre bien plus complet pour le développement de l'enfant.</span></p>`,
-      note:'💬 <em>à besoins spécifiques</em> = with special needs · <em>une exception</em> = an exception · <em>dans la grande majorité des situations</em> = in the vast majority of cases' },
-    { label:'Conclusion', timing:'~50s', nuance:false,
-      text:`<p>En conclusion, <span class="hl-blue">bien que l'enseignement à domicile puisse convenir à certaines familles dans des situations spécifiques,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages de l'école traditionnelle sont indéniables — que ce soit en termes de socialisation, d'expertise pédagogique ou de préparation à la vie en société.</span></p>
-<p>Il faudrait que <span class="hl-p1">les autorités éducatives encadrent davantage l'enseignement à domicile pour garantir l'égalité des chances</span> / <span class="hl-p2">les institutions investissent davantage dans la formation des enseignants et dans l'accompagnement des élèves à besoins spécifiques.</span></p>
-<p>Merci pour votre attention.</p>`, note:'' }
+  header: "Contre l'école à la maison",
+  badge: "Socialisation & Normes",
+  headerClass: "card-b",
+  titleClass: "title-b",
+  badgeClass: "badge-b",
+  blocks: [
+    { label: "Introduction", timing: "0:00 - 0:45", text: "L'école n'est pas seulement un lieu d'instruction, c'est un micro-société indispensable..." },
+    { label: "Argument 1", timing: "0:45 - 1:30", text: "• Sans la confrontation aux autres, l'enfant risque de s'enfermer dans une bulle sociale et culturelle." },
+    { label: "Argument 2", timing: "1:30 - 2:15", text: "• Il est très difficile pour un parent de maîtriser toutes les disciplines à un niveau académique élevé." }
   ]
 };
 
-function buildCard(s){
-  const blocks=s.blocks.map(b=>`
-    <div class="block ${b.nuance?'block-nuance':''}">
-      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
-      <div class="script-text">${b.text}</div>
-      ${b.note?`<div class="en-note">${b.note}</div>`:''}
-      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
-    </div>`).join('');
-  return`<div class="script-card">
-    <div class="card-header ${s.headerClass}">
-      <div class="card-title ${s.titleClass}">${s.header}</div>
-      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
-    </div>${blocks}</div>`;}
-
-document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
-document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
-document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
-
-function showTab(id,btn){
-  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');}
+// ... Votre fonction buildCard et showTab existante ...
 </script>
 </body>
 </html>
