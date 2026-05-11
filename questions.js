@@ -79,5 +79,14 @@ const TCF_QUESTIONS = [
   date: '2026-05-10',
   stars: 0,          // Gérez vos étoiles ici (0 à 3)
   status: "À faire"  // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
+  },
+  {
+  id: 10,
+  cat: 'economique',
+  question: 'Les employés sont-ils surtout motivés par leur salaire ? Pourquoi ?',
+  scriptUrl: 'economique/salaire_motivation.html',
+  date: '2026-05-10',
+  stars: 0,
+  status: "À faire"
   }
 ];
