@@ -5,277 +5,168 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TCF Canada — Tâche 3</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="favicon.png">
 <script src="questions.js"></script>
 <style>
   :root {
-    --bg:#f7f4f0;--surface:#fff;--surface2:#f2ede8;--border:#e8e0d8;
+    --bg:#f7f4f0;--surface:#fff;--border:#e8e0d8;
     --text:#1e1a16;--text-soft:#6b5f55;--text-muted:#a89888;
-    --accent:#c8703a;--accent-bg:#fdf0e8;--accent-border:#f0c8a8;
-    --green:#2d6a4f;--green-bg:#eaf4ef;
-    --radius:14px;--radius-sm:8px;
-    --shadow:0 2px 8px rgba(0,0,0,.07);--shadow-md:0 4px 16px rgba(0,0,0,.1);
+    --accent:#c8703a;--radius:14px;--radius-sm:8px;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding-bottom:40px;}
 
-  .header{background:var(--text);padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
-  .header h1{font-family:'Fraunces',serif;font-size:20px;font-weight:300;color:#fff;letter-spacing:-.02em;}
-  .header h1 em{color:var(--accent);font-style:italic;}
-  .header-stats{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;}
-  .stat-pill{font-size:11.5px;color:#aaa;display:flex;align-items:center;gap:4px;}
-  .stat-pill strong{color:var(--accent);}
+  .header{background:var(--text);padding:20px;position:sticky;top:0;z-index:100;color:#fff;}
+  .header h1{font-family:'Fraunces',serif;font-size:20px;font-weight:300;}
+  .header em{color:var(--accent);font-style:italic;}
 
-  .cat-scroll{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
-  .cat-scroll::-webkit-scrollbar{display:none;}
-  .cat-pills{display:flex;gap:8px;width:max-content;}
-  .cat-pill{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:13px;font-weight:400;color:var(--text-soft);cursor:pointer;transition:all .15s;white-space:nowrap;font-family:'DM Sans',sans-serif;}
-  .cat-pill .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-  .cat-pill .cnt{font-size:10.5px;background:var(--surface2);border-radius:10px;padding:0 5px;color:var(--text-muted);}
-  .cat-pill.active{border-color:var(--accent);background:var(--accent-bg);color:var(--accent);font-weight:500;}
-  .cat-pill.active .cnt{background:rgba(200,112,58,.12);color:var(--accent);}
+  .cards-wrap{padding:16px;display:flex;flex-direction:column;gap:16px;max-width:700px;margin:0 auto;}
+  .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+  
+  .q-card-top{padding:16px;display:flex;flex-direction:column;gap:8px;}
+  .q-text{font-size:16px;font-weight:600;line-height:1.4;}
 
-  .toolbar{padding:12px 16px;display:flex;gap:10px;align-items:center;background:var(--surface);border-bottom:1px solid var(--border);}
-  .search-input{flex:1;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .15s;}
-  .search-input:focus{border-color:var(--accent);}
-  .search-input::placeholder{color:var(--text-muted);}
-
-  .cards-wrap{padding:16px;display:flex;flex-direction:column;gap:12px;}
-  @media(min-width:600px){.cards-wrap{max-width:700px;margin:0 auto;}}
-
-  .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:box-shadow .15s;}
-  .q-card:hover{box-shadow:var(--shadow-md);}
-  .q-card-top{padding:14px 16px 10px;display:flex;align-items:flex-start;gap:10px;}
-  .cat-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:600;white-space:nowrap;flex-shrink:0;margin-top:3px;}
-  .q-text{font-size:14px;line-height:1.55;color:var(--text);flex:1;}
-
-  .q-card-body{display:none;padding:0 16px 14px;}
+  .q-card-body{display:none;padding:0 16px 16px;}
   .q-card-body.open{display:block;}
-  .q-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px;padding-top:10px;border-top:1px solid var(--border);}
-  .stars{display:flex;gap:2px;}
-  .star{font-size:20px;color:var(--border);cursor:pointer;transition:color .1s,transform .1s;user-select:none;line-height:1;}
-  .star.on{color:#f59e0b;}
-  .star:hover{transform:scale(1.2);}
-  .status-sel{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-soft);padding:5px 8px;outline:none;cursor:pointer;}
-  .date-lbl{font-size:11.5px;color:var(--text-muted);}
 
-  .script-link{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--accent);text-decoration:none;margin-bottom:12px;transition:background .15s;}
-  .script-link:hover{background:#fce8d8;}
-  .no-script{font-size:12px;color:var(--text-muted);font-style:italic;margin-bottom:12px;display:block;}
-
-  .remark-wrap{margin-top:4px;}
-  .remark-lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:4px;}
-  .remark-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);padding:7px 10px;outline:none;transition:border-color .15s;resize:vertical;min-height:48px;}
-  .remark-input:focus{border-color:var(--accent);}
-  .remark-input::placeholder{color:var(--text-muted);font-style:italic;}
-
-  .expand-btn{width:100%;padding:9px 16px;background:none;border:none;border-top:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);cursor:pointer;text-align:center;transition:background .1s;display:flex;align-items:center;justify-content:center;gap:5px;}
-  .expand-btn:hover{background:var(--surface2);color:var(--text-soft);}
-  .empty{text-align:center;padding:48px 20px;color:var(--text-muted);font-size:14px;font-style:italic;}
-
-  /* Styles importés pour la Paire Contrastée */
-  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  /* Design des points (Style Script) */
+  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom:16px; }
   @media (max-width: 600px) { .contrast-grid { grid-template-columns: 1fr; } }
-  .contrast-card { background: var(--surface2); border-radius: var(--radius-sm); border: 1px solid var(--border); overflow: hidden; }
-  .contrast-header { padding: 6px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; border-bottom: 1px solid var(--border); }
+  
+  .contrast-card { background: #fff; border-radius: var(--radius-sm); border: 1px solid var(--border); overflow: hidden; }
+  .contrast-header { padding: 6px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid var(--border); }
   .contrast-header.pos-a { background: #eaf4ef; color: #2d6a4f; }
   .contrast-header.pos-b { background: #e8f2ff; color: #185fa5; }
-  .contrast-item { padding: 6px 10px; font-size: 11px; border-bottom: 1px solid rgba(0,0,0,0.04); line-height: 1.4; }
+  
+  .contrast-item { 
+    padding: 8px 10px; 
+    font-size: 14px; /* +2 unit */
+    border-bottom: 1px solid #f0f0f0; 
+    line-height: 1.4;
+    display: flex;
+    gap: 8px;
+  }
+  /* Puce élégante */
+  .contrast-item::before { content: "•"; color: var(--accent); font-weight: bold; }
   .contrast-item:last-child { border-bottom: none; }
+
+  /* Barre de contrôle du bas */
+  .q-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .ctrl-left { display: flex; align-items: center; gap: 12px; }
+  .stars { color: #f59e0b; font-size: 16px; }
+  .status-badge { 
+    font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px;
+    background: var(--bg); color: var(--text-soft); border: 1px solid var(--border);
+  }
+  /* Couleurs de statut */
+  .status-Prêt { background: #eaf4ef; color: #2d6a4f; border-color: #c2e0d1; }
+  .status-Maîtrisé { background: #2d6a4f; color: #fff; border-color: #2d6a4f; }
+
+  .script-link {
+    font-size: 13px; font-weight: 600; color: var(--accent); text-decoration: none;
+    padding: 6px 12px; background: #fdf0e8; border-radius: 6px; border: 1px solid #f0c8a8;
+  }
+
+  .expand-btn {
+    width: 100%; padding: 10px; background: none; border: none; border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--text-muted); cursor: pointer;
+  }
 </style>
 </head>
 <body>
 
 <header class="header">
   <h1>TCF Canada — <em>Tâche 3</em></h1>
-  <div class="header-stats" id="statsRow"></div>
 </header>
 
-<div class="cat-scroll">
-  <div class="cat-pills" id="catPills"></div>
-</div>
-
-<div class="toolbar">
-  <input class="search-input" type="text" id="searchBox" placeholder="Rechercher une question…" oninput="render()">
-</div>
-
 <div class="cards-wrap" id="cardsWrap"></div>
-<div class="empty" id="emptyState" style="display:none">Aucune question dans cette catégorie.</div>
 
 <script>
-const CATS = [
-  {id:'all', label:'Toutes', color:'#c8703a', bg:'#fdf0e8'},
-  {id:'education', label:'Éducation', color:'#2563eb', bg:'#eff6ff'},
-  {id:'famille', label:'Famille', color:'#dc2626', bg:'#fff5f5'},
-  {id:'culture', label:'Culture', color:'#7c3aed', bg:'#f5f0ff'},
-  {id:'sante', label:'Santé', color:'#0891b2', bg:'#f0fafe'},
-  {id:'technologie',label:'Technologie', color:'#d97706', bg:'#fffbeb'},
-  {id:'environnement',label:'Environnement',color:'#16a34a',bg:'#f0fdf4'},
-  {id:'economique', label:'Économique', color:'#be185d', bg:'#fdf2f8'},
-];
-
-const LKEY = 'tcf_userdata_v1';
-
-function loadUserData() {
-  try { return JSON.parse(localStorage.getItem(LKEY) || '{}'); }
-  catch { return {}; }
-}
-function saveUserData(ud) {
-  try { localStorage.setItem(LKEY, JSON.stringify(ud)); } catch {}
-}
-
-function mergedList() {
-  const ud = loadUserData();
-  return TCF_QUESTIONS.slice().reverse().map(q => ({
-    ...q,
-    stars: (ud[q.id] || {}).stars || 0,
-    status: (ud[q.id] || {}).status || 'À faire',
-    remark: (ud[q.id] || {}).remark || q.note || '',
-    open: (ud[q.id] || {}).open || false,
-  }));
-}
-
-function saveField(id, field, val) {
-  const ud = loadUserData();
-  if (!ud[id]) ud[id] = {};
-  ud[id][field] = val;
-  saveUserData(ud);
-}
-
-let activeCat = 'all';
-
-function renderStats() {
-  const qs = mergedList();
-  const ready = qs.filter(q => q.status==='Prêt'||q.status==='Maîtrisé').length;
-  document.getElementById('statsRow').innerHTML = `
-    <div class="stat-pill"><strong>${qs.length}</strong> questions</div>
-    <div class="stat-pill"><strong>${ready}</strong> prêtes</div>`;
-}
-
-function renderCats() {
-  const qs = mergedList();
-  document.getElementById('catPills').innerHTML = CATS.map(c => {
-    const n = c.id==='all' ? qs.length : qs.filter(q=>q.cat===c.id).length;
-    return `<button class="cat-pill ${activeCat===c.id?'active':''}" onclick="setCat('${c.id}')">
-      <span class="dot" style="background:${c.color}"></span>${c.label}
-      <span class="cnt">${n}</span></button>`;
-  }).join('');
-}
-function setCat(id) { activeCat = id; renderCats(); render(); }
-
+// On utilise directement TCF_QUESTIONS de questions.js sans localStorage pour les data
 function render() {
-  const search = document.getElementById('searchBox').value.toLowerCase();
-  const qs = mergedList();
-  const f = qs.filter(q =>
-    (activeCat==='all' || q.cat===activeCat) &&
-    q.question.toLowerCase().includes(search)
-  );
   const wrap = document.getElementById('cardsWrap');
-  const empty = document.getElementById('emptyState');
-  if (!f.length) { wrap.innerHTML=''; empty.style.display='block'; return; }
-  empty.style.display = 'none';
-
-  wrap.innerHTML = f.map(q => {
-    const cat = CATS.find(c => c.id === q.cat) || CATS[1];
-    const link = q.scriptUrl
-      ? `<a class="script-link" href="${q.scriptUrl}">📄 Voir le script →</a>`
-      : `<span class="no-script">Pas encore de script</span>`;
+  
+  wrap.innerHTML = TCF_QUESTIONS.slice().reverse().map(q => {
+    // Valeurs par défaut si non définies dans JS
+    const starsCount = q.stars || 0;
+    const currentStatus = q.status || "À faire";
+    const starHTML = "★".repeat(starsCount) + "☆".repeat(3 - starsCount);
     
-    let stars = '';
-    for(let i=1; i<=3; i++) stars += `<span class="star ${q.stars>=i?'on':''}" onclick="event.stopPropagation();setStar(${q.id},${i})">★</span>`;
-
-    const opts = ['À faire','En cours','Prêt','Maîtrisé'].map(s => 
-      `<option value="${s}" ${q.status===s?'selected':''}>${s}</option>`).join('');
-
     return `
-      <div class="q-card" id="card-${q.id}">
-        <div class="q-card-top" style="flex-direction: column; gap: 8px;">
-          <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-            <span class="cat-badge" style="background:${cat.bg};color:${cat.color}; margin-top:0;">
-              <span style="width:6px;height:6px;border-radius:50%;background:${cat.color};display:inline-block;"></span>
-              ${cat.label}
-            </span>
-            <span class="date-lbl" style="margin:0;">${q.date || '—'}</span>
+      <div class="q-card">
+        <div class="q-card-top">
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted);">
+            <span>ID: ${q.id}</span>
+            <span>${q.date || '—'}</span>
           </div>
-          <div class="q-text" style="font-weight: 600; font-size: 15px;">${q.question}</div>
+          <div class="q-text">${q.question}</div>
         </div>
   
-        <div class="q-card-body ${q.open?'open':''}" id="body-${q.id}">
-          <div class="paire-display" id="paire-display-${q.id}" style="margin-bottom:12px;"></div>
-          ${link}
+        <div class="q-card-body" id="body-${q.id}">
+          <div class="paire-display" id="paire-display-${q.id}"></div>
           
-          <div class="q-meta">
-            <div class="stars">${stars}</div>
-            <select class="status-sel" onchange="setStatus(${q.id},this.value)">${opts}</select>
-          </div>
-          <div class="remark-wrap">
-            <div class="remark-lbl">Remarques / Aide-mémoire</div>
-            <textarea class="remark-input" placeholder="Ajouter une note..." onchange="setRemark(${q.id},this.value)">${q.remark||''}</textarea>
+          <div class="q-controls">
+            <div class="ctrl-left">
+              <span class="stars">${starHTML}</span>
+              <span class="status-badge status-${currentStatus.replace(' ', '')}">${currentStatus}</span>
+            </div>
+            ${q.scriptUrl ? `<a href="${q.scriptUrl}" class="script-link">Voir le script →</a>` : ''}
           </div>
         </div>
 
         <button class="expand-btn" onclick="toggleCard(${q.id})">
-          <span id="arr-${q.id}">${q.open?'▲ Réduire':'▼ Détails'}</span>
+          <span id="arr-${q.id}">▼ Détails</span>
         </button>
       </div>`;
   }).join('');
 }
 
 async function toggleCard(id) {
-  const ud = loadUserData();
-  if (!ud[id]) ud[id] = {};
-  ud[id].open = !ud[id].open;
-  saveUserData(ud);
-
   const body = document.getElementById(`body-${id}`);
-  const isOpen = ud[id].open;
-  body.classList.toggle('open', isOpen);
-  document.getElementById(`arr-${id}`).textContent = isOpen ? '▲ Réduire' : '▼ Détails';
+  const btn = document.getElementById(`arr-${id}`);
+  const isOpen = body.classList.toggle('open');
+  btn.textContent = isOpen ? '▲ Réduire' : '▼ Détails';
 
   if (isOpen) {
     const q = TCF_QUESTIONS.find(item => item.id === id);
-    const container = body.querySelector('.paire-display');
+    const container = document.getElementById(`paire-display-${id}`);
+    
     if (q && q.scriptUrl && container.innerHTML === "") {
-      container.innerHTML = "<small style='color:var(--text-muted)'>Chargement...</small>";
+      container.innerHTML = "<small>Chargement...</small>";
       try {
         const response = await fetch(q.scriptUrl);
         const html = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
+        const doc = new DOMParser().parseFromString(html, 'text/html');
         const cards = doc.querySelectorAll('.contrast-card');
+        
         if (cards.length >= 2) {
-          const titleA = cards[0].querySelector('.contrast-header').innerText;
-          const itemsA = Array.from(cards[0].querySelectorAll('.contrast-item')).map(i => i.outerHTML).join('');
-          const titleB = cards[1].querySelector('.contrast-header').innerText;
-          const itemsB = Array.from(cards[1].querySelectorAll('.contrast-item')).map(i => i.outerHTML).join('');
-          
+          const buildSection = (card, colorClass) => {
+            const title = card.querySelector('.contrast-header').innerText;
+            const items = Array.from(card.querySelectorAll('.contrast-item'))
+                               .map(i => `<div class="contrast-item">${i.innerText}</div>`).join('');
+            return `<div class="contrast-card">
+                      <div class="contrast-header ${colorClass}">${title}</div>
+                      ${items}
+                    </div>`;
+          };
+
           container.innerHTML = `
             <div class="contrast-grid">
-              <div class="contrast-card">
-                <div class="contrast-header pos-a">${titleA}</div>
-                ${itemsA}
-              </div>
-              <div class="contrast-card">
-                <div class="contrast-header pos-b">${titleB}</div>
-                ${itemsB}
-              </div>
+              ${buildSection(cards[0], 'pos-a')}
+              ${buildSection(cards[1], 'pos-b')}
             </div>`;
         }
-      } catch (e) { container.innerHTML = "<small>Indisponible</small>"; }
+      } catch (e) { container.innerHTML = ""; }
     }
   }
 }
 
-function setStar(id, val) {
-  const ud = loadUserData();
-  if (!ud[id]) ud[id] = {};
-  ud[id].stars = ud[id].stars===val ? 0 : val;
-  saveUserData(ud); render();
-}
-function setStatus(id, val) { saveField(id, 'status', val); renderStats(); }
-function setRemark(id, val) { saveField(id, 'remark', val); }
-
-renderStats(); renderCats(); render();
+render();
 </script>
 </body>
 </html>
