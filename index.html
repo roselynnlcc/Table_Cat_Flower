@@ -197,19 +197,11 @@ function render() {
           <div class="q-text" style="font-weight: 600; font-size: 15px;">${q.question}</div>
         </div>
   
-        <div class="q-card-body open" style="padding-top: 0;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; background: var(--surface2); padding: 10px; border-radius: var(--radius-sm);">
-            <div style="font-size: 12px; border-left: 3px solid var(--green); padding-left: 8px;">
-              <strong style="color: var(--green); display: block; font-size: 10px; text-transform: uppercase;">Pos A</strong>
-              ${q.posA || 'À définir...'}
-            </div>
-            <div style="font-size: 12px; border-left: 3px solid var(--accent); padding-left: 8px;">
-              <strong style="color: var(--accent); display: block; font-size: 10px; text-transform: uppercase;">Pos B</strong>
-              ${q.posB || 'À définir...'}
-            </div>
-          </div>
-          ${link}
-        </div>
+        // Dans render()
+      <div class="q-card-body ${q.open?'open':''}" id="body-${q.id}">
+        <div class="paire-display" id="paire-display-${q.id}"></div> ${link}
+        ...
+      </div>
       </div>`;
   }).join('');
 }
