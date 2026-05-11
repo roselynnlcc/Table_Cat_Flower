@@ -62,13 +62,21 @@
   .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
   .single-view .script-card{max-width:620px;margin:0 auto;}
 
-  /* TTS button */
+  /* Audio button */
   .para-wrap{position:relative;padding-right:32px;margin-bottom:10px;}
   .para-wrap:last-child{margin-bottom:0;}
   .para-wrap p{margin-bottom:0;}
   .tts-btn{position:absolute;top:2px;right:0;background:none;border:none;cursor:pointer;font-size:14px;opacity:0.4;transition:opacity .15s,transform .1s;padding:2px 4px;line-height:1;}
   .tts-btn:hover{opacity:1;}
   .tts-btn.playing{opacity:1;transform:scale(1.15);}
+  /* Block-level audio player */
+  .block-audio{display:flex;align-items:center;gap:8px;margin-top:10px;}
+  .block-play-btn{background:var(--accent);color:#fff;border:none;border-radius:20px;padding:4px 14px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:5px;transition:opacity .15s;}
+  .block-play-btn:hover{opacity:0.85;}
+  .block-play-btn.playing{background:#c0392b;}
+  .audio-progress{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden;cursor:pointer;}
+  .audio-progress-bar{height:100%;background:var(--accent);width:0%;transition:width .1s linear;border-radius:2px;}
+  .audio-time{font-size:10px;color:var(--text-muted);min-width:32px;text-align:right;}
 
   /* Word list */
   .wl-page{max-width:860px;}
@@ -246,8 +254,9 @@ const scriptA = {
   header: "✅ Position A — OUI, l'autorité est indispensable",
   headerClass:"card-header-green", titleClass:"card-title-green",
   badge:"Plus facile à défendre", badgeClass:"badge-easy",
+  posKey:"posA",
   blocks:[
-    { label:"Introduction", timing:"~40s", nuance:false,
+    { label:"Introduction", timing:"~40s", nuance:false, audioFile:"posA_01.mp3",
       text:[
         `Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si l'autorité est vraiment indispensable pour bien éduquer les enfants et les avis sont mitigés.`,
         `Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que l'autorité joue un rôle essentiel dans l'éducation des enfants à un certain point.`,
@@ -259,7 +268,7 @@ const scriptA = {
         `Alors, je vais expliquer mes raisons.`
       ],
       note:"" },
-    { label:"Point 1 — L'autorité offre un sentiment de sécurité intérieure", timing:"~1 min", nuance:false, wc:"~80 mots ✓",
+    { label:"Point 1 — L'autorité offre un sentiment de sécurité intérieure", timing:"~1 min", nuance:false, wc:"~80 mots ✓", audioFile:"posA_02.mp3",
       text:[
         `Tout d'abord, l'autorité est essentielle car elle offre un sentiment de sécurité intérieure. Autrement dit, en l'absence de limites claires, l'enfant se retrouve dans un monde imprévisible.`,
         `Sans un cadre protecteur, il doit constamment s'inquiéter de la manière de protéger ses propres ressources.`,
@@ -271,7 +280,7 @@ const scriptA = {
         `Par exemple, si un enfant sent que personne ne fait respecter les règles, il pourrait devenir anxieux et passer son temps à essayer de se défendre par lui-même au lieu de se concentrer sur son développement.`
       ],
       note:"💬 <em>en l'absence de</em> = in the absence of · <em>un cadre protecteur</em> = a protective framework · <em>faire respecter les règles</em> = to enforce the rules" },
-    { label:"Point 2 — L'autorité permet de comprendre la relation de cause à effet", timing:"~1 min", nuance:false, wc:"~80 mots ✓",
+    { label:"Point 2 — L'autorité permet de comprendre la relation de cause à effet", timing:"~1 min", nuance:false, wc:"~80 mots ✓", audioFile:"posA_03.mp3",
       text:[
         `De plus, l'autorité permet de comprendre la relation de cause à effet. Cela permet aux enfants d'apprendre les normes de la vie en société.`,
         `Particulièrement pour un enfant qui n'a jamais été sanctionné après avoir pris le jouet d'un autre, il ne pourra pas comprendre la gravité de son geste.`,
@@ -283,7 +292,7 @@ const scriptA = {
         `Ce qui signifie que l'absence de conséquences lui crée une confusion morale car il ne saura plus faire la distinction entre le bien et le mal, et cela va <span class="hl-pink">entraver son épanouissement social au sein d'un groupe.</span>`
       ],
       note:"💬 <em>particulièrement</em> = especially · <em>la gravité de son geste</em> = the seriousness of his action · <em>entraver</em> = to hinder (C1)" },
-    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~65 mots ✓",
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~65 mots ✓", audioFile:"posA_04.mp3",
       text:[
         `D'un autre côté, une autorité excessive risque d'étouffer la curiosité naturelle de l'enfant.`,
         `En exigeant une obéissance aveugle, cela prive l'enfant de sa liberté d'expression et l'empêche de s'aventurer hors de sa zone de confort.`,
@@ -295,9 +304,7 @@ const scriptA = {
         `<span class="hl-blue">S'il doit systématiquement attendre l'approbation d'un adulte, il ne pourra pas développer son indépendance ni sa confiance en soi.</span>`
       ],
       note:"💬 <em>étouffer</em> = to stifle · <em>une obéissance aveugle</em> = blind obedience · <em>s'aventurer hors de</em> = to venture outside of" },
-    { label:"Conclusion", timing:"~50s", nuance:false,
-      text:[
-        `En conclusion, bien que l'autorité excessive présente certains inconvénients, comme le frein à l'indépendance de l'enfant, il n'en demeure pas moins que les avantages, comme la sécurité intérieure et la compréhension des normes sociales, sont indéniables.`,
+    { label:"Conclusion", timing:"~50s", nuance:false, audioFile:"posA_05.mp3",, comme le frein à l'indépendance de l'enfant, il n'en demeure pas moins que les avantages, comme la sécurité intérieure et la compréhension des normes sociales, sont indéniables.`,
         `Il faudrait que les parents se basent sur une éducation avec des dialogues afin que les enfants apprennent à leur propre rythme.`,
         `Merci pour votre attention.`
       ],
@@ -314,8 +321,9 @@ const scriptB = {
   header: "❎ Position B — NON, la bienveillance est plus essentielle",
   headerClass:"card-header-blue", titleClass:"card-title-blue",
   badge:"Plus ardu", badgeClass:"badge-hard",
+  posKey:"posB",
   blocks:[
-    { label:"Introduction", timing:"~40s", nuance:false,
+    { label:"Introduction", timing:"~40s", nuance:false, audioFile:"posB_01.mp3",
       text:[
         `Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si l'autorité est vraiment indispensable pour bien éduquer les enfants et les avis sont mitigés.`,
         `Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que l'amour et la bienveillance sont des piliers plus essentiels que l'autorité dans l'éducation des enfants à un certain point.`,
@@ -327,7 +335,7 @@ const scriptB = {
         `Alors, je vais expliquer mes raisons.`
       ],
       note:"" },
-    { label:"Point 1 — L'amour et la bienveillance suffisent à guider l'enfant", timing:"~1 min", nuance:false, wc:"~80 mots ✓",
+    { label:"Point 1 — L'amour et la bienveillance suffisent à guider l'enfant", timing:"~1 min", nuance:false, wc:"~80 mots ✓", audioFile:"posB_02.mp3",
       text:[
         `Tout d'abord, un environnement chaleureux et fondé sur la confiance permet à l'enfant de développer une discipline intérieure naturelle.`,
         `Autrement dit, lorsqu'un enfant se sent aimé et respecté, il intériorise les valeurs de ses parents non pas par peur, mais par envie de leur ressembler.`,
@@ -339,7 +347,7 @@ const scriptB = {
         `Par exemple, un enfant qui grandit dans un foyer bienveillant apprend à respecter les autres naturellement, car il a lui-même été traité avec respect. De ce fait, <span class="hl-pink">la bienveillance engendre une obéissance durable, bien plus solide que celle imposée par la crainte.</span>`
       ],
       note:"💬 <em>intérioriser</em> = to internalize (C1) · <em>non pas par peur, mais par envie</em> = not out of fear, but out of desire · <em>engendre</em> = produces (C1)" },
-    { label:"Point 2 — La bienveillance favorise une meilleure estime de soi", timing:"~1 min", nuance:false, wc:"~79 mots ✓",
+    { label:"Point 2 — La bienveillance favorise une meilleure estime de soi", timing:"~1 min", nuance:false, wc:"~79 mots ✓", audioFile:"posB_03.mp3",
       text:[
         `De plus, un enfant guidé par la bienveillance développe une meilleure estime de soi.`,
         `Sans la peur de la punition, l'enfant ose explorer, faire des erreurs et apprendre de ses expériences.`,
@@ -351,7 +359,7 @@ const scriptB = {
         `Par exemple, un enfant encouragé après un échec scolaire sera davantage motivé à persévérer qu'un enfant sanctionné. Ce qui signifie que <span class="hl-pink">la bienveillance favorise une confiance en soi durable et un épanouissement personnel plus profond,</span> ce qui lui sera utile tout au long de sa vie.`
       ],
       note:"💬 <em>oser + infinitif</em> = to dare to (C1) · <em>un échec scolaire</em> = academic failure · <em>persévérer</em> = to persevere" },
-    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~68 mots ✓",
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~68 mots ✓", audioFile:"posB_04.mp3",
       text:[
         `D'un autre côté, tous les enfants ne réagissent pas de la même façon à une éducation fondée sur la bienveillance.`,
         `Certains profils, notamment les enfants hyperactifs ou anxieux, ont besoin de limites claires pour se sentir en sécurité et fonctionner sereinement au quotidien.`,
@@ -363,9 +371,7 @@ const scriptB = {
         `<span class="hl-blue">Dans ces cas-là, une structure plus ferme peut s'avérer nécessaire pour aider l'enfant à s'épanouir.</span>`
       ],
       note:"💬 <em>s'avérer nécessaire</em> = to prove necessary (C1) · <em>sereinement</em> = calmly · <em>notamment</em> = particularly, especially" },
-    { label:"Conclusion", timing:"~50s", nuance:false,
-      text:[
-        `En conclusion, bien que certains enfants présentent certains besoins spécifiques, comme le besoin d'un cadre plus structuré, il n'en demeure pas moins que les avantages, comme la discipline intérieure naturelle et l'estime de soi, sont indéniables.`,
+    { label:"Conclusion", timing:"~50s", nuance:false, audioFile:"posB_05.mp3",, comme le besoin d'un cadre plus structuré, il n'en demeure pas moins que les avantages, comme la discipline intérieure naturelle et l'estime de soi, sont indéniables.`,
         `Il faudrait que les parents privilégient le dialogue et la bienveillance dans leur approche éducative.`,
         `Il serait souhaitable que les institutions scolaires forment les enseignants à ces méthodes afin que les enfants s'épanouissent pleinement.`,
         `Merci pour votre attention.`
@@ -380,66 +386,87 @@ const scriptB = {
   ]
 };
 
-// ── TTS ──────────────────────────────────────────────────────────────
-let currentUtterance = null;
-let currentBtn = null;
+// ── Audio player ─────────────────────────────────────────────────────
+const AUDIO_BASE = 'audio/autorite_education/';
+let currentAudio = null;
+let currentPlayBtn = null;
+let progressInterval = null;
 
-function stripHtml(html){
-  const d = document.createElement('div');
-  d.innerHTML = html;
-  return d.textContent || d.innerText || '';
+function stopCurrent(){
+  if(currentAudio){
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
+  if(currentPlayBtn){
+    currentPlayBtn.textContent = '▶ Écouter';
+    currentPlayBtn.classList.remove('playing');
+  }
+  if(progressInterval) clearInterval(progressInterval);
+  currentAudio = null;
+  currentPlayBtn = null;
+  progressInterval = null;
 }
 
-function speak(text, btn){
-  window.speechSynthesis.cancel();
-  if(currentBtn && currentBtn !== btn){
-    currentBtn.textContent = '🔊';
-    currentBtn.classList.remove('playing');
-  }
-  if(currentBtn === btn && !window.speechSynthesis.speaking){
-    currentBtn = null;
+function playBlock(src, btn, progressBar, timeEl){
+  // If same block is playing — stop it
+  if(currentPlayBtn === btn && !currentAudio.paused){
+    stopCurrent();
     return;
   }
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.lang = 'fr-FR';
-  utt.rate = 0.85;
+  stopCurrent();
 
-  // Pick best French voice if available
-  const voices = window.speechSynthesis.getVoices();
-  const frVoice = voices.find(v => v.lang.startsWith('fr') && v.localService) ||
-                  voices.find(v => v.lang.startsWith('fr'));
-  if(frVoice) utt.voice = frVoice;
+  const audio = new Audio(src);
+  currentAudio = audio;
+  currentPlayBtn = btn;
 
-  utt.onstart = () => {
-    btn.textContent = '⏹';
-    btn.classList.add('playing');
-    currentBtn = btn;
-    currentUtterance = utt;
+  btn.textContent = '⏹ Stop';
+  btn.classList.add('playing');
+
+  progressInterval = setInterval(() => {
+    if(!audio.duration) return;
+    const pct = (audio.currentTime / audio.duration) * 100;
+    progressBar.style.width = pct + '%';
+    const rem = Math.ceil(audio.duration - audio.currentTime);
+    timeEl.textContent = rem + 's';
+  }, 100);
+
+  audio.onended = () => {
+    progressBar.style.width = '100%';
+    setTimeout(() => { progressBar.style.width = '0%'; timeEl.textContent = ''; }, 400);
+    stopCurrent();
   };
-  utt.onend = utt.onerror = () => {
-    btn.textContent = '🔊';
+  audio.onerror = () => {
+    btn.textContent = '⚠ Fichier manquant';
     btn.classList.remove('playing');
-    if(currentBtn === btn) currentBtn = null;
+    stopCurrent();
   };
-  window.speechSynthesis.speak(utt);
+  audio.play();
 }
 
 // ── Card builder ─────────────────────────────────────────────────────
 function buildCard(s){
-  const blocks = s.blocks.map(b => {
-    const paras = b.textHtml.map((html, i) => {
-      const plain = stripHtml(b.text[i]);
-      return `<div class="para-wrap">
-        <p>${html}</p>
-        <button class="tts-btn" onclick="speak('${plain.replace(/'/g,"\\'")}', this)" title="Écouter">🔊</button>
+  const blocks = s.blocks.map((b, i) => {
+    const paras = b.textHtml.map(html => `<div class="para-wrap"><p>${html}</p></div>`).join('');
+    const audioFile = AUDIO_BASE + b.audioFile;
+    const uid = s.posKey + '_' + (i+1);
+    const audioPlayer = `
+      <div class="block-audio">
+        <button class="block-play-btn" id="btn_${uid}"
+          onclick="playBlock('${audioFile}', this, document.getElementById('bar_${uid}'), document.getElementById('time_${uid}'))">
+          ▶ Écouter
+        </button>
+        <div class="audio-progress" onclick="seekAudio(event, this)">
+          <div class="audio-progress-bar" id="bar_${uid}"></div>
+        </div>
+        <span class="audio-time" id="time_${uid}"></span>
       </div>`;
-    }).join('');
     return `
       <div class="block ${b.nuance?'block-nuance':''}">
         <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
         <div class="script-text">${paras}</div>
         ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
         ${b.wc   ? `<div class="wc">${b.wc}</div>` : ''}
+        ${audioPlayer}
       </div>`;
   }).join('');
 
@@ -450,20 +477,23 @@ function buildCard(s){
     </div>${blocks}</div>`;
 }
 
+function seekAudio(e, bar){
+  if(!currentAudio || !currentAudio.duration) return;
+  const rect = bar.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  currentAudio.currentTime = pct * currentAudio.duration;
+}
+
 document.getElementById('bothGrid').innerHTML  = buildCard(scriptA) + buildCard(scriptB);
 document.getElementById('posAGrid').innerHTML  = buildCard(scriptA);
 document.getElementById('posBGrid').innerHTML  = buildCard(scriptB);
-
-// Reload voices on mobile (iOS fires voiceschanged late)
-window.speechSynthesis.onvoiceschanged = () => {};
 
 function showTab(id, btn){
   document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
-  window.speechSynthesis.cancel();
-  if(currentBtn){ currentBtn.textContent='🔊'; currentBtn.classList.remove('playing'); currentBtn=null; }
+  stopCurrent();
 }
 </script>
 </body>
