@@ -122,7 +122,7 @@ function renderCats() {
     return `
       <button class="cat-pill ${activeCat === c.id ? 'active' : ''}" onclick="setCat('${c.id}')">
         <span class="dot" style="background:${c.color}"></span>
-        ${c.label} <span class="cnt">(${count})</span>
+        ${c.label} <span class="cnt">${count}</span>
       </button>`;
   }).join('');
 }
