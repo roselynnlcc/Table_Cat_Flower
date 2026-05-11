@@ -5,7 +5,8 @@ const TCF_QUESTIONS = [
     question: 'Selon certains, la vie rurale est plus bénéfique pour la santé que la vie urbaine. Quel est votre avis ?',
     scriptUrl: 'sante/urban_rural.html',
     date: '2025-05-05',
-    note: 'Deux positions. Exemples Calgary : Cochrane, Okotoks, Fish Creek.'
+    stars: 0,          // Gérez vos étoiles ici (0 à 3)
+    status: "À faire"     // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
   },
   {
     id: 2,
@@ -13,7 +14,8 @@ const TCF_QUESTIONS = [
     question: 'Partir vivre à l\'étranger est plus facile quand on est jeune. Qu\'en pensez-vous ?',
     scriptUrl: 'culture/vivre_etranger_jeune.html',
     date: '2025-05-06',
-    note: 'Deux positions. PVT Canada, ressources financières, expérience de vie.'
+    stars: 0,          // Gérez vos étoiles ici (0 à 3)
+    status: "À faire"     // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
   },
   {
     id: 3,
@@ -21,7 +23,8 @@ const TCF_QUESTIONS = [
     question: 'Pensez-vous que l\'on puisse être épanoui en vivant seul ? Pourquoi ?',
     scriptUrl: 'famille/epanoui_seul.html',
     date: '2025-05-06',
-    note: 'Deux positions. Solitude choisie vs subie. Indépendance émotionnelle vs soutien des proches.'
+    stars: 0,          // Gérez vos étoiles ici (0 à 3)
+    status: "À faire"     // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
   },
   {
     id: 4,
@@ -29,7 +32,8 @@ const TCF_QUESTIONS = [
     question: 'Selon vous, doit-on protéger tous les animaux en voie de disparition ? Pourquoi ?',
     scriptUrl: 'environnement/animaux_disparition.html',
     date: '2025-05-06',
-    note: 'Deux positions. Chaîne alimentaire, irréversibilité, espèces invasives, espèces clés.'
+    stars: 0,          // Gérez vos étoiles ici (0 à 3)
+    status: "À faire"     // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
   },
   {
     id: 5,
@@ -37,7 +41,8 @@ const TCF_QUESTIONS = [
     question: 'Les universités doivent accepter tous les étudiants sans processus de sélection. Partagez-vous cette opinion ?',
     scriptUrl: 'education/selection_universitaire.html',
     date: '2025-05-07',
-    note: 'Deux positions. Égalité des chances vs qualité de l\'enseignement. Ressources limitées, taux d\'échec, méritocratie.'
+    stars: 0,          // Gérez vos étoiles ici (0 à 3)
+    status: "À faire"     // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
   },
   {
     id: 6,
@@ -45,7 +50,8 @@ const TCF_QUESTIONS = [
     question: 'La présence de caméras dans les lieux publics améliore la sécurité des personnes. Êtes-vous d\'accord ?',
     scriptUrl: 'technologie/cameras_securite.html',
     date: '2025-05-07',
-    note: 'Deux positions. Résolution des crimes, dissuasion vs libertés fondamentales, coût/bénéfice.'
+    stars: 0,          // Gérez vos étoiles ici (0 à 3)
+    status: "À faire"  // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
   },
   {
     id: 7,
@@ -53,7 +59,8 @@ const TCF_QUESTIONS = [
     question: 'Il y a des parents qui décident de s\'occuper eux-mêmes de l\'éducation de leurs enfants à la maison. Quel est votre avis ?',
     scriptUrl: 'education/homeschool.html',
     date: '2025-05-08',
-    note: 'Deux positions. Apprentissage personnalisé, lien parent-enfant vs socialisation, expertise pédagogique.'
+    stars: 0,          // Gérez vos étoiles ici (0 à 3)
+    status: "À faire"  // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
   },
   {
     id: 8,
@@ -61,7 +68,8 @@ const TCF_QUESTIONS = [
     question: 'De nombreuses personnes n\'apprécient pas de voyager seuls. Partagez-vous cette opinion ? Pourquoi ?',
     scriptUrl: 'culture/voyage_solo.html',
     date: '2026-05-09',
-    note: 'Deux positions. Pos B (facile) : liberté totale + rencontres authentiques. Pos A : sécurité + manque de partage.'
+    stars: 0,          // Gérez vos étoiles ici (0 à 3)
+    status: "À faire"  // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
   },
   {
   id: 9,
@@ -69,8 +77,7 @@ const TCF_QUESTIONS = [
   question: 'Les ONG et les associations sont-elles les seules capables d\'aider les personnes pauvres ? Qu\'en pensez-vous ?',
   scriptUrl: 'economique/ong_pauvrete.html',
   date: '2026-05-10',
-  note: 'Deux positions. Pos B (facile) : rôle de l\'État + entreprises. Pos A : expertise ONG + lien de confiance.',
-  posA: "Expertise de terrain et lien de confiance unique.",
-  posB: "Ressources de l'État et création d'emplois par les entreprises."
+  stars: 0,          // Gérez vos étoiles ici (0 à 3)
+  status: "À faire"  // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
   }
 ];
