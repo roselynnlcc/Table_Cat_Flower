@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Salaire et motivation</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --amber:#92400e;--amber-bg:#fef3c7;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;}
+  .script-text p:last-child{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .hl-p2{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+  .single-view .script-card{max-width:620px;margin:0 auto;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-prep{font-size:11px;color:#7a5230;background:#fef3c7;border-radius:4px;padding:1px 5px;margin-left:4px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Tâche 3</span></h1>
+  <div class="question-title">Les employés sont-ils surtout motivés par leur salaire ? Pourquoi ?</div>
+</header>
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Motivation et travail ★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la motivation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">motivation</span></div>
+          <div class="wl-row"><span class="wl-fr">la rémunération <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">pay, remuneration (féminin !)</span></div>
+          <div class="wl-row"><span class="wl-fr">l'épanouissement professionnel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">professional fulfilment</span></div>
+          <div class="wl-row"><span class="wl-fr">la vocation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">vocation, calling</span></div>
+          <div class="wl-row"><span class="wl-fr">le dévouement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">dedication, devotion</span></div>
+          <div class="wl-row"><span class="wl-fr">la reconnaissance sociale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">social recognition</span></div>
+          <div class="wl-row"><span class="wl-fr">le désengagement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">disengagement (from work)</span></div>
+          <div class="wl-row"><span class="wl-fr">la stagnation professionnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">career stagnation</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Conditions et environnement</div>
+          <div class="wl-row"><span class="wl-fr">les perspectives d'évolution <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">career prospects / growth opportunities</span></div>
+          <div class="wl-row"><span class="wl-fr">la sécurité financière <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">financial security</span></div>
+          <div class="wl-row"><span class="wl-fr">le pouvoir d'achat <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">purchasing power</span></div>
+          <div class="wl-row"><span class="wl-fr">le sens du travail <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">meaning / purpose at work</span></div>
+          <div class="wl-row"><span class="wl-fr">le quiet quitting <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">quiet quitting (doing the bare minimum)</span></div>
+          <div class="wl-row"><span class="wl-fr">l'autonomie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">autonomy, independence at work</span></div>
+          <div class="wl-row"><span class="wl-fr">le seuil de subsistance <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">subsistence threshold / living wage floor</span></div>
+          <div class="wl-row"><span class="wl-fr">la fidélisation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">retention (of employees)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs — relative pronoun in yellow</div>
+        <div class="wl-row"><span class="wl-fr">motiver <em>(qqn)</em><span class="wl-star">★</span></span><span class="wl-en">to motivate — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">se consacrer <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to dedicate oneself to<span class="wl-prep">auquel / à laquelle</span></span></div>
+        <div class="wl-row"><span class="wl-fr">aspirer <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to aspire to<span class="wl-prep">auquel / à laquelle</span></span></div>
+        <div class="wl-row"><span class="wl-fr">dépasser <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to go beyond — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">maintenir <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to maintain, to sustain — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">s'épanouir <em>(dans)</em><span class="wl-star">★</span></span><span class="wl-en">to flourish, to thrive (in)<span class="wl-prep">dans lequel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">favoriser <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to foster, to promote — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">négliger <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to neglect, to overlook — no prep<span class="wl-prep">que</span></span></div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectives</div>
+        <div class="wl-row"><span class="wl-fr">tangible<span class="wl-star">★</span></span><span class="wl-en">tangible, concrete</span></div>
+        <div class="wl-row"><span class="wl-fr">durable<span class="wl-star">★</span></span><span class="wl-en">lasting, sustainable</span></div>
+        <div class="wl-row"><span class="wl-fr">insuffisant<span class="wl-star">★</span></span><span class="wl-en">insufficient, not enough</span></div>
+        <div class="wl-row"><span class="wl-fr">indispensable<span class="wl-star">★</span></span><span class="wl-en">essential, indispensable</span></div>
+        <div class="wl-row"><span class="wl-fr">dévoué<span class="wl-star">★</span></span><span class="wl-en">dedicated, devoted</span></div>
+        <div class="wl-row"><span class="wl-fr">engagé<span class="wl-star">★</span></span><span class="wl-en">committed, engaged</span></div>
+        <div class="wl-row"><span class="wl-fr">irremplaçable<span class="wl-star">★</span></span><span class="wl-en">irreplaceable</span></div>
+        <div class="wl-row"><span class="wl-fr">décent<span class="wl-star">★</span></span><span class="wl-en">decent, adequate (salary, conditions)</span></div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paire contrastée</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">NON — la motivation va au-delà du salaire</div>
+          <div class="contrast-item">les perspectives d'évolution fidélisent mieux que le salaire</div>
+          <div class="contrast-item">le quiet quitting touche des employés bien rémunérés sans vision</div>
+          <div class="contrast-item">les infirmiers et pompiers se consacrent à leur métier par vocation</div>
+          <div class="contrast-item">la reconnaissance sociale compense un salaire insuffisant</div>
+          <div class="contrast-item">le sens du travail est une aspiration auxquels le salaire ne répond pas</div>
+          <div class="contrast-item">l'épanouissement professionnel dépasse la simple rémunération</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">OUI — le salaire reste le moteur principal</div>
+          <div class="contrast-item">40 % des candidats écartent une offre sans salaire affiché</div>
+          <div class="contrast-item">le salaire couvre les besoins fondamentaux irremplaçables</div>
+          <div class="contrast-item">sans sécurité financière, aucune autre motivation ne tient</div>
+          <div class="contrast-item">les employés changent d'entreprise principalement pour mieux gagner</div>
+          <div class="contrast-item">le salaire est la forme de reconnaissance la plus universelle</div>
+          <div class="contrast-item">le SMIC comme plancher légal reflète l'importance du revenu minimum</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">les perspectives d'évolution auxquelles les employés aspirent sont souvent plus déterminantes que le salaire</div>
+          <div class="chunk-en">the career prospects employees aspire to are often more decisive than salary</div>
+          <div class="chunk-note">auxquelles + aspirer à — relative C1 · argument clé Position B Point 1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">le quiet quitting touche principalement des employés dont la rémunération est correcte mais qui ne voient aucune perspective d'évolution</div>
+          <div class="chunk-en">quiet quitting mainly affects employees whose pay is fine but who see no career growth</div>
+          <div class="chunk-note">dont + rémunération — pronom relatif C1 · exemple ancré Position B Point 1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">des métiers auxquels on se consacre par vocation, comme les infirmiers ou les pompiers, prouvent que la motivation dépasse largement la question salariale</div>
+          <div class="chunk-en">vocational jobs like nursing or firefighting prove that motivation goes far beyond salary</div>
+          <div class="chunk-note">auxquels + se consacrer à — double relative C1 · argument clé Position B Point 2</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">le salaire constitue le socle sans lequel aucune autre forme de motivation ne peut véritablement s'épanouir</div>
+          <div class="chunk-en">salary is the foundation without which no other form of motivation can truly flourish</div>
+          <div class="chunk-note">sans lequel — relative C1 · parfait pour la nuance Position B</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que la rémunération soit une condition nécessaire, elle ne suffit pas à elle seule à maintenir l'engagement des employés sur le long terme</div>
+          <div class="chunk-en">although pay is a necessary condition, it alone is not enough to sustain employee engagement long-term</div>
+          <div class="chunk-note">bien que + subjonctif — structure C1 · conclusion ou nuance</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il serait souhaitable que les employeurs investissent dans les perspectives d'évolution et la reconnaissance de leurs employés, et pas seulement dans leur rémunération</div>
+          <div class="chunk-en">it would be desirable for employers to invest in career growth and recognition, not just in pay</div>
+          <div class="chunk-note">subjonctif après il serait souhaitable que — signal C1 · parfait en conclusion</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptA = {
+  header: "Oui, le salaire est la motivation principale",
+  headerClass:"card-header-blue", titleClass:"card-title-blue",
+  badge:"Plus ardu", badgeClass:"badge-hard",
+  blocks:[
+    { label:"Introduction", timing:"~40s", nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C&#39;est un sujet tr&#232;s int&#233;ressant, car il est l&#233;gitime de se demander si les employ&#233;s sont surtout motiv&#233;s par leur salaire, et les avis sont divergents.</p>
+<p>Personnellement, cela d&#233;pend de la situation de chacun. Mais, &#224; mon sens, je crois que <span class="hl-pink">le salaire est effectivement le principal moteur de la motivation des employ&#233;s,</span> &#224; un certain point.</p>
+<p>Alors, je vais expliquer mes raisons.</p>`, note:"" },
+    { label:"Point 1 \u2014 Le salaire comme condition fondamentale", timing:"~1 min", nuance:false, wc:"~79 mots \u2713",
+      text:`<p>Tout d&#39;abord, force est de constater que <span class="hl-pink">le salaire r&#233;pond aux besoins les plus fondamentaux de l&#39;&#234;tre humain &#8212; le logement, l&#39;alimentation, la sant&#233; &#8212; sans lesquels aucune autre forme de motivation ne peut fonctionner.</span> Le psychologue Abraham Maslow l&#39;a d&#233;montr&#233; d&#232;s 1943 : la s&#233;curit&#233; financi&#232;re constitue la base de sa pyramide des besoins, et sans ce socle, un employ&#233; ne peut pas aspirer &#224; l&#39;accomplissement ou &#224; la reconnaissance. <span class="hl-pink">En d&#39;autres termes, avant de parler de sens ou d&#39;&#233;panouissement, il faut d&#39;abord pouvoir payer son loyer.</span></p>`,
+      note:"force est de constater = one cannot deny \u00b7 la pyramide de Maslow = r&#233;f&#233;rence universelle \u00b7 aspirer &#224; = to aspire to \u00b7 un socle = a foundation" },
+    { label:"Point 2 \u2014 La mobilit&#233; professionnelle guid&#233;e par le salaire", timing:"~1 min", nuance:false, wc:"~77 mots \u2713",
+      text:`<p>En plus, <span class="hl-pink">la principale raison pour laquelle les employ&#233;s quittent une entreprise est une meilleure offre salariale ailleurs &#8212; ce qui prouve que le salaire reste le premier levier de la motivation au travail.</span> &#192; titre d&#39;illustration, dans des secteurs comp&#233;titifs comme la technologie ou la finance, les entreprises se livrent une v&#233;ritable guerre des talents, o&#249; les augmentations de salaire constituent l&#39;argument le plus efficace pour attirer et retenir les profils qualifi&#233;s. <span class="hl-pink">De ce fait, ignorer le salaire comme moteur principal serait nier la r&#233;alit&#233; du march&#233; du travail.</span></p>`,
+      note:"se livrer une guerre des talents = to compete fiercely for talent \u00b7 &#224; titre d&#39;illustration = as an illustration \u00b7 de ce fait = therefore \u00b7 retenir = to retain" },
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~67 mots \u2713",
+      text:`<p>Ceci dit, il est certes vrai que <span class="hl-blue">au-del&#224; d&#39;un certain seuil de revenu, une augmentation suppl&#233;mentaire n&#39;am&#233;liore plus la motivation de fa&#231;on significative.</span> Des &#233;tudes en psychologie du travail montrent que, une fois les besoins essentiels couverts, d&#39;autres facteurs &#8212; comme l&#39;autonomie, la reconnaissance ou le sens du travail &#8212; prennent le relais. <span class="hl-blue">Pour autant, cela ne remet pas en cause le r&#244;le central du salaire : il reste le point de d&#233;part incontournable de toute motivation durable.</span></p>`,
+      note:"au-del&#224; d&#39;un certain seuil = beyond a certain threshold \u00b7 prendre le relais = to take over \u00b7 remettre en cause = to call into question \u00b7 incontournable = unavoidable" },
+    { label:"Conclusion", timing:"~50s", nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">la saturation salariale au-del&#224; d&#39;un certain niveau pr&#233;sente certaines limites, notamment le fait que d&#39;autres facteurs finissent par prendre le relais,</span> il n&#39;en demeure pas moins que les avantages du salaire comme moteur principal, comme son r&#244;le de socle fondamental et premier levier de mobilit&#233; professionnelle, sont ind&#233;niables.</p>
+<p>Tout bien consid&#233;r&#233;, il serait souhaitable que <span class="hl-p1">les employeurs proposent des r&#233;mun&#233;rations justes et comp&#233;titives avant de miser sur d&#39;autres formes de motivation</span> / <span class="hl-p2">les entreprises reconnaissent que sans une r&#233;mun&#233;ration d&#233;cente, aucune politique de bien-&#234;tre au travail ne peut porter ses fruits.</span></p>
+<p>Merci pour votre attention.</p>`, note:"" }
+  ]
+};
+
+const scriptB = {
+  header: "Non, la motivation va au-del&#224; du salaire",
+  headerClass:"card-header-green", titleClass:"card-title-green",
+  badge:"Plus facile &#224; d&#233;fendre", badgeClass:"badge-easy",
+  blocks:[
+    { label:"Introduction", timing:"~40s", nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C&#39;est un sujet tr&#232;s int&#233;ressant, car il est l&#233;gitime de se demander si les employ&#233;s sont surtout motiv&#233;s par leur salaire, et les avis sont divergents.</p>
+<p>Personnellement, cela d&#233;pend de la situation de chacun. Mais, &#224; mon sens, je crois que <span class="hl-pink">la motivation des employ&#233;s va bien au-del&#224; de la simple r&#233;mun&#233;ration,</span> &#224; un certain point.</p>
+<p>Alors, je vais expliquer mes raisons.</p>`, note:"" },
+    { label:"Point 1 \u2014 \u00c9panouissement et perspectives d&#39;&#233;volution", timing:"~1 min", nuance:false, wc:"~78 mots \u2713",
+      text:`<p>Tout d&#39;abord, il convient de souligner que <span class="hl-pink">les perspectives d&#39;&#233;volution auxquelles les employ&#233;s aspirent sont souvent plus d&#233;terminantes que le salaire pour maintenir leur engagement sur le long terme.</span> En effet, un employ&#233; bien pay&#233;, mais qui ne voit aucune progression possible, finit par se d&#233;sengager progressivement. C&#39;est ce que le ph&#233;nom&#232;ne du <em>quiet quitting</em> illustre parfaitement : des travailleurs dont la r&#233;mun&#233;ration est correcte, mais qui font strictement le minimum parce qu&#39;ils ne se sentent ni valoris&#233;s ni reconnus dans leur &#233;volution.</p>`,
+      note:"aspirer &#224; = to aspire to \u00b7 auxquelles = relative C1 \u00b7 le quiet quitting = faire le strict minimum \u00b7 se d&#233;sengager = to disengage \u00b7 dont la r&#233;mun&#233;ration = whose pay" },
+    { label:"Point 2 \u2014 Le sens du travail et la vocation", timing:"~1 min", nuance:false, wc:"~76 mots \u2713",
+      text:`<p>En plus, <span class="hl-pink">il existe des m&#233;tiers auxquels on se consacre par vocation, et non par int&#233;r&#234;t financier &#8212; preuve que la motivation d&#233;passe largement la question salariale.</span> Prenons le cas des infirmiers et des pompiers : durant la pand&#233;mie de 2020, des milliers de soignants en France ont continu&#233; &#224; travailler dans des conditions extr&#234;mes, malgr&#233; une r&#233;mun&#233;ration jug&#233;e insuffisante. <span class="hl-pink">C&#39;est le d&#233;vouement et la reconnaissance sociale gr&#226;ce &#224; laquelle ces professionnels trouvaient un sens profond &#224; leur travail qui les retenait, pas leur fiche de paie.</span></p>`,
+      note:"se consacrer &#224; = to dedicate oneself to \u00b7 auxquels = relative C1 \u00b7 la vocation = calling \u00b7 le d&#233;vouement = dedication \u00b7 gr&#226;ce &#224; laquelle = relative C1" },
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~68 mots \u2713",
+      text:`<p>Ceci dit, il est certes vrai que <span class="hl-blue">le salaire constitue le socle sans lequel aucune autre forme de motivation ne peut v&#233;ritablement s&#39;&#233;panouir.</span> Un employ&#233; qui ne gagne pas suffisamment pour maintenir une qualit&#233; de vie d&#233;cente ne peut pas se concentrer sur son &#233;panouissement professionnel ou le sens de son travail. <span class="hl-blue">Pour autant, il est peu probable qu&#39;un employ&#233; reste durablement motiv&#233; si les perspectives d&#39;&#233;volution et la reconnaissance font d&#233;faut, m&#234;me si la r&#233;mun&#233;ration est &#233;lev&#233;e.</span></p>`,
+      note:"sans lequel = without which (relative C1) \u00b7 s&#39;&#233;panouir = to flourish \u00b7 faire d&#233;faut = to be lacking \u00b7 pour autant = nevertheless" },
+    { label:"Conclusion", timing:"~50s", nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">la r&#233;mun&#233;ration constitue un socle indispensable, notamment pour assurer la s&#233;curit&#233; financi&#232;re et maintenir le pouvoir d&#39;achat,</span> il n&#39;en demeure pas moins que les avantages d&#39;une motivation plus profonde, comme l&#39;&#233;panouissement professionnel et le sens du travail, sont ind&#233;niables.</p>
+<p>Tout bien consid&#233;r&#233;, il serait souhaitable que <span class="hl-p1">les employeurs investissent davantage dans les perspectives d&#39;&#233;volution et la reconnaissance de leurs employ&#233;s, et pas seulement dans leur r&#233;mun&#233;ration</span> / <span class="hl-p2">les entreprises adoptent une vision globale de la motivation, en combinant une r&#233;mun&#233;ration juste avec des conditions de travail qui favorisent l&#39;&#233;panouissement et le sens.</span></p>
+<p>Merci pour votre attention.</p>`, note:"" }
+  ]
+};
+
+function buildCard(s){
+  const blocks=s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${b.text}</div>
+      ${b.note?`<div class="en-note">${b.note}</div>`:''}
+      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+    </div>`).join('');
+  return`<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;}
+
+document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
+document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
+document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');}
+
+</script>
+</body>
+</html>
