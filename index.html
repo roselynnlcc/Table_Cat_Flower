@@ -8,81 +8,64 @@
 <script src="questions.js"></script>
 <style>
   :root {
-    --bg:#f7f4f0;--surface:#fff;--border:#e8e0d8;
+    --bg:#f7f4f0;--surface:#fff;--surface2:#f2ede8;--border:#e8e0d8;
     --text:#1e1a16;--text-soft:#6b5f55;--text-muted:#a89888;
     --accent:#c8703a;--radius:14px;--radius-sm:8px;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding-bottom:40px;}
 
-  .header{background:var(--text);padding:20px;position:sticky;top:0;z-index:100;color:#fff;}
+  /* Header & Navigation */
+  .header{background:var(--text);padding:20px 20px 16px;position:sticky;top:0;z-index:100;color:#fff;}
   .header h1{font-family:'Fraunces',serif;font-size:20px;font-weight:300;}
   .header em{color:var(--accent);font-style:italic;}
 
+  .cat-scroll{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .cat-scroll::-webkit-scrollbar{display:none;}
+  .cat-pills{display:flex;gap:8px;width:max-content;}
+  .cat-pill{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:13px;color:var(--text-soft);cursor:pointer;transition:all .15s;white-space:nowrap;}
+  .cat-pill.active{border-color:var(--accent);background:var(--accent-bg);color:var(--accent);font-weight:600;}
+  .cat-pill .dot{width:8px;height:8px;border-radius:50%;}
+
+  .toolbar{padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;justify-content:center;}
+  .search-input{width:100%;max-width:670px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;}
+
+  /* Cards Layout */
   .cards-wrap{padding:16px;display:flex;flex-direction:column;gap:16px;max-width:700px;margin:0 auto;}
   .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);}
   
   .q-card-top{padding:16px;display:flex;flex-direction:column;gap:8px;}
-  
-  /* Catégorie Badge */
-  .cat-badge {
-    display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 12px;
-    font-size: 11px; font-weight: 600; width: fit-content;
-  }
-
-  .q-text{font-size:14px; font-weight: 600; line-height: 1.5; color: var(--text);}
+  .cat-badge {display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 12px; font-size: 11px; font-weight: 600;}
+  .q-text{font-size:14px; font-weight: 600; line-height: 1.5;}
 
   .q-card-body{display:none;padding:0 16px 16px;}
   .q-card-body.open{display:block;}
 
-  /* Design des points (Style Script) */
-  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom:16px; margin-top: 10px;}
+  /* Paire Contrastée Styles */
+  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
   @media (max-width: 600px) { .contrast-grid { grid-template-columns: 1fr; } }
   
-  .contrast-card { border-radius: var(--radius-sm); border: 1px solid var(--border); overflow: hidden; background: #fff; }
-  
-  /* Couleurs de fond légères pour les colonnes */
-  .card-pos-a { background-color: #f4faf7; } /* Vert menthe très pâle */
-  .card-pos-b { background-color: #f5f9ff; } /* Bleu ciel très pâle */
+  .contrast-card { border-radius: var(--radius-sm); border: 1px solid var(--border); overflow: hidden; }
+  .card-pos-a { background-color: #f4faf7; } 
+  .card-pos-b { background-color: #f5f9ff; }
 
   .contrast-header { padding: 6px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid var(--border); }
   .contrast-header.pos-a { background: #eaf4ef; color: #2d6a4f; }
   .contrast-header.pos-b { background: #e8f2ff; color: #185fa5; }
   
-  .contrast-item { 
-    padding: 8px 10px; 
-    font-size: 14px; /* Points plus grands */
-    border-bottom: 1px solid rgba(0,0,0,0.03); 
-    line-height: 1.4;
-    display: flex;
-    gap: 8px;
-  }
+  .contrast-item { padding: 8px 10px; font-size: 14px; border-bottom: 1px solid rgba(0,0,0,0.03); line-height: 1.4; display: flex; gap: 8px; }
   .contrast-item::before { content: "•"; color: var(--accent); font-weight: bold; flex-shrink: 0; }
-  .contrast-item:last-child { border-bottom: none; }
 
-  /* Barre de contrôle */
-  .q-controls {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-top: 12px; border-top: 1px solid var(--border);
-  }
-  .ctrl-left { display: flex; align-items: center; gap: 12px; }
+  /* Controls */
+  .q-controls { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
   .stars { color: #f59e0b; font-size: 16px; letter-spacing: 2px; }
-  .status-badge { 
-    font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px;
-    background: var(--bg); color: var(--text-soft); border: 1px solid var(--border);
-  }
+  .status-badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: var(--bg); color: var(--text-soft); border: 1px solid var(--border); }
   .status-Prêt { background: #eaf4ef; color: #2d6a4f; border-color: #c2e0d1; }
   .status-Maîtrisé { background: #2d6a4f; color: #fff; border-color: #2d6a4f; }
 
-  .script-link {
-    font-size: 13px; font-weight: 600; color: var(--accent); text-decoration: none;
-    padding: 6px 12px; background: #fdf0e8; border-radius: 6px; border: 1px solid #f0c8a8;
-  }
-
-  .expand-btn {
-    width: 100%; padding: 10px; background: none; border: none; border-top: 1px solid var(--border);
-    font-size: 12px; color: var(--text-muted); cursor: pointer;
-  }
+  .script-link { font-size: 13px; font-weight: 600; color: var(--accent); text-decoration: none; padding: 6px 12px; background: #fdf0e8; border-radius: 6px; border: 1px solid #f0c8a8; }
+  .expand-btn { width: 100%; padding: 10px; background: none; border: none; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); cursor: pointer; }
+  .empty { text-align: center; padding: 40px; color: var(--text-muted); font-style: italic; }
 </style>
 </head>
 <body>
@@ -91,51 +74,81 @@
   <h1>TCF Canada — <em>Tâche 3</em></h1>
 </header>
 
+<div class="cat-scroll">
+  <div class="cat-pills" id="catPills"></div>
+</div>
+
+<div class="toolbar">
+  <input class="search-input" type="text" id="searchBox" placeholder="Rechercher une question…" oninput="render()">
+</div>
+
 <div class="cards-wrap" id="cardsWrap"></div>
+<div id="emptyState" class="empty" style="display:none;">Aucune question trouvée.</div>
 
 <script>
-const CAT_INFO = {
-  'education': {label:'Éducation', color:'#2563eb', bg:'#eff6ff'},
-  'famille': {label:'Famille', color:'#dc2626', bg:'#fff5f5'},
-  'culture': {label:'Culture', color:'#7c3aed', bg:'#f5f0ff'},
-  'sante': {label:'Santé', color:'#0891b2', bg:'#f0fafe'},
-  'technologie': {label:'Technologie', color:'#d97706', bg:'#fffbeb'},
-  'environnement': {label:'Environnement', color:'#16a34a', bg:'#f0fdf4'},
-  'economique': {label:'Économique', color:'#be185d', bg:'#fdf2f8'}
-};
+const CATS = [
+  {id:'all', label:'Toutes', color:'#c8703a', bg:'#fdf0e8'},
+  {id:'education', label:'Éducation', color:'#2563eb', bg:'#eff6ff'},
+  {id:'famille', label:'Famille', color:'#dc2626', bg:'#fff5f5'},
+  {id:'culture', label:'Culture', color:'#7c3aed', bg:'#f5f0ff'},
+  {id:'sante', label:'Santé', color:'#0891b2', bg:'#f0fafe'},
+  {id:'technologie',label:'Technologie', color:'#d97706', bg:'#fffbeb'},
+  {id:'environnement',label:'Environnement',color:'#16a34a',bg:'#f0fdf4'},
+  {id:'economique', label:'Économique', color:'#be185d', bg:'#fdf2f8'}
+];
+
+let activeCat = 'all';
+
+function renderCats() {
+  const container = document.getElementById('catPills');
+  container.innerHTML = CATS.map(c => `
+    <button class="cat-pill ${activeCat === c.id ? 'active' : ''}" onclick="setCat('${c.id}')">
+      <span class="dot" style="background:${c.color}"></span>${c.label}
+    </button>
+  `).join('');
+}
+
+function setCat(id) {
+  activeCat = id;
+  renderCats();
+  render();
+}
 
 function render() {
+  const search = document.getElementById('searchBox').value.toLowerCase();
   const wrap = document.getElementById('cardsWrap');
-  wrap.innerHTML = TCF_QUESTIONS.slice().reverse().map(q => {
-    const starsCount = q.stars || 0;
-    const currentStatus = q.status || "À faire";
-    const starHTML = "★".repeat(starsCount) + "☆".repeat(3 - starsCount);
-    const cat = CAT_INFO[q.cat] || {label: q.cat, color: '#666', bg: '#eee'};
+  
+  const filtered = TCF_QUESTIONS.slice().reverse().filter(q => 
+    (activeCat === 'all' || q.cat === activeCat) &&
+    q.question.toLowerCase().includes(search)
+  );
+
+  document.getElementById('emptyState').style.display = filtered.length ? 'none' : 'block';
+
+  wrap.innerHTML = filtered.map(q => {
+    const stars = q.stars || 0;
+    const status = q.status || "À faire";
+    const cat = CATS.find(c => c.id === q.cat) || CATS[0];
     
     return `
       <div class="q-card">
         <div class="q-card-top">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <span class="cat-badge" style="background:${cat.bg}; color:${cat.color};">
-              ${cat.label}
-            </span>
+            <span class="cat-badge" style="background:${cat.bg}; color:${cat.color};">${cat.label}</span>
             <span style="font-size:11px; color:var(--text-muted);">${q.date || '—'}</span>
           </div>
           <div class="q-text">${q.question}</div>
         </div>
-  
         <div class="q-card-body" id="body-${q.id}">
           <div class="paire-display" id="paire-display-${q.id}"></div>
-          
           <div class="q-controls">
             <div class="ctrl-left">
-              <span class="stars">${starHTML}</span>
-              <span class="status-badge status-${currentStatus.replace(/\s/g, '')}">${currentStatus}</span>
+              <span class="stars">${"★".repeat(stars)}${"☆".repeat(3-stars)}</span>
+              <span class="status-badge status-${status.replace(/\s/g, '')}">${status}</span>
             </div>
             ${q.scriptUrl ? `<a href="${q.scriptUrl}" class="script-link">Voir le script →</a>` : ''}
           </div>
         </div>
-
         <button class="expand-btn" onclick="toggleCard(${q.id})">
           <span id="arr-${q.id}">▼ Détails</span>
         </button>
@@ -152,37 +165,28 @@ async function toggleCard(id) {
   if (isOpen) {
     const q = TCF_QUESTIONS.find(item => item.id === id);
     const container = document.getElementById(`paire-display-${id}`);
-    
     if (q && q.scriptUrl && container.innerHTML === "") {
-      container.innerHTML = "<small style='color:var(--text-muted)'>Chargement des arguments...</small>";
+      container.innerHTML = "<small style='color:var(--text-muted)'>Chargement...</small>";
       try {
         const response = await fetch(q.scriptUrl);
         const html = await response.text();
         const doc = new DOMParser().parseFromString(html, 'text/html');
         const cards = doc.querySelectorAll('.contrast-card');
-        
         if (cards.length >= 2) {
-          const buildSection = (card, colorClass, bgClass) => {
+          const build = (card, colorClass, bgClass) => {
             const title = card.querySelector('.contrast-header').innerText;
             const items = Array.from(card.querySelectorAll('.contrast-item'))
-                               .map(i => `<div class="contrast-item"><span>${i.innerText}</span></div>`).join('');
-            return `<div class="contrast-card ${bgClass}">
-                      <div class="contrast-header ${colorClass}">${title}</div>
-                      ${items}
-                    </div>`;
+                               .map(i => `<div class="contrast-item">${i.innerText}</div>`).join('');
+            return `<div class="contrast-card ${bgClass}"><div class="contrast-header ${colorClass}">${title}</div>${items}</div>`;
           };
-
-          container.innerHTML = `
-            <div class="contrast-grid">
-              ${buildSection(cards[0], 'pos-a', 'card-pos-a')}
-              ${buildSection(cards[1], 'pos-b', 'card-pos-b')}
-            </div>`;
+          container.innerHTML = `<div class="contrast-grid">${build(cards[0], 'pos-a', 'card-pos-a')}${build(cards[1], 'pos-b', 'card-pos-b')}</div>`;
         }
       } catch (e) { container.innerHTML = ""; }
     }
   }
 }
 
+renderCats();
 render();
 </script>
 </body>
