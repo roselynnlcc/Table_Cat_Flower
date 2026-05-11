@@ -86,7 +86,16 @@ const TCF_QUESTIONS = [
   question: 'Les employés sont-ils surtout motivés par leur salaire ? Pourquoi ?',
   scriptUrl: 'economique/salaire_motivation.html',
   date: '2026-05-10',
-  stars: 0,
+  stars: 2,
   status: "À faire"
-  }
+  },
+  {
+  id: 11,
+  cat: 'famille',
+  question: 'Pensez-vous que l\'autorité soit indispensable pour bien éduquer les enfants ? Justifiez votre point de vue.',
+  scriptUrl: 'famille/autorite_education.html',
+  date: '2026-05-11',
+  stars: 2,
+  status: "Prêt"
+}
 ];
