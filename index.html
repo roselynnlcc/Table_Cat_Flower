@@ -197,11 +197,14 @@ function render() {
           <div class="q-text" style="font-weight: 600; font-size: 15px;">${q.question}</div>
         </div>
   
-        // Dans render()
-      <div class="q-card-body ${q.open?'open':''}" id="body-${q.id}">
-        <div class="paire-display" id="paire-display-${q.id}"></div> ${link}
-        ...
-      </div>
+        <div class="q-card-body ${q.open?'open':''}" id="body-${q.id}">
+          <div class="paire-display" id="paire-display-${q.id}" style="margin-bottom:12px;"></div>
+          ${link}
+        </div>
+
+        <button class="expand-btn" onclick="toggleCard(${q.id})">
+          <span id="arr-${q.id}">${q.open?'▲ Réduire':'▼ Détails'}</span>
+        </button>
       </div>`;
   }).join('');
 }
