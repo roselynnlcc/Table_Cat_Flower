@@ -23,47 +23,54 @@
   .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);}
   
   .q-card-top{padding:16px;display:flex;flex-direction:column;gap:8px;}
-  .q-text{font-size:16px;font-weight:600;line-height:1.4;}
+  
+  /* Catégorie Badge */
+  .cat-badge {
+    display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 12px;
+    font-size: 11px; font-weight: 600; width: fit-content;
+  }
+
+  .q-text{font-size:14px; font-weight: 600; line-height: 1.5; color: var(--text);}
 
   .q-card-body{display:none;padding:0 16px 16px;}
   .q-card-body.open{display:block;}
 
   /* Design des points (Style Script) */
-  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom:16px; }
+  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom:16px; margin-top: 10px;}
   @media (max-width: 600px) { .contrast-grid { grid-template-columns: 1fr; } }
   
-  .contrast-card { background: #fff; border-radius: var(--radius-sm); border: 1px solid var(--border); overflow: hidden; }
+  .contrast-card { border-radius: var(--radius-sm); border: 1px solid var(--border); overflow: hidden; background: #fff; }
+  
+  /* Couleurs de fond légères pour les colonnes */
+  .card-pos-a { background-color: #f4faf7; } /* Vert menthe très pâle */
+  .card-pos-b { background-color: #f5f9ff; } /* Bleu ciel très pâle */
+
   .contrast-header { padding: 6px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid var(--border); }
   .contrast-header.pos-a { background: #eaf4ef; color: #2d6a4f; }
   .contrast-header.pos-b { background: #e8f2ff; color: #185fa5; }
   
   .contrast-item { 
     padding: 8px 10px; 
-    font-size: 14px; /* +2 unit */
-    border-bottom: 1px solid #f0f0f0; 
+    font-size: 14px; /* Points plus grands */
+    border-bottom: 1px solid rgba(0,0,0,0.03); 
     line-height: 1.4;
     display: flex;
     gap: 8px;
   }
-  /* Puce élégante */
-  .contrast-item::before { content: "•"; color: var(--accent); font-weight: bold; }
+  .contrast-item::before { content: "•"; color: var(--accent); font-weight: bold; flex-shrink: 0; }
   .contrast-item:last-child { border-bottom: none; }
 
-  /* Barre de contrôle du bas */
+  /* Barre de contrôle */
   .q-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 12px; border-top: 1px solid var(--border);
   }
   .ctrl-left { display: flex; align-items: center; gap: 12px; }
-  .stars { color: #f59e0b; font-size: 16px; }
+  .stars { color: #f59e0b; font-size: 16px; letter-spacing: 2px; }
   .status-badge { 
     font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px;
     background: var(--bg); color: var(--text-soft); border: 1px solid var(--border);
   }
-  /* Couleurs de statut */
   .status-Prêt { background: #eaf4ef; color: #2d6a4f; border-color: #c2e0d1; }
   .status-Maîtrisé { background: #2d6a4f; color: #fff; border-color: #2d6a4f; }
 
@@ -87,22 +94,32 @@
 <div class="cards-wrap" id="cardsWrap"></div>
 
 <script>
-// On utilise directement TCF_QUESTIONS de questions.js sans localStorage pour les data
+const CAT_INFO = {
+  'education': {label:'Éducation', color:'#2563eb', bg:'#eff6ff'},
+  'famille': {label:'Famille', color:'#dc2626', bg:'#fff5f5'},
+  'culture': {label:'Culture', color:'#7c3aed', bg:'#f5f0ff'},
+  'sante': {label:'Santé', color:'#0891b2', bg:'#f0fafe'},
+  'technologie': {label:'Technologie', color:'#d97706', bg:'#fffbeb'},
+  'environnement': {label:'Environnement', color:'#16a34a', bg:'#f0fdf4'},
+  'economique': {label:'Économique', color:'#be185d', bg:'#fdf2f8'}
+};
+
 function render() {
   const wrap = document.getElementById('cardsWrap');
-  
   wrap.innerHTML = TCF_QUESTIONS.slice().reverse().map(q => {
-    // Valeurs par défaut si non définies dans JS
     const starsCount = q.stars || 0;
     const currentStatus = q.status || "À faire";
     const starHTML = "★".repeat(starsCount) + "☆".repeat(3 - starsCount);
+    const cat = CAT_INFO[q.cat] || {label: q.cat, color: '#666', bg: '#eee'};
     
     return `
       <div class="q-card">
         <div class="q-card-top">
-          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted);">
-            <span>ID: ${q.id}</span>
-            <span>${q.date || '—'}</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span class="cat-badge" style="background:${cat.bg}; color:${cat.color};">
+              ${cat.label}
+            </span>
+            <span style="font-size:11px; color:var(--text-muted);">${q.date || '—'}</span>
           </div>
           <div class="q-text">${q.question}</div>
         </div>
@@ -113,7 +130,7 @@ function render() {
           <div class="q-controls">
             <div class="ctrl-left">
               <span class="stars">${starHTML}</span>
-              <span class="status-badge status-${currentStatus.replace(' ', '')}">${currentStatus}</span>
+              <span class="status-badge status-${currentStatus.replace(/\s/g, '')}">${currentStatus}</span>
             </div>
             ${q.scriptUrl ? `<a href="${q.scriptUrl}" class="script-link">Voir le script →</a>` : ''}
           </div>
@@ -137,7 +154,7 @@ async function toggleCard(id) {
     const container = document.getElementById(`paire-display-${id}`);
     
     if (q && q.scriptUrl && container.innerHTML === "") {
-      container.innerHTML = "<small>Chargement...</small>";
+      container.innerHTML = "<small style='color:var(--text-muted)'>Chargement des arguments...</small>";
       try {
         const response = await fetch(q.scriptUrl);
         const html = await response.text();
@@ -145,11 +162,11 @@ async function toggleCard(id) {
         const cards = doc.querySelectorAll('.contrast-card');
         
         if (cards.length >= 2) {
-          const buildSection = (card, colorClass) => {
+          const buildSection = (card, colorClass, bgClass) => {
             const title = card.querySelector('.contrast-header').innerText;
             const items = Array.from(card.querySelectorAll('.contrast-item'))
-                               .map(i => `<div class="contrast-item">${i.innerText}</div>`).join('');
-            return `<div class="contrast-card">
+                               .map(i => `<div class="contrast-item"><span>${i.innerText}</span></div>`).join('');
+            return `<div class="contrast-card ${bgClass}">
                       <div class="contrast-header ${colorClass}">${title}</div>
                       ${items}
                     </div>`;
@@ -157,8 +174,8 @@ async function toggleCard(id) {
 
           container.innerHTML = `
             <div class="contrast-grid">
-              ${buildSection(cards[0], 'pos-a')}
-              ${buildSection(cards[1], 'pos-b')}
+              ${buildSection(cards[0], 'pos-a', 'card-pos-a')}
+              ${buildSection(cards[1], 'pos-b', 'card-pos-b')}
             </div>`;
         }
       } catch (e) { container.innerHTML = ""; }
