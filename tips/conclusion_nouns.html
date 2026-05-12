@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Formes nominales · Conclusion</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+    --red:#b91c1c;--red-bg:#fff1f2;--red-border:#fecdd3;
+    --green:#2d6a4f;--green-bg:#eaf4ef;--green-border:#c3e6d4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .page-title{font-size:15px;font-weight:500;color:#fff;margin-top:6px;}
+  .page-subtitle{font-size:12px;color:#aaa;margin-top:2px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+
+  .page-wrap{max-width:720px;margin:0 auto;padding:24px 16px 60px;}
+
+  /* Section title */
+  .section-title{font-family:'Fraunces',serif;font-size:18px;font-weight:400;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+  .section-title.neg{color:var(--red);}
+  .section-title.pos{color:var(--green);}
+  .section-desc{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6;}
+  .section-block{margin-bottom:36px;}
+
+  /* Rule banner */
+  .rule-banner{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-size:12.5px;color:var(--text-soft);margin-bottom:20px;line-height:1.6;}
+  .rule-banner strong{color:var(--text);}
+
+  /* Pattern card */
+  .pattern-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .pattern-header{padding:12px 16px;display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--border);}
+  .pattern-header.neg{background:var(--red-bg);border-bottom-color:var(--red-border);}
+  .pattern-header.pos{background:var(--green-bg);border-bottom-color:var(--green-border);}
+  .pattern-fr{font-family:'Fraunces',serif;font-size:16px;font-weight:400;}
+  .pattern-fr.neg{color:var(--red);}
+  .pattern-fr.pos{color:var(--green);}
+  .pattern-slot{font-size:13px;color:var(--text-muted);font-style:italic;}
+  .pattern-en{font-size:12px;color:var(--text-muted);margin-left:auto;white-space:nowrap;}
+
+  /* Examples */
+  .examples{padding:4px 0;}
+  .example-row{padding:10px 16px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .example-row:last-child{border-bottom:none;}
+  .example-row:hover{background:var(--surface2);}
+  .ex-phrase{font-size:13.5px;font-weight:500;color:var(--text);margin-bottom:3px;}
+  .ex-sentence{font-size:12.5px;color:var(--text-soft);line-height:1.6;margin-bottom:4px;}
+  .ex-tags{display:flex;gap:5px;flex-wrap:wrap;}
+  .cat-tag{font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;border:1px solid;}
+
+  /* Category tag colours */
+  .tag-education{background:#eff6ff;color:#2563eb;border-color:#bfdbfe;}
+  .tag-famille{background:#fff5f5;color:#dc2626;border-color:#fecaca;}
+  .tag-environnement{background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;}
+  .tag-technologie{background:#fffbeb;color:#d97706;border-color:#fde68a;}
+  .tag-economique{background:#fdf2f8;color:#be185d;border-color:#fbcfe8;}
+  .tag-sante{background:#f0fafe;color:#0891b2;border-color:#bae6fd;}
+  .tag-culture{background:#f5f0ff;color:#7c3aed;border-color:#ddd6fe;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Conseils</span></h1>
+  <div class="page-title">Formes nominales — Conclusion</div>
+  <div class="page-subtitle">Avantages &amp; Inconvénients · règle des deux mots max</div>
+</header>
+
+<div class="page-wrap">
+
+  <div class="rule-banner">
+    <strong>Règle d'or :</strong> dans la conclusion, résume chaque point en <strong>une ou deux mots maximum</strong> — jamais trois noms enchaînés. Utilise toujours la structure <strong>nom court + de / à + un seul nom</strong>.<br>
+    ❌ <em>le ralentissement du développement de l'indépendance</em> &nbsp;→&nbsp; ✅ <em>le frein à l'indépendance</em>
+  </div>
+
+  <!-- ── INCONVÉNIENTS ── -->
+  <div class="section-block">
+    <div class="section-title neg">Inconvénients</div>
+    <div class="section-desc">À utiliser quand la nuance ou les points sont négatifs.</div>
+
+    <div class="pattern-card">
+      <div class="pattern-header neg">
+        <span class="pattern-fr neg">le frein à</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the brake on / obstacle to</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">le frein à l'indépendance de l'enfant</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les inconvénients, comme <em>le frein à l'indépendance de l'enfant</em>, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-famille">Famille</span><span class="cat-tag tag-education">Éducation</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le frein à l'innovation</div>
+          <div class="ex-sentence">...bien que cette réglementation présente certains inconvénients, comme <em>le frein à l'innovation</em>, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-technologie">Technologie</span><span class="cat-tag tag-economique">Économique</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le frein à la mobilité</div>
+          <div class="ex-sentence">...bien que le coût de la vie présente certains inconvénients, comme <em>le frein à la mobilité</em> des jeunes travailleurs, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-economique">Économique</span><span class="cat-tag tag-culture">Culture</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header neg">
+        <span class="pattern-fr neg">le risque de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the risk of</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">le risque de dépendance</div>
+          <div class="ex-sentence">...bien que les réseaux sociaux présentent certains inconvénients, comme <em>le risque de dépendance</em>, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-technologie">Technologie</span><span class="cat-tag tag-sante">Santé</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le risque d'exclusion</div>
+          <div class="ex-sentence">...bien que la sélection universitaire présente certains inconvénients, comme <em>le risque d'exclusion</em> des étudiants défavorisés, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-education">Éducation</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le risque de pollution</div>
+          <div class="ex-sentence">...bien que cette politique industrielle présente certains inconvénients, comme <em>le risque de pollution</em> accrue, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-environnement">Environnement</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header neg">
+        <span class="pattern-fr neg">le manque de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the lack of</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">le manque d'autonomie</div>
+          <div class="ex-sentence">...bien que l'autorité excessive présente certains inconvénients, comme <em>le manque d'autonomie</em> chez l'enfant, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-famille">Famille</span><span class="cat-tag tag-education">Éducation</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le manque de diversité</div>
+          <div class="ex-sentence">...bien que le travail à distance présente certains inconvénients, comme <em>le manque de diversité</em> des interactions sociales, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-economique">Économique</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le manque de ressources</div>
+          <div class="ex-sentence">...bien que cette approche présente certains inconvénients, comme <em>le manque de ressources</em> dans les régions rurales, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-sante">Santé</span><span class="cat-tag tag-environnement">Environnement</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header neg">
+        <span class="pattern-fr neg">la perte de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the loss of</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">la perte de confiance</div>
+          <div class="ex-sentence">...bien que les fake news présentent certains inconvénients, comme <em>la perte de confiance</em> envers les médias, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-culture">Culture</span><span class="cat-tag tag-technologie">Technologie</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">la perte d'identité</div>
+          <div class="ex-sentence">...bien que la mondialisation présente certains inconvénients, comme <em>la perte d'identité</em> culturelle, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-culture">Culture</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">la perte d'emplois</div>
+          <div class="ex-sentence">...bien que l'automatisation présente certains inconvénients, comme <em>la perte d'emplois</em> dans certains secteurs, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-economique">Économique</span><span class="cat-tag tag-technologie">Technologie</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header neg">
+        <span class="pattern-fr neg">l'excès de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the excess of / too much</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">l'excès d'autorité</div>
+          <div class="ex-sentence">...bien que l'éducation stricte présente certains inconvénients, comme <em>l'excès d'autorité</em>, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-famille">Famille</span><span class="cat-tag tag-education">Éducation</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">l'excès d'information</div>
+          <div class="ex-sentence">...bien que les réseaux sociaux présentent certains inconvénients, comme <em>l'excès d'information</em> qui génère de l'anxiété, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-technologie">Technologie</span><span class="cat-tag tag-sante">Santé</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">l'excès de pression</div>
+          <div class="ex-sentence">...bien que la compétition scolaire présente certains inconvénients, comme <em>l'excès de pression</em> sur les élèves, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-education">Éducation</span><span class="cat-tag tag-sante">Santé</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header neg">
+        <span class="pattern-fr neg">la réduction de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the reduction of</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">la réduction des libertés</div>
+          <div class="ex-sentence">...bien que la surveillance numérique présente certains inconvénients, comme <em>la réduction des libertés</em> individuelles, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-technologie">Technologie</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">la réduction de la biodiversité</div>
+          <div class="ex-sentence">...bien que l'agriculture intensive présente certains inconvénients, comme <em>la réduction de la biodiversité</em>, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-environnement">Environnement</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">la réduction du pouvoir d'achat</div>
+          <div class="ex-sentence">...bien que la hausse des prix présente certains inconvénients, comme <em>la réduction du pouvoir d'achat</em>, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-economique">Économique</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header neg">
+        <span class="pattern-fr neg">la limite de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the limitation of</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">la limite de cette approche</div>
+          <div class="ex-sentence">...bien que l'enseignement à domicile présente certains inconvénients, comme <em>la limite de cette approche</em> sur le plan social, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-education">Éducation</span><span class="cat-tag tag-famille">Famille</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">la limite des ressources</div>
+          <div class="ex-sentence">...bien que les énergies renouvelables présentent certains inconvénients, comme <em>la limite des ressources</em> disponibles, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-environnement">Environnement</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">la limite du bénévolat</div>
+          <div class="ex-sentence">...bien que les ONG présentent certains inconvénients, comme <em>la limite du bénévolat</em> face à l'ampleur des besoins, il n'en demeure pas moins que...</div>
+          <div class="ex-tags"><span class="cat-tag tag-economique">Économique</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end inconvénients -->
+
+  <!-- ── AVANTAGES ── -->
+  <div class="section-block">
+    <div class="section-title pos">Avantages</div>
+    <div class="section-desc">À utiliser quand les points principaux sont positifs.</div>
+
+    <div class="pattern-card">
+      <div class="pattern-header pos">
+        <span class="pattern-fr pos">le renforcement de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the strengthening of</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">le renforcement de la confiance</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>le renforcement de la confiance</em> en soi chez l'enfant, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-famille">Famille</span><span class="cat-tag tag-education">Éducation</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le renforcement des liens</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>le renforcement des liens</em> communautaires, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-culture">Culture</span><span class="cat-tag tag-famille">Famille</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le renforcement de la sécurité</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>le renforcement de la sécurité</em> publique, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-technologie">Technologie</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header pos">
+        <span class="pattern-fr pos">le développement de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the development of</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">le développement de l'autonomie</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>le développement de l'autonomie</em> chez l'enfant, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-education">Éducation</span><span class="cat-tag tag-famille">Famille</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le développement des compétences</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>le développement des compétences</em> numériques, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-technologie">Technologie</span><span class="cat-tag tag-economique">Économique</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le développement durable</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>le développement durable</em> des ressources naturelles, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-environnement">Environnement</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header pos">
+        <span class="pattern-fr pos">l'amélioration de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the improvement of</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">l'amélioration du bien-être</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>l'amélioration du bien-être</em> des employés, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-economique">Économique</span><span class="cat-tag tag-sante">Santé</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">l'amélioration des conditions de vie</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>l'amélioration des conditions de vie</em> dans les zones rurales, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-environnement">Environnement</span><span class="cat-tag tag-sante">Santé</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">l'amélioration des résultats scolaires</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>l'amélioration des résultats scolaires</em>, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-education">Éducation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header pos">
+        <span class="pattern-fr pos">l'accès à</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">access to</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">l'accès aux soins</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>l'accès aux soins</em> pour tous, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-sante">Santé</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">l'accès à l'éducation</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>l'accès à l'éducation</em> pour les populations défavorisées, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-education">Éducation</span><span class="cat-tag tag-economique">Économique</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">l'accès à l'information</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>l'accès à l'information</em> en temps réel, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-technologie">Technologie</span><span class="cat-tag tag-culture">Culture</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header pos">
+        <span class="pattern-fr pos">le sentiment de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the feeling / sense of</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">le sentiment de sécurité</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>le sentiment de sécurité</em> intérieure que procure un cadre clair, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-famille">Famille</span><span class="cat-tag tag-education">Éducation</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le sentiment d'appartenance</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>le sentiment d'appartenance</em> à une communauté, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-culture">Culture</span><span class="cat-tag tag-famille">Famille</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">le sentiment d'accomplissement</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>le sentiment d'accomplissement</em> professionnel, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-economique">Économique</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header pos">
+        <span class="pattern-fr pos">la compréhension de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the understanding of</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">la compréhension des normes sociales</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>la compréhension des normes sociales</em> dès le plus jeune âge, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-famille">Famille</span><span class="cat-tag tag-education">Éducation</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">la compréhension de l'environnement</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>la compréhension de l'environnement</em> et de ses enjeux, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-environnement">Environnement</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">la compréhension des enjeux économiques</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>la compréhension des enjeux économiques</em> mondiaux, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-economique">Économique</span><span class="cat-tag tag-culture">Culture</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-header pos">
+        <span class="pattern-fr pos">la construction de</span>
+        <span class="pattern-slot">+ [nom]</span>
+        <span class="pattern-en">the building of</span>
+      </div>
+      <div class="examples">
+        <div class="example-row">
+          <div class="ex-phrase">la construction d'un cadre stable</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>la construction d'un cadre stable</em> pour l'enfant, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-famille">Famille</span><span class="cat-tag tag-education">Éducation</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">la construction d'une identité</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>la construction d'une identité</em> culturelle forte, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-culture">Culture</span></div>
+        </div>
+        <div class="example-row">
+          <div class="ex-phrase">la construction d'un avenir durable</div>
+          <div class="ex-sentence">...il n'en demeure pas moins que les avantages, comme <em>la construction d'un avenir durable</em> pour les générations futures, sont indéniables.</div>
+          <div class="ex-tags"><span class="cat-tag tag-environnement">Environnement</span><span class="cat-tag tag-economique">Économique</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end avantages -->
+
+</div><!-- end page-wrap -->
+</body>
+</html>
