@@ -60,6 +60,7 @@
   .hl-p2{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
   .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
   .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+  .fix-badge{display:inline-block;margin-top:6px;font-size:10px;font-weight:600;color:#92400e;background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;padding:1px 7px;}
   .single-view .script-card{max-width:620px;margin:0 auto;}
   .wl-page{max-width:860px;}
   .wl-section{margin-bottom:28px;}
@@ -219,11 +220,6 @@
           <div class="chunk-note">sortir de la précarité = C1 collocation · aide ponctuelle = one-off assistance · Position B Point 2</div>
         </div>
         <div class="chunk-card">
-          <div class="chunk-fr">même si l'État et les entreprises jouent un rôle crucial, les ONG restent irremplaçables pour atteindre les plus vulnérables</div>
-          <div class="chunk-en">even if the State and businesses play a crucial role, NGOs remain irreplaceable for reaching the most vulnerable</div>
-          <div class="chunk-note">phrase de nuance Position B · même si + indicatif — structure C1</div>
-        </div>
-        <div class="chunk-card">
           <div class="chunk-fr">il serait souhaitable que les gouvernements, les entreprises et les ONG unissent leurs efforts pour lutter contre la pauvreté</div>
           <div class="chunk-en">it would be desirable for governments, businesses and NGOs to unite their efforts to fight poverty</div>
           <div class="chunk-note">subjonctif après il serait souhaitable que — signal C1 · parfait en conclusion</div>
@@ -244,19 +240,28 @@ const scriptA = {
       text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il est légitime de se demander si les ONG et les associations sont les seules capables d'aider les personnes pauvres, et les avis sont divergents.</p>
 <p>Cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">les ONG et les associations sont effectivement les mieux placées pour venir en aide aux personnes pauvres,</span> à un certain point.</p>
 <p>Alors, je vais expliquer mes raisons.</p>`, note:'' },
-    { label:'Point 1 — Spécialisation et expertise', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
-      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">les ONG et les associations se consacrent exclusivement à la lutte contre la pauvreté, ce qui leur permet de développer une expertise pointue dont ni l'État ni les entreprises ne bénéficient.</span> Elles connaissent les besoins réels sur le terrain, savent comment approcher les personnes vulnérables et proposent des solutions adaptées à chaque situation. Par exemple, des associations comme la Croix-Rouge ou les Restos du Cœur répondent à des besoins concrets que les institutions publiques peinent souvent à couvrir.</p>`,
-      note:'💬 <em>se consacrer à</em> = to dedicate oneself to · <em>une expertise pointue</em> = specialised expertise · <em>peiner à</em> = to struggle to · <em>couvrir</em> = to cover / address' },
+
+    { label:'Point 1 — Spécialisation et expertise', timing:'~1 min', nuance:false, wc:'~80 mots ✓',
+      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">les ONG et les associations se consacrent exclusivement à la lutte contre la pauvreté, ce qui leur permet de développer une expertise pointue dont ni l'État ni les entreprises ne bénéficient.</span> Elles connaissent les besoins réels sur le terrain et proposent des solutions adaptées à chaque situation. Par exemple, à Calgary, des associations locales fournissent des repas, un hébergement d'urgence et des vêtements à des familles dans le besoin, des services que les institutions publiques peinent souvent à assurer avec la même rapidité.</p>`,
+      note:'💬 <em>se consacrer à</em> = to dedicate oneself to · <em>une expertise pointue</em> = specialised expertise · <em>peiner à</em> = to struggle to · <em>couvrir</em> = to cover / address',
+      fix:'' },
+
     { label:'Point 2 — Confiance et lien humain', timing:'~1 min', nuance:false, wc:'~76 mots ✓',
       text:`<p>En plus, <span class="hl-pink">le lien de confiance que les associations tissent avec les bénéficiaires est un atout que les institutions gouvernementales ont du mal à reproduire.</span> Beaucoup de personnes en situation de précarité perçoivent l'État comme distant ou bureaucratique, et hésitent à faire appel à lui. En revanche, les associations créent un environnement humain et bienveillant où les personnes se sentent écoutées. <span class="hl-pink">Cette confiance est souvent la condition pour que l'aide soit réellement acceptée et efficace.</span></p>`,
-      note:'💬 <em>tisser un lien</em> = to build / weave a bond · <em>un atout</em> = an asset · <em>bienveillant</em> = caring, benevolent · <em>faire appel à</em> = to turn to / call on' },
-    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓',
-      text:`<p>Ceci dit, il est certes vrai que <span class="hl-blue">les ressources des ONG sont souvent limitées et fragiles, car elles dépendent en grande partie de dons privés qui peuvent se tarir à tout moment.</span> Sans un financement stable, leur action reste difficile à maintenir à grande échelle. <span class="hl-blue">Pour autant, ce manque de moyens ne remet pas en cause leur rôle essentiel — il souligne plutôt la nécessité d'un soutien accru de l'État envers ces organisations.</span></p>`,
-      note:'💬 <em>se tarir</em> = to dry up · <em>à grande échelle</em> = on a large scale · <em>remettre en cause</em> = to call into question · <em>un soutien accru</em> = increased support' },
+      note:'💬 <em>tisser un lien</em> = to build / weave a bond · <em>un atout</em> = an asset · <em>bienveillant</em> = caring, benevolent · <em>faire appel à</em> = to turn to / call on',
+      fix:'' },
+
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~67 mots ✓',
+      text:`<p>Ceci dit, il est certes vrai que <span class="hl-blue">les ressources des ONG sont souvent limitées et fragiles, car elles dépendent en grande partie de dons privés qui peuvent se tarir à tout moment.</span> Sans un financement stable, leur action reste difficile à maintenir sur le long terme. <span class="hl-blue">De ce fait, des projets essentiels peuvent être interrompus faute de moyens, laissant des populations vulnérables sans soutien au moment où elles en ont le plus besoin.</span></p>`,
+      note:'💬 <em>se tarir</em> = to dry up · <em>faute de moyens</em> = due to lack of resources · <em>sur le long terme</em> = in the long run · ✅ Nuance pure : aucun retour à la position A',
+      fix:'✅ Corrigé — nuance reste du côté opposé jusqu\'à la fin (règle no-pivot respectée)' },
+
     { label:'Conclusion', timing:'~50s', nuance:false,
-      text:`<p>En conclusion, bien que <span class="hl-blue">la dépendance aux dons privés présente certains inconvénients, comme l'instabilité du financement et la difficulté d'agir à grande échelle,</span> il n'en demeure pas moins que les avantages des ONG, comme leur spécialisation et le lien de confiance qu'elles créent avec les bénéficiaires, sont indéniables.</p>
+      text:`<p>En conclusion, bien que <span class="hl-blue">la dépendance aux dons privés présente certains inconvénients, comme l'instabilité du financement,</span> il n'en demeure pas moins que les avantages des ONG, comme leur expertise pointue et le lien de confiance avec les bénéficiaires, sont indéniables.</p>
 <p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les gouvernements accordent davantage de financements stables aux associations qui luttent contre la pauvreté</span> / <span class="hl-p2">les pouvoirs publics travaillent en étroite collaboration avec les ONG pour maximiser leur impact sur le terrain.</span></p>
-<p>Merci pour votre attention.</p>`, note:'' }
+<p>Merci pour votre attention.</p>`,
+      note:'',
+      fix:'✅ Corrigé — formes nominales courtes : "l\'instabilité du financement" (1 nuance) · "leur expertise pointue" + "le lien de confiance" (2 avantages, max 2 mots chacun)' }
   ]
 };
 
@@ -268,46 +273,58 @@ const scriptB = {
     { label:'Introduction', timing:'~40s', nuance:false,
       text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il est légitime de se demander si les ONG et les associations sont les seules capables d'aider les personnes pauvres, et les avis sont divergents.</p>
 <p>Cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">les ONG et les associations ne sont pas les seules à pouvoir venir en aide aux personnes pauvres,</span> à un certain point.</p>
-<p>Alors, je vais expliquer mes raisons.</p>`, note:'' },
+<p>Alors, je vais expliquer mes raisons.</p>`, note:'', fix:'' },
+
     { label:'Point 1 — Le rôle central de l\'État', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
       text:`<p>Tout d'abord, force est de constater que <span class="hl-pink">c'est avant tout à l'État de garantir des filets de sécurité sociale, car lui seul dispose des ressources légales et financières pour agir à grande échelle et de façon durable.</span> Les allocations, les logements sociaux, l'accès aux soins gratuits — ces mesures structurelles touchent des millions de personnes que les ONG, avec leurs ressources limitées, ne peuvent pas atteindre seules. <span class="hl-pink">Lutter contre la pauvreté exige donc des politiques publiques ambitieuses, pas seulement une aide associative.</span></p>`,
-      note:'💬 <em>un filet de sécurité sociale</em> = a social safety net · <em>une allocation</em> = a benefit / allowance · <em>structurel</em> = structural · <em>ambitieux</em> = ambitious' },
+      note:'💬 <em>un filet de sécurité sociale</em> = a social safety net · <em>une allocation</em> = a benefit / allowance · <em>structurel</em> = structural · <em>ambitieux</em> = ambitious',
+      fix:'' },
+
     { label:'Point 2 — Les entreprises comme moteur d\'insertion', timing:'~1 min', nuance:false, wc:'~77 mots ✓',
-      text:`<p>En plus, <span class="hl-pink">contrairement à une aide ponctuelle, un emploi stable permet aux personnes pauvres de sortir durablement de la précarité — et ce sont les entreprises, pas les ONG, qui peuvent créer ces emplois.</span> À travers leur responsabilité sociale, les entreprises peuvent aussi financer des programmes de formation professionnelle et investir dans des communautés défavorisées. De ce fait, <span class="hl-pink">leur impact économique contribue à réduire les inégalités de façon bien plus durable que l'aide d'urgence.</span></p>`,
-      note:'💬 <em>ponctuel</em> = one-off, short-term · <em>sortir de la précarité</em> = to escape precariousness · <em>la responsabilité sociale des entreprises</em> = CSR · <em>défavorisé</em> = disadvantaged' },
-    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~68 mots ✓',
-      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">certaines populations — les sans-abri, les réfugiés, les personnes en grande exclusion — sont souvent ignorées par les institutions et les entreprises. Les ONG restent les seules à les atteindre dans les situations les plus extrêmes.</span> <span class="hl-blue">Pour autant, cela ne signifie pas qu'elles doivent agir seules — au contraire, c'est la complémentarité entre tous ces acteurs qui produit les résultats les plus durables.</span></p>`,
-      note:'💬 <em>un sans-abri</em> = a homeless person · <em>la grande exclusion</em> = extreme social exclusion · <em>la complémentarité</em> = complementarity · <em>produire des résultats</em> = to produce results' },
+      text:`<p>En plus, <span class="hl-pink">contrairement à une aide ponctuelle, un emploi stable permet aux personnes pauvres de sortir durablement de la précarité. Ce sont les entreprises, pas les ONG, qui peuvent créer ces emplois.</span> À travers leur responsabilité sociale, les entreprises peuvent aussi financer des programmes de formation professionnelle et investir dans des communautés défavorisées. De ce fait, <span class="hl-pink">leur impact économique contribue à réduire les inégalités de façon bien plus durable que l'aide d'urgence.</span></p>`,
+      note:'💬 <em>ponctuel</em> = one-off, short-term · <em>sortir de la précarité</em> = to escape precariousness · <em>la responsabilité sociale des entreprises</em> = CSR · <em>défavorisé</em> = disadvantaged',
+      fix:'✅ Corrigé — tiret (—) remplacé par une phrase complète' },
+
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓',
+      text:`<p>Il est certes vrai que <span class="hl-blue">certaines populations, comme les sans-abri, les réfugiés ou les personnes en grande exclusion, sont souvent ignorées par les institutions et les entreprises.</span> <span class="hl-blue">Dans ces situations extrêmes, les ONG sont parfois les seules à intervenir, et leur présence sur le terrain reste difficile à remplacer. Cela souligne à quel point leur rôle est irremplaçable pour les populations les plus oubliées.</span></p>`,
+      note:'💬 <em>la grande exclusion</em> = extreme social exclusion · <em>intervenir</em> = to step in · ✅ Nuance pure : aucun retour à la position B',
+      fix:'✅ Corrigé — nuance reste entièrement du côté ONG (règle no-pivot respectée) · "Pour autant, c\'est la complémentarité..." supprimé car c\'était un retour à la position B' },
+
     { label:'Conclusion', timing:'~50s', nuance:false,
-      text:`<p>En conclusion, bien que <span class="hl-blue">les ONG restent irremplaçables pour atteindre les populations les plus vulnérables,</span> il n'en demeure pas moins que les avantages d'une approche collective, comme le rôle de l'État dans les politiques sociales et celui des entreprises dans l'insertion économique, sont indéniables.</p>
+      text:`<p>En conclusion, bien que <span class="hl-blue">le rôle irremplaçable des ONG auprès des populations les plus vulnérables présente certains avantages indéniables,</span> il n'en demeure pas moins que les avantages d'une approche collective, comme le renforcement des politiques sociales et le développement de l'insertion économique, sont tout aussi importants.</p>
 <p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les gouvernements, les entreprises et les ONG unissent leurs efforts pour lutter contre la pauvreté de façon coordonnée</span> / <span class="hl-p2">les pouvoirs publics mettent en place des partenariats structurels avec les associations pour garantir une aide durable aux personnes dans le besoin.</span></p>
-<p>Merci pour votre attention.</p>`, note:'' }
+<p>Merci pour votre attention.</p>`,
+      note:'',
+      fix:'✅ Corrigé — formes nominales courtes : "le renforcement des politiques sociales" + "le développement de l\'insertion économique" (pattern avantages : le + nom + de + 1 nom)' }
   ]
 };
 
 function buildCard(s){
-  const blocks=s.blocks.map(b=>`
-    <div class="block ${b.nuance?'block-nuance':''}">
+  const blocks = s.blocks.map(b => `
+    <div class="block ${b.nuance ? 'block-nuance' : ''}">
       <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
       <div class="script-text">${b.text}</div>
-      ${b.note?`<div class="en-note">${b.note}</div>`:''}
-      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+      ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
+      ${b.wc ? `<div class="wc">${b.wc}</div>` : ''}
+      ${b.fix ? `<div class="fix-badge">${b.fix}</div>` : ''}
     </div>`).join('');
-  return`<div class="script-card">
+  return `<div class="script-card">
     <div class="card-header ${s.headerClass}">
       <div class="card-title ${s.titleClass}">${s.header}</div>
       <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
-    </div>${blocks}</div>`;}
+    </div>${blocks}</div>`;
+}
 
-document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
-document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
-document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
+document.getElementById('bothGrid').innerHTML = buildCard(scriptA) + buildCard(scriptB);
+document.getElementById('posAGrid').innerHTML = buildCard(scriptA);
+document.getElementById('posBGrid').innerHTML = buildCard(scriptB);
 
-function showTab(id,btn){
-  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+function showTab(id, btn){
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  btn.classList.add('active');}
+  btn.classList.add('active');
+}
 </script>
 </body>
 </html>
