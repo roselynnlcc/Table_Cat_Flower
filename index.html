@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TCF Canada — Tâche 3</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="questions.js"></script>
 <style>
   :root {
     --bg:#f7f4f0;--surface:#fff;--surface2:#f2ede8;--border:#e8e0d8;
@@ -16,21 +15,16 @@
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding-bottom:40px;}
 
   .header{background:var(--text);padding:20px 20px 10px;position:sticky;top:0;z-index:100;color:#fff;}
+  .header-row{display:flex;align-items:center;gap:10px;}
   .header h1{font-family:'Fraunces',serif;font-size:20px;font-weight:300;}
   .header em{color:var(--accent);font-style:italic;}
+  .tips-icon{font-size:20px;line-height:1;cursor:pointer;text-decoration:none;transition:transform .15s;display:inline-flex;align-items:center;}
+  .tips-icon:hover{transform:scale(1.15);}
+  .tips-icon.active{filter:drop-shadow(0 0 4px rgba(255,140,0,.7));}
 
-  /* Nouvelle barre de motivation */
-  .motivation-bar {
-    background: var(--text);
-    padding: 0 20px 10px;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.3px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
+  .motivation-bar{background:var(--text);padding:0 20px 10px;color:#fff;font-size:13px;font-weight:400;letter-spacing:0.3px;border-bottom:1px solid rgba(255,255,255,0.1);}
 
-  /* Barre de catégories */
+  /* Category / Tips filter bar */
   .cat-scroll{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
   .cat-scroll::-webkit-scrollbar{display:none;}
   .cat-pills{display:flex;gap:8px;width:max-content;}
@@ -38,47 +32,61 @@
   .cat-pill.active{border-color:var(--accent);background:#fdf0e8;color:var(--accent);font-weight:600;}
   .cat-pill .cnt{font-size:10.5px;background:var(--surface2);border-radius:10px;padding:0 5px;color:var(--text-muted);}
   .cat-pill .dot{width:8px;height:8px;border-radius:50%;}
+  /* Tips pill special style */
+  .cat-pill.tips-pill.active{border-color:#f97316;background:#fff7ed;color:#ea580c;}
 
-  /* Cartes */
+  /* Cards wrap */
   .cards-wrap{padding:16px;display:flex;flex-direction:column;gap:16px;max-width:700px;margin:0 auto;}
+
+  /* Question cards */
   .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);}
   .q-card-top{padding:16px;display:flex;flex-direction:column;gap:8px;}
-  .cat-badge {display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 12px; font-size: 11px; font-weight: 600;}
-  .q-text{font-size:14px; font-weight: 600; line-height: 1.5;}
-
+  .cat-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:600;}
+  .q-text{font-size:14px;font-weight:600;line-height:1.5;}
   .q-card-body{display:none;padding:0 16px 16px;}
   .q-card-body.open{display:block;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+  @media(max-width:600px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{border-radius:var(--radius-sm);border:1px solid var(--border);overflow:hidden;}
+  .card-pos-a{background-color:#f4faf7;}
+  .card-pos-b{background-color:#f5f9ff;}
+  .contrast-header{padding:6px 10px;font-size:10px;font-weight:700;text-transform:uppercase;border-bottom:1px solid var(--border);}
+  .contrast-header.pos-a{background:#eaf4ef;color:#2d6a4f;}
+  .contrast-header.pos-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:8px 10px;font-size:14px;border-bottom:1px solid rgba(0,0,0,0.03);line-height:1.4;display:flex;gap:8px;}
+  .contrast-item::before{content:"•";color:var(--accent);font-weight:bold;flex-shrink:0;}
+  .q-controls{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border);}
+  .stars{color:#f59e0b;font-size:18px;letter-spacing:2px;}
+  .status-badge{font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;background:var(--bg);color:var(--text-soft);border:1px solid var(--border);}
+  .status-Prêt{background:#eaf4ef;color:#2d6a4f;border-color:#c2e0d1;}
+  .status-Maîtrisé{background:#2d6a4f;color:#fff;border-color:#2d6a4f;}
+  .script-link{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;padding:6px 12px;background:#fdf0e8;border-radius:6px;border:1px solid #f0c8a8;}
+  .expand-btn{width:100%;padding:10px;background:none;border:none;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted);cursor:pointer;}
 
-  /* Positions A & B */
-  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
-  @media (max-width: 600px) { .contrast-grid { grid-template-columns: 1fr; } }
-  .contrast-card { border-radius: var(--radius-sm); border: 1px solid var(--border); overflow: hidden; }
-  .card-pos-a { background-color: #f4faf7; } 
-  .card-pos-b { background-color: #f5f9ff; }
-  .contrast-header { padding: 6px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid var(--border); }
-  .contrast-header.pos-a { background: #eaf4ef; color: #2d6a4f; }
-  .contrast-header.pos-b { background: #e8f2ff; color: #185fa5; }
-  .contrast-item { padding: 8px 10px; font-size: 14px; border-bottom: 1px solid rgba(0,0,0,0.03); line-height: 1.4; display: flex; gap: 8px; }
-  .contrast-item::before { content: "•"; color: var(--accent); font-weight: bold; flex-shrink: 0; }
-
-  /* Bas de carte */
-  .q-controls { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
-  .stars { color: #f59e0b; font-size: 18px; letter-spacing: 2px; }
-  .status-badge { font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: var(--bg); color: var(--text-soft); border: 1px solid var(--border); }
-  .status-Prêt { background: #eaf4ef; color: #2d6a4f; border-color: #c2e0d1; }
-  .status-Maîtrisé { background: #2d6a4f; color: #fff; border-color: #2d6a4f; }
-  .script-link { font-size: 13px; font-weight: 600; color: var(--accent); text-decoration: none; padding: 6px 12px; background: #fdf0e8; border-radius: 6px; border: 1px solid #f0c8a8; }
-  .expand-btn { width: 100%; padding: 10px; background: none; border: none; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); cursor: pointer; }
+  /* Tip cards */
+  .tip-card{background:var(--surface);border:1.5px solid #fed7aa;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer;text-decoration:none;display:block;transition:box-shadow .15s,transform .1s;}
+  .tip-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.10);transform:translateY(-1px);}
+  .tip-card:active{transform:translateY(0);}
+  .tip-card-inner{padding:16px;}
+  .tip-card-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .tip-flame{font-size:22px;line-height:1;}
+  .tip-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#ea580c;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:2px 8px;}
+  .tip-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--text);line-height:1.4;}
+  .tip-subtitle{font-size:12px;color:var(--text-muted);margin-top:3px;}
+  .tip-arrow{display:flex;justify-content:flex-end;font-size:13px;color:#ea580c;font-weight:600;margin-top:10px;}
+  .tip-date{font-size:11px;color:var(--text-muted);margin-top:2px;}
 </style>
 </head>
 <body>
 
 <header class="header">
-  <h1>TCF Canada — <em>Tâche 3</em></h1>
+  <div class="header-row">
+    <h1>TCF Canada — <em>Tâche 3</em></h1>
+    <a class="tips-icon" id="tipsIconBtn" onclick="toggleTips()" title="Conseils">❤️‍🔥</a>
+  </div>
 </header>
 
-<div class="motivation-bar" id="quoteBar">
-  </div>
+<div class="motivation-bar" id="quoteBar"></div>
 
 <div class="cat-scroll">
   <div class="cat-pills" id="catPills"></div>
@@ -86,67 +94,98 @@
 
 <div class="cards-wrap" id="cardsWrap"></div>
 
+<script src="questions.js"></script>
+<script src="tips.js"></script>
 <script>
- const MOTIVATION = [
+const MOTIVATION = [
   "☀️ Le succès est la somme de petits efforts répétés jour après jour. 🌟",
   "🏆 Crois en toi, tu es capable de décrocher ton C1 ! 🏆",
   "✋ Chaque question étudiée est un pas de plus vers ton objectif. 🤚",
   "🌸 La discipline est le pont entre tes objectifs et tes accomplissements. 🌸",
   "🌱 Courage ! Ton travail acharné finira par porter ses fruits. 🌴"
 ];
+
 const CATS = [
-  {id:'all', label:'Toutes', color:'#c8703a', bg:'#fdf0e8'},
-  {id:'education', label:'Éducation', color:'#2563eb', bg:'#eff6ff'},
-  {id:'famille', label:'Famille', color:'#dc2626', bg:'#fff5f5'},
-  {id:'culture', label:'Culture', color:'#7c3aed', bg:'#f5f0ff'},
-  {id:'sante', label:'Santé', color:'#0891b2', bg:'#f0fafe'},
-  {id:'technologie',label:'Technologie', color:'#d97706', bg:'#fffbeb'},
+  {id:'all',       label:'Toutes',        color:'#c8703a', bg:'#fdf0e8'},
+  {id:'education', label:'Éducation',     color:'#2563eb', bg:'#eff6ff'},
+  {id:'famille',   label:'Famille',       color:'#dc2626', bg:'#fff5f5'},
+  {id:'culture',   label:'Culture',       color:'#7c3aed', bg:'#f5f0ff'},
+  {id:'sante',     label:'Santé',         color:'#0891b2', bg:'#f0fafe'},
+  {id:'technologie',label:'Technologie',  color:'#d97706', bg:'#fffbeb'},
   {id:'environnement',label:'Environnement',color:'#16a34a',bg:'#f0fdf4'},
-  {id:'economique', label:'Économique', color:'#be185d', bg:'#fdf2f8'}
+  {id:'economique',label:'Économique',    color:'#be185d', bg:'#fdf2f8'}
 ];
 
-function renderMotivation() {
-  const randomIdx = Math.floor(Math.random() * MOTIVATION.length);
-  document.getElementById('quoteBar').innerText = MOTIVATION[randomIdx];
-}
-
 let activeCat = 'all';
+let showingTips = false;
 
-function renderCats() {
-  const container = document.getElementById('catPills');
-  container.innerHTML = CATS.map(c => {
-    const count = c.id === 'all' 
-      ? TCF_QUESTIONS.length 
-      : TCF_QUESTIONS.filter(q => q.cat === c.id).length;
-    return `
-      <button class="cat-pill ${activeCat === c.id ? 'active' : ''}" onclick="setCat('${c.id}')">
-        <span class="dot" style="background:${c.color}"></span>
-        ${c.label} <span class="cnt">${count}</span>
-      </button>`;
-  }).join('');
+function renderMotivation(){
+  document.getElementById('quoteBar').innerText = MOTIVATION[Math.floor(Math.random()*MOTIVATION.length)];
 }
 
-function setCat(id) {
+function renderCats(){
+  const container = document.getElementById('catPills');
+  const pills = CATS.map(c => {
+    const count = c.id==='all' ? TCF_QUESTIONS.length : TCF_QUESTIONS.filter(q=>q.cat===c.id).length;
+    const active = !showingTips && activeCat===c.id ? 'active' : '';
+    return `<button class="cat-pill ${active}" onclick="setCat('${c.id}')">
+      <span class="dot" style="background:${c.color}"></span>
+      ${c.label} <span class="cnt">${count}</span>
+    </button>`;
+  });
+  // Tips pill
+  const tipsActive = showingTips ? 'active tips-pill' : 'tips-pill';
+  pills.push(`<button class="cat-pill ${tipsActive}" onclick="toggleTips()">
+    ❤️‍🔥 Conseils <span class="cnt">${TCF_TIPS.length}</span>
+  </button>`);
+  container.innerHTML = pills.join('');
+}
+
+function setCat(id){
+  showingTips = false;
   activeCat = id;
+  document.getElementById('tipsIconBtn').classList.remove('active');
   renderCats();
   render();
 }
 
-function render() {
-  const wrap = document.getElementById('cardsWrap');
-  const filtered = TCF_QUESTIONS.slice().reverse().filter(q => (activeCat === 'all' || q.cat === activeCat));
+function toggleTips(){
+  showingTips = !showingTips;
+  document.getElementById('tipsIconBtn').classList.toggle('active', showingTips);
+  renderCats();
+  if(showingTips) renderTips(); else render();
+}
 
+function renderTips(){
+  const wrap = document.getElementById('cardsWrap');
+  wrap.innerHTML = TCF_TIPS.map(t => `
+    <a class="tip-card" href="${t.url}">
+      <div class="tip-card-inner">
+        <div class="tip-card-top">
+          <span class="tip-flame">❤️‍🔥</span>
+          <span class="tip-label">Conseil</span>
+        </div>
+        <div class="tip-title">${t.title}</div>
+        <div class="tip-subtitle">${t.subtitle}</div>
+        <div class="tip-date">${t.date}</div>
+        <div class="tip-arrow">Voir →</div>
+      </div>
+    </a>`).join('');
+}
+
+function render(){
+  const wrap = document.getElementById('cardsWrap');
+  const filtered = TCF_QUESTIONS.slice().reverse().filter(q => activeCat==='all' || q.cat===activeCat);
   wrap.innerHTML = filtered.map(q => {
     const stars = q.stars || 0;
     const status = q.status || "À faire";
-    const cat = CATS.find(c => c.id === q.cat) || CATS[0];
-    
+    const cat = CATS.find(c=>c.id===q.cat) || CATS[0];
     return `
       <div class="q-card">
         <div class="q-card-top">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <span class="cat-badge" style="background:${cat.bg}; color:${cat.color};">${cat.label}</span>
-            <span style="font-size:11px; color:var(--text-muted);">${q.date || '—'}</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+            <span class="cat-badge" style="background:${cat.bg};color:${cat.color};">${cat.label}</span>
+            <span style="font-size:11px;color:var(--text-muted);">${q.date||'—'}</span>
           </div>
           <div class="q-text">${q.question}</div>
         </div>
@@ -155,9 +194,9 @@ function render() {
           <div class="q-controls">
             <div class="ctrl-left">
               <span class="stars">${"★".repeat(stars)}${"☆".repeat(3-stars)}</span>
-              <span class="status-badge status-${status.replace(/\s/g, '')}">${status}</span>
+              <span class="status-badge status-${status.replace(/\s/g,'')}">${status}</span>
             </div>
-            ${q.scriptUrl ? `<a href="${q.scriptUrl}" class="script-link">Voir le script →</a>` : ''}
+            ${q.scriptUrl?`<a href="${q.scriptUrl}" class="script-link">Voir le script →</a>`:''}
           </div>
         </div>
         <button class="expand-btn" onclick="toggleCard(${q.id})">
@@ -167,35 +206,35 @@ function render() {
   }).join('');
 }
 
-async function toggleCard(id) {
+async function toggleCard(id){
   const body = document.getElementById(`body-${id}`);
-  const btn = document.getElementById(`arr-${id}`);
+  const btn  = document.getElementById(`arr-${id}`);
   const isOpen = body.classList.toggle('open');
   btn.textContent = isOpen ? '▲ Réduire' : '▼ Détails';
-
-  if (isOpen) {
-    const q = TCF_QUESTIONS.find(item => item.id === id);
+  if(isOpen){
+    const q = TCF_QUESTIONS.find(item=>item.id===id);
     const container = document.getElementById(`paire-display-${id}`);
-    if (q && q.scriptUrl && container.innerHTML === "") {
+    if(q && q.scriptUrl && container.innerHTML===""){
       container.innerHTML = "<small style='color:var(--text-muted)'>Chargement...</small>";
-      try {
+      try{
         const response = await fetch(q.scriptUrl);
         const html = await response.text();
-        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const doc = new DOMParser().parseFromString(html,'text/html');
         const cards = doc.querySelectorAll('.contrast-card');
-        if (cards.length >= 2) {
-          const build = (card, colorClass, bgClass) => {
+        if(cards.length>=2){
+          const build=(card,colorClass,bgClass)=>{
             const title = card.querySelector('.contrast-header').innerText;
             const items = Array.from(card.querySelectorAll('.contrast-item'))
-                               .map(i => `<div class="contrast-item">${i.innerText}</div>`).join('');
+                               .map(i=>`<div class="contrast-item">${i.innerText}</div>`).join('');
             return `<div class="contrast-card ${bgClass}"><div class="contrast-header ${colorClass}">${title}</div>${items}</div>`;
           };
-          container.innerHTML = `<div class="contrast-grid">${build(cards[0], 'pos-a', 'card-pos-a')}${build(cards[1], 'pos-b', 'card-pos-b')}</div>`;
+          container.innerHTML=`<div class="contrast-grid">${build(cards[0],'pos-a','card-pos-a')}${build(cards[1],'pos-b','card-pos-b')}</div>`;
         }
-      } catch (e) { container.innerHTML = ""; }
+      }catch(e){container.innerHTML="";}
     }
   }
 }
+
 renderMotivation();
 renderCats();
 render();
