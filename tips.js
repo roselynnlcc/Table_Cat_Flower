@@ -12,5 +12,12 @@ const TCF_TIPS = [
     subtitle: "auquel · dont · que · verbes pièges — tap pour voir l'exemple",
     url: "tips/verb_prepositions.html",
     date: "2026-05-11"
+  },
+  {
+    id: 3,
+    title: "Ceux qui · Ce qui · Ce que · Ce dont",
+    subtitle: "Arbre de décision · exemples par catégorie · chunks TCF",
+    url: "tips/ceux-qui-ce-qui.html",
+    date: "2026-05-11"
   }
 ];
