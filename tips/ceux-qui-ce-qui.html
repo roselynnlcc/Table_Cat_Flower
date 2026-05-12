@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Ceux qui · Ce qui · Ce que · Ce dont</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+
+    /* blue  = ceux qui / ceux que  (people) */
+    --col-a-bg:#dbeeff;    --col-a-text:#1a3d7a;    --col-a-border:#b3d4f5;
+    /* purple = ce dont */
+    --col-q-bg:#ede0ff;    --col-q-text:#4a1a80;    --col-q-border:#d4b8f5;
+    /* green  = ce qui / ce que  (idea) */
+    --col-de-bg:#eaf4ef;   --col-de-text:#2d6a4f;   --col-de-border:#c3e6d4;
+    /* grey   = qui / que seul */
+    --col-g-bg:#f0efed;    --col-g-text:#5a5450;    --col-g-border:#d8d4ce;
+    /* red (kept for warn notes only) */
+    --col-t-bg:#ffeef2;    --col-t-text:#8b1a35;    --col-t-border:#f5c0cc;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .page-title{font-size:15px;font-weight:500;color:#fff;margin-top:6px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;position:sticky;top:80px;z-index:99;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+
+  .tab-panel{display:none;padding:20px 16px 60px;max-width:720px;margin:0 auto;}
+  .tab-panel.active{display:block;}
+
+  .section-block{margin-bottom:28px;}
+  .section-title{font-size:13px;font-weight:600;letter-spacing:.04em;margin-bottom:6px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .section-title.a {color:var(--col-a-text);}   /* blue  — ceux qui/que */
+  .section-title.de{color:var(--col-de-text);}  /* green — ce qui/que  */
+  .section-title.q {color:var(--col-q-text);}   /* purple — ce dont    */
+  .section-title.g {color:var(--col-g-text);}   /* grey  — qui seul    */
+  .section-title.t {color:var(--col-t-text);}   /* red   — warnings    */
+
+  .section-desc{font-size:13px;color:var(--text);margin-bottom:14px;line-height:1.7;}
+  .section-desc strong{font-weight:600;}
+
+  /* DECISION TREE — stacked cards */
+  .dtree{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+  .dstep{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .dstep-q{padding:12px 16px;font-size:13.5px;line-height:1.7;}
+  .dstep-q strong{font-weight:600;}
+  .dstep-hint{font-size:12px;color:var(--text-muted);margin-top:3px;}
+  .dstep-ans{padding:11px 16px;font-size:14px;font-weight:600;border-top:1px solid var(--border);}
+  .dstep-ans.a  {background:var(--col-a-bg); color:var(--col-a-text);}
+  .dstep-ans.q  {background:var(--col-q-bg); color:var(--col-q-text);}
+  .dstep-ans.de1{background:var(--col-de-bg);color:var(--col-de-text);border-top:1px solid var(--col-de-border);}
+  .dstep-ans.de2{background:var(--col-de-bg);color:var(--col-de-text);border-top:1px solid var(--col-de-border);opacity:.85;}
+
+  /* EXAMPLE CARD */
+  .ex-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
+  .ex-card-header{padding:10px 14px;font-size:12.5px;font-weight:500;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);}
+  .ex-card-header.a {background:var(--col-a-bg);color:var(--col-a-text);border-bottom-color:var(--col-a-border);}
+  .ex-card-header.de{background:var(--col-de-bg);color:var(--col-de-text);border-bottom-color:var(--col-de-border);}
+  .ex-card-header.q {background:var(--col-q-bg);color:var(--col-q-text);border-bottom-color:var(--col-q-border);}
+  .ex-card-header.g {background:var(--col-g-bg);color:var(--col-g-text);border-bottom-color:var(--col-g-border);}
+  .ex-card-header.t {background:var(--col-t-bg);color:var(--col-t-text);border-bottom-color:var(--col-t-border);}
+
+  .ex-body{padding:13px 16px;}
+  .sent-row{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;}
+  .sent-row:last-child{margin-bottom:0;}
+  .sent-tag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;min-width:44px;flex-shrink:0;color:var(--text-muted);}
+  .sent-tag.hi{color:var(--accent);}
+  .sent-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .sent-en{font-size:12.5px;color:var(--text-muted);line-height:1.6;}
+
+  /* inline chips */
+  .r1{background:var(--col-a-bg);color:var(--col-a-text);border-radius:3px;padding:0 3px;}
+  .r2{background:var(--col-t-bg);color:var(--col-t-text);border-radius:3px;padding:0 3px;}
+  .r3{background:var(--col-q-bg);color:var(--col-q-text);border-radius:3px;padding:0 3px;}
+  .r4{background:var(--col-de-bg);color:var(--col-de-text);border-radius:3px;padding:0 3px;}
+  .rg{background:var(--col-g-bg);color:var(--col-g-text);border-radius:3px;padding:0 3px;}
+
+  .warn-note{background:var(--col-t-bg);border:1px solid var(--col-t-border);border-radius:6px;padding:9px 12px;font-size:13px;color:var(--col-t-text);line-height:1.65;margin-bottom:10px;}
+  .tip-note {background:var(--col-q-bg);border:1px solid var(--col-q-border);border-radius:6px;padding:9px 12px;font-size:13px;color:var(--col-q-text);line-height:1.65;margin-bottom:10px;}
+  .good-note{background:var(--col-de-bg);border:1px solid var(--col-de-border);border-radius:6px;padding:9px 12px;font-size:13px;color:var(--col-de-text);line-height:1.65;margin-bottom:10px;}
+
+  /* VERB GRID */
+  .verb-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+  .verb-chip{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;}
+  .verb-fr{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:3px;}
+  .verb-en{font-size:12px;color:var(--text-muted);}
+  .verb-ex{font-size:12px;color:var(--col-q-text);margin-top:5px;font-style:italic;}
+
+  /* CHUNK LIST */
+  .chunk-list{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+  .chunk-row{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 14px;display:flex;align-items:center;gap:12px;}
+  .chunk-fr{font-size:14px;font-weight:500;flex:1;line-height:1.6;}
+  .chunk-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;white-space:nowrap;flex-shrink:0;}
+  .chunk-badge.a {background:var(--col-a-bg);color:var(--col-a-text);border:1px solid var(--col-a-border);}
+  .chunk-badge.de{background:var(--col-de-bg);color:var(--col-de-text);border:1px solid var(--col-de-border);}
+  .chunk-badge.q {background:var(--col-q-bg);color:var(--col-q-text);border:1px solid var(--col-q-border);}
+  .chunk-badge.t {background:var(--col-t-bg);color:var(--col-t-text);border:1px solid var(--col-t-border);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Conseils</span></h1>
+  <div class="page-title">Ceux qui · Ce qui · Ce que · Ce dont</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('decision',this)">Décision</button>
+  <button class="tab-btn" onclick="showTab('ceux',this)">Ceux qui / que</button>
+  <button class="tab-btn" onclick="showTab('ce',this)">Ce qui / que / dont</button>
+  <button class="tab-btn" onclick="showTab('verbes',this)">Verbes + de</button>
+  <button class="tab-btn" onclick="showTab('chunks',this)">🎤 Chunks TCF</button>
+</nav>
+
+<!-- TAB 1 — DECISION -->
+<div class="tab-panel active" id="panel-decision">
+
+  <div class="section-block">
+    <div class="section-title a">L'arbre de décision — 3 questions</div>
+    <div class="section-desc">Pose-toi ces trois questions dans l'ordre. Arrête dès que tu as la réponse.</div>
+
+    <div class="dtree">
+
+      <div class="dstep">
+        <div class="dstep-q">
+          <strong>Question 1 :</strong> Le gap remplace des <strong>personnes</strong> (ou des êtres vivants) ?
+          <div class="dstep-hint">Test : est-ce que tu pourrais dire "les gens qui…" ou "les personnes que…" ?</div>
+        </div>
+        <div class="dstep-ans a">OUI → ceux qui &nbsp;/&nbsp; ceux que</div>
+      </div>
+
+      <div class="dstep">
+        <div class="dstep-q">
+          <strong>Question 2 :</strong> C'est une idée / fait — le verbe qui suit a-t-il besoin de <strong>de</strong> ?
+          <div class="dstep-hint">Test : peux-tu dire <em>"de cela"</em> à la place du gap dans la phrase originale ?</div>
+        </div>
+        <div class="dstep-ans q">OUI → ce dont</div>
+      </div>
+
+      <div class="dstep">
+        <div class="dstep-q">
+          <strong>Question 3 :</strong> Idée / fait, pas de <em>de</em> — le verbe après le gap a-t-il déjà un sujet ?
+          <div class="dstep-hint">NON (verbe sans sujet) → gap = sujet &nbsp;|&nbsp; OUI (verbe a un sujet) → gap = objet</div>
+        </div>
+        <div class="dstep-ans de1">NON → ce qui</div>
+        <div class="dstep-ans de2">OUI → ce que</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title g">Le piège — ceux qui vs qui seul</div>
+
+    <div class="warn-note">
+      ⚠️ <strong>ceux qui / ceux que</strong> ouvrent un bloc indépendant — ils créent leur propre sujet, sans nom avant.<br>
+      <strong>qui / que</strong> seuls modifient un nom déjà présent dans la phrase.<br>
+      Si un nom est déjà là juste avant le gap → <strong>qui</strong> ou <strong>que</strong> seul. Jamais <em>ceux qui</em> au milieu d'une phrase.
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header a">ceux qui — ouvre le bloc, pas de nom avant</div>
+      <div class="ex-body">
+        <div class="sent-row">
+          <span class="sent-tag hi">✅</span>
+          <span class="sent-text"><span class="r1">Ceux qui</span> abandonnent l'école tôt risquent de manquer d'opportunités.</span>
+        </div>
+        <div class="sent-row">
+          <span class="sent-en">Those who drop out early… — "ceux" IS the subject, no noun before it.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header g">qui seul — nom déjà présent juste avant</div>
+      <div class="ex-body">
+        <div class="sent-row">
+          <span class="sent-tag hi">✅</span>
+          <span class="sent-text">Les <span class="r1">élèves</span> <span class="rg">qui</span> abandonnent l'école tôt risquent de manquer d'opportunités.</span>
+        </div>
+        <div class="sent-row">
+          <span class="sent-en">Students who drop out… — "qui" modifies "les élèves" already named.</span>
+        </div>
+        <div class="sent-row" style="margin-top:4px;">
+          <span class="sent-tag" style="color:var(--col-t-text);">❌</span>
+          <span class="sent-text" style="color:var(--col-t-text);font-size:13px;">Les élèves <em>ceux qui</em> abandonnent… ← jamais</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-note">
+      💡 <strong>Règle simple :</strong> Y a-t-il un nom juste avant le gap ?<br>
+      OUI → <strong style="color:var(--col-g-text);">qui</strong> ou <strong style="color:var(--col-g-text);">que</strong> seul (gris).<br>
+      NON → <strong style="color:var(--col-a-text);">ceux qui</strong> ou <strong style="color:var(--col-a-text);">ceux que</strong> (bleu).<br>
+      Après une préposition (sur, pour, contre…) → toujours <strong style="color:var(--col-a-text);">ceux qui</strong>, jamais <em>qui</em> seul.
+    </div>
+  </div>
+
+</div>
+
+<!-- TAB 2 — CEUX QUI / QUE -->
+<div class="tab-panel" id="panel-ceux">
+
+  <div class="section-block">
+    <div class="section-title a">ceux qui — personnes, rôle sujet</div>
+    <div class="section-desc">Après <strong>ceux qui</strong>, le verbe n'a pas d'autre sujet — le pronom lui-même est le sujet.</div>
+
+    <div class="ex-card">
+      <div class="ex-card-header a">Éducation</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r1">Ceux qui</span> maîtrisent plusieurs langues ont un avantage sur le marché du travail.</span></div>
+        <div class="sent-row"><span class="sent-en">Those who master several languages have an advantage in the job market.</span></div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header a">Immigration</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r1">Ceux qui</span> arrivent sans réseau de soutien font face à des défis considérables.</span></div>
+        <div class="sent-row"><span class="sent-en">Those who arrive without a support network face considerable challenges.</span></div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header a">Technologie — double ceux qui</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r1">Ceux qui</span> maîtrisent les outils numériques ont un avantage sur <span class="r1">ceux qui</span> ne les maîtrisent pas.</span></div>
+        <div class="sent-row"><span class="sent-en">Those who master digital tools have an advantage over those who do not.</span></div>
+        <div class="sent-row" style="margin-top:4px;"><span class="sent-en" style="color:var(--col-t-text);">⚠️ Après <em>sur</em> (préposition) → obligatoirement <strong>ceux qui</strong>, jamais <em>qui</em> seul.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title a">ceux que — personnes, rôle objet direct</div>
+    <div class="section-desc">Après <strong>ceux que</strong>, le verbe a déjà son propre sujet — le pronom est l'objet.</div>
+
+    <div class="ex-card">
+      <div class="ex-card-header a">Société</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r1">Ceux que</span> la société oublie sont souvent les plus vulnérables.</span></div>
+        <div class="sent-row"><span class="sent-en">Those whom society forgets are often the most vulnerable.</span></div>
+        <div class="sent-row" style="margin-top:4px;"><span class="sent-en" style="color:var(--col-de-text);">💡 Après <em>que</em>, <em>la société</em> est le sujet du verbe — pas le pronom.</span></div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header a">Travail</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r1">Ceux que</span> les entreprises recrutent aujourd'hui possèdent souvent des compétences numériques avancées.</span></div>
+        <div class="sent-row"><span class="sent-en">Those whom companies hire today often possess advanced digital skills.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warn-note">
+    ⚠️ <strong>Test :</strong> <em>ceux qui ___</em> → verbe manque de sujet → <strong>qui</strong>. <em>ceux que ___</em> → verbe a déjà un sujet → <strong>que</strong>.
+  </div>
+
+</div>
+
+<!-- TAB 3 — CE QUI / CE QUE / CE DONT -->
+<div class="tab-panel" id="panel-ce">
+
+  <div class="section-block">
+    <div class="section-title de">ce qui — idée / fait, rôle sujet</div>
+    <div class="section-desc">Après <strong>ce qui</strong>, le verbe n'a pas d'autre sujet.</div>
+
+    <div class="ex-card">
+      <div class="ex-card-header de">Environnement</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r4">Ce qui</span> pousse les gouvernements à agir, c'est la pression citoyenne.</span></div>
+        <div class="sent-row"><span class="sent-en">What drives governments to act is citizen pressure.</span></div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header de">Nuance TCF</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r4">Ce qui</span> m'inquiète le plus, c'est l'excès de fausses informations.</span></div>
+        <div class="sent-row"><span class="sent-en">What worries me most is the excess of false information.</span></div>
+        <div class="sent-row" style="margin-top:4px;"><span class="sent-en" style="color:var(--col-t-text);">⚠️ <em>inquiéter</em> n'a pas de <em>de</em> → ce qui, pas ce dont.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title de">ce que — idée / fait, rôle objet direct</div>
+    <div class="section-desc">Après <strong>ce que</strong>, le verbe a déjà son propre sujet.</div>
+
+    <div class="ex-card">
+      <div class="ex-card-header de">Reformulation — chunk TCF</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r4">Ce que</span> je veux dire par là, c'est que la technologie n'est pas neutre.</span></div>
+        <div class="sent-row"><span class="sent-en">What I mean by that is that technology is not neutral.</span></div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header de">Travail</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r4">Ce que</span> les recruteurs recherchent avant tout, c'est une capacité d'adaptation.</span></div>
+        <div class="sent-row"><span class="sent-en">What recruiters look for above all is adaptability.</span></div>
+        <div class="sent-row" style="margin-top:4px;"><span class="sent-en" style="color:var(--col-de-text);">💡 <em>les recruteurs</em> est déjà le sujet après <em>ce que</em> → objet.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title q">ce dont — verbe construit avec « de »</div>
+    <div class="section-desc">
+      Utilise <strong>ce dont</strong> uniquement quand le verbe qui suit <strong>exige de</strong>.
+      Vérifie toujours en remplaçant le gap par <em>"de cela"</em> dans la phrase originale.
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header q">avoir besoin de → ce dont</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r3">Ce dont</span> on a besoin, c'est d'une meilleure réglementation.</span></div>
+        <div class="sent-row"><span class="sent-en">What we need is better regulation. — on a besoin <em>de cela</em> ✅</span></div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header q">se plaindre de → ce dont</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r3">Ce dont</span> les jeunes diplômés se plaignent le plus, c'est le manque de débouchés.</span></div>
+        <div class="sent-row"><span class="sent-en">What young graduates complain about most is the lack of opportunities.</span></div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-card-header q">manquer de → ce dont</div>
+      <div class="ex-body">
+        <div class="sent-row"><span class="sent-text"><span class="r3">Ce dont</span> le système éducatif manque, c'est de ressources adaptées.</span></div>
+        <div class="sent-row"><span class="sent-en">What the education system lacks is appropriate resources.</span></div>
+      </div>
+    </div>
+
+    <div class="warn-note">
+      ⚠️ <strong>Piège classique :</strong><br>
+      <em>inquiéter</em> → pas de préposition → <strong>ce qui</strong> m'inquiète ✅<br>
+      <em>s'inquiéter de</em> → avec <em>de</em> → <strong>ce dont</strong> je m'inquiète ✅<br>
+      Toujours vérifier si le verbe veut vraiment <em>de</em> avant de choisir <em>ce dont</em>.
+    </div>
+  </div>
+
+</div>
+
+<!-- TAB 4 — VERBES + DE -->
+<div class="tab-panel" id="panel-verbes">
+
+  <div class="section-block">
+    <div class="section-title q">Verbes + de → ce dont</div>
+    <div class="section-desc">
+      Ces verbes exigent <strong>de</strong>. Quand ils suivent un gap d'idée/fait, utilise <strong>ce dont</strong>.
+    </div>
+
+    <div class="verb-grid">
+      <div class="verb-chip">
+        <div class="verb-fr">avoir besoin de</div>
+        <div class="verb-en">to need</div>
+        <div class="verb-ex">Ce dont on a besoin…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">manquer de</div>
+        <div class="verb-en">to lack</div>
+        <div class="verb-ex">Ce dont il manque…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">se plaindre de</div>
+        <div class="verb-en">to complain about</div>
+        <div class="verb-ex">Ce dont ils se plaignent…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">parler de</div>
+        <div class="verb-en">to talk about</div>
+        <div class="verb-ex">Ce dont on parle peu…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">se souvenir de</div>
+        <div class="verb-en">to remember</div>
+        <div class="verb-ex">Ce dont on se souvient…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">dépendre de</div>
+        <div class="verb-en">to depend on</div>
+        <div class="verb-ex">Ce dont cela dépend…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">souffrir de</div>
+        <div class="verb-en">to suffer from</div>
+        <div class="verb-ex">Ce dont ils souffrent…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">profiter de</div>
+        <div class="verb-en">to benefit from</div>
+        <div class="verb-ex">Ce dont on profite…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">tenir compte de</div>
+        <div class="verb-en">to take into account</div>
+        <div class="verb-ex">Ce dont il faut tenir compte…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">être conscient de</div>
+        <div class="verb-en">to be aware of</div>
+        <div class="verb-ex">Ce dont ils sont conscients…</div>
+      </div>
+    </div>
+
+    <div class="good-note">
+      💡 <strong>Le test de "de cela" :</strong> Remplace le gap par <em>"de cela"</em> dans la phrase originale.<br>
+      Si ça marche → <strong>ce dont</strong>. Si ça ne marche pas → <strong>ce qui</strong> ou <strong>ce que</strong>.<br><br>
+      <em>On a besoin <strong>de cela</strong></em> ✅ → Ce dont on a besoin…<br>
+      <em>Cela m'inquiète</em> (pas de <em>de</em>) → Ce qui m'inquiète…
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title t">Verbes sans préposition → ce qui / ce que</div>
+    <div class="section-desc">Ces verbes n'ont pas de <em>de</em>. Utilise le test sujet/objet.</div>
+
+    <div class="verb-grid">
+      <div class="verb-chip">
+        <div class="verb-fr">inquiéter (qqn)</div>
+        <div class="verb-en">to worry (transitive)</div>
+        <div class="verb-ex">Ce qui m'inquiète…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">pousser (qqn à)</div>
+        <div class="verb-en">to drive / push</div>
+        <div class="verb-ex">Ce qui pousse les gens…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">changer</div>
+        <div class="verb-en">to change</div>
+        <div class="verb-ex">Ce qui change tout…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">vouloir dire</div>
+        <div class="verb-en">to mean</div>
+        <div class="verb-ex">Ce que je veux dire…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">rechercher</div>
+        <div class="verb-en">to look for</div>
+        <div class="verb-ex">Ce que les employeurs recherchent…</div>
+      </div>
+      <div class="verb-chip">
+        <div class="verb-fr">négliger</div>
+        <div class="verb-en">to neglect</div>
+        <div class="verb-ex">Ce que l'on néglige souvent…</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TAB 5 — CHUNKS TCF -->
+<div class="tab-panel" id="panel-chunks">
+
+  <div class="section-block">
+    <div class="section-title de">Blocs — ce qui</div>
+    <div class="section-desc">Mémorise ces formules comme des blocs sonores. Lis-les à voix haute.</div>
+    <div class="chunk-list">
+      <div class="chunk-row"><div class="chunk-fr"><span class="r4">Ce qui</span> m'inquiète le plus, c'est…</div><div class="chunk-badge de">ce qui</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r4">Ce qui</span> est certain, c'est que…</div><div class="chunk-badge de">ce qui</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r4">Ce qui</span> change vraiment la donne, c'est…</div><div class="chunk-badge de">ce qui</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r4">Ce qui</span> pousse les gens à agir, c'est…</div><div class="chunk-badge de">ce qui</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r4">Ce qui</span> est souvent négligé, c'est…</div><div class="chunk-badge de">ce qui</div></div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title de">Blocs — ce que</div>
+    <div class="chunk-list">
+      <div class="chunk-row"><div class="chunk-fr"><span class="r4">Ce que</span> je veux dire par là, c'est que…</div><div class="chunk-badge de">ce que</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r4">Ce que</span> les gouvernements négligent souvent, c'est…</div><div class="chunk-badge de">ce que</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r4">Ce que</span> les employeurs recherchent avant tout, c'est…</div><div class="chunk-badge de">ce que</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r4">Ce que</span> l'on oublie souvent, c'est que…</div><div class="chunk-badge de">ce que</div></div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title q">Blocs — ce dont</div>
+    <div class="chunk-list">
+      <div class="chunk-row"><div class="chunk-fr"><span class="r3">Ce dont</span> on a besoin, c'est de…</div><div class="chunk-badge q">ce dont</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r3">Ce dont</span> on ne parle pas assez, c'est de…</div><div class="chunk-badge q">ce dont</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r3">Ce dont</span> les jeunes manquent, c'est de…</div><div class="chunk-badge q">ce dont</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r3">Ce dont</span> il faut tenir compte, c'est de…</div><div class="chunk-badge q">ce dont</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r3">Ce dont</span> cette génération souffre, c'est d'un manque de…</div><div class="chunk-badge q">ce dont</div></div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-title a">Blocs — ceux qui / ceux que</div>
+    <div class="chunk-list">
+      <div class="chunk-row"><div class="chunk-fr"><span class="r1">Ceux qui</span> n'ont pas accès à l'éducation…</div><div class="chunk-badge a">ceux qui</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r1">Ceux qui</span> arrivent sans réseau de soutien…</div><div class="chunk-badge a">ceux qui</div></div>
+      <div class="chunk-row"><div class="chunk-fr">…un avantage sur <span class="r1">ceux qui</span> ne le font pas.</div><div class="chunk-badge a">ceux qui</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r1">Ceux que</span> la société oublie sont souvent…</div><div class="chunk-badge a">ceux que</div></div>
+      <div class="chunk-row"><div class="chunk-fr"><span class="r1">Ceux que</span> le système ne protège pas…</div><div class="chunk-badge a">ceux que</div></div>
+    </div>
+  </div>
+
+  <div class="tip-note">
+    💡 <strong>Stratégie d'acquisition :</strong> Ne mémorise pas les règles — mémorise les <strong>blocs sonores</strong> ci-dessus.
+    Lis chaque chunk à voix haute 3 fois. Avec le temps, la forme correcte sonnera juste automatiquement,
+    comme elle sonne juste pour les locuteurs natifs.
+  </div>
+
+</div>
+
+<script>
+function showTab(id, btn){
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
