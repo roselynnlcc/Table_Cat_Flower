@@ -12,17 +12,17 @@
     --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
     --accent:#c8955a;--radius:12px;--radius-sm:6px;
 
-    /* type colours — card headers & filter pills */
-    --blue-bg:#e8f2ff;   --blue-text:#185fa5;  --blue-border:#c0d8f8;
-    --green-bg:#eaf4ef;  --green-text:#2d6a4f; --green-border:#c3e6d4;
-    --grey-bg:#f3f3f1;   --grey-text:#555250;  --grey-border:#d9d4cd;
-    --red-bg:#fff1f2;    --red-text:#b91c1c;   --red-border:#fecdd3;
+    /* sentence role colours — Option B */
+    --r1-bg:#dbeeff;   --r1-text:#1a3d7a;   /* subject   — navy       */
+    --r2-bg:#ffeef2;   --r2-text:#8b1a35;   /* verb      — crimson    */
+    --r3-bg:#ede0ff;   --r3-text:#4a1a80;   /* prep/pro  — purple     */
+    --r4-bg:#eaf4ef;   --r4-text:#2d6a4f;   /* object    — green      */
 
-    /* sentence role colours — drawn from question page palette */
-    --r1:#8b1a35;   /* subject   — deep pink/crimson  */
-    --r2:#2d6a4f;   /* verb      — forest green        */
-    --r3:#92400e;   /* prep/pro  — amber               */
-    --r4:#1a3d7a;   /* object    — dark blue           */
+    /* group colours — card headers, section titles, tabs */
+    --col-a-bg:#dbeeff;    --col-a-text:#1a3d7a;    --col-a-border:#b3d4f5;
+    --col-de-bg:#eaf4ef;   --col-de-text:#2d6a4f;   --col-de-border:#c3e6d4;
+    --col-q-bg:#ede0ff;    --col-q-text:#4a1a80;    --col-q-border:#d4b8f5;
+    --col-t-bg:#ffeef2;    --col-t-text:#8b1a35;    --col-t-border:#f5c0cc;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
@@ -32,81 +32,87 @@
   .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
   .site-header h1 span{color:var(--accent);font-style:italic;}
   .page-title{font-size:15px;font-weight:500;color:#fff;margin-top:6px;}
-  .page-subtitle{font-size:12px;color:#aaa;margin-top:2px;}
   .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
   .back-link:hover{color:var(--accent);}
 
-  /* ── FILTER BAR ── */
-  .filter-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
-  .filter-bar::-webkit-scrollbar{display:none;}
-  .filter-pills{display:flex;gap:8px;width:max-content;}
-  .fpill{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text-soft);cursor:pointer;white-space:nowrap;transition:all .15s;}
-  .fpill.active-all { border-color:var(--accent);  background:#fdf5ed;         color:var(--accent);      }
-  .fpill.active-a   { border-color:var(--blue-border);  background:var(--blue-bg);  color:var(--blue-text);  }
-  .fpill.active-de  { border-color:var(--green-border); background:var(--green-bg); color:var(--green-text); }
-  .fpill.active-q   { border-color:var(--grey-border);  background:var(--grey-bg);  color:var(--grey-text);  }
-  .fpill.active-t   { border-color:var(--red-border);   background:var(--red-bg);   color:var(--red-text);   }
+  /* ── TAB NAV — exact question script style ── */
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;position:sticky;top:80px;z-index:99;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
 
-  /* ── PAGE WRAP ── */
-  .page-wrap{max-width:720px;margin:0 auto;padding:24px 16px 60px;}
+  /* ── CONTENT PANELS ── */
+  .tab-panel{display:none;padding:20px 16px 60px;max-width:720px;margin:0 auto;}
+  .tab-panel.active{display:block;}
 
   /* ── SECTION ── */
-  .section-block{margin-bottom:36px;}
-  .section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:4px;padding-bottom:7px;border-bottom:1px solid var(--border);}
-  .section-desc{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6;}
+  .section-block{margin-bottom:32px;}
+  .section-title{font-size:13px;font-weight:600;letter-spacing:.04em;margin-bottom:6px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .section-title.type-a  { color:var(--col-a-text);  }
+  .section-title.type-de { color:var(--col-de-text); }
+  .section-title.type-q  { color:var(--col-q-text);  }
+  .section-title.type-t  { color:var(--col-t-text);  }
+
+  .section-desc{font-size:13px;color:var(--text);margin-bottom:14px;line-height:1.7;}
+  .section-desc strong{font-weight:600;}
 
   /* ── PATTERN CARD ── */
-  .pattern-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
-  .pattern-header{padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
-  .pattern-header.type-a  { background:var(--blue-bg);  border-bottom-color:var(--blue-border);  }
-  .pattern-header.type-de { background:var(--green-bg); border-bottom-color:var(--green-border); }
-  .pattern-header.type-q  { background:var(--grey-bg);  border-bottom-color:var(--grey-border);  }
-  .pattern-header.type-t  { background:var(--red-bg);   border-bottom-color:var(--red-border);   }
+  .pattern-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
 
-  /* type badge (replaces arrow) */
-  .type-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0;}
-  .type-badge.type-a  { background:var(--blue-bg);  color:var(--blue-text);  border:1px solid var(--blue-border);  }
-  .type-badge.type-de { background:var(--green-bg); color:var(--green-text); border:1px solid var(--green-border); }
-  .type-badge.type-q  { background:var(--grey-bg);  color:var(--grey-text);  border:1px solid var(--grey-border);  }
-  .type-badge.type-t  { background:var(--red-bg);   color:var(--red-text);   border:1px solid var(--red-border);   }
+  .pattern-header{padding:11px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
+  .pattern-header.type-a  { background:var(--col-a-bg);  border-bottom-color:var(--col-a-border);  }
+  .pattern-header.type-de { background:var(--col-de-bg); border-bottom-color:var(--col-de-border); }
+  .pattern-header.type-q  { background:var(--col-q-bg);  border-bottom-color:var(--col-q-border);  }
+  .pattern-header.type-t  { background:var(--col-t-bg);  border-bottom-color:var(--col-t-border);  }
 
+  .type-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0;}
+  .type-badge.type-a  { background:var(--col-a-bg);  color:var(--col-a-text);  border:1px solid var(--col-a-border);  }
+  .type-badge.type-de { background:var(--col-de-bg); color:var(--col-de-text); border:1px solid var(--col-de-border); }
+  .type-badge.type-q  { background:var(--col-q-bg);  color:var(--col-q-text);  border:1px solid var(--col-q-border);  }
+  .type-badge.type-t  { background:var(--col-t-bg);  color:var(--col-t-text);  border:1px solid var(--col-t-border);  }
+
+  /* card title — same size as sentence text */
   .pattern-fr{font-size:14px;font-weight:500;color:var(--text);flex:1;}
-  .pattern-en{font-size:12px;color:var(--text-muted);margin-left:auto;white-space:nowrap;}
+  .pattern-en{font-size:12px;color:var(--text-muted);white-space:nowrap;}
   .expand-icon{font-size:11px;color:var(--text-muted);flex-shrink:0;transition:transform .2s;}
   .expand-icon.open{transform:rotate(180deg);}
 
-  /* ── EXAMPLES (collapsed by default) ── */
-  .examples{display:none;padding:4px 0;}
+  /* ── EXAMPLES ── */
+  .examples{display:none;}
   .examples.open{display:block;}
-  .example-row{padding:12px 16px;border-bottom:0.5px solid var(--border);}
+  .example-row{padding:13px 16px;border-bottom:0.5px solid var(--border);}
   .example-row:last-child{border-bottom:none;}
 
-  .ex-phrase{font-size:13px;font-weight:500;color:var(--text-soft);margin-bottom:9px;}
+  /* verb phrase label — lowercase, muted */
+  .ex-phrase{font-size:12.5px;font-weight:400;color:var(--text-muted);margin-bottom:10px;}
 
-  .sentence-pair{display:flex;flex-direction:column;gap:7px;margin-bottom:8px;}
-  .sent-row{display:flex;align-items:flex-start;gap:9px;}
-  .sent-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;min-width:44px;padding-top:2px;flex-shrink:0;color:var(--text-muted);}
+  /* sentence pair */
+  .sentence-pair{display:flex;flex-direction:column;gap:10px;margin-bottom:8px;}
+  .sent-row{display:flex;align-items:baseline;gap:10px;}
+  .sent-tag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;min-width:44px;flex-shrink:0;color:var(--text-muted);}
   .sent-tag.rel{color:var(--accent);}
-  .sent-text{font-size:13.5px;line-height:1.65;color:var(--text-soft);}
+  /* sentence text same size as card title */
+  .sent-text{font-size:14px;line-height:1.85;color:var(--text);}
 
-  /* sentence colour roles */
-  .r1{color:var(--r1);font-weight:600;}
-  .r2{color:var(--r2);font-weight:600;}
-  .r3{color:var(--r3);font-weight:700;}
-  .r4{color:var(--r4);font-weight:600;}
+  /* chip highlights — background chip, not bold */
+  .r1{background:var(--r1-bg);color:var(--r1-text);border-radius:3px;padding:0 3px;}
+  .r2{background:var(--r2-bg);color:var(--r2-text);border-radius:3px;padding:0 3px;}
+  .r3{background:var(--r3-bg);color:var(--r3-text);border-radius:3px;padding:0 3px;}
+  .r4{background:var(--r4-bg);color:var(--r4-text);border-radius:3px;padding:0 3px;}
 
-  .ex-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
+  .ex-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
   .cat-tag{font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;border:1px solid;}
-  .tag-education   {background:#eff6ff;color:#2563eb;border-color:#bfdbfe;}
-  .tag-famille     {background:#fff5f5;color:#dc2626;border-color:#fecaca;}
+  .tag-education    {background:#eff6ff;color:#2563eb;border-color:#bfdbfe;}
+  .tag-famille      {background:#fff5f5;color:#dc2626;border-color:#fecaca;}
   .tag-environnement{background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;}
-  .tag-technologie {background:#fffbeb;color:#d97706;border-color:#fde68a;}
-  .tag-economique  {background:#fdf2f8;color:#be185d;border-color:#fbcfe8;}
-  .tag-sante       {background:#f0fafe;color:#0891b2;border-color:#bae6fd;}
-  .tag-culture     {background:#f5f0ff;color:#7c3aed;border-color:#ddd6fe;}
+  .tag-technologie  {background:#fffbeb;color:#d97706;border-color:#fde68a;}
+  .tag-economique   {background:#fdf2f8;color:#be185d;border-color:#fbcfe8;}
+  .tag-sante        {background:#f0fafe;color:#0891b2;border-color:#bae6fd;}
+  .tag-culture      {background:#f5f0ff;color:#7c3aed;border-color:#ddd6fe;}
 
   /* tricky note */
-  .tricky-note{background:var(--red-bg);border:1px solid var(--red-border);border-radius:6px;padding:9px 11px;font-size:12.5px;color:var(--red-text);line-height:1.6;margin-bottom:10px;}
+  .tricky-note{background:var(--col-t-bg);border:1px solid var(--col-t-border);border-radius:6px;padding:9px 12px;font-size:13px;color:var(--col-t-text);line-height:1.65;margin-bottom:10px;}
 </style>
 </head>
 <body>
@@ -115,22 +121,21 @@
   <a class="back-link" href="../index.html">← Retour</a>
   <h1>TCF Canada — <span>Conseils</span></h1>
   <div class="page-title">Verbes &amp; Pronoms relatifs</div>
-  <div class="page-subtitle">auquel · dont · que · verbes pièges · tap pour voir les exemples</div>
 </header>
 
-<div class="filter-bar">
-  <div class="filter-pills" id="filterPills">
-    <button class="fpill active-all" onclick="setFilter('all',this)">Tous</button>
-    <button class="fpill" onclick="setFilter('a',this)"><strong>à</strong> · auquel</button>
-    <button class="fpill" onclick="setFilter('de',this)"><strong>de</strong> · dont</button>
-    <button class="fpill" onclick="setFilter('q',this)"><strong>—</strong> · que</button>
-    <button class="fpill" onclick="setFilter('t',this)">⚠️ Pièges</button>
-  </div>
-</div>
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('all',this)">Tous</button>
+  <button class="tab-btn" onclick="showTab('a',this)">à · auquel</button>
+  <button class="tab-btn" onclick="showTab('de',this)">de · dont</button>
+  <button class="tab-btn" onclick="showTab('q',this)">— · que</button>
+  <button class="tab-btn" onclick="showTab('t',this)">⚠️ Pièges</button>
+</nav>
 
-<div class="page-wrap">
-  <div id="mainContent"></div>
-</div>
+<div id="panel-all" class="tab-panel active"></div>
+<div id="panel-a"   class="tab-panel"></div>
+<div id="panel-de"  class="tab-panel"></div>
+<div id="panel-q"   class="tab-panel"></div>
+<div id="panel-t"   class="tab-panel"></div>
 
 <script>
 const DATA = [
@@ -246,19 +251,19 @@ const DATA = [
     type:'t', label:'⚠️ Verbes pièges · anglais ≠ français',
     desc:"Ces verbes créent des erreurs fréquentes car leur construction diffère de l'anglais.",
     verbs:[
-      { id:'v19', fr:'écouter (qqn)', en:'to listen to — ❌ sans préposition en français',
+      { id:'v19', fr:'écouter (qqn)', en:'to listen to — ❌ sans préposition',
         tricky:'Anglais : "listen <u>to</u>" → Français : écouter <strong>sans préposition</strong>. Pronom relatif : <strong>que</strong>.',
         examples:[{ phrase:'écouter ses professeurs',
           simple:[{t:'r1',w:'Il'},{t:'n',w:' '},{t:'r2',w:'écoute'},{t:'n',w:' '},{t:'r4',w:'ses professeurs'},{t:'n',w:'.'}],
           rel:   [{t:'r4',w:'Les professeurs'},{t:'n',w:' '},{t:'r3',w:'que'},{t:'n',w:' '},{t:'r1',w:'il'},{t:'n',w:' '},{t:'r2',w:'écoute'},{t:'n',w:' sont expérimentés.'}],
           tags:['education','famille'] }] },
-      { id:'v20', fr:'attendre (qqch)', en:'to wait for — ❌ sans préposition en français',
+      { id:'v20', fr:'attendre (qqch)', en:'to wait for — ❌ sans préposition',
         tricky:'Anglais : "wait <u>for</u>" → Français : attendre <strong>sans préposition</strong>. Pronom relatif : <strong>que</strong>.',
         examples:[{ phrase:'attendre les résultats',
           simple:[{t:'r1',w:'On'},{t:'n',w:' '},{t:'r2',w:'attend'},{t:'n',w:' '},{t:'r4',w:'les résultats'},{t:'n',w:'.'}],
           rel:   [{t:'r4',w:'Les résultats'},{t:'n',w:' '},{t:'r3',w:'que'},{t:'n',w:' '},{t:'r1',w:"l'on"},{t:'n',w:' '},{t:'r2',w:'attend'},{t:'n',w:' tardent à venir.'}],
           tags:['education','economique'] }] },
-      { id:'v21', fr:'chercher (qqch)', en:'to look for — ❌ sans préposition en français',
+      { id:'v21', fr:'chercher (qqch)', en:'to look for — ❌ sans préposition',
         tricky:'Anglais : "look <u>for</u>" → Français : chercher <strong>sans préposition</strong>. Pronom relatif : <strong>que</strong>.',
         examples:[{ phrase:'chercher un emploi stable',
           simple:[{t:'r1',w:'Les diplômés'},{t:'n',w:' '},{t:'r2',w:'cherchent'},{t:'n',w:' '},{t:'r4',w:'un emploi stable'},{t:'n',w:'.'}],
@@ -274,37 +279,37 @@ const DATA = [
   }
 ];
 
-let activeFilter = 'all';
-
 function tok(tokens){
   return tokens.map(tk => tk.t==='n' ? tk.w : `<span class="${tk.t}">${tk.w}</span>`).join('');
 }
 function makeTags(arr){
   return arr.map(t=>`<span class="cat-tag tag-${t}">${t.charAt(0).toUpperCase()+t.slice(1)}</span>`).join('');
 }
+function badgeLabel(type){
+  return {a:'auquel',de:'dont',q:'que',t:'piège'}[type];
+}
 
-function renderAll(){
-  const sections = activeFilter==='all' ? DATA : DATA.filter(s=>s.type===activeFilter);
+// Each verb card gets a unique id scoped to its panel prefix
+// to avoid duplicate-id conflicts across panels
+function buildPanel(sections, prefix){
   let html = '';
   sections.forEach(s => {
     html += `<div class="section-block">
-      <div class="section-title">${s.label}</div>
+      <div class="section-title type-${s.type}">${s.label}</div>
       <div class="section-desc">${s.desc}</div>`;
-
     s.verbs.forEach(v => {
+      const uid = prefix + v.id;
       html += `<div class="pattern-card">
-        <div class="pattern-header type-${s.type}" onclick="toggleV('${v.id}')">
+        <div class="pattern-header type-${s.type}" onclick="toggleV('${uid}')">
           <span class="type-badge type-${s.type}">${badgeLabel(s.type)}</span>
           <span class="pattern-fr">${v.fr}</span>
           <span class="pattern-en">${v.en}</span>
-          <span class="expand-icon" id="icon-${v.id}">▾</span>
+          <span class="expand-icon" id="icon-${uid}">▾</span>
         </div>
-        <div class="examples" id="ex-${v.id}">`;
-
+        <div class="examples" id="ex-${uid}">`;
       if(v.tricky){
         html += `<div class="example-row"><div class="tricky-note">${v.tricky}</div></div>`;
       }
-
       v.examples.forEach(ex => {
         html += `<div class="example-row">
           <div class="ex-phrase">${ex.phrase}</div>
@@ -315,33 +320,30 @@ function renderAll(){
           <div class="ex-tags">${makeTags(ex.tags)}</div>
         </div>`;
       });
-
       html += `</div></div>`;
     });
-
     html += `</div>`;
   });
-  document.getElementById('mainContent').innerHTML = html;
+  return html;
 }
 
-function badgeLabel(type){
-  return {a:'auquel',de:'dont',q:'que',t:'piège'}[type];
+// Build each panel with its own prefix so IDs never collide
+document.getElementById('panel-all').innerHTML = buildPanel(DATA, 'all_');
+DATA.forEach(s => {
+  document.getElementById(`panel-${s.type}`).innerHTML = buildPanel([s], `${s.type}_`);
+});
+
+function toggleV(uid){
+  document.getElementById(`ex-${uid}`).classList.toggle('open');
+  document.getElementById(`icon-${uid}`).classList.toggle('open');
 }
 
-function toggleV(id){
-  document.getElementById(`ex-${id}`).classList.toggle('open');
-  document.getElementById(`icon-${id}`).classList.toggle('open');
+function showTab(id, btn){
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`panel-${id}`).classList.add('active');
+  btn.classList.add('active');
 }
-
-const FILTER_CLASSES = {all:'active-all',a:'active-a',de:'active-de',q:'active-q',t:'active-t'};
-function setFilter(f, btn){
-  activeFilter = f;
-  document.querySelectorAll('.fpill').forEach(p => p.className='fpill');
-  btn.classList.add(FILTER_CLASSES[f]);
-  renderAll();
-}
-
-renderAll();
 </script>
 </body>
 </html>
