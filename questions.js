@@ -113,7 +113,16 @@ const TCF_QUESTIONS = [
   question: 'Certaines personnes préfèrent vivre sans technologie (Internet, ordinateur, téléphone). Qu\'en pensez-vous ?',
   scriptUrl: 'technologie/sans_technologie.html',
   date: '2026-05-13',
-  stars: 0,
+  stars: 1,
   status: "À faire"
-},
+  },
+  {
+  id: 14,
+  cat: 'travail',
+  question: 'Le télétravail permet-il réellement de mieux concilier la vie professionnelle et la vie personnelle ? Qu\'en pensez-vous ?',
+  scriptUrl: 'travail/teletravail_equilibre.html',
+  date: '2026-05-13',
+  stars: 1,
+  status: "À faire"
+}
 ];
