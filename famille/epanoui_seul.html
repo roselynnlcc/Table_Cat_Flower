@@ -14,8 +14,6 @@
     --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
     --green:#2d6a4f;--green-bg:#eaf4ef;
     --amber:#92400e;--amber-bg:#fef3c7;
-    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
-    --magenta:#9D174D;--magenta-bg:#FCE7F3;
     --accent:#c8955a;--radius:12px;--radius-sm:6px;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -43,8 +41,8 @@
   .card-title-green{color:var(--green);}
   .card-title-blue{color:#185fa5;}
   .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
-  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
-  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+  .badge-easy{background:#edfff4;color:#1a7a4a;border:1px solid #a8e8c4;}
+  .badge-hard{background:#fff0f3;color:#8b1a35;border:1px solid #f5c0cc;}
   .block{padding:14px 18px;border-bottom:1px solid var(--border);}
   .block:last-child{border-bottom:none;}
   .block-nuance{background:#fff;}
@@ -225,8 +223,8 @@
           <div class="chunk-note">il serait réducteur de — ouverture C1 réutilisable · nécessairement = necessarily</div>
         </div>
         <div class="chunk-card">
-          <div class="chunk-fr">il faudrait que chacun puisse choisir son mode de vie selon sa personnalité, sans jugement</div>
-          <div class="chunk-en">everyone should be able to choose their lifestyle according to their personality, without judgement</div>
+          <div class="chunk-fr">il faudrait que les individus puissent choisir leur mode de vie selon leur personnalité, sans jugement</div>
+          <div class="chunk-en">individuals should be able to choose their lifestyle according to their personality, without judgement</div>
           <div class="chunk-note">subjonctif après il faudrait que — signal C1 · parfait en conclusion</div>
         </div>
       </div>
@@ -241,21 +239,23 @@ const scriptA = {
   badge:'Plus facile à défendre', badgeClass:'badge-easy',
   blocks:[
     { label:'Introduction', timing:'~40s', nuance:false,
-      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
-<p>Certaines personnes pensent que <span class="hl-pink">vivre seul peut tout à fait mener à un épanouissement personnel</span>, tandis que d'autres estiment le contraire.</p>
-<p>Cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">la solitude choisie peut être une véritable source d'épanouissement, à condition d'être bien vécue.</span></p>
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il est légitime de se demander si l'on peut véritablement s'épanouir en vivant seul, et les avis sont mitigés. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que vivre seul peut tout à fait mener à l'épanouissement, à un certain point.</p>
 <p>Alors, je vais expliquer mes raisons.</p>`, note:'' },
+
     { label:'Point 1 — La liberté totale', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
       text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">vivre seul offre une liberté totale dans l'organisation de sa vie quotidienne.</span> Sans avoir à faire de compromis, une personne peut structurer son temps, son espace et ses priorités exactement comme elle le souhaite. <span class="hl-pink">Cette liberté crée un environnement propice à la croissance personnelle et à la réalisation de soi.</span> Par exemple, beaucoup de personnes qui vivent seules témoignent d'une meilleure connaissance d'elles-mêmes et d'un sentiment de maîtrise sur leur propre vie.</p>`,
       note:'💬 <em>propice à</em> = conducive to · <em>la réalisation de soi</em> = self-fulfilment · <em>témoigner de</em> = to testify to · <em>la maîtrise</em> = control, mastery' },
+
     { label:'Point 2 — L\'indépendance émotionnelle', timing:'~1 min', nuance:false, wc:'~80 mots ✓',
-      text:`<p>En plus, <span class="hl-pink">vivre seul permet de développer une véritable indépendance émotionnelle.</span> En apprenant à gérer ses émotions sans s'appuyer constamment sur les autres, on se construit une résilience intérieure précieuse. Ce n'est pas de l'isolement — c'est une forme de maturité. <span class="hl-pink">Une personne qui ne dépend pas des autres pour son bonheur est souvent plus stable émotionnellement et plus épanouie dans ses relations.</span> Vivre seul, c'est donc aussi apprendre à être bien avec soi-même.</p>`,
+      text:`<p>De plus, <span class="hl-pink">vivre seul permet de développer une véritable indépendance émotionnelle.</span> En apprenant à gérer ses émotions sans s'appuyer constamment sur les autres, on se construit une résilience intérieure précieuse. Ce n'est pas de l'isolement — c'est une forme de maturité. <span class="hl-pink">Une personne qui ne dépend pas des autres pour son bonheur est souvent plus stable émotionnellement et plus épanouie dans ses relations.</span> Vivre seul, c'est donc aussi apprendre à être bien avec soi-même.</p>`,
       note:'💬 <em>s\'appuyer sur</em> = to rely on · <em>se construire</em> = to build oneself · <em>la résilience intérieure</em> = inner resilience · <em>être bien avec soi-même</em> = to be at peace with oneself' },
-    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~72 mots ✓',
-      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">le contact humain reste un besoin fondamental pour la plupart des gens.</span> Même les personnes qui vivent seules et s'épanouissent ont besoin de liens sociaux — amis, famille, collègues — pour se sentir bien. <span class="hl-blue">Pour autant, cela ne signifie pas qu'il faille nécessairement cohabiter avec quelqu'un pour être heureux : on peut très bien vivre seul tout en entretenant des relations riches et épanouissantes.</span></p>`,
-      note:'💬 <em>cohabiter</em> = to live together · <em>tout en entretenant</em> = while maintaining (tout en + participe présent — structure C1) · <em>nécessairement</em> = necessarily' },
+
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~65 mots ✓',
+      text:`<p>Il est certes vrai que <span class="hl-blue">le contact humain reste un besoin fondamental pour la plupart des gens.</span> Même les personnes les plus indépendantes ont besoin de liens sociaux — amis, famille, collègues — pour maintenir un équilibre psychologique durable. <span class="hl-blue">Sans ces liens, même une personne autonome risque de ressentir un vide affectif que la liberté individuelle ne peut pas combler.</span></p>`,
+      note:'💬 <em>un vide affectif</em> = an emotional void · <em>combler</em> = to fill · <em>un équilibre psychologique</em> = psychological balance' },
+
     { label:'Conclusion', timing:'~50s', nuance:false,
-      text:`<p>En conclusion, <span class="hl-blue">bien que vivre seul ne convienne pas à toutes les personnalités,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages sont indéniables pour ceux qui le choisissent — que ce soit en termes de liberté, de connaissance de soi ou d'indépendance émotionnelle.</span></p>
+      text:`<p>En conclusion, bien que <span class="hl-blue">le manque de liens sociaux</span> présente certains inconvénients, notamment le risque d'isolement, il n'en demeure pas moins que <span class="hl-pink">les avantages de la vie seule sont indéniables — notamment la liberté personnelle et le développement de l'indépendance émotionnelle.</span></p>
 <p>Il serait souhaitable que <span class="hl-p1">les mentalités évoluent et cessent de percevoir le fait de vivre seul comme un échec</span> / <span class="hl-p2">les individus puissent choisir leur mode de vie selon leur personnalité, sans jugement.</span></p>
 <p>Merci pour votre attention.</p>`, note:'' }
   ]
@@ -267,22 +267,24 @@ const scriptB = {
   badge:'Plus ardu', badgeClass:'badge-hard',
   blocks:[
     { label:'Introduction', timing:'~40s', nuance:false,
-      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
-<p>Certaines personnes pensent que <span class="hl-pink">l'on peut tout à fait s'épanouir en vivant seul</span>, tandis que d'autres estiment le contraire.</p>
-<p>Cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">l'épanouissement véritable a besoin des autres — le soutien, le partage et les liens profonds sont des besoins humains fondamentaux.</span></p>
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il est légitime de se demander si l'on peut vraiment s'épanouir en vivant seul, et les avis sont mitigés. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que l'épanouissement véritable a besoin des autres, à un certain point.</p>
 <p>Alors, je vais expliquer mes raisons.</p>`, note:'💬 <em>un besoin fondamental</em> = a fundamental need · <em>l\'épanouissement véritable</em> = true / genuine fulfilment' },
+
     { label:'Point 1 — Le soutien irremplaçable des proches', timing:'~1 min', nuance:false, wc:'~80 mots ✓',
       text:`<p>Tout d'abord, <span class="hl-pink">force est de constater que le soutien des proches est irremplaçable, surtout dans les moments difficiles.</span> Traverser une épreuve — une maladie, une perte d'emploi, un deuil — seul, sans personne sur qui s'appuyer, est bien plus difficile qu'avec des proches à ses côtés. <span class="hl-pink">Ce soutien émotionnel que nous offrent les autres est quelque chose dont aucune liberté individuelle ne peut tenir lieu.</span> L'humain est fondamentalement un être social — c'est une réalité que la science confirme.</p>`,
       note:'💬 <em>un deuil</em> = bereavement · <em>à ses côtés</em> = by one\'s side · <em>tenir lieu de</em> = to substitute for · <em>confirme</em> = confirms' },
-    { label:'Point 2 — Les relations nourrissent l\'épanouissement', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
-      text:`<p>En plus, <span class="hl-pink">les relations intimes — qu'il s'agisse du couple, de la famille ou même de colocataires — nourrissent l'épanouissement d'une façon que la vie solitaire ne peut pas offrir.</span> Partager le quotidien avec quelqu'un crée des souvenirs, un sentiment d'appartenance et une raison de se dépasser. <span class="hl-pink">Ces liens nourrissent un sentiment d'appartenance et donnent une raison de se dépasser, deux dimensions essentielles d'une vie pleinement épanouie.</span></p>`,
-      note:'💬 <em>nourrir</em> = to nurture · <em>se dépasser</em> = to surpass oneself · <em>un foyer vide</em> = an empty home · <em>pleinement vivants</em> = fully alive' },
-    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~70 mots ✓',
-      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">certaines personnes — notamment les introvertis — s'épanouissent véritablement en vivant seules.</span> Pour elles, la solitude choisie est une source de liberté et de connaissance de soi, et non un manque. <span class="hl-blue">Pour autant, ces cas restent minoritaires, et pour la majorité des individus, le soutien quotidien des proches demeure un pilier indispensable d'une vie pleinement épanouie.</span></p>`,
-      note:'💬 <em>notamment</em> = in particular · <em>minoritaire</em> = in the minority · <em>un pilier indispensable</em> = an indispensable pillar · <em>demeure</em> = remains (C1 register)' },
+
+    { label:'Point 2 — Les relations nourrissent l\'épanouissement', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
+      text:`<p>De plus, <span class="hl-pink">les relations intimes — qu'il s'agisse du couple, de la famille ou même de colocataires — nourrissent l'épanouissement d'une façon que la vie solitaire ne peut pas offrir.</span> Partager le quotidien avec quelqu'un crée des souvenirs et un sentiment d'appartenance. <span class="hl-pink">Ces liens favorisent un épanouissement personnel plus profond, car se dépasser pour les autres donne un sens à sa vie, dimension essentielle d'une existence pleinement épanouie.</span></p>`,
+      note:'💬 <em>nourrir</em> = to nurture · <em>se dépasser</em> = to surpass oneself · <em>pleinement</em> = fully · <em>donner un sens à</em> = to give meaning to' },
+
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓',
+      text:`<p>Il est certes vrai que <span class="hl-blue">certaines personnes — notamment les introvertis — s'épanouissent véritablement en vivant seules.</span> Pour elles, la solitude choisie est une source réelle de liberté et de connaissance de soi, et non un manque. <span class="hl-blue">Il serait donc réducteur d'affirmer que vivre seul empêche nécessairement l'épanouissement, car tout dépend en grande partie de la personnalité de chacun.</span></p>`,
+      note:'💬 <em>notamment</em> = in particular · <em>il serait réducteur de</em> = it would be reductive to · <em>nécessairement</em> = necessarily · <em>tout dépend de</em> = it all depends on' },
+
     { label:'Conclusion', timing:'~50s', nuance:false,
-      text:`<p>En conclusion, <span class="hl-blue">bien que vivre seul puisse offrir une certaine liberté et des moments d'épanouissement,</span> il n'en demeure pas moins que <span class="hl-pink">les liens profonds, le soutien des proches et le partage du quotidien sont des piliers indéniables d'une vie épanouie.</span></p>
-<p>Il serait souhaitable que <span class="hl-p1">les communautés investissent davantage dans le lien social pour lutter contre l'isolement croissant</span> / <span class="hl-p2">les individus puissent choisir leur mode de vie selon leur personnalité, sans jugement.</span></p>
+      text:`<p>En conclusion, bien que <span class="hl-blue">la solitude choisie</span> présente certains avantages, notamment <span class="hl-blue">la liberté personnelle</span>, il n'en demeure pas moins que <span class="hl-pink">les avantages des liens avec les autres sont indéniables — notamment le soutien des proches et le développement du sentiment d'appartenance.</span></p>
+<p>Il serait souhaitable que <span class="hl-p1">les communautés investissent davantage dans le lien social pour lutter contre l'isolement croissant</span> / <span class="hl-p2">les individus puissent entretenir des relations riches tout en préservant leur espace personnel.</span></p>
 <p>Merci pour votre attention.</p>`, note:'' }
   ]
 };
