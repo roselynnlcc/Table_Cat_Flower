@@ -97,5 +97,14 @@ const TCF_QUESTIONS = [
   date: '2026-05-11',
   stars: 2,
   status: "Prêt"
-}
+  },
+  {
+  id: 12,
+  cat: 'famille',
+  question: 'À votre avis, est-ce que posséder un animal de compagnie est une bonne idée pour une personne âgée ?',
+  scriptUrl: 'famille/animal_personne_agee.html',
+  date: '2026-05-13',
+  stars: 1,
+  status: "À faire"
+  }
 ];
