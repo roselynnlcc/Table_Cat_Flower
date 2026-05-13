@@ -14,8 +14,6 @@
     --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
     --green:#2d6a4f;--green-bg:#eaf4ef;
     --amber:#92400e;--amber-bg:#fef3c7;
-    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
-    --magenta:#9D174D;--magenta-bg:#FCE7F3;
     --accent:#c8955a;--radius:12px;--radius-sm:6px;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -43,8 +41,8 @@
   .card-title-green{color:var(--green);}
   .card-title-blue{color:#185fa5;}
   .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
-  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
-  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+  .badge-easy{background:#f0fde4;color:#3d7a00;border:1px solid #bef264;}
+  .badge-hard{background:#fff0f5;color:#a01a4a;border:1px solid #f9a8d4;}
   .block{padding:14px 18px;border-bottom:1px solid var(--border);}
   .block:last-child{border-bottom:none;}
   .block-nuance{background:#fff;}
@@ -249,25 +247,21 @@
 const scriptA = {
   header: '✅ Position A — OUI, les caméras améliorent la sécurité',
   headerClass:'card-header-green', titleClass:'card-title-green',
-  badge:'Plus facile à défendre', badgeClass:'badge-easy',
+  badge:'Plus ardu', badgeClass:'badge-hard',
   blocks:[
     { label:'Introduction', timing:'~40s', nuance:false,
-      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
-<p>Certaines personnes pensent que <span class="hl-pink">les caméras dans les lieux publics contribuent réellement à améliorer la sécurité des citoyens</span>, tandis que d'autres estiment le contraire.</p>
-<p>Cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">la vidéosurveillance est un outil efficace pour lutter contre la criminalité et protéger les personnes dans les espaces publics.</span></p>
-<p>Alors, je vais expliquer mes raisons.</p>`, note:'' },
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il est légitime de se demander si <span class="hl-pink">les caméras de surveillance dans les lieux publics améliorent vraiment la sécurité des citoyens</span>, et les avis sont mitigés. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">la vidéosurveillance est un outil efficace pour protéger les citoyens, à un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:'' },
     { label:'Point 1 — Résolution des crimes', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
       text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">les images de caméras permettent aux forces de l'ordre d'identifier les suspects et de résoudre les crimes bien plus rapidement.</span> En effet, en cas d'agression, de vol ou d'attentat, les enregistrements vidéo fournissent des preuves concrètes qui accélèrent les enquêtes. Au Canada, la population est souvent dispersée sur de vastes territoires — dans bien des cas, il n'y a aucun témoin, et même quand il y en a, la mémoire humaine reste imparfaite et peu fiable. <span class="hl-pink">Sans ces images, de nombreux crimes resteraient impunis, faute de preuves objectives.</span></p>`,
       note:'💬 <em>les forces de l\'ordre</em> = law enforcement · <em>faute de</em> = for lack of · <em>dispersé</em> = spread out · <em>imparfait</em> = imperfect, unreliable' },
     { label:'Point 2 — Dissuasion criminelle', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
-      text:`<p>En plus, <span class="hl-pink">la présence visible de caméras a un effet dissuasif réel sur les criminels potentiels.</span> Savoir que l'on est filmé réduit le risque de passer à l'acte, surtout dans les zones à forte fréquentation comme les transports en commun ou les centres commerciaux. <span class="hl-pink">Des études menées au Royaume-Uni ont montré que l'installation de caméras dans les transports en commun a entraîné une baisse significative des agressions.</span> La caméra ne résout pas les crimes — elle les empêche.</p>`,
+      text:`<p>De plus, <span class="hl-pink">la présence visible de caméras a un effet dissuasif réel sur les criminels potentiels.</span> Savoir que l'on est filmé réduit le risque de passer à l'acte, surtout dans les zones à forte fréquentation comme les transports en commun ou les centres commerciaux. <span class="hl-pink">Des études menées au Royaume-Uni ont montré que l'installation de caméras dans les transports en commun a entraîné une baisse significative des agressions.</span> La caméra ne résout pas les crimes — elle les empêche.</p>`,
       note:'💬 <em>un effet dissuasif</em> = a deterrent effect · <em>passer à l\'acte</em> = to act on criminal intent · <em>une forte fréquentation</em> = high footfall · <em>entraîner</em> = to lead to' },
     { label:'Nuance', timing:'~1 min', nuance:true, wc:'~67 mots ✓',
-      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">les caméras soulèvent des questions légitimes sur la vie privée et les libertés fondamentales.</span> Une surveillance trop généralisée peut créer un sentiment d'être constamment observé, ce qui nuit à la liberté de circuler et d'agir librement dans l'espace public. <span class="hl-blue">Pour autant, ces risques peuvent être limités si la vidéosurveillance est encadrée par des lois strictes et transparentes.</span></p>`,
-      note:'💬 <em>soulever des questions</em> = to raise questions · <em>constamment</em> = constantly · <em>encadré par</em> = regulated by · <em>circuler</em> = to move around freely' },
+      text:`<p><span class="hl-blue">Il est certes vrai que les caméras soulèvent des questions légitimes sur la vie privée et les libertés fondamentales.</span> Une surveillance trop généralisée peut créer un sentiment d'être constamment observé, ce qui nuit à la liberté de circuler et d'agir librement dans l'espace public. <span class="hl-blue">De ce fait, dans certains contextes, la vidéosurveillance peut engendrer plus d'anxiété que de sécurité réelle.</span></p>`,
+      note:'💬 <em>soulever des questions</em> = to raise questions · <em>constamment</em> = constantly · <em>nuire à</em> = to harm · <em>engendrer</em> = to generate / bring about' },
     { label:'Conclusion', timing:'~50s', nuance:false,
-      text:`<p>En conclusion, <span class="hl-blue">bien que la vidéosurveillance soulève des questions légitimes sur les libertés individuelles,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages pour la sécurité publique sont indéniables — que ce soit en termes de résolution des crimes, d'effet dissuasif ou de protection des citoyens.</span></p>
-<p>Il faudrait que <span class="hl-p1">les autorités encadrent strictement l'usage des caméras pour éviter toute dérive</span> / <span class="hl-p2">les gouvernements investissent davantage dans des technologies de surveillance respectueuses des libertés fondamentales.</span></p>
+      text:`<p>En conclusion, <span class="hl-blue">bien que la vidéosurveillance présente certains inconvénients, comme le risque pour les libertés individuelles,</span> il n'en demeure pas moins que les avantages, comme <span class="hl-pink">le renforcement de la sécurité publique et l'amélioration des enquêtes,</span> sont indéniables. Tout bien considéré, <span class="hl-p1">il faudrait que les autorités encadrent strictement l'usage des caméras pour éviter toute dérive</span> / <span class="hl-p2">il serait souhaitable que les gouvernements investissent dans des technologies de surveillance respectueuses des libertés fondamentales.</span></p>
 <p>Merci pour votre attention.</p>`, note:'' }
   ]
 };
@@ -275,25 +269,21 @@ const scriptA = {
 const scriptB = {
   header: '❎ Position B — NON, les caméras n\'améliorent pas vraiment la sécurité',
   headerClass:'card-header-blue', titleClass:'card-title-blue',
-  badge:'Plus ardu', badgeClass:'badge-hard',
+  badge:'Plus facile à défendre', badgeClass:'badge-easy',
   blocks:[
     { label:'Introduction', timing:'~40s', nuance:false,
-      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
-<p>Certaines personnes pensent que <span class="hl-pink">les caméras dans les lieux publics améliorent réellement la sécurité des citoyens</span>, tandis que d'autres estiment le contraire.</p>
-<p>Cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">contrairement aux idées reçues, les caméras créent une fausse impression de sécurité sans s'attaquer aux véritables causes de la criminalité — et elles menacent nos libertés fondamentales.</span></p>
-<p>Alors, je vais expliquer mes raisons.</p>`, note:'💬 <em>contrairement aux idées reçues</em> = contrary to popular belief — ouverture C1 forte · <em>s\'attaquer aux causes</em> = to tackle the causes' },
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il est légitime de se demander si <span class="hl-pink">les caméras de surveillance dans les lieux publics améliorent vraiment la sécurité des citoyens</span>, et les avis sont mitigés. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">les caméras créent une fausse impression de sécurité sans s'attaquer aux véritables causes de la criminalité, à un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:'' },
     { label:'Point 1 — Atteinte aux libertés et dérives autoritaires', timing:'~1 min', nuance:false, wc:'~80 mots ✓',
       text:`<p>Tout d'abord, <span class="hl-pink">force est de constater que la surveillance généralisée menace les libertés fondamentales auxquelles les citoyens ont droit dans une société démocratique.</span> Les données collectées par les caméras peuvent facilement être détournées par les autorités à des fins de contrôle politique ou social. <span class="hl-pink">Ce qui commence comme un outil de sécurité peut rapidement devenir un instrument de surveillance de masse, comme on l'observe dans certains pays autoritaires.</span> Les libertés ne se sacrifient pas au nom de la sécurité.</p>`,
       note:'💬 <em>détourner</em> = to misuse / divert · <em>à des fins de</em> = for the purposes of · <em>comme on l\'observe</em> = as we can observe · <em>autoritaire</em> = authoritarian' },
     { label:'Point 2 — Coût élevé, bénéfices incertains', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
-      text:`<p>En plus, <span class="hl-pink">le déploiement et la maintenance des caméras représentent un coût considérable pour les contribuables, sans garantie d'efficacité réelle.</span> Ce budget pourrait financer des solutions bien plus concrètes — notamment une plus grande présence policière sur le terrain. En effet, un agent capable de patrouiller et d'intervenir rapidement sur les lieux d'un incident protège les victimes au moment où elles en ont besoin. <span class="hl-pink">Une caméra enregistre les faits, mais ne peut ni interpeller un suspect ni secourir une personne en danger.</span></p>`,
+      text:`<p>De plus, <span class="hl-pink">le déploiement et la maintenance des caméras représentent un coût considérable pour les contribuables, sans garantie d'efficacité réelle.</span> Ce budget pourrait financer des solutions bien plus concrètes — notamment une plus grande présence policière sur le terrain. En effet, un agent capable de patrouiller et d'intervenir rapidement sur les lieux d'un incident protège les victimes au moment où elles en ont besoin. <span class="hl-pink">Une caméra enregistre les faits, mais ne peut ni interpeller un suspect ni secourir une personne en danger.</span></p>`,
       note:'💬 <em>patrouiller</em> = to patrol · <em>intervenir</em> = to intervene · <em>interpeller</em> = to apprehend · <em>sur le terrain</em> = on the ground, in the field' },
     { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓',
-      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">les caméras présentent un avantage réel après les faits : elles permettent d'identifier les suspects et d'accélérer les enquêtes.</span> C'est un bénéfice concret qu'il serait malhonnête de nier. <span class="hl-blue">Pour autant, cela ne suffit pas à justifier une surveillance généralisée — protéger les victimes au moment du crime reste impossible pour une caméra.</span></p>`,
-      note:'💬 <em>après les faits</em> = after the fact · <em>malhonnête de nier</em> = dishonest to deny · <em>justifier</em> = to justify · <em>généralisé</em> = widespread' },
+      text:`<p><span class="hl-blue">Il est certes vrai que les caméras présentent un avantage réel après les faits : elles permettent d'identifier les suspects et d'accélérer les enquêtes.</span> C'est un bénéfice concret qu'il serait malhonnête de nier. <span class="hl-blue">De ce fait, on pourrait envisager un usage très ciblé des caméras, dans des zones précises et sous contrôle strict, plutôt qu'une surveillance généralisée.</span></p>`,
+      note:'💬 <em>après les faits</em> = after the fact · <em>malhonnête de nier</em> = dishonest to deny · <em>ciblé</em> = targeted · <em>envisager</em> = to consider / envision' },
     { label:'Conclusion', timing:'~50s', nuance:false,
-      text:`<p>En conclusion, <span class="hl-blue">bien que les caméras puissent aider à résoudre certains crimes après coup,</span> il n'en demeure pas moins que <span class="hl-pink">les risques pour les libertés fondamentales et le coût élevé pour les contribuables l'emportent sur les bénéfices — surtout quand des solutions plus efficaces existent.</span></p>
-<p>Il faudrait que <span class="hl-p1">les autorités redirigent ces budgets vers la présence policière de proximité et des programmes de prévention sociale</span> / <span class="hl-p2">les gouvernements encadrent strictement la vidéosurveillance pour éviter que les citoyens ne voient leurs libertés fondamentales menacées.</span></p>
+      text:`<p>En conclusion, <span class="hl-blue">bien que les caméras présentent certains avantages, comme l'amélioration des enquêtes,</span> il n'en demeure pas moins que les inconvénients, comme <span class="hl-pink">le risque pour les libertés et le frein au développement de solutions plus efficaces,</span> sont indéniables. Tout bien considéré, <span class="hl-p1">il faudrait que les autorités redirigent ces budgets vers la présence policière de proximité et des programmes de prévention sociale</span> / <span class="hl-p2">il serait souhaitable que les gouvernements encadrent strictement la vidéosurveillance pour éviter toute dérive.</span></p>
 <p>Merci pour votre attention.</p>`, note:'' }
   ]
 };
