@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Vivre sans technologie</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --amber:#92400e;--amber-bg:#fef3c7;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;position:relative;}
+  .script-text p:last-child{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .hl-p2{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+  .single-view .script-card{max-width:620px;margin:0 auto;}
+  .para-wrap{position:relative;margin-bottom:10px;}
+  .para-wrap:last-child{margin-bottom:0;}
+  .para-wrap p{margin-bottom:0;}
+
+  /* Word list */
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-prep{font-size:11px;color:#7a5230;background:#fef3c7;border-radius:4px;padding:1px 5px;margin-left:4px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Tâche 3</span></h1>
+  <div class="question-title">Certaines personnes préfèrent vivre sans technologie (Internet, ordinateur, téléphone). Qu'en pensez-vous ?</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<!-- WORD LIST -->
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Technologie &amp; numérique ★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la technologie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">technology</span></div>
+          <div class="wl-row"><span class="wl-fr">le numérique <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">the digital world / digital technology</span></div>
+          <div class="wl-row"><span class="wl-fr">un écran <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a screen</span></div>
+          <div class="wl-row"><span class="wl-fr">les réseaux sociaux <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">social media / social networks</span></div>
+          <div class="wl-row"><span class="wl-fr">la messagerie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">messaging (app / service)</span></div>
+          <div class="wl-row"><span class="wl-fr">un appel vidéo <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a video call</span></div>
+          <div class="wl-row"><span class="wl-fr">la surcharge informationnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">information overload</span></div>
+          <div class="wl-row"><span class="wl-fr">la dépendance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">dependency / addiction</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Société &amp; impacts</div>
+          <div class="wl-row"><span class="wl-fr">l'exclusion numérique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">digital exclusion</span></div>
+          <div class="wl-row"><span class="wl-fr">le marché du travail <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">the job market / labour market</span></div>
+          <div class="wl-row"><span class="wl-fr">la formation professionnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">professional / vocational training</span></div>
+          <div class="wl-row"><span class="wl-fr">les liens familiaux <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">family bonds</span></div>
+          <div class="wl-row"><span class="wl-fr">la santé mentale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mental health</span></div>
+          <div class="wl-row"><span class="wl-fr">le lien affectif <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">emotional bond</span></div>
+          <div class="wl-row"><span class="wl-fr">la déconnexion <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">disconnection / digital detox</span></div>
+          <div class="wl-row"><span class="wl-fr">l'estime de soi <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">self-esteem</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions et pronoms relatifs</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs — relative pronoun in yellow</div>
+        <div class="wl-row"><span class="wl-fr">se passer de <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to do without<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">dépendre de <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to depend on<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">s'appuyer sur <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to rely on<span class="wl-prep">sur lequel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">nuire à <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to harm / be detrimental to<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">avoir accès à <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to have access to<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">contribuer à <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to contribute to<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">maintenir <em>(des liens)</em><span class="wl-star">★</span></span><span class="wl-en">to maintain, to keep up — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">être confronté à <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to face / be confronted with<span class="wl-prep">auquel</span></span></div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectives</div>
+        <div class="wl-row"><span class="wl-fr">indispensable<span class="wl-star">★</span></span><span class="wl-en">indispensable / essential</span></div>
+        <div class="wl-row"><span class="wl-fr">authentique<span class="wl-star">★</span></span><span class="wl-en">authentic / genuine</span></div>
+        <div class="wl-row"><span class="wl-fr">paradoxal(e)<span class="wl-star">★</span></span><span class="wl-en">paradoxical</span></div>
+        <div class="wl-row"><span class="wl-fr">anxiogène<span class="wl-star">★</span></span><span class="wl-en">anxiety-inducing</span></div>
+        <div class="wl-row"><span class="wl-fr">professionnel(le)<span class="wl-star">★</span></span><span class="wl-en">professional</span></div>
+        <div class="wl-row"><span class="wl-fr">numérique<span class="wl-star">★</span></span><span class="wl-en">digital</span></div>
+        <div class="wl-row"><span class="wl-fr">isolé(e)</span><span class="wl-en">isolated / cut off</span></div>
+        <div class="wl-row"><span class="wl-fr">équilibré(e)</span><span class="wl-en">balanced</span></div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paire contrastée</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">OUI — vivre sans technologie est valable</div>
+          <div class="contrast-item">des relations humaines plus authentiques et présentes</div>
+          <div class="contrast-item">un meilleur sommeil et moins de sédentarité</div>
+          <div class="contrast-item">moins d'anxiété liée aux notifications constantes</div>
+          <div class="contrast-item">un rythme de vie plus naturel et équilibré</div>
+          <div class="contrast-item">plus de temps pour les activités en plein air</div>
+          <div class="contrast-item">un choix de vie personnel à respecter</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">NON — la technologie est essentielle aujourd'hui</div>
+          <div class="contrast-item">indispensable pour l'éducation et l'emploi</div>
+          <div class="contrast-item">maintien des liens familiaux à distance</div>
+          <div class="contrast-item">accès aux services publics et à la formation</div>
+          <div class="contrast-item">participation à la vie citoyenne et professionnelle</div>
+          <div class="contrast-item">s'en priver crée une exclusion réelle</div>
+          <div class="contrast-item">favorise l'autonomie et le développement des compétences</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">les outils numériques dont dépend l'accès à l'emploi</div>
+          <div class="chunk-en">the digital tools on which access to employment depends</div>
+          <div class="chunk-note">dont + dépendre de — pronom relatif C1 naturel · directement lié au Point 1 Position B</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">se passer de technologie, c'est renoncer à une partie de la vie sociale et professionnelle moderne</div>
+          <div class="chunk-en">going without technology means giving up part of modern social and professional life</div>
+          <div class="chunk-note">se passer de = C1 · renoncer à = très naturel à l'oral</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">grâce aux appels vidéo, des familles séparées par des milliers de kilomètres restent proches</div>
+          <div class="chunk-en">thanks to video calls, families separated by thousands of kilometres stay close</div>
+          <div class="chunk-note">exemple concret et parlant — directement réutilisable pour Point 2 Position B</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">un usage excessif des écrans peut engendrer anxiété et perte de concentration</div>
+          <div class="chunk-en">excessive screen use can cause anxiety and loss of concentration</div>
+          <div class="chunk-note">engendrer = C1 · formule nuance sans "cela"</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">vivre sans technologie reste un privilège que peu de personnes peuvent se permettre</div>
+          <div class="chunk-en">living without technology remains a privilege that few people can afford</div>
+          <div class="chunk-note">se permettre de = C1 naturel · directement lié à la nuance Position A</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptA = {
+  header: "✅ Position A — OUI, vivre sans technologie est un choix valable",
+  headerClass:"card-header-green", titleClass:"card-title-green",
+  badge:"Plus ardu", badgeClass:"badge-hard",
+  posKey:"posA",
+  blocks:[
+    { label:"Introduction", timing:"~40s", nuance:false,
+      textHtml:[
+        `Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si vivre sans technologie — sans Internet, sans ordinateur, sans téléphone — est vraiment possible et souhaitable, et les avis sont très mitigés.`,
+        `Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">choisir de vivre sans technologie peut être un choix de vie tout à fait valable</span> à un certain point.`,
+        `Alors, je vais expliquer mes raisons.`
+      ],
+      note:"" },
+    { label:"Point 1 — Des relations humaines plus authentiques", timing:"~1 min", nuance:false, wc:"~78 mots ✓",
+      textHtml:[
+        `Tout d'abord, il convient de souligner que <span class="hl-pink">vivre sans technologie favorise des relations humaines plus authentiques et plus profondes.</span> Sans écran entre soi et les autres, les interactions deviennent plus présentes, plus attentives et plus sincères. On écoute vraiment, on regarde les gens dans les yeux.`,
+        `<span class="hl-pink">De ce fait, les liens que l'on tisse sont souvent plus solides que ceux entretenus uniquement par messages ou réseaux sociaux.</span> Prenons le cas de nombreuses personnes qui témoignent que réduire leur usage du téléphone a transformé la qualité de leurs relations.`
+      ],
+      note:"💬 <em>favoriser</em> = to foster, to promote · <em>attentif</em> = attentive · <em>les liens que l'on tisse</em> = the bonds we weave · <em>témoigner que</em> = to testify that" },
+    { label:"Point 2 — Une meilleure santé physique", timing:"~1 min", nuance:false, wc:"~76 mots ✓",
+      textHtml:[
+        `De plus, <span class="hl-pink">se passer de technologie contribue directement à une meilleure santé physique.</span> Sans écran, on bouge davantage, on passe plus de temps en plein air et on améliore la qualité de son sommeil.`,
+        `Or, le temps d'écran excessif est aujourd'hui associé à la sédentarité, aux troubles du sommeil et aux douleurs musculaires. <span class="hl-pink">Le fait de vivre sans ces outils permet donc de retrouver un rythme de vie plus naturel, plus équilibré et plus bénéfique pour le corps.</span>`
+      ],
+      note:"💬 <em>se passer de</em> = to do without · <em>la sédentarité</em> = sedentary lifestyle · <em>les troubles du sommeil</em> = sleep disorders · <em>un rythme de vie</em> = a lifestyle rhythm" },
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~68 mots ✓",
+      textHtml:[
+        `Il est certes vrai que <span class="hl-blue">ce choix de vie reste un privilège que peu de personnes peuvent réellement se permettre.</span> Dans la société actuelle, l'accès à l'éducation, à l'emploi et aux services publics passe largement par le numérique.`,
+        `<span class="hl-blue">Pour beaucoup, notamment dans les pays en développement, la technologie n'est pas un luxe mais une condition d'accès à l'information, à la formation et à la participation citoyenne.</span> Se passer de tout cela n'est donc pas une option accessible à tous.`
+      ],
+      note:"💬 <em>se permettre de</em> = to afford to · <em>la participation citoyenne</em> = civic participation · <em>notamment</em> = in particular, notably" },
+    { label:"Conclusion", timing:"~50s", nuance:false,
+      textHtml:[
+        `En conclusion, bien que <span class="hl-blue">la déconnexion totale présente certains inconvénients, comme le risque d'exclusion sociale et professionnelle,</span> il n'en demeure pas moins que les avantages, comme <span class="hl-pink">le renforcement des liens et l'amélioration de la santé physique,</span> sont indéniables pour ceux qui ont la chance de pouvoir faire ce choix.`,
+        `Il serait souhaitable que <span class="hl-p1">les individus puissent choisir librement leur rapport à la technologie, sans pression sociale ni jugement.</span>`,
+        `Merci pour votre attention.`
+      ],
+      note:"" }
+  ]
+};
+
+const scriptB = {
+  header: "✅ Position B — NON, la technologie est essentielle à la vie moderne",
+  headerClass:"card-header-blue", titleClass:"card-title-blue",
+  badge:"Plus facile à défendre", badgeClass:"badge-easy",
+  posKey:"posB",
+  blocks:[
+    { label:"Introduction", timing:"~40s", nuance:false,
+      textHtml:[
+        `Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si vivre sans technologie — sans Internet, sans ordinateur, sans téléphone — est vraiment possible et souhaitable, et les avis sont très mitigés.`,
+        `Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">la technologie est aujourd'hui indispensable à la vie moderne</span> à un certain point.`,
+        `Alors, je vais expliquer mes raisons.`
+      ],
+      note:"" },
+    { label:"Point 1 — Indispensable pour l'éducation et l'emploi", timing:"~1 min", nuance:false, wc:"~79 mots ✓",
+      textHtml:[
+        `Tout d'abord, force est de constater que <span class="hl-pink">la technologie est devenue indispensable pour accéder à l'éducation et au marché du travail.</span> Aujourd'hui, la grande majorité des offres d'emploi, des formations et des ressources pédagogiques se trouvent en ligne.`,
+        `Sans Internet ni ordinateur, il est presque impossible de se former, de postuler à un emploi ou de progresser professionnellement. <span class="hl-pink">Par voie de conséquence, se priver de technologie, c'est s'exposer à une exclusion réelle du monde professionnel et éducatif.</span>`
+      ],
+      note:"💬 <em>force est de constater que</em> = one cannot deny that (C1) · <em>postuler à</em> = to apply for · <em>se priver de</em> = to deprive oneself of · <em>par voie de conséquence</em> = as a result (C1)" },
+    { label:"Point 2 — Maintenir les liens familiaux à distance", timing:"~1 min", nuance:false, wc:"~77 mots ✓",
+      textHtml:[
+        `De plus, <span class="hl-pink">la technologie permet de maintenir des liens familiaux forts, surtout pour les proches séparés par la distance.</span> Grâce aux appels vidéo et aux messageries, des familles séparées par des milliers de kilomètres peuvent rester présentes dans la vie des unes et des autres — partager un repas en vidéo, voir grandir ses petits-enfants, soutenir un proche dans les moments difficiles.`,
+        `<span class="hl-pink">Sans ces outils, ce lien affectif serait bien plus difficile à entretenir au quotidien.</span>`
+      ],
+      note:"💬 <em>maintenir des liens</em> = to maintain bonds · <em>le lien affectif</em> = emotional bond · <em>entretenir</em> = to maintain, to keep up · <em>au quotidien</em> = on a daily basis" },
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~67 mots ✓",
+      textHtml:[
+        `Il est certes vrai que <span class="hl-blue">un usage excessif de la technologie peut nuire à la santé mentale et créer une véritable dépendance.</span> Les recherches montrent que le temps d'écran élevé est associé à l'anxiété, à l'isolement paradoxal et à la perte de concentration, surtout chez les jeunes.`,
+        `<span class="hl-blue">De même, la surcharge informationnelle et les réseaux sociaux peuvent engendrer un sentiment de mal-être constant, voire affecter l'estime de soi.</span>`
+      ],
+      note:"💬 <em>nuire à</em> = to harm (C1) · <em>l'isolement paradoxal</em> = paradoxical isolation (connected but lonely) · <em>engendrer</em> = to generate, to cause (C1) · <em>l'estime de soi</em> = self-esteem" },
+    { label:"Conclusion", timing:"~50s", nuance:false,
+      textHtml:[
+        `En conclusion, bien que <span class="hl-blue">l'usage excessif des écrans présente certains inconvénients, comme le risque de dépendance et le frein à la santé mentale,</span> il n'en demeure pas moins que les avantages, comme <span class="hl-pink">le développement des compétences et le renforcement des liens familiaux,</span> sont indéniables dans le monde actuel.`,
+        `Il serait souhaitable que <span class="hl-p1">les individus et les familles apprennent à faire un usage conscient et équilibré des outils numériques.</span>`,
+        `Merci pour votre attention.`
+      ],
+      note:"" }
+  ]
+};
+
+function buildCard(s){
+  const blocks = s.blocks.map((b, i) => {
+    const paras = b.textHtml.map(html => `<div class="para-wrap"><p>${html}</p></div>`).join('');
+    return `
+      <div class="block ${b.nuance?'block-nuance':''}">
+        <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+        <div class="script-text">${paras}</div>
+        ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
+        ${b.wc   ? `<div class="wc">${b.wc}</div>` : ''}
+      </div>`;
+  }).join('');
+  return `<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;
+}
+
+document.getElementById('bothGrid').innerHTML = buildCard(scriptA) + buildCard(scriptB);
+document.getElementById('posAGrid').innerHTML = buildCard(scriptA);
+document.getElementById('posBGrid').innerHTML = buildCard(scriptB);
+
+function showTab(id, btn){
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
