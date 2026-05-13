@@ -60,6 +60,15 @@
   .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
   .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
   .single-view .script-card{max-width:620px;margin:0 auto;}
+
+  /* Audio button */
+  .block-audio{display:flex;align-items:center;gap:8px;margin-top:10px;}
+  .block-play-btn{background:var(--accent);color:#fff;border:none;border-radius:20px;padding:4px 14px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:5px;transition:opacity .15s;}
+  .block-play-btn:hover{opacity:0.85;}
+  .block-play-btn.playing{background:#c0392b;}
+  .audio-progress{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden;cursor:pointer;}
+  .audio-progress-bar{height:100%;background:var(--accent);width:0%;transition:width .1s linear;border-radius:2px;}
+  .audio-time{font-size:10px;color:var(--text-muted);min-width:32px;text-align:right;}
   .wl-page{max-width:860px;}
   .wl-section{margin-bottom:28px;}
   .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
@@ -235,31 +244,31 @@
 
 <script>
 const scriptA = {
+  posKey:'posA',
   header: '✅ Position A — Oui, il faut protéger toutes les espèces',
   headerClass:'card-header-green', titleClass:'card-title-green',
   badge:'Plus facile à défendre', badgeClass:'badge-easy',
   blocks:[
-    { label:'Introduction', timing:'~40s', nuance:false,
-      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si tous les animaux en voie de disparition méritent d'être protégés, et les avis sont divergents.</p>
+    { label:'Introduction', timing:'~40s', nuance:false, audioFile:'posA_01.mp3',
 <p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">nous avons le devoir de protéger toutes les espèces menacées, à un certain point.</span></p>
 <p>Alors, je vais expliquer mes raisons.</p>`, note:'' },
-    { label:'Point 1 — Équilibre de l\'écosystème', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
+    { label:'Point 1 — Équilibre de l\'écosystème', timing:'~1 min', nuance:false, wc:'~79 mots ✓', audioFile:'posA_02.mp3',
       text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">chaque espèce joue un rôle précis dans l'écosystème, et la disparition d'une seule espèce peut déséquilibrer toute la chaîne alimentaire.</span> En effet, les espèces sont interdépendantes : les prédateurs régulent les populations de proies, les insectes pollinisent les plantes, les plantes nourrissent les herbivores. <span class="hl-pink">Supprimer un maillon de cette chaîne, c'est menacer l'ensemble du système.</span> Par exemple, la disparition des abeilles menacerait directement la production alimentaire mondiale.</p>`,
       note:'💬 <em>interdépendant</em> = interdependent · <em>un prédateur</em> = a predator · <em>une proie</em> = prey · <em>un maillon</em> = a link (in a chain) · <em>polliniser</em> = to pollinate' },
-    { label:'Point 2 — L\'irréversibilité de l\'extinction', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
+    { label:'Point 2 — L\'irréversibilité de l\'extinction', timing:'~1 min', nuance:false, wc:'~78 mots ✓', audioFile:'posA_03.mp3',
       text:`<p>De plus, <span class="hl-pink">une extinction est irréversible : une fois une espèce disparue, il est impossible de revenir en arrière.</span> Contrairement à d'autres problèmes environnementaux que l'on peut atténuer, la perte d'une espèce est définitive. <span class="hl-pink">C'est pourquoi l'inaction aujourd'hui ferme des portes pour toujours.</span> Par ailleurs, l'être humain est en grande partie responsable de ces extinctions, à cause de la déforestation, du braconnage et du changement climatique. Nous avons donc une responsabilité morale d'agir.</p>`,
       note:'💬 <em>atténuer</em> = to reduce / soften · <em>définitif</em> = permanent, final · <em>l\'inaction</em> = inaction · <em>le braconnage</em> = poaching' },
-    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓',
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓', audioFile:'posA_04.mp3',
       text:`<p>Il est certes vrai que <span class="hl-blue">les ressources consacrées à la conservation sont limitées, et qu'il n'est pas toujours possible de sauver toutes les espèces simultanément.</span> Certains scientifiques préconisent de concentrer les efforts sur les espèces dites « clés », dont dépend l'équilibre de tout un écosystème. <span class="hl-blue">De ce fait, les moyens disponibles ne permettent pas encore de garantir une protection universelle et équitable pour chaque espèce menacée.</span></p>`,
       note:'💬 <em>consacré à</em> = dedicated to · <em>simultanément</em> = simultaneously · <em>préconiser</em> = to recommend · <em>dites "clés"</em> = so-called "keystone"' },
-    { label:'Conclusion', timing:'~50s', nuance:false,
-      text:`<p>En conclusion, bien que <span class="hl-blue">le manque de ressources</span> présente certains inconvénients, comme la difficulté de garantir une protection universelle, il n'en demeure pas moins que les avantages, <span class="hl-pink">comme le maintien de l'équilibre écologique et la préservation de la biodiversité</span>, sont indéniables.</p>
+    { label:'Conclusion', timing:'~50s', nuance:false, audioFile:'posA_05.mp3', présente certains inconvénients, comme la difficulté de garantir une protection universelle, il n'en demeure pas moins que les avantages, <span class="hl-pink">comme le maintien de l'équilibre écologique et la préservation de la biodiversité</span>, sont indéniables.</p>
 <p>Tout bien considéré, il faudrait que <span class="hl-p1">les gouvernements allouent davantage de ressources à la protection des habitats naturels</span> / il serait souhaitable que <span class="hl-p2">les États s'engagent à réduire les activités humaines qui menacent la biodiversité.</span></p>
 <p>Merci pour votre attention.</p>`, note:'' }
   ]
 };
 
 const scriptB = {
+  posKey:'posB',
   header: '❎ Position B — Non, il faut prioriser certaines espèces',
   headerClass:'card-header-blue', titleClass:'card-title-blue',
   badge:'Plus ardu', badgeClass:'badge-hard',
@@ -284,19 +293,99 @@ const scriptB = {
   ]
 };
 
+// ── Audio player ─────────────────────────────────────────────────────
+const AUDIO_BASE = 'audio/animaux_disparition/';
+let currentAudio = null;
+let currentPlayBtn = null;
+let progressInterval = null;
+
+function stopCurrent(){
+  if(currentAudio){
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
+  if(currentPlayBtn){
+    currentPlayBtn.textContent = '▶ Écouter';
+    currentPlayBtn.classList.remove('playing');
+  }
+  if(progressInterval) clearInterval(progressInterval);
+  currentAudio = null;
+  currentPlayBtn = null;
+  progressInterval = null;
+}
+
+function playBlock(src, btn, progressBar, timeEl){
+  if(currentPlayBtn === btn && currentAudio && !currentAudio.paused){
+    stopCurrent();
+    return;
+  }
+  stopCurrent();
+
+  const audio = new Audio(src);
+  currentAudio = audio;
+  currentPlayBtn = btn;
+
+  btn.textContent = '⏸ Pause';
+  btn.classList.add('playing');
+
+  progressInterval = setInterval(() => {
+    if(!audio.duration) return;
+    const pct = (audio.currentTime / audio.duration) * 100;
+    progressBar.style.width = pct + '%';
+    const rem = Math.ceil(audio.duration - audio.currentTime);
+    timeEl.textContent = rem + 's';
+  }, 100);
+
+  audio.onended = () => {
+    progressBar.style.width = '100%';
+    setTimeout(() => { progressBar.style.width = '0%'; timeEl.textContent = ''; }, 400);
+    stopCurrent();
+  };
+  audio.onerror = () => {
+    btn.textContent = '⚠ Fichier manquant';
+    btn.classList.remove('playing');
+    stopCurrent();
+  };
+  audio.play();
+}
+
+function seekAudio(e, bar){
+  if(!currentAudio || !currentAudio.duration) return;
+  const rect = bar.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  currentAudio.currentTime = pct * currentAudio.duration;
+}
+
+// ── Card builder ─────────────────────────────────────────────────────
 function buildCard(s){
-  const blocks=s.blocks.map(b=>`
-    <div class="block ${b.nuance?'block-nuance':''}">
-      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
-      <div class="script-text">${b.text}</div>
-      ${b.note?`<div class="en-note">${b.note}</div>`:''}
-      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
-    </div>`).join('');
-  return`<div class="script-card">
+  const blocks = s.blocks.map((b, i) => {
+    const uid = s.posKey + '_' + (i+1);
+    const audioPlayer = b.audioFile ? `
+      <div class="block-audio">
+        <button class="block-play-btn" id="btn_${uid}"
+          onclick="playBlock('${AUDIO_BASE + b.audioFile}', this, document.getElementById('bar_${uid}'), document.getElementById('time_${uid}'))">
+          ▶ Écouter
+        </button>
+        <div class="audio-progress" onclick="seekAudio(event, this)">
+          <div class="audio-progress-bar" id="bar_${uid}"></div>
+        </div>
+        <span class="audio-time" id="time_${uid}"></span>
+      </div>` : '';
+    return `
+      <div class="block ${b.nuance?'block-nuance':''}">
+        <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+        <div class="script-text">${b.text}</div>
+        ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
+        ${b.wc   ? `<div class="wc">${b.wc}</div>` : ''}
+        ${audioPlayer}
+      </div>`;
+  }).join('');
+  return `<div class="script-card">
     <div class="card-header ${s.headerClass}">
       <div class="card-title ${s.titleClass}">${s.header}</div>
       <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
-    </div>${blocks}</div>`;}
+    </div>${blocks}</div>`;
+}
 
 document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
 document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
@@ -306,7 +395,9 @@ function showTab(id,btn){
   document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  btn.classList.add('active');}
+  btn.classList.add('active');
+  stopCurrent();
+}
 </script>
 </body>
 </html>
