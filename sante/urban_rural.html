@@ -26,8 +26,6 @@
     --green-bg: #eaf4ef;
     --amber: #92400e;
     --amber-bg: #fef3c7;
-    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
-    --magenta:#9D174D;--magenta-bg:#FCE7F3;
     --accent: #c8955a;
     --radius: 12px;
     --radius-sm: 6px;
@@ -103,8 +101,9 @@
   .card-title-green { color: var(--green); }
   .card-title-blue { color: #185fa5; }
   .stance-badge { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
-  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
-  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+  .badge-easy { background: var(--green-bg); color: var(--green); border: 1px solid #c3e6d4; }
+  .badge-orig { background: var(--amber-bg); color: var(--amber); border: 1px solid #fcd34d; }
+  .badge-hard { background: #FCE7F3; color: #9D174D; border: 1px solid #f9a8d4; }
 
   /* BLOCKS */
   .block { padding: 16px 20px; border-bottom: 1px solid var(--border); }
@@ -412,10 +411,10 @@
 const scriptA = {
   header: '✅ Position A — La campagne est meilleure pour la santé',
   headerClass: 'card-header-green', titleClass: 'card-title-green',
-  badge:'Plus ardu', badgeClass:'badge-hard',
+  badge: 'Plus ardu', badgeClass: 'badge-hard',
   blocks: [
     { label: 'Introduction', timing: '~40s', nuance: false,
-      text: `<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
+      text: `<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si la vie rurale est vraiment plus bénéfique pour la santé que la vie urbaine et les avis sont mitigés.</p>
 <p>Certaines personnes pensent que <span class="hl-pink">la vie rurale présente plusieurs avantages pour la santé</span>, tandis que d'autres estiment le contraire.</p>
 <p>Cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">la campagne offre un cadre de vie plus propice à une bonne santé, tant physique que mentale.</span></p>
 <p>Alors, je vais expliquer mes raisons.</p>`, note: '' },
@@ -438,10 +437,10 @@ const scriptA = {
 const scriptB = {
   header: '❎ Position B — La ville est meilleure pour la santé',
   headerClass: 'card-header-blue', titleClass: 'card-title-blue',
-  badge:'Plus facile à défendre', badgeClass:'badge-easy',
+  badge: 'Plus facile à défendre', badgeClass: 'badge-easy',
   blocks: [
     { label: 'Introduction', timing: '~40s', nuance: false,
-      text: `<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde.</p>
+      text: `<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si la vie rurale est vraiment plus bénéfique pour la santé que la vie urbaine et les avis sont mitigés.</p>
 <p>Certaines personnes pensent que <span class="hl-pink">la vie en ville présente plusieurs avantages pour la santé</span>, tandis que d'autres estiment le contraire.</p>
 <p>Cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">contrairement aux idées reçues, la ville offre des conditions plus favorables à une bonne santé, à condition d'en tirer parti.</span></p>
 <p>Alors, je vais expliquer mes raisons.</p>`,
