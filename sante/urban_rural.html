@@ -141,6 +141,15 @@
   /* SINGLE */
   .single-view .script-card { max-width: 680px; margin: 0 auto; }
 
+  /* AUDIO PLAYER */
+  .block-audio { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+  .block-play-btn { background: var(--accent); color: #fff; border: none; border-radius: 20px; padding: 4px 14px; font-size: 12px; font-family: 'DM Sans', sans-serif; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: opacity .15s; }
+  .block-play-btn:hover { opacity: 0.85; }
+  .block-play-btn.playing { background: #c0392b; }
+  .audio-progress { flex: 1; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; cursor: pointer; }
+  .audio-progress-bar { height: 100%; background: var(--accent); width: 0%; transition: width .1s linear; border-radius: 2px; }
+  .audio-time { font-size: 10px; color: var(--text-muted); min-width: 32px; text-align: right; }
+
   /* ── WORD LIST ─────────────────────────────────────────────── */
   .wl-page { max-width: 900px; }
   .wl-section { margin-bottom: 32px; }
@@ -409,6 +418,7 @@
 
 <script>
 const scriptA = {
+  posKey: 'posA',
   header: '✅ Position A — La campagne est meilleure pour la santé',
   headerClass: 'card-header-green', titleClass: 'card-title-green',
   badge: 'Plus ardu', badgeClass: 'badge-hard',
@@ -435,40 +445,97 @@ const scriptA = {
 };
 
 const scriptB = {
+  posKey: 'posB',
   header: '❎ Position B — La ville est meilleure pour la santé',
   headerClass: 'card-header-blue', titleClass: 'card-title-blue',
   badge: 'Plus facile à défendre', badgeClass: 'badge-easy',
   blocks: [
-    { label: 'Introduction', timing: '~40s', nuance: false,
+    { label: 'Introduction', timing: '~40s', nuance: false, audioFile: 'posB_01.mp3',
       text: `<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si la vie rurale est vraiment plus bénéfique pour la santé que la vie urbaine et les avis sont mitigés.</p>
 <p>Certaines personnes pensent que <span class="hl-pink">la vie en ville présente plusieurs avantages pour la santé</span>, tandis que d'autres estiment le contraire.</p>
 <p>Cela dépend de la situation de chacun. Mais, à mon sens, je crois que <span class="hl-pink">contrairement aux idées reçues, la ville offre des conditions plus favorables à une bonne santé, à condition d'en tirer parti.</span></p>
 <p>Alors, je vais expliquer mes raisons.</p>`,
       note: '💬 <em>contrairement aux idées reçues</em> = contrary to popular belief — ouverture C1 forte' },
-    { label: 'Point 1 — Accès aux soins', timing: '~1 min', nuance: false, wc: '~79 mots ✓',
+    { label: 'Point 1 — Accès aux soins', timing: '~1 min', nuance: false, wc: '~79 mots ✓', audioFile: 'posB_02.mp3',
       text: `<p>Tout d'abord, <span class="hl-pink">force est de constater que les villes concentrent les hôpitaux, les médecins spécialistes et les services d'urgence.</span> Un habitant de la ville peut consulter un médecin rapidement et bénéficier de soins spécialisés en cas de besoin. <span class="hl-pink">Cet accès immédiat aux soins représente un avantage considérable que la campagne ne peut pas toujours garantir.</span> Par exemple, en cas d'urgence cardiaque, les ambulances à Calgary arrivent en quelques minutes — un luxe que les habitants des zones rurales n'ont pas.</p>`,
       note: '💬 <em>force est de constater</em> = it is clear to see (C1 opener) · <em>bénéficier de</em> = to benefit from · <em>en cas de besoin</em> = when needed' },
-    { label: 'Point 2 — Infrastructures sportives', timing: '~1 min', nuance: false, wc: '~80 mots ✓',
+    { label: 'Point 2 — Infrastructures sportives', timing: '~1 min', nuance: false, wc: '~80 mots ✓', audioFile: 'posB_03.mp3',
       text: `<p>En plus, <span class="hl-pink">les villes disposent de nombreuses infrastructures sportives et culturelles qui encouragent un mode de vie sain.</span> À Calgary par exemple, le réseau de pistes cyclables, les parcs comme Fish Creek et les nombreux centres de loisirs permettent aux habitants de rester actifs facilement. <span class="hl-pink">La stimulation culturelle et sociale de la ville contribue également au bien-être mental,</span> en réduisant le risque d'isolement et de dépression, souvent plus élevé dans les zones rurales éloignées.</p>`,
       note: '💬 <em>disposer de</em> = to be equipped with · <em>les pistes cyclables</em> = cycling paths · <em>la stimulation</em> = stimulation' },
-    { label: 'Nuance', timing: '~1 min', nuance: true, wc: '~68 mots ✓',
+    { label: 'Nuance', timing: '~1 min', nuance: true, wc: '~68 mots ✓', audioFile: 'posB_04.mp3',
       text: `<p>En revanche, il est certes vrai que <span class="hl-blue">la pollution atmosphérique et le bruit constant en ville peuvent nuire à la santé à long terme.</span> Le stress lié au rythme de vie urbain est également bien réel. <span class="hl-blue">Pour autant, ces problèmes touchent surtout les personnes qui ne font pas de choix actifs</span> — ceux qui utilisent les parcs, font du vélo et déconnectent régulièrement s'en sortent bien mieux.</p>`,
       note: '💬 <em>à long terme</em> = in the long term · <em>pour autant</em> = that said · <em>s\'en sortir</em> = to fare better' },
-    { label: 'Conclusion', timing: '~50s', nuance: false,
+    { label: 'Conclusion', timing: '~50s', nuance: false, audioFile: 'posB_05.mp3',
       text: `<p>En conclusion, <span class="hl-blue">bien que la vie urbaine présente certains inconvénients comme la pollution et le stress,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages pour la santé sont indéniables — que ce soit en termes d'accès aux soins, d'infrastructures sportives ou de vie sociale.</span></p>
 <p>Il faudrait que <span class="hl-p1">les villes mettent en place de meilleures politiques pour réduire la pollution et favoriser les espaces verts</span> / <span class="hl-p2">que les citadins puissent tirer parti des atouts de la ville tout en préservant leur bien-être.</span></p>
 <p>Merci pour votre attention.</p>`, note: '' }
   ]
 };
 
+// ── Audio player ─────────────────────────────────────────────────────
+const AUDIO_BASE = 'audio/urban_rural/';
+let currentAudio = null;
+let currentPlayBtn = null;
+let progressInterval = null;
+
+function stopCurrent() {
+  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
+  if (currentPlayBtn) { currentPlayBtn.textContent = '▶ Écouter'; currentPlayBtn.classList.remove('playing'); }
+  if (progressInterval) clearInterval(progressInterval);
+  currentAudio = null; currentPlayBtn = null; progressInterval = null;
+}
+
+function playBlock(src, btn, progressBar, timeEl) {
+  if (currentPlayBtn === btn && currentAudio && !currentAudio.paused) { stopCurrent(); return; }
+  stopCurrent();
+  const audio = new Audio(src);
+  currentAudio = audio; currentPlayBtn = btn;
+  btn.textContent = '⏸ Pause';
+  btn.classList.add('playing');
+  progressInterval = setInterval(() => {
+    if (!audio.duration) return;
+    progressBar.style.width = (audio.currentTime / audio.duration * 100) + '%';
+    timeEl.textContent = Math.ceil(audio.duration - audio.currentTime) + 's';
+  }, 100);
+  audio.onended = () => {
+    progressBar.style.width = '100%';
+    setTimeout(() => { progressBar.style.width = '0%'; timeEl.textContent = ''; }, 400);
+    stopCurrent();
+  };
+  audio.onerror = () => { btn.textContent = '⚠ Fichier manquant'; btn.classList.remove('playing'); stopCurrent(); };
+  audio.play();
+}
+
+function seekAudio(e, bar) {
+  if (!currentAudio || !currentAudio.duration) return;
+  const rect = bar.getBoundingClientRect();
+  currentAudio.currentTime = ((e.clientX - rect.left) / rect.width) * currentAudio.duration;
+}
+
+// ── Card builder ─────────────────────────────────────────────────────
 function buildCard(script) {
-  const blocks = script.blocks.map(b => `
-    <div class="block ${b.nuance ? 'block-nuance' : ''}">
-      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
-      <div class="script-text">${b.text}</div>
-      ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
-      ${b.wc ? `<div class="wc">${b.wc}</div>` : ''}
-    </div>`).join('');
+  const blocks = script.blocks.map((b, i) => {
+    const uid = script.posKey + '_' + (i + 1);
+    const audioPlayer = b.audioFile ? `
+      <div class="block-audio">
+        <button class="block-play-btn" id="btn_${uid}"
+          onclick="playBlock('${AUDIO_BASE + b.audioFile}', this, document.getElementById('bar_${uid}'), document.getElementById('time_${uid}'))">
+          ▶ Écouter
+        </button>
+        <div class="audio-progress" onclick="seekAudio(event, this)">
+          <div class="audio-progress-bar" id="bar_${uid}"></div>
+        </div>
+        <span class="audio-time" id="time_${uid}"></span>
+      </div>` : '';
+    return `
+      <div class="block ${b.nuance ? 'block-nuance' : ''}">
+        <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+        <div class="script-text">${b.text}</div>
+        ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
+        ${b.wc   ? `<div class="wc">${b.wc}</div>` : ''}
+        ${audioPlayer}
+      </div>`;
+  }).join('');
   return `<div class="script-card">
     <div class="card-header ${script.headerClass}">
       <div class="card-title ${script.titleClass}">${script.header}</div>
@@ -485,6 +552,7 @@ function showTab(id, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
+  stopCurrent();
 }
 </script>
 </body>
