@@ -106,5 +106,14 @@ const TCF_QUESTIONS = [
   date: '2026-05-13',
   stars: 1,
   status: "À faire"
-  }
+  },
+  {
+  id: 13,
+  cat: 'technologie',
+  question: 'Certaines personnes préfèrent vivre sans technologie (Internet, ordinateur, téléphone). Qu\'en pensez-vous ?',
+  scriptUrl: 'technologie/sans_technologie.html',
+  date: '2026-05-13',
+  stars: 0,
+  status: "À faire"
+},
 ];
