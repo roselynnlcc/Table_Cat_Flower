@@ -4,57 +4,65 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TCF — Le télétravail et l'équilibre vie pro / vie perso</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
 <style>
   :root {
-    --bg:#f5f2ee;--surface:#fff;--surface2:#f2ede8;--border:#e8e0d8;
-    --text:#1e1a16;--text-soft:#6b5f55;--text-muted:#a89888;
-    --accent:#c8955a;--radius:14px;--radius-sm:8px;
-    --pink-bg:#fde8ef;--pink-text:#a3234a;
-    --blue-bg:#e3eeff;--blue-text:#1a4a9c;
-    --purple1-bg:#f0e8fd;--purple1-text:#6b22b0;
-    --green:#2d8a4e;
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding-bottom:48px;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
   /* HEADER */
-  header{background:var(--text);padding:18px 20px 14px;position:sticky;top:0;z-index:100;}
-  .header-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#a89888;margin-bottom:4px;}
-  .header-q{font-family:'Fraunces',serif;font-size:16px;font-weight:300;color:#fff;line-height:1.5;font-style:italic;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
 
   /* TABS */
-  .tab-nav{display:flex;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
   .tab-nav::-webkit-scrollbar{display:none;}
-  .tab-btn{flex:1;min-width:90px;padding:12px 8px;font-size:12px;font-weight:600;letter-spacing:.03em;background:none;border:none;border-bottom:2px solid transparent;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s;}
-  .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
 
   /* CONTENT */
-  .content{display:none;padding:20px 16px;}
+  .content{display:none;padding:20px 16px 48px;}
   .content.active{display:block;}
 
   /* GRIDS */
-  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1100px;}
-  @media(max-width:700px){.scripts-grid{grid-template-columns:1fr;}}
-  .single-view{max-width:660px;margin:0 auto;}
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .single-view{max-width:620px;margin:0 auto;}
 
   /* CARDS */
-  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
-  .card-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
-  .card-header-green{background:#eaf6ee;}
-  .card-header-pink{background:#fdeef3;}
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
   .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
-  .card-title-green{color:#1e5c31;}
-  .card-title-pink{color:#8c1f3a;}
-  .stance-badge{font-size:10px;font-weight:700;letter-spacing:.05em;padding:3px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
-  .badge-easy{background:#d4f5df;color:#1a6b35;}
-  .badge-hard{background:#fdd9e4;color:#8c1f3a;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
 
   /* BLOCKS */
-  .block{padding:14px 16px;border-top:1px solid var(--border);}
-  .block-nuance{background:#fafaf8;}
-  .block-label{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
-  .timing{font-weight:400;text-transform:none;letter-spacing:0;}
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
   .script-text{font-size:14px;line-height:1.85;color:var(--text);}
   .script-text p{margin-bottom:10px;}
   .script-text p:last-child{margin-bottom:0;}
@@ -76,11 +84,11 @@
   .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
   .wl-row:last-child{border-bottom:none;}
   .wl-row:hover{background:var(--surface2);}
-  .wl-fr{font-size:13px;font-weight:500;color:var(--text);flex:1;}
-  .wl-fr em{font-weight:300;color:var(--text-muted);font-style:normal;}
-  .wl-star{color:var(--accent);margin-left:3px;font-size:11px;}
-  .wl-en{font-size:12px;color:var(--text-soft);flex:1;line-height:1.4;}
-  .wl-prep{display:block;font-size:10.5px;color:var(--text-muted);font-style:italic;margin-top:1px;}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .wl-prep{font-size:11px;color:#7a5230;background:#fef3c7;border-radius:4px;padding:1px 5px;margin-left:4px;}
 
   /* VERB TABLE */
   .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
@@ -103,25 +111,26 @@
   .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
   .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
-  .contrast-header{padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;}
-  .contrast-header.pos-a{background:#eaf6ee;color:#1e5c31;}
-  .contrast-header.pos-b{background:#fdeef3;color:#8c1f3a;}
-  .contrast-item{padding:7px 12px;font-size:13px;border-bottom:1px solid rgba(0,0,0,0.04);line-height:1.4;display:flex;gap:8px;}
-  .contrast-item::before{content:"•";color:var(--accent);font-weight:bold;flex-shrink:0;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
 
   /* CHUNKS */
   .chunk-list{display:flex;flex-direction:column;gap:10px;}
   .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
-  .chunk-fr{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
   .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
-  .chunk-note{font-size:11px;color:var(--text-muted);font-style:italic;border-top:1px solid var(--border);padding-top:4px;margin-top:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-label">TCF Canada · Tâche 3 · Travail</div>
-  <div class="header-q">Le télétravail permet-il réellement de mieux concilier la vie professionnelle et la vie personnelle ? Qu'en pensez-vous ?</div>
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Tâche 3</span></h1>
+  <div class="question-title">Le télétravail permet-il réellement de mieux concilier la vie professionnelle et la vie personnelle ? Qu'en pensez-vous ?</div>
 </header>
 
 <nav class="tab-nav">
@@ -231,7 +240,7 @@
       <div class="wl-section-title">Paires de contraste</div>
       <div class="contrast-grid">
         <div class="contrast-card">
-          <div class="contrast-header pos-a">Pourquoi le télétravail aide</div>
+          <div class="contrast-header contrast-header-a">Pourquoi le télétravail aide</div>
           <div class="contrast-item">supprime les trajets chronophages</div>
           <div class="contrast-item">permet de gérer les responsabilités familiales</div>
           <div class="contrast-item">réduit le stress lié aux transports</div>
@@ -240,7 +249,7 @@
           <div class="contrast-item">économise du temps et de l'énergie</div>
         </div>
         <div class="contrast-card">
-          <div class="contrast-header pos-b">Pourquoi le télétravail ne suffit pas</div>
+          <div class="contrast-header contrast-header-b">Pourquoi le télétravail ne suffit pas</div>
           <div class="contrast-item">amplifie la charge mentale, surtout pour les femmes</div>
           <div class="contrast-item">les employeurs augmentent leurs exigences</div>
           <div class="contrast-item">brouille la frontière travail / vie privée</div>
@@ -316,7 +325,7 @@ const scriptA = {
 
 const scriptB = {
   header: '❌ Position B — NON, le télétravail ne permet pas vraiment cet équilibre',
-  headerClass:'card-header-pink', titleClass:'card-title-pink',
+  headerClass:'card-header-blue', titleClass:'card-title-blue',
   badge:'Plus facile à défendre', badgeClass:'badge-easy',
   blocks:[
     { label:'Introduction', timing:'~40s', nuance:false,
