@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Le télétravail et l'équilibre vie pro / vie perso</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f2ede8;--border:#e8e0d8;
+    --text:#1e1a16;--text-soft:#6b5f55;--text-muted:#a89888;
+    --accent:#c8955a;--radius:14px;--radius-sm:8px;
+    --pink-bg:#fde8ef;--pink-text:#a3234a;
+    --blue-bg:#e3eeff;--blue-text:#1a4a9c;
+    --purple1-bg:#f0e8fd;--purple1-text:#6b22b0;
+    --green:#2d8a4e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding-bottom:48px;}
+
+  /* HEADER */
+  header{background:var(--text);padding:18px 20px 14px;position:sticky;top:0;z-index:100;}
+  .header-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#a89888;margin-bottom:4px;}
+  .header-q{font-family:'Fraunces',serif;font-size:16px;font-weight:300;color:#fff;line-height:1.5;font-style:italic;}
+
+  /* TABS */
+  .tab-nav{display:flex;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{flex:1;min-width:90px;padding:12px 8px;font-size:12px;font-weight:600;letter-spacing:.03em;background:none;border:none;border-bottom:2px solid transparent;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s;}
+  .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+
+  /* CONTENT */
+  .content{display:none;padding:20px 16px;}
+  .content.active{display:block;}
+
+  /* GRIDS */
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1100px;}
+  @media(max-width:700px){.scripts-grid{grid-template-columns:1fr;}}
+  .single-view{max-width:660px;margin:0 auto;}
+
+  /* CARDS */
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .card-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .card-header-green{background:#eaf6ee;}
+  .card-header-pink{background:#fdeef3;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:#1e5c31;}
+  .card-title-pink{color:#8c1f3a;}
+  .stance-badge{font-size:10px;font-weight:700;letter-spacing:.05em;padding:3px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+  .badge-easy{background:#d4f5df;color:#1a6b35;}
+  .badge-hard{background:#fdd9e4;color:#8c1f3a;}
+
+  /* BLOCKS */
+  .block{padding:14px 16px;border-top:1px solid var(--border);}
+  .block-nuance{background:#fafaf8;}
+  .block-label{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .timing{font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;}
+  .script-text p:last-child{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .hl-p2{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+
+  /* WORD LIST */
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-size:13px;font-weight:500;color:var(--text);flex:1;}
+  .wl-fr em{font-weight:300;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);margin-left:3px;font-size:11px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;line-height:1.4;}
+  .wl-prep{display:block;font-size:10.5px;color:var(--text-muted);font-style:italic;margin-top:1px;}
+
+  /* VERB TABLE */
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+
+  /* ADJ TABLE */
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+
+  /* CONTRAST GRID */
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;}
+  .contrast-header.pos-a{background:#eaf6ee;color:#1e5c31;}
+  .contrast-header.pos-b{background:#fdeef3;color:#8c1f3a;}
+  .contrast-item{padding:7px 12px;font-size:13px;border-bottom:1px solid rgba(0,0,0,0.04);line-height:1.4;display:flex;gap:8px;}
+  .contrast-item::before{content:"•";color:var(--accent);font-weight:bold;flex-shrink:0;}
+
+  /* CHUNKS */
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);font-style:italic;border-top:1px solid var(--border);padding-top:4px;margin-top:4px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">TCF Canada · Tâche 3 · Travail</div>
+  <div class="header-q">Le télétravail permet-il réellement de mieux concilier la vie professionnelle et la vie personnelle ? Qu'en pensez-vous ?</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<!-- WORD LIST -->
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Travail et organisation ★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">le télétravail <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">remote work / working from home</span></div>
+          <div class="wl-row"><span class="wl-fr">le travail à domicile <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">working from home</span></div>
+          <div class="wl-row"><span class="wl-fr">les horaires flexibles <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">flexible hours</span></div>
+          <div class="wl-row"><span class="wl-fr">la productivité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">productivity</span></div>
+          <div class="wl-row"><span class="wl-fr">l'autonomie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">autonomy, independence</span></div>
+          <div class="wl-row"><span class="wl-fr">la charge de travail <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">workload</span></div>
+          <div class="wl-row"><span class="wl-fr">la disponibilité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">availability</span></div>
+          <div class="wl-row"><span class="wl-fr">un employeur <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">an employer</span></div>
+          <div class="wl-row"><span class="wl-fr">un employé / une employée <em>(m/f)</em><span class="wl-star">★</span></span><span class="wl-en">an employee</span></div>
+          <div class="wl-row"><span class="wl-fr">les exigences <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">demands, requirements</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Vie personnelle et bien-être</div>
+          <div class="wl-row"><span class="wl-fr">l'équilibre vie pro / vie perso <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">work-life balance</span></div>
+          <div class="wl-row"><span class="wl-fr">la conciliation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">reconciling / balancing (two things)</span></div>
+          <div class="wl-row"><span class="wl-fr">la charge mentale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mental load</span></div>
+          <div class="wl-row"><span class="wl-fr">l'épuisement professionnel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">burnout</span></div>
+          <div class="wl-row"><span class="wl-fr">le bien-être <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">well-being</span></div>
+          <div class="wl-row"><span class="wl-fr">l'isolement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">isolation</span></div>
+          <div class="wl-row"><span class="wl-fr">la déconnexion <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">disconnecting (from work)</span></div>
+          <div class="wl-row"><span class="wl-fr">la frontière <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">boundary / border (between work and life)</span></div>
+          <div class="wl-row"><span class="wl-fr">les responsabilités familiales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">family responsibilities</span></div>
+          <div class="wl-row"><span class="wl-fr">la qualité de vie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">quality of life</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Trajets et logistique</div>
+          <div class="wl-row"><span class="wl-fr">le trajet domicile-bureau <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">commute (home to office)</span></div>
+          <div class="wl-row"><span class="wl-fr">les transports en commun <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">public transport</span></div>
+          <div class="wl-row"><span class="wl-fr">un espace dédié <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a dedicated space (home office)</span></div>
+          <div class="wl-row"><span class="wl-fr">un logement exigu <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">cramped / small housing</span></div>
+          <div class="wl-row"><span class="wl-fr">les conditions de travail <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">working conditions</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Inégalités et société</div>
+          <div class="wl-row"><span class="wl-fr">les inégalités <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">inequalities</span></div>
+          <div class="wl-row"><span class="wl-fr">la double journée <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">the double shift (work + domestic tasks)</span></div>
+          <div class="wl-row"><span class="wl-fr">les tâches domestiques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">domestic / household tasks</span></div>
+          <div class="wl-row"><span class="wl-fr">l'hyperconnexion <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">being constantly connected / always-on culture</span></div>
+          <div class="wl-row"><span class="wl-fr">le droit à la déconnexion <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">the right to disconnect (from work)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions — relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">concilier</td><td class="vprep">—</td><td class="vrel">que</td><td class="ven">to reconcile / balance</td></tr>
+          <tr><td class="vfr">nuire</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to harm</td></tr>
+          <tr><td class="vfr">bénéficier</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to benefit from</td></tr>
+          <tr><td class="vfr">profiter</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to take advantage of</td></tr>
+          <tr><td class="vfr">faire face</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to cope with</td></tr>
+          <tr><td class="vfr">être confronté</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to face / be confronted with</td></tr>
+          <tr><td class="vfr">s'appuyer</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to rely on</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">se consacrer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to dedicate oneself to</td></tr>
+          <tr><td class="vfr">empiéter</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to encroach on / spill over into</td></tr>
+          <tr><td class="vfr">jongler</td><td class="vprep">entre / avec</td><td class="vrel">—</td><td class="ven">to juggle (responsibilities)</td></tr>
+          <tr><td class="vfr">pallier</td><td class="vprep">—</td><td class="vrel">que</td><td class="ven">to make up for / offset (no preposition)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">flexible</span><span class="adj-en">flexible</span></div>
+          <div class="adj-row"><span class="adj-fr">contraignant(e)</span><span class="adj-en">constraining, demanding</span></div>
+          <div class="adj-row"><span class="adj-fr">épuisant(e)</span><span class="adj-en">exhausting</span></div>
+          <div class="adj-row"><span class="adj-fr">inégalitaire</span><span class="adj-en">unequal, inequitable</span></div>
+          <div class="adj-row"><span class="adj-fr">précaire</span><span class="adj-en">precarious</span></div>
+          <div class="adj-row"><span class="adj-fr">bénéfique</span><span class="adj-en">beneficial</span></div>
+          <div class="adj-row"><span class="adj-fr">paradoxal(e)</span><span class="adj-en">paradoxical</span></div>
+          <div class="adj-row"><span class="adj-fr">exigu(ë)</span><span class="adj-en">cramped, tiny (of space)</span></div>
+          <div class="adj-row"><span class="adj-fr">accessible</span><span class="adj-en">accessible, available</span></div>
+          <div class="adj-row"><span class="adj-fr">durable</span><span class="adj-en">lasting, sustainable</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header pos-a">Pourquoi le télétravail aide</div>
+          <div class="contrast-item">supprime les trajets chronophages</div>
+          <div class="contrast-item">permet de gérer les responsabilités familiales</div>
+          <div class="contrast-item">réduit le stress lié aux transports</div>
+          <div class="contrast-item">donne plus d'autonomie dans l'organisation</div>
+          <div class="contrast-item">favorise une meilleure qualité de vie globale</div>
+          <div class="contrast-item">économise du temps et de l'énergie</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header pos-b">Pourquoi le télétravail ne suffit pas</div>
+          <div class="contrast-item">amplifie la charge mentale, surtout pour les femmes</div>
+          <div class="contrast-item">les employeurs augmentent leurs exigences</div>
+          <div class="contrast-item">brouille la frontière travail / vie privée</div>
+          <div class="contrast-item">génère isolement et perte de lien social</div>
+          <div class="contrast-item">inégalitaire selon les conditions de logement</div>
+          <div class="contrast-item">culture du « toujours disponible » s'intensifie</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">le temps libéré par la suppression des trajets peut être consacré à la famille ou aux loisirs</div>
+          <div class="chunk-en">the time freed up by eliminating the commute can be devoted to family or leisure</div>
+          <div class="chunk-note">consacrer à = C1 verb · directement lié au Point 1 Position A</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">jongler simultanément entre les réunions en ligne et les responsabilités domestiques</div>
+          <div class="chunk-en">to juggle online meetings and domestic responsibilities at the same time</div>
+          <div class="chunk-note">jongler entre = très naturel à l'oral · argument clé Position B Point 1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">le fait d'être « toujours accessible » profite davantage aux employeurs qu'aux employés</div>
+          <div class="chunk-en">being "always reachable" benefits employers more than employees</div>
+          <div class="chunk-note">le fait de + infinitif = C1 structure · Position B Point 2</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">sans séparation physique claire, il devient très difficile de fermer mentalement le travail en fin de journée</div>
+          <div class="chunk-en">without a clear physical separation, it becomes very hard to mentally switch off at the end of the day</div>
+          <div class="chunk-note">fermer mentalement le travail = expression naturelle à l'oral · structure il devient difficile de = C1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">tout en conservant leur emploi, de nombreux travailleurs ont pu quitter les grandes villes grâce au télétravail</div>
+          <div class="chunk-en">while keeping their jobs, many workers were able to leave big cities thanks to remote work</div>
+          <div class="chunk-note">tout en + participe présent = C1 (deux actions simultanées)</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il serait souhaitable que les entreprises encadrent le télétravail par des règles claires sur la déconnexion</div>
+          <div class="chunk-en">it would be desirable for companies to regulate remote work with clear rules on disconnecting</div>
+          <div class="chunk-note">il serait souhaitable que + subjonctif = conclusion C1 parfaite</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptA = {
+  header: '✅ Position A — OUI, le télétravail aide à concilier vie pro et vie perso',
+  headerClass:'card-header-green', titleClass:'card-title-green',
+  badge:'Plus ardu', badgeClass:'badge-hard',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si le télétravail permet réellement de mieux concilier la vie professionnelle et la vie personnelle</span> et les avis sont mitigés. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">le télétravail contribue à un meilleur équilibre, à un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:'' },
+    { label:'Point 1 — Suppression des trajets', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
+      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">le télétravail supprime les trajets domicile-bureau, ce qui libère chaque semaine plusieurs heures que les travailleurs peuvent consacrer à leur famille, à leurs loisirs ou à leur santé.</span> Dans une ville comme Calgary, où les trajets peuvent dépasser une heure par jour, ce gain de temps est particulièrement concret. De ce fait, <span class="hl-pink">la qualité de vie s'améliore directement, sans que l'employé ait à changer son rythme de travail.</span></p>`,
+      note:'💬 <em>consacrer à</em> = to devote to · <em>un gain de temps</em> = a time saving · <em>sans que + subjonctif</em> = without (C1 structure)' },
+    { label:'Point 2 — Gestion des responsabilités familiales', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
+      text:`<p>En plus, <span class="hl-pink">le télétravail permet aux parents de mieux gérer les responsabilités familiales sans sacrifier leur carrière.</span> Être présent à la maison facilite la coordination du quotidien : récupérer les enfants à l'école, gérer un imprévu ou préparer un repas en famille. Par ailleurs, <span class="hl-pink">cette flexibilité bénéficie particulièrement aux femmes, qui portent encore aujourd'hui une part plus importante des tâches domestiques,</span> en leur permettant de jongler entre les deux sphères avec moins de pression.</p>`,
+      note:'💬 <em>jongler entre</em> = to juggle between · <em>les tâches domestiques</em> = domestic tasks · <em>la sphère</em> = sphere, domain' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~67 mots ✓',
+      text:`<p>Il est certes vrai que <span class="hl-blue">le télétravail peut engendrer un sentiment d'isolement chez certains employés. Sans les interactions sociales du bureau — les échanges informels, l'entraide spontanée ou le simple fait de partager un repas avec des collègues — certains travailleurs se sentent coupés de leur équipe.</span> <span class="hl-blue">Cet isolement affecte la santé mentale et peut, paradoxalement, fragiliser la vie personnelle que le télétravail était censé protéger.</span></p>`,
+      note:'💬 <em>engendrer</em> = to generate, cause · <em>être coupé de</em> = to be cut off from · <em>paradoxalement</em> = paradoxically · <em>être censé</em> = to be supposed to' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">l'isolement social que le télétravail peut provoquer</span> présente certains inconvénients, comme le risque de fragilisation du bien-être, il n'en demeure pas moins que les avantages, comme <span class="hl-pink">le gain de temps et le renforcement de la vie familiale,</span> sont indéniables.</p>
+<p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les entreprises encadrent le télétravail par des règles claires sur les horaires et le droit à la déconnexion, afin que les employés puissent en tirer tous les bénéfices</span> / <span class="hl-p2">les gouvernements légifèrent pour garantir que le télétravail profite réellement aux travailleurs et ne renforce pas les inégalités existantes.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+const scriptB = {
+  header: '❌ Position B — NON, le télétravail ne permet pas vraiment cet équilibre',
+  headerClass:'card-header-pink', titleClass:'card-title-pink',
+  badge:'Plus facile à défendre', badgeClass:'badge-easy',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si le télétravail permet réellement de mieux concilier la vie professionnelle et la vie personnelle</span> et les avis sont mitigés. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">le télétravail ne suffit pas à garantir un véritable équilibre entre les deux sphères de vie, à un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:'' },
+    { label:'Point 1 — Charge mentale alourdie', timing:'~1 min', nuance:false, wc:'~80 mots ✓',
+      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">le télétravail alourdit la charge mentale, en particulier pour les femmes qui assument déjà une grande part des responsabilités domestiques.</span> En mettant le travail et la maison dans le même espace, on se retrouve à jongler simultanément entre les réunions en ligne, les enfants et les tâches ménagères. <span class="hl-pink">Cette pression constante engendre un épuisement professionnel et personnel qui rend la conciliation encore plus difficile qu'au bureau.</span></p>`,
+      note:'💬 <em>jongler simultanément entre</em> = to juggle at the same time · <em>assumer</em> = to take on, bear · <em>engendrer</em> = to generate, cause · <em>la conciliation</em> = balancing (work and life)' },
+    { label:'Point 2 — Les employeurs augmentent leurs exigences', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
+      text:`<p>En plus, <span class="hl-pink">le télétravail a conduit de nombreuses entreprises à intensifier leurs exigences envers les employés.</span> Comme le salarié est perçu comme « toujours accessible », les employeurs allongent les plages de disponibilité, raccourcissent les délais et organisent des réunions en dehors des heures normales de travail. De ce fait, <span class="hl-pink">le fait d'être constamment joignable profite davantage aux entreprises qu'aux travailleurs, et contribue à effacer la frontière entre vie professionnelle et vie personnelle.</span></p>`,
+      note:'💬 <em>joignable</em> = reachable, contactable · <em>allonger les plages de disponibilité</em> = to extend availability windows · <em>effacer la frontière</em> = to erase the boundary' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓',
+      text:`<p>Il est certes vrai que <span class="hl-blue">pour certains profils — les travailleurs sans enfants, ceux qui disposent d'un espace dédié ou qui jouissent d'une grande autonomie professionnelle — le télétravail offre réellement une meilleure qualité de vie.</span> <span class="hl-blue">Ces personnes parviennent à tirer parti de la flexibilité sans subir l'hyperconnexion ni la surcharge domestique. Pour elles, l'équilibre est donc atteignable grâce au télétravail.</span></p>`,
+      note:'💬 <em>disposer de</em> = to have available · <em>jouir de</em> = to enjoy (C1) · <em>tirer parti de</em> = to make the most of · <em>atteignable</em> = achievable' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">le télétravail présente certains avantages pour des profils spécifiques,</span> comme <span class="hl-blue">l'accès à plus de flexibilité,</span> il n'en demeure pas moins que les inconvénients, comme <span class="hl-pink">l'excès de charge mentale et la perte de frontières claires,</span> sont indéniables.</p>
+<p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les entreprises encadrent strictement le télétravail en instaurant des règles claires sur les horaires et le droit à la déconnexion, afin que les employés puissent en bénéficier équitablement</span> / <span class="hl-p2">les gouvernements adoptent des lois protégeant les travailleurs contre l'hyperconnexion et garantissant que le télétravail ne creuse pas les inégalités existantes.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+function buildCard(s){
+  const blocks=s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${b.text}</div>
+      ${b.note?`<div class="en-note">${b.note}</div>`:''}
+      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+    </div>`).join('');
+  return`<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;}
+
+document.getElementById('bothGrid').innerHTML=buildCard(scriptB)+buildCard(scriptA);
+document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
+document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');}
+</script>
+</body>
+</html>
