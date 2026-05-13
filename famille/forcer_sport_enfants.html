@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Faut-il forcer les enfants à faire du sport ?</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .single-view{max-width:620px;margin:0 auto;}
+
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;}
+  .script-text p:last-child{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .hl-p2{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .wl-prep{font-size:11px;color:#7a5230;background:#fef3c7;border-radius:4px;padding:1px 5px;margin-left:4px;}
+
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Tâche 3</span></h1>
+  <div class="question-title">Faut-il forcer les enfants à faire du sport ? Qu'en pensez-vous ? Pourquoi ?</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<!-- WORD LIST -->
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Sport et corps ★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">l'activité physique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">physical activity</span></div>
+          <div class="wl-row"><span class="wl-fr">la pratique sportive <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">sports practice / doing sport</span></div>
+          <div class="wl-row"><span class="wl-fr">la sédentarité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">sedentary lifestyle</span></div>
+          <div class="wl-row"><span class="wl-fr">le surpoids <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">being overweight</span></div>
+          <div class="wl-row"><span class="wl-fr">l'obésité infantile <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">childhood obesity</span></div>
+          <div class="wl-row"><span class="wl-fr">l'effort cardiovasculaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">cardiovascular effort / exercise</span></div>
+          <div class="wl-row"><span class="wl-fr">les habitudes de vie <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">lifestyle habits</span></div>
+          <div class="wl-row"><span class="wl-fr">la discipline <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">discipline</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Enfant et développement</div>
+          <div class="wl-row"><span class="wl-fr">le développement de l'enfant <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">child development</span></div>
+          <div class="wl-row"><span class="wl-fr">l'épanouissement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">personal fulfilment / flourishing</span></div>
+          <div class="wl-row"><span class="wl-fr">la motivation intrinsèque <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">intrinsic motivation</span></div>
+          <div class="wl-row"><span class="wl-fr">l'autonomie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">autonomy, independence</span></div>
+          <div class="wl-row"><span class="wl-fr">la confiance en soi <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">self-confidence</span></div>
+          <div class="wl-row"><span class="wl-fr">l'estime de soi <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">self-esteem</span></div>
+          <div class="wl-row"><span class="wl-fr">les compétences sociales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">social skills</span></div>
+          <div class="wl-row"><span class="wl-fr">la coopération <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">cooperation, teamwork</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Contrainte et choix</div>
+          <div class="wl-row"><span class="wl-fr">la contrainte <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">constraint, obligation</span></div>
+          <div class="wl-row"><span class="wl-fr">l'obligation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">obligation</span></div>
+          <div class="wl-row"><span class="wl-fr">l'aversion <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">aversion, strong dislike</span></div>
+          <div class="wl-row"><span class="wl-fr">le ressentiment <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">resentment</span></div>
+          <div class="wl-row"><span class="wl-fr">l'effet inverse <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">the opposite / reverse effect</span></div>
+          <div class="wl-row"><span class="wl-fr">le libre choix <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">free choice</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Sport collectif et social</div>
+          <div class="wl-row"><span class="wl-fr">le sport d'équipe <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">team sport</span></div>
+          <div class="wl-row"><span class="wl-fr">les pairs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">peers</span></div>
+          <div class="wl-row"><span class="wl-fr">la gestion de l'échec <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">managing / coping with failure</span></div>
+          <div class="wl-row"><span class="wl-fr">le fair-play <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">fair play, sportsmanship</span></div>
+          <div class="wl-row"><span class="wl-fr">l'esprit d'équipe <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">team spirit</span></div>
+          <div class="wl-row"><span class="wl-fr">les liens sociaux <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">social bonds / connections</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions — relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">forcer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to force (someone) to</td></tr>
+          <tr><td class="vfr">obliger</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to compel / oblige to</td></tr>
+          <tr><td class="vfr">nuire</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to harm</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">lutter</td><td class="vprep">contre</td><td class="vrel">contre lequel</td><td class="ven">to fight against</td></tr>
+          <tr><td class="vfr">exposer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to expose to</td></tr>
+          <tr><td class="vfr">se construire</td><td class="vprep">—</td><td class="vrel">que</td><td class="ven">to build oneself / grow (C1)</td></tr>
+          <tr><td class="vfr">tisser des liens</td><td class="vprep">avec</td><td class="vrel">avec lesquels</td><td class="ven">to build bonds with</td></tr>
+          <tr><td class="vfr">faire face</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to cope with / face</td></tr>
+          <tr><td class="vfr">abandonner</td><td class="vprep">—</td><td class="vrel">que</td><td class="ven">to give up / abandon</td></tr>
+          <tr><td class="vfr">associer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to associate with</td></tr>
+          <tr><td class="vfr">s'épanouir</td><td class="vprep">—</td><td class="vrel">que</td><td class="ven">to flourish, thrive</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">sédentaire</span><span class="adj-en">sedentary</span></div>
+          <div class="adj-row"><span class="adj-fr">actif / active</span><span class="adj-en">active</span></div>
+          <div class="adj-row"><span class="adj-fr">durable</span><span class="adj-en">lasting, sustainable</span></div>
+          <div class="adj-row"><span class="adj-fr">bénéfique</span><span class="adj-en">beneficial</span></div>
+          <div class="adj-row"><span class="adj-fr">contraignant(e)</span><span class="adj-en">constraining, demanding</span></div>
+          <div class="adj-row"><span class="adj-fr">intrinsèque</span><span class="adj-en">intrinsic</span></div>
+          <div class="adj-row"><span class="adj-fr">préjudiciable</span><span class="adj-en">harmful, detrimental (C1)</span></div>
+          <div class="adj-row"><span class="adj-fr">irremplaçable</span><span class="adj-en">irreplaceable</span></div>
+          <div class="adj-row"><span class="adj-fr">épanouissant(e)</span><span class="adj-en">fulfilling</span></div>
+          <div class="adj-row"><span class="adj-fr">indispensable</span><span class="adj-en">indispensable, essential</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">OUI — encourager / imposer le sport</div>
+          <div class="contrast-item">protéger les enfants contre la sédentarité</div>
+          <div class="contrast-item">renforcer les os et prévenir le surpoids</div>
+          <div class="contrast-item">apprendre à coopérer et gérer l'échec</div>
+          <div class="contrast-item">tisser des liens sociaux avec les pairs</div>
+          <div class="contrast-item">inculquer discipline et régularité</div>
+          <div class="contrast-item">créer de bonnes habitudes pour la vie adulte</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">NON — respecter le choix de l'enfant</div>
+          <div class="contrast-item">tuer la motivation intrinsèque par la contrainte</div>
+          <div class="contrast-item">risque d'aversion durable pour le sport</div>
+          <div class="contrast-item">d'autres activités offrent les mêmes bénéfices</div>
+          <div class="contrast-item">nier le droit à l'autodétermination de l'enfant</div>
+          <div class="contrast-item">créer tensions et ressentiments familiaux</div>
+          <div class="contrast-item">ignorer la diversité des tempéraments</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">le sport contribue au renforcement des os et à la prévention du surpoids dès le plus jeune âge</div>
+          <div class="chunk-en">sport contributes to strengthening bones and preventing obesity from a very young age</div>
+          <div class="chunk-note">contribuer à + nom = structure C1 · dès le plus jeune âge = C1 set phrase</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">tisser des liens avec ses pairs à travers le sport est une étape irremplaçable du développement social</div>
+          <div class="chunk-en">building bonds with peers through sport is an irreplaceable step in social development</div>
+          <div class="chunk-note">tisser des liens = C1 verb phrase · une étape irremplaçable = strong evaluative adj</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">forcer un enfant contre sa volonté risque de créer une association négative durable entre sport et souffrance</div>
+          <div class="chunk-en">forcing a child against their will risks creating a lasting negative association between sport and suffering</div>
+          <div class="chunk-note">risquer de + infinitif = nuance C1 · contre sa volonté = set phrase</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il serait souhaitable que les parents encouragent la pratique sportive tout en laissant l'enfant choisir l'activité qui lui convient</div>
+          <div class="chunk-en">it would be desirable for parents to encourage sport while letting the child choose the activity that suits them</div>
+          <div class="chunk-note">il serait souhaitable que + subjonctif = conclusion C1 parfaite · tout en + participe présent = C1</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptA = {
+  header: '✅ Position A — OUI, il faut encourager les enfants à faire du sport',
+  headerClass:'card-header-green', titleClass:'card-title-green',
+  badge:'Plus facile à défendre', badgeClass:'badge-easy',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">s'il faut forcer les enfants à faire du sport</span> et les avis sont mitigés. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">encourager, voire imposer, la pratique sportive aux enfants est nécessaire, à un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:'' },
+    { label:'Point 1 — Santé physique', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
+      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">le sport est essentiel au développement physique de l'enfant : il renforce les os, améliore l'endurance et protège contre le surpoids dès le plus jeune âge.</span> Or, laissés à eux-mêmes, beaucoup d'enfants choisissent naturellement les écrans plutôt que l'activité physique. De ce fait, <span class="hl-pink">sans une impulsion parentale, la sédentarité s'installe rapidement et engendre des problèmes de santé qui peuvent persister à l'âge adulte.</span></p>`,
+      note:'💬 <em>dès le plus jeune âge</em> = from a very young age · <em>s\'installer</em> = to set in / take hold · <em>engendrer</em> = to generate, cause · <em>persister</em> = to persist' },
+    { label:'Point 2 — Développement social', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
+      text:`<p>De plus, <span class="hl-pink">la pratique sportive, surtout en équipe, apprend aux enfants à coopérer, à respecter des règles communes et à faire face à l'échec.</span> Ces compétences sociales sont difficiles à acquérir dans d'autres contextes et sont pourtant indispensables à la vie en société. Par ailleurs, <span class="hl-pink">le sport permet à l'enfant de tisser des liens durables avec ses pairs, ce qui renforce sa confiance en soi et favorise son épanouissement.</span></p>`,
+      note:'💬 <em>faire face à</em> = to cope with, face · <em>tisser des liens</em> = to build bonds · <em>l\'épanouissement</em> = fulfilment, flourishing · <em>acquérir</em> = to acquire (C1)' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~68 mots ✓',
+      text:`<p>Il est certes vrai que <span class="hl-blue">forcer un enfant contre sa volonté peut provoquer l'effet inverse : une association négative durable entre sport et souffrance.</span> <span class="hl-blue">Certains enfants contraints abandonnent toute activité physique dès qu'ils retrouvent leur liberté à l'adolescence, précisément parce qu'ils ont vécu le sport comme une punition plutôt que comme un plaisir. La contrainte risque ainsi de détruire ce qu'elle cherchait à construire.</span></p>`,
+      note:'💬 <em>contre sa volonté</em> = against one\'s will · <em>dès que</em> = as soon as · <em>précisément parce que</em> = precisely because · <em>la contrainte</em> = constraint, obligation' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">la contrainte sportive excessive</span> présente certains inconvénients, comme <span class="hl-blue">le risque d'aversion durable,</span> il n'en demeure pas moins que les avantages, comme <span class="hl-pink">le renforcement de la santé physique et le développement social,</span> sont indéniables.</p>
+<p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les parents encouragent la pratique sportive tout en laissant leurs enfants choisir l'activité qui leur convient, afin que la motivation reste intacte</span> / <span class="hl-p2">les écoles intègrent davantage d'activités physiques variées dans leur programme, pour que tous les enfants puissent trouver un sport qui leur corresponde.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+const scriptB = {
+  header: '❌ Position B — NON, forcer les enfants à faire du sport est contre-productif',
+  headerClass:'card-header-blue', titleClass:'card-title-blue',
+  badge:'Plus ardu', badgeClass:'badge-hard',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">s'il faut forcer les enfants à faire du sport</span> et les avis sont divergents. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">forcer les enfants à pratiquer une activité sportive est une approche contre-productive qui nuit à leur épanouissement, à un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:'' },
+    { label:'Point 1 — La contrainte détruit la motivation intrinsèque', timing:'~1 min', nuance:false, wc:'~80 mots ✓',
+      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">la motivation intrinsèque est le seul moteur d'une pratique sportive durable.</span> Un enfant qui fait du sport par obligation, et non par plaisir, n'y voit aucun sens. De ce fait, <span class="hl-pink">en imposant le sport, les parents détruisent précisément ce qui permettrait à l'enfant d'y revenir librement plus tard — et c'est souvent à l'adolescence, dès qu'il retrouve son autonomie, qu'il abandonne définitivement toute activité physique.</span></p>`,
+      note:'💬 <em>le seul moteur de</em> = the only driver of · <em>n\'y voir aucun sens</em> = to see no point in it · <em>définitivement</em> = permanently · <em>dès que</em> = as soon as' },
+    { label:'Point 2 — D\'autres activités offrent les mêmes bénéfices', timing:'~1 min', nuance:false, wc:'~77 mots ✓',
+      text:`<p>De plus, <span class="hl-pink">imposer le sport revient à ignorer la diversité des talents et des tempéraments des enfants.</span> La danse, la musique, le théâtre ou les arts martiaux offrent les mêmes bénéfices disciplinaires et sociaux que le sport traditionnel. Par ailleurs, <span class="hl-pink">ces activités permettent à certains enfants de s'épanouir et de tisser des liens avec leurs pairs tout aussi efficacement — sans la pression compétitive que le sport peut parfois engendrer.</span></p>`,
+      note:'💬 <em>revenir à</em> = to amount to · <em>le tempérament</em> = temperament, personality · <em>s\'épanouir</em> = to flourish · <em>la pression compétitive</em> = competitive pressure' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~67 mots ✓',
+      text:`<p>Il est certes vrai que <span class="hl-blue">le sport reste irremplaçable pour certains aspects de la santé physique. Aucune autre activité ne reproduit aussi efficacement l'effort cardiovasculaire qui protège contre le surpoids infantile et les maladies chroniques.</span> <span class="hl-blue">Dans un contexte où la sédentarité des enfants atteint des niveaux préoccupants, une forme de cadre parental reste donc nécessaire pour garantir un minimum d'activité physique régulière.</span></p>`,
+      note:'💬 <em>irremplaçable</em> = irreplaceable · <em>préoccupant(e)</em> = worrying, concerning · <em>un cadre</em> = a framework, structure · <em>atteindre un niveau</em> = to reach a level' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">le sport présente des avantages indéniables pour la santé physique,</span> comme <span class="hl-blue">l'amélioration de l'endurance,</span> il n'en demeure pas moins que les inconvénients de la contrainte, comme <span class="hl-pink">le frein à la motivation et la perte du goût pour l'activité,</span> sont réels.</p>
+<p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les parents privilégient le dialogue et l'exploration de différentes activités, afin que leurs enfants trouvent d'eux-mêmes une passion durable</span> / <span class="hl-p2">les écoles proposent un large éventail d'activités physiques et artistiques, pour que chaque enfant puisse s'épanouir selon ses propres aptitudes.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+function buildCard(s){
+  const blocks=s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${b.text}</div>
+      ${b.note?`<div class="en-note">${b.note}</div>`:''}
+      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+    </div>`).join('');
+  return`<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;}
+
+document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
+document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
+document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');}
+</script>
+</body>
+</html>
