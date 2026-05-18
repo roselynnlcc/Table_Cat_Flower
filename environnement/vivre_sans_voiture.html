@@ -259,7 +259,7 @@ const scriptA = {
       note:"💬 <em>à condition de + infinitif</em> = provided that (C1) · <em>à proximité de</em> = in the vicinity of · <em>de façon autonome</em> = independently" },
     { label:"Point 2 — Posséder une voiture représente une lourde charge financière", timing:"~1 min", nuance:false, wc:"~77 mots ✓",
       textHtml:[
-        `De plus, <span class="hl-pink">posséder une voiture représente une charge financière considérable.</span>`,
+        `De plus, <span class="hl-pink">se passer de voiture permet de réaliser des économies considérables.</span>`,
         `En effet, entre l'assurance, l'essence, l'entretien et le stationnement, les dépenses s'accumulent rapidement d'une année à l'autre.`,
         `Pour beaucoup de ménages, se passer de voiture et utiliser les transports en commun permet de réaliser des économies substantielles. <span class="hl-pink">Ce budget peut alors être réalloué à d'autres priorités essentielles,</span> comme le logement ou l'éducation, ce qui améliore la qualité de vie de façon durable.`
       ],
@@ -272,8 +272,8 @@ const scriptA = {
       note:"💬 <em>voire impossible</em> = or even impossible (C1 emphase) · <em>desservi par</em> = served by · <em>les zones rurales</em> = rural areas" },
     { label:"Conclusion", timing:"~50s", nuance:false,
       textHtml:[
-        `En conclusion, bien que <span class="hl-blue">certaines régions présentent certains inconvénients, comme le manque de desserte dans les zones éloignées,</span> il n'en demeure pas moins que les avantages, comme <span class="hl-pink">les économies financières et le renforcement de l'autonomie,</span> sont indéniables.`,
-        `Il serait souhaitable que <span class="hl-p1">les villes investissent davantage dans des réseaux de transport efficaces afin que les habitants puissent se déplacer sans dépendre d'un véhicule personnel.</span>`,
+        `En conclusion, bien que <span class="hl-blue">certaines régions présentent certains inconvénients, comme le manque de desserte dans les zones éloignées,</span> il n'en demeure pas moins que les avantages sont indéniables, comme <span class="hl-pink">les économies financières et la liberté de déplacement.</span>`,
+        `Tout bien considéré, il serait souhaitable que <span class="hl-p1">les individus évaluent leur situation personnelle et envisagent de recourir occasionnellement au taxi ou à des services comme Uber,</span> afin qu'ils puissent se déplacer librement sans dépendre d'un véhicule personnel.`,
         `Merci pour votre attention.`
       ],
       note:"" }
@@ -297,7 +297,7 @@ const scriptB = {
       textHtml:[
         `Tout d'abord, <span class="hl-pink">le climat canadien est extrêmement rigoureux pendant six à sept mois par année.</span>`,
         `Attendre un autobus par -20°C présente des risques réels pour la santé, et transporter ses courses ou ses bagages dans ces conditions est très pénible.`,
-        `De plus, la voiture permet d'explorer la nature en dehors de la ville, ce qui est précieux pour le bien-être. <span class="hl-pink">En hiver, le temps est beaucoup trop précieux pour être perdu à attendre dans le froid.</span>`
+        `De plus, la voiture est indispensable pour découvrir la nature autour de Calgary. Des destinations comme Banff ou Canmore ne sont accessibles en transports en commun qu'à des horaires très limités, voire pas du tout. <span class="hl-pink">De ce fait, sans voiture, de nombreux parcs et sentiers de randonnée restent tout simplement hors de portée.</span>`
       ],
       note:"💬 <em>pénible</em> = painful, arduous · <em>précieux</em> = precious, valuable · <em>présente des risques réels pour</em> = presents real risks for (C1)" },
     { label:"Point 2 — Le manque de connectivité restreint directement les opportunités d'emploi", timing:"~1 min", nuance:false, wc:"~79 mots ✓",
@@ -309,14 +309,14 @@ const scriptB = {
       note:"💬 <em>se concentrent</em> = are concentrated · <em>exiger explicitement</em> = to explicitly require · <em>freiner la progression</em> = to hinder career advancement (C1)" },
     { label:"Nuance", timing:"~1 min", nuance:true, wc:"~66 mots ✓",
       textHtml:[
-        `Il est certes vrai que <span class="hl-blue">la voiture contribue de façon significative aux émissions de CO₂ et aux gaz à effet de serre.</span>`,
-        `Dans un contexte de changement climatique, dépendre massivement de la voiture individuelle a un coût environnemental réel que la société ne peut pas ignorer indéfiniment. <span class="hl-blue">La dépendance à la voiture soulève donc une question écologique que les gouvernements devront affronter à long terme.</span>`
+        `Il est certes vrai que <span class="hl-blue">la voiture contribue de façon significative aux émissions de CO₂.</span>`,
+        `Dans un contexte de changement climatique, cette dépendance a un coût environnemental réel que <span class="hl-blue">les gouvernements devront affronter à long terme.</span>`
       ],
       note:"💬 <em>de façon significative</em> = significantly · <em>indéfiniment</em> = indefinitely · <em>soulève une question</em> = raises a question (C1)" },
     { label:"Conclusion", timing:"~50s", nuance:false,
       textHtml:[
         `En conclusion, bien que <span class="hl-blue">la voiture présente certains inconvénients, comme le risque de pollution et l'excès d'émissions de CO₂,</span> il n'en demeure pas moins que les avantages, comme <span class="hl-pink">le gain de temps et l'accès à l'emploi,</span> sont indéniables.`,
-        `Il serait souhaitable que <span class="hl-p1">les individus recourent occasionnellement au taxi ou à des services comme Uber pour les situations d'urgence ou les trajets imprévus,</span> afin qu'ils puissent maintenir leur mobilité sans dépendre entièrement d'un véhicule personnel.`,
+        `Tout bien considéré, il serait souhaitable que <span class="hl-p1">les gens envisagent d'acheter ou de garder une voiture</span> comme un outil essentiel à leur qualité de vie.`,
         `Merci pour votre attention.`
       ],
       note:"" }
@@ -327,20 +327,12 @@ const scriptB = {
 function buildCard(s){
   const blocks = s.blocks.map((b, i) => {
     const paras = b.textHtml.map(html => `<div class="para-wrap"><p>${html}</p></div>`).join('');
-    const uid = s.posKey + '_' + (i+1);
-    const audioPlayer = `
-      <div class="block-audio">
-        <button class="block-play-btn" disabled title="Audio non disponible">▶ Audio à venir</button>
-        <div class="audio-progress"><div class="audio-progress-bar" id="bar_${uid}"></div></div>
-        <span class="audio-time" id="time_${uid}"></span>
-      </div>`;
     return `
       <div class="block ${b.nuance?'block-nuance':''}">
         <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
         <div class="script-text">${paras}</div>
         ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
         ${b.wc   ? `<div class="wc">${b.wc}</div>` : ''}
-        ${audioPlayer}
       </div>`;
   }).join('');
 
