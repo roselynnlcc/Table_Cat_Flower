@@ -118,7 +118,7 @@ const TCF_QUESTIONS = [
   },
   {
   id: 14,
-  cat: 'travail',
+  cat: 'technologie',
   question: 'Le télétravail permet-il réellement de mieux concilier la vie professionnelle et la vie personnelle ? Qu\'en pensez-vous ?',
   scriptUrl: 'travail/teletravail_equilibre.html',
   date: '2026-05-13',
@@ -145,7 +145,7 @@ const TCF_QUESTIONS = [
 },
 {
   id: 17,
-  cat: '',
+  cat: 'sante',
   question: 'De plus en plus de gens choisissent de devenir végétariens. Que pensez-vous de ce régime alimentaire ?',
   scriptUrl: 'sante/vegetarisme.html',
   date: '2026-05-18',
