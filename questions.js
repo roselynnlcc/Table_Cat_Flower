@@ -142,5 +142,14 @@ const TCF_QUESTIONS = [
   date: '2026-05-15',
   stars: 0,
   status: "À faire"
+},
+{
+  id: 17,
+  cat: '',
+  question: 'De plus en plus de gens choisissent de devenir végétariens. Que pensez-vous de ce régime alimentaire ?',
+  scriptUrl: 'sante/vegetarisme.html',
+  date: '2026-05-18',
+  stars: 0,
+  status: "À faire"
 }
 ];
