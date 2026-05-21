@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Les salaires des sportifs professionnels</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .single-view{max-width:620px;margin:0 auto;}
+
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;}
+  .script-text p:last-child{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Tâche 3</span></h1>
+  <div class="question-title">Certains pensent que les salaires des sportifs professionnels sont excessifs. Êtes-vous d'accord ?</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<!-- WORD LIST -->
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Économie du sport ★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">le salaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">salary, wage</span></div>
+          <div class="wl-row"><span class="wl-fr">la rémunération <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">remuneration, pay (C1)</span></div>
+          <div class="wl-row"><span class="wl-fr">les droits télévisés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">broadcasting rights</span></div>
+          <div class="wl-row"><span class="wl-fr">les sponsors <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">sponsors</span></div>
+          <div class="wl-row"><span class="wl-fr">la valeur marchande <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">market value</span></div>
+          <div class="wl-row"><span class="wl-fr">les lois du marché <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">market forces / laws of the market</span></div>
+          <div class="wl-row"><span class="wl-fr">les revenus <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">revenues, income</span></div>
+          <div class="wl-row"><span class="wl-fr">la carrière éphémère <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">short-lived career</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Société et inégalités</div>
+          <div class="wl-row"><span class="wl-fr">les inégalités <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">inequalities</span></div>
+          <div class="wl-row"><span class="wl-fr">le sentiment d'injustice <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">sense of injustice</span></div>
+          <div class="wl-row"><span class="wl-fr">les métiers essentiels <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">essential workers / professions</span></div>
+          <div class="wl-row"><span class="wl-fr">la pression médiatique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">media pressure</span></div>
+          <div class="wl-row"><span class="wl-fr">la pression psychologique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">psychological pressure</span></div>
+          <div class="wl-row"><span class="wl-fr">le jugement public <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">public scrutiny / judgment</span></div>
+          <div class="wl-row"><span class="wl-fr">l'ascension sociale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">social mobility / rise</span></div>
+          <div class="wl-row"><span class="wl-fr">les disciplines sportives <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">sports disciplines</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Clubs et acteurs</div>
+          <div class="wl-row"><span class="wl-fr">les agents sportifs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">sports agents</span></div>
+          <div class="wl-row"><span class="wl-fr">les clubs professionnels <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">professional clubs</span></div>
+          <div class="wl-row"><span class="wl-fr">les ligues sportives <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">sports leagues</span></div>
+          <div class="wl-row"><span class="wl-fr">les sportifs de bas niveau <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">lower-level athletes</span></div>
+          <div class="wl-row"><span class="wl-fr">les produits dérivés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">merchandise, branded products</span></div>
+          <div class="wl-row"><span class="wl-fr">les abonnements <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">subscriptions</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Santé et performance</div>
+          <div class="wl-row"><span class="wl-fr">la blessure grave <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">serious injury</span></div>
+          <div class="wl-row"><span class="wl-fr">l'entraînement intensif <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">intensive training</span></div>
+          <div class="wl-row"><span class="wl-fr">le sacrifice <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">sacrifice</span></div>
+          <div class="wl-row"><span class="wl-fr">la performance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">performance</span></div>
+          <div class="wl-row"><span class="wl-fr">l'excellence <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">excellence</span></div>
+          <div class="wl-row"><span class="wl-fr">la longévité de carrière <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">career longevity</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions — relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">générer</td><td class="vprep">—</td><td class="vrel">que</td><td class="ven">to generate</td></tr>
+          <tr><td class="vfr">bénéficier</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to benefit from</td></tr>
+          <tr><td class="vfr">justifier</td><td class="vprep">—</td><td class="vrel">que</td><td class="ven">to justify</td></tr>
+          <tr><td class="vfr">exposer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to expose to</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">profiter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to benefit (someone)</td></tr>
+          <tr><td class="vfr">souffrir</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to suffer from</td></tr>
+          <tr><td class="vfr">se soumettre</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to submit to, be subject to</td></tr>
+          <tr><td class="vfr">se concentrer</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to focus on</td></tr>
+          <tr><td class="vfr">dépendre</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to depend on</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">excessif(ve)</span><span class="adj-en">excessive</span></div>
+          <div class="adj-row"><span class="adj-fr">disproportionné(e)</span><span class="adj-en">disproportionate</span></div>
+          <div class="adj-row"><span class="adj-fr">éphémère</span><span class="adj-en">short-lived, fleeting</span></div>
+          <div class="adj-row"><span class="adj-fr">colossal(e)</span><span class="adj-en">colossal, enormous</span></div>
+          <div class="adj-row"><span class="adj-fr">médiatisé(e)</span><span class="adj-en">heavily covered by media</span></div>
+          <div class="adj-row"><span class="adj-fr">inégal(e)</span><span class="adj-en">unequal</span></div>
+          <div class="adj-row"><span class="adj-fr">justifié(e)</span><span class="adj-en">justified</span></div>
+          <div class="adj-row"><span class="adj-fr">légitime</span><span class="adj-en">legitimate</span></div>
+          <div class="adj-row"><span class="adj-fr">considérable</span><span class="adj-en">considerable, significant</span></div>
+          <div class="adj-row"><span class="adj-fr">exposé(e) au public</span><span class="adj-en">in the public eye</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">OUI — ces salaires sont excessifs</div>
+          <div class="contrast-item">disproportionnés par rapport aux métiers essentiels</div>
+          <div class="contrast-item">creusent les inégalités économiques</div>
+          <div class="contrast-item">profitent surtout aux agents et aux clubs</div>
+          <div class="contrast-item">pénalisent les disciplines peu médiatisées</div>
+          <div class="contrast-item">envoient un mauvais message aux jeunes</div>
+          <div class="contrast-item">concentrent les richesses dans très peu de mains</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">NON — ces salaires sont justifiés</div>
+          <div class="contrast-item">reflet naturel de la valeur marchande créée</div>
+          <div class="contrast-item">les clubs génèrent des milliards grâce aux droits télévisés</div>
+          <div class="contrast-item">pression psychologique et médiatique immense</div>
+          <div class="contrast-item">carrière courte avec risque constant de blessure</div>
+          <div class="contrast-item">rareté du talent justifie la compensation</div>
+          <div class="contrast-item">voie d'ascension sociale pour milieux défavorisés</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">leur rémunération n'est que le reflet de la valeur marchande qu'ils génèrent pour leurs clubs et leurs ligues</div>
+          <div class="chunk-en">their pay is simply the reflection of the market value they generate for their clubs and leagues</div>
+          <div class="chunk-note">n'est que = restrictive structure C1 · le reflet de = strong image · valeur marchande = key economic term</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">ces sportifs se retrouvent exposés en permanence au jugement public, sous les projecteurs, sans possibilité de se soustraire à cette pression</div>
+          <div class="chunk-en">these athletes find themselves permanently exposed to public scrutiny, under the spotlight, with no way to escape this pressure</div>
+          <div class="chunk-note">se retrouver exposé = strong C1 image · sous les projecteurs = set phrase · sans possibilité de = elegant negative</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">ce contraste peut alimenter un sentiment d'injustice dans l'opinion publique, même si les mécanismes économiques restent distincts</div>
+          <div class="chunk-en">this contrast can fuel a sense of injustice in public opinion, even though the economic mechanisms remain distinct</div>
+          <div class="chunk-note">alimenter un sentiment = C1 colocation · même si + indicatif = nuance orale naturelle · rester distinct = distancer personnel vs perçu</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">une carrière professionnelle dans le sport dure en moyenne moins d'une décennie, avec un risque constant de blessure grave qui peut tout interrompre du jour au lendemain</div>
+          <div class="chunk-en">a professional sports career lasts on average less than a decade, with a constant risk of serious injury that can interrupt everything overnight</div>
+          <div class="chunk-note">en moyenne = useful filler · du jour au lendemain = C1 set phrase for "overnight/suddenly"</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptA = {
+  header: '✅ Position A — OUI, ces salaires sont excessifs',
+  headerClass:'card-header-green', titleClass:'card-title-green',
+  badge:'Plus ardu', badgeClass:'badge-hard',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si les salaires des sportifs professionnels sont vraiment justifiés ou s'ils sont devenus excessifs</span>, et les avis sont divergents. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">ces salaires sont effectivement excessifs, à un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:'' },
+    { label:'Point 1 — Disproportion sociale', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
+      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">ces salaires sont disproportionnés par rapport à ceux des métiers essentiels.</span> En effet, des professionnels comme les infirmiers, les enseignants ou les pompiers, dont le travail a un impact social concret et quotidien, gagnent en moyenne vingt à trente fois moins qu'un footballeur professionnel. De ce fait, <span class="hl-pink">cette disproportion envoie un message problématique sur les valeurs que notre société choisit de récompenser financièrement.</span></p>`,
+      note:'💬 <em>il convient de souligner</em> = it is worth noting · <em>impact social concret</em> = concrete social impact · <em>De ce fait</em> = therefore (C1 spoken) · <em>récompenser financièrement</em> = to reward financially' },
+    { label:'Point 2 — Injustice interne au sport', timing:'~1 min', nuance:false, wc:'~77 mots ✓',
+      text:`<p>De plus, <span class="hl-pink">cette richesse ne profite pas au monde sportif dans son ensemble, mais surtout aux agents, aux clubs et aux sponsors.</span> En effet, les sportifs des disciplines peu médiatisées, comme la natation synchronisée ou le handball féminin, ne perçoivent que des salaires très modestes, voire inexistants. Par ailleurs, même au sein du football, les joueurs de divisions inférieures peinent à vivre de leur passion. <span class="hl-pink">Cette concentration des richesses révèle une injustice profonde au cœur même du sport.</span></p>`,
+      note:'💬 <em>dans son ensemble</em> = as a whole · <em>voire inexistants</em> = or even nonexistent · <em>peiner à</em> = to struggle to · <em>au cœur même de</em> = at the very heart of' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~68 mots ✓',
+      text:`<p>Il est certes vrai que <span class="hl-blue">ces salaires récompensent des années de sacrifices, de blessures et d'entraînements intensifs.</span> En effet, la carrière d'un sportif professionnel dure en moyenne moins d'une décennie, avec un risque constant de blessure grave qui peut tout interrompre du jour au lendemain. <span class="hl-blue">Dans ce contexte, une compensation financière concentrée sur une courte période se comprend, dans une certaine mesure.</span></p>`,
+      note:'💬 <em>du jour au lendemain</em> = overnight, suddenly (C1) · <em>dans une certaine mesure</em> = to a certain extent · <em>se comprend</em> = can be understood — distanced, not personal endorsement' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">la carrière sportive</span> présente certains inconvénients, notamment <span class="hl-blue">le risque de blessure et la brièveté de carrière,</span> il n'en demeure pas moins que les inconvénients de ces salaires, comme <span class="hl-pink">la disproportion sociale et la concentration des richesses,</span> sont indéniables.</p>
+<p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les instances sportives internationales revoient la structure de distribution des revenus, afin qu'elles garantissent une répartition plus équitable entre toutes les disciplines.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+const scriptB = {
+  header: '❌ Position B — NON, ces salaires ne sont pas excessifs',
+  headerClass:'card-header-blue', titleClass:'card-title-blue',
+  badge:'Plus facile à défendre', badgeClass:'badge-easy',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si les salaires des sportifs professionnels sont vraiment excessifs ou s'ils reflètent simplement la réalité économique du sport</span>, et les avis sont divergents. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">ces salaires sont, en grande partie, justifiés par les mécanismes du marché, à un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:'' },
+    { label:'Point 1 — Lois du marché', timing:'~1 min', nuance:false, wc:'~76 mots ✓',
+      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">ces salaires sont le résultat direct des lois du marché.</span> En effet, les grands clubs sportifs génèrent des milliards de dollars grâce aux droits télévisés, aux sponsors et aux billets vendus. De ce fait, <span class="hl-pink">les sportifs ne font que recevoir leur juste part de la valeur marchande qu'ils créent eux-mêmes,</span> à l'image de n'importe quel professionnel dont le talent attire des investissements considérables.</p>`,
+      note:'💬 <em>les lois du marché</em> = the laws of the market · <em>ne faire que</em> = to simply do (restrictive C1) · <em>à l\'image de</em> = just like, in the same way as · <em>valeur marchande</em> = market value' },
+    { label:'Point 2 — Pression psychologique', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
+      text:`<p>De plus, <span class="hl-pink">ces salaires sont proportionnels à la pression psychologique et médiatique immense que subissent ces sportifs au quotidien.</span> Contrairement à la plupart des professionnels, un athlète de haut niveau se retrouve exposé en permanence au jugement public, sous les projecteurs, où chaque erreur est scrutée et commentée à l'échelle mondiale. Par ailleurs, <span class="hl-pink">cette pression constante contribue à des problèmes de santé mentale sérieux,</span> ce qui justifie une compensation financière à la hauteur de ce que l'on leur demande.</p>`,
+      note:'💬 <em>subir</em> = to undergo, to be subjected to · <em>sous les projecteurs</em> = under the spotlight · <em>scruté</em> = scrutinized · <em>à la hauteur de</em> = commensurate with, equal to' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~66 mots ✓',
+      text:`<p>Il est certes vrai que <span class="hl-blue">ce contraste entre les salaires des sportifs vedettes et ceux des infirmiers ou des enseignants peut alimenter un sentiment d'injustice dans l'opinion publique.</span> Force est de constater que des professionnels qui sauvent des vies ou forment les générations futures reçoivent une fraction de ce que gagne un footballeur, <span class="hl-blue">ce qui reste difficile à justifier sur le plan humain et moral.</span></p>`,
+      note:'💬 <em>alimenter un sentiment</em> = to fuel a feeling (C1) · <em>force est de constater que</em> = one must acknowledge that (C1) · <em>sur le plan humain et moral</em> = on a human and moral level' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">ce contraste salarial</span> présente certains inconvénients, notamment <span class="hl-blue">le sentiment d'injustice</span> qu'il génère dans la société, il n'en demeure pas moins que les avantages de cette rémunération, comme <span class="hl-pink">le reflet de la valeur marchande et la compensation de la pression subie,</span> sont indéniables.</p>
+<p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les gouvernements et les instances sportives investissent davantage dans la revalorisation des métiers essentiels, afin qu'ils bénéficient d'une reconnaissance financière à la hauteur de leur importance sociale.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+function buildCard(s){
+  const blocks=s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${b.text}</div>
+      ${b.note?`<div class="en-note">${b.note}</div>`:''}
+      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+    </div>`).join('');
+  return`<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;}
+
+document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
+document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
+document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');}
+</script>
+</body>
+</html>
