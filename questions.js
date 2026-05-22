@@ -151,5 +151,14 @@ const TCF_QUESTIONS = [
   date: '2026-05-18',
   stars: 0,
   status: "À faire"
-}
+},
+{
+  id: 18,
+  cat: 'economique',
+  question: 'Certains pensent que les salaires des sportifs professionnels sont excessifs. Êtes-vous d\'accord ?',
+  scriptUrl: 'economique/salaires-sportifs.html',
+  date: '2026-05-21',
+  stars: 0,
+  status: "À faire"
+  }
 ];
