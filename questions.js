@@ -160,5 +160,14 @@ const TCF_QUESTIONS = [
   date: '2026-05-21',
   stars: 0,
   status: "À faire"
-  }
+},
+{
+  id: 19,
+  cat: 'environnement',
+  question: 'Quel est votre avis sur les actions prises dans votre pays pour diminuer la pollution ?',
+  scriptUrl: 'environnement/pollution-canada.html',
+  date: '2026-05-23',
+  stars: 0,
+  status: "À faire"
+}
 ];
