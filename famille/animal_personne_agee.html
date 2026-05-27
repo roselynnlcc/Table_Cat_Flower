@@ -14,7 +14,6 @@
     --blue-bg:#dbeeff;--blue-text:#1a3d7a;
     --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
     --green:#2d6a4f;--green-bg:#eaf4ef;
-    --amber:#92400e;--amber-bg:#fef3c7;
     --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
     --magenta:#9D174D;--magenta-bg:#FCE7F3;
     --accent:#c8955a;--radius:12px;--radius-sm:6px;
@@ -57,13 +56,34 @@
   .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
   .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
   .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
-  .hl-p2{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
   .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
   .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
   .single-view .script-card{max-width:620px;margin:0 auto;}
-  .para-wrap{position:relative;padding-right:32px;margin-bottom:10px;}
+  .para-wrap{position:relative;margin-bottom:10px;}
   .para-wrap:last-child{margin-bottom:0;}
   .para-wrap p{margin-bottom:0;}
+
+  /* ── Stage pill toggle ── */
+  .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
+  .stage-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:3px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);cursor:pointer;transition:all .15s;}
+  .stage-btn:hover{border-color:var(--accent);color:var(--text);}
+  .stage-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500;}
+
+  /* ── Hidden word mechanic ── */
+  /* plain hidden: white text, thin underline in border colour */
+  .h{color:#fff;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;text-decoration-thickness:1px;}
+  /* hidden inside pink highlight: text = pink-bg so invisible on pink-bg */
+  .hl-pink .h{color:var(--pink-bg);text-decoration-color:#e8b4c4;}
+  /* hidden inside blue highlight */
+  .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
+  /* hidden inside purple highlight */
+  .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
+
+  /* stage content visibility */
+  .stage-content{display:none;}
+  .stage-content.active{display:block;}
+
+  /* ── Word list ── */
   .wl-page{max-width:860px;}
   .wl-section{margin-bottom:28px;}
   .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
@@ -110,12 +130,230 @@
 </nav>
 
 <div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
-<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+
+<!-- Position A with stage toggle -->
+<div id="posA" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-green">
+        <div class="card-title card-title-green">✅ Position A — OUI : posséder un animal est une bonne idée pour une personne âgée</div>
+        <span class="stance-badge badge-easy">Plus facile à défendre</span>
+      </div>
+      <div class="stage-toggle">
+        <button class="stage-btn active" onclick="showStage('s0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('s1',this)">Étape 1</button>
+        <button class="stage-btn" onclick="showStage('s2',this)">Étape 2</button>
+        <button class="stage-btn" onclick="showStage('s3',this)">Étape 3</button>
+      </div>
+
+      <!-- COMPLET -->
+      <div id="s0" class="stage-content active">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si posséder un animal de compagnie est vraiment bénéfique pour une personne âgée, et les avis sont mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">posséder un animal de compagnie peut être une excellente idée pour une personne âgée</span>, à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Un animal combat la solitude <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">posséder un animal de compagnie permet de lutter contre la solitude, qui est l'un des principaux défis du vieillissement.</span></p></div>
+            <div class="para-wrap"><p>En effet, les personnes âgées perdent souvent leurs proches au fil des années et se retrouvent isolées. Un animal crée un lien affectif quotidien et donne à la personne le sentiment d'être utile et aimée.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Ce lien favorise un meilleur équilibre émotionnel et réduit considérablement le sentiment d'isolement.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>au fil des années</em> = over the years · <em>lutter contre</em> = to fight against · <em>le lien affectif</em> = emotional bond · <em>l'isolement</em> = isolation</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Un animal encourage l'activité physique <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">le fait de s'occuper d'un animal encourage la personne âgée à rester physiquement active.</span></p></div>
+            <div class="para-wrap"><p>Promener un chien tous les jours, par exemple, oblige la personne à sortir, marcher et maintenir une certaine mobilité. Cette activité régulière contribue à ralentir les effets du vieillissement sur le corps.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Les médecins reconnaissent d'ailleurs que l'activité physique modérée est l'un des meilleurs moyens de préserver la santé des personnes âgées.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>le fait de + infinitif</em> = the fact of / the act of · <em>oblige à</em> = forces to · <em>contribue à ralentir</em> = helps slow down · <em>préserver</em> = to preserve</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">les contraintes physiques liées à l'entretien d'un animal peuvent devenir difficiles à gérer pour certaines personnes âgées.</span></p></div>
+            <div class="para-wrap"><p>À mesure que la mobilité diminue ou que la santé se fragilise, des tâches comme les promenades quotidiennes ou les visites chez le vétérinaire peuvent représenter une charge trop lourde. Dans ces cas, l'animal risque de devenir une source de stress plutôt que de bien-être.</p></div>
+          </div>
+          <div class="en-note">💬 <em>à mesure que</em> = as / the more · <em>se fragilise</em> = weakens · <em>une charge trop lourde</em> = too heavy a burden · <em>plutôt que</em> = rather than</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">les contraintes physiques présentent certains inconvénients, comme le risque de surcharge pour les personnes très fragilisées,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages sont indéniables, comme le renforcement du lien social et le maintien de l'activité physique.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les familles et les professionnels de santé accompagnent les personnes âgées dans le choix d'un animal adapté à leur condition.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les familles accompagnent</em> ✓ (3ème pers. pluriel) · <em>il n'en demeure pas moins que</em> = the fact remains that</div>
+        </div>
+      </div><!-- /s0 -->
+
+      <!-- ÉTAPE 1 -->
+      <div id="s1" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si posséder un animal de compagnie est vraiment <span class="h">bénéfique</span> pour une personne âgée, et les avis sont mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">posséder un animal de compagnie peut être une <span class="h">excellente</span> idée pour une personne âgée</span>, à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Un animal combat la solitude <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">posséder un animal de <span class="h">compagnie</span> permet de <span class="h">lutter contre</span> la solitude, qui est l'un des <span class="h">principaux</span> défis du <span class="h">vieillissement</span>.</span></p></div>
+            <div class="para-wrap"><p>En effet, les personnes âgées perdent souvent leurs <span class="h">proches</span> au fil des années et se retrouvent <span class="h">isolées</span>. Un animal crée un <span class="h">lien affectif</span> quotidien et donne à la personne le sentiment d'être utile et aimée.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Ce lien favorise un meilleur <span class="h">équilibre</span> émotionnel et réduit considérablement le sentiment d'isolement.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>au fil des années</em> = over the years · <em>lutter contre</em> = to fight against · <em>le lien affectif</em> = emotional bond · <em>l'isolement</em> = isolation</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Un animal encourage l'activité physique <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">le fait de s'occuper d'un animal encourage la personne âgée à rester physiquement active.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Promener</span> un chien tous les jours, par exemple, oblige la personne à sortir, marcher et maintenir une certaine <span class="h">mobilité</span>. Cette activité régulière contribue à <span class="h">ralentir</span> les effets du <span class="h">vieillissement</span> sur le corps.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Les médecins reconnaissent d'ailleurs que l'activité physique modérée est l'un des meilleurs moyens de préserver la santé des personnes âgées.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>le fait de + infinitif</em> = the fact of / the act of · <em>oblige à</em> = forces to · <em>contribue à ralentir</em> = helps slow down · <em>préserver</em> = to preserve</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">les <span class="h">contraintes</span> physiques liées à l'entretien d'un animal peuvent devenir difficiles à gérer pour certaines personnes âgées.</span></p></div>
+            <div class="para-wrap"><p>À mesure que la mobilité diminue ou que la santé se fragilise, des tâches comme les promenades quotidiennes ou les visites chez le vétérinaire peuvent représenter une charge trop lourde. Dans ces cas, l'animal risque de devenir une source de <span class="h">stress</span> plutôt que de bien-être.</p></div>
+          </div>
+          <div class="en-note">💬 <em>à mesure que</em> = as / the more · <em>se fragilise</em> = weakens · <em>une charge trop lourde</em> = too heavy a burden · <em>plutôt que</em> = rather than</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">les contraintes physiques présentent certains inconvénients, comme le risque de surcharge pour les personnes très fragilisées,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages sont indéniables, comme le <span class="h">renforcement</span> du lien social et le <span class="h">maintien</span> de l'activité physique.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les familles et les professionnels de santé accompagnent les personnes âgées dans le choix d'un animal adapté à leur condition.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les familles accompagnent</em> ✓ (3ème pers. pluriel) · <em>il n'en demeure pas moins que</em> = the fact remains that</div>
+        </div>
+      </div><!-- /s1 -->
+
+      <!-- ÉTAPE 2 -->
+      <div id="s2" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si <span class="h">posséder</span> un animal de <span class="h">compagnie</span> est <span class="h">vraiment</span> <span class="h">bénéfique</span> pour une personne âgée, et les avis sont mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">posséder un animal de compagnie peut être une <span class="h">excellente</span> idée pour une personne âgée</span>, à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Un animal combat la solitude <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">posséder un animal de <span class="h">compagnie</span> permet de <span class="h">lutter contre</span> la <span class="h">solitude</span>, qui est l'un des <span class="h">principaux</span> <span class="h">défis</span> du <span class="h">vieillissement</span>.</span></p></div>
+            <div class="para-wrap"><p>En effet, les personnes âgées perdent souvent leurs <span class="h">proches</span> au fil des années et se retrouvent <span class="h">isolées</span>. Un animal crée un <span class="h">lien affectif</span> quotidien et donne à la personne le <span class="h">sentiment</span> d'être <span class="h">utile</span> et <span class="h">aimée</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Ce lien <span class="h">favorise</span> un <span class="h">meilleur</span> <span class="h">équilibre</span> émotionnel et réduit considérablement le sentiment d'isolement.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>au fil des années</em> = over the years · <em>lutter contre</em> = to fight against · <em>le lien affectif</em> = emotional bond · <em>l'isolement</em> = isolation</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Un animal encourage l'activité physique <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">le fait de s'<span class="h">occuper</span> d'un animal <span class="h">encourage</span> la personne âgée à rester physiquement active.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Promener</span> un chien tous les jours, par exemple, <span class="h">oblige</span> la personne à sortir, <span class="h">marcher</span> et <span class="h">maintenir</span> une certaine <span class="h">mobilité</span>. Cette activité régulière contribue à <span class="h">ralentir</span> les effets du <span class="h">vieillissement</span> sur le corps.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Les médecins reconnaissent d'ailleurs que l'activité physique modérée est l'un des meilleurs moyens de <span class="h">préserver</span> la santé des personnes âgées.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>le fait de + infinitif</em> = the fact of / the act of · <em>oblige à</em> = forces to · <em>contribue à ralentir</em> = helps slow down · <em>préserver</em> = to preserve</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">les <span class="h">contraintes</span> physiques liées à l'<span class="h">entretien</span> d'un animal peuvent devenir difficiles à <span class="h">gérer</span> pour certaines personnes âgées.</span></p></div>
+            <div class="para-wrap"><p>À <span class="h">mesure</span> que la mobilité <span class="h">diminue</span> ou que la santé se <span class="h">fragilise</span>, des tâches comme les <span class="h">promenades</span> <span class="h">quotidiennes</span> ou les visites chez le <span class="h">vétérinaire</span> peuvent représenter une charge trop <span class="h">lourde</span>. Dans ces cas, l'animal risque de devenir une source de <span class="h">stress</span> plutôt que de <span class="h">bien-être</span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>à mesure que</em> = as / the more · <em>se fragilise</em> = weakens · <em>une charge trop lourde</em> = too heavy a burden · <em>plutôt que</em> = rather than</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">les contraintes physiques présentent certains inconvénients, comme le risque de <span class="h">surcharge</span> pour les personnes très fragilisées,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages sont indéniables, comme le <span class="h">renforcement</span> du lien social et le <span class="h">maintien</span> de l'activité physique.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les familles et les professionnels de santé <span class="h">accompagnent</span> les personnes âgées dans le choix d'un animal adapté à leur condition.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les familles accompagnent</em> ✓ (3ème pers. pluriel) · <em>il n'en demeure pas moins que</em> = the fact remains that</div>
+        </div>
+      </div><!-- /s2 -->
+
+      <!-- ÉTAPE 3 -->
+      <div id="s3" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si <span class="h">posséder un animal de compagnie</span> est vraiment bénéfique pour <span class="h">une personne âgée</span>, et les avis sont mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink"><span class="h">posséder un animal de compagnie</span> peut être <span class="h">une excellente</span> idée pour <span class="h">une personne âgée</span></span>, à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Un animal combat la solitude <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">posséder un animal de compagnie permet de lutter contre la solitude, qui est l'un des principaux défis du vieillissement.</span></p></div>
+            <div class="para-wrap"><p>En effet, <span class="h">les personnes âgées perdent souvent leurs proches au fil des années</span> et se retrouvent <span class="h">isolées</span>. Un animal crée <span class="h">un lien affectif quotidien</span> et donne à la personne le sentiment d'être <span class="h">utile et aimée</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Ce lien favorise un meilleur équilibre <span class="h">émotionnel</span> et réduit considérablement <span class="h">le sentiment d'isolement</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>au fil des années</em> = over the years · <em>lutter contre</em> = to fight against · <em>le lien affectif</em> = emotional bond · <em>l'isolement</em> = isolation</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Un animal encourage l'activité physique <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">le fait de s'occuper d'un animal encourage la personne âgée à rester physiquement active.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Promener un chien tous les jours</span>, par exemple, oblige la personne à <span class="h">sortir</span>, <span class="h">marcher</span> et maintenir <span class="h">une certaine</span> mobilité. Cette activité régulière contribue à <span class="h">ralentir les effets du vieillissement sur le corps</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Les médecins reconnaissent d'ailleurs que <span class="h">l'activité physique modérée est l'un des meilleurs moyens de préserver la santé des personnes âgées</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>le fait de + infinitif</em> = the fact of / the act of · <em>oblige à</em> = forces to · <em>contribue à ralentir</em> = helps slow down · <em>préserver</em> = to preserve</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">les contraintes physiques liées à l'entretien d'un animal peuvent devenir difficiles à gérer pour certaines personnes âgées.</span></p></div>
+            <div class="para-wrap"><p>À mesure que la mobilité diminue ou que la santé se fragilise, des tâches comme <span class="h">les promenades quotidiennes</span> ou les visites <span class="h">chez le vétérinaire</span> peuvent représenter <span class="h">une charge trop lourde</span>. Dans ces cas, l'animal risque de devenir <span class="h">une source de stress plutôt que de bien-être</span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>à mesure que</em> = as / the more · <em>se fragilise</em> = weakens · <em>une charge trop lourde</em> = too heavy a burden · <em>plutôt que</em> = rather than</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue"><span class="h">les contraintes physiques</span> présentent certains <span class="h">inconvénients</span>, comme <span class="h">le risque de surcharge</span> pour les personnes très fragilisées,</span> il n'en demeure pas moins que <span class="hl-pink"><span class="h">les avantages</span> sont indéniables, comme <span class="h">le renforcement du lien social</span> et <span class="h">le maintien de l'activité physique</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les familles et les professionnels de santé accompagnent les personnes âgées dans <span class="h">le choix d'un animal adapté à leur condition</span>.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les familles accompagnent</em> ✓ (3ème pers. pluriel) · <em>il n'en demeure pas moins que</em> = the fact remains that</div>
+        </div>
+      </div><!-- /s3 -->
+
+    </div><!-- /script-card -->
+  </div><!-- /single-view -->
+</div><!-- /posA -->
+
 <div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
 
 <div id="words" class="content">
   <div class="wl-page">
-
     <div class="wl-section">
       <div class="wl-section-title">Noms — clés du sujet</div>
       <div class="wl-grid">
@@ -143,7 +381,6 @@
         </div>
       </div>
     </div>
-
     <div class="wl-section">
       <div class="wl-section-title">Verbes + prépositions</div>
       <div class="wl-grid">
@@ -162,23 +399,19 @@
           <div class="wl-card-header">Verbes — suite</div>
           <div class="wl-row"><span class="wl-fr">aggraver <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to worsen — no prep<span class="wl-prep">que</span></span></div>
           <div class="wl-row"><span class="wl-fr">nuire <em>à</em><span class="wl-star">★</span></span><span class="wl-en">to harm<span class="wl-prep">auquel</span></span></div>
-          <div class="wl-row"><span class="wl-fr">témoigner <em>de</em><span class="wl-star">★</span></span><span class="wl-en">to testify to / show<span class="wl-prep">dont</span></span></div>
           <div class="wl-row"><span class="wl-fr">favoriser <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to promote / encourage — no prep<span class="wl-prep">que</span></span></div>
           <div class="wl-row"><span class="wl-fr">engendrer <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to generate / cause — no prep<span class="wl-prep">que</span></span></div>
-          <div class="wl-row"><span class="wl-fr">structurer <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to structure / organise — no prep<span class="wl-prep">que</span></span></div>
           <div class="wl-row"><span class="wl-fr">représenter <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to represent / constitute — no prep<span class="wl-prep">que</span></span></div>
           <div class="wl-row"><span class="wl-fr">peser <em>sur</em><span class="wl-star">★</span></span><span class="wl-en">to weigh on<span class="wl-prep">sur lequel</span></span></div>
         </div>
       </div>
     </div>
-
     <div class="wl-section">
       <div class="wl-section-title">Adjectifs</div>
       <div class="wl-grid">
         <div class="wl-card">
           <div class="wl-card-header">Qualificatifs positifs</div>
           <div class="wl-row"><span class="wl-fr">bénéfique<span class="wl-star">★</span></span><span class="wl-en">beneficial</span></div>
-          <div class="wl-row"><span class="wl-fr">propice à<span class="wl-star">★</span></span><span class="wl-en">conducive to</span></div>
           <div class="wl-row"><span class="wl-fr">précieux / précieuse<span class="wl-star">★</span></span><span class="wl-en">precious / invaluable</span></div>
           <div class="wl-row"><span class="wl-fr">stimulant(e)<span class="wl-star">★</span></span><span class="wl-en">stimulating</span></div>
           <div class="wl-row"><span class="wl-fr">épanouissant(e)<span class="wl-star">★</span></span><span class="wl-en">fulfilling</span></div>
@@ -186,14 +419,12 @@
         <div class="wl-card">
           <div class="wl-card-header">Qualificatifs négatifs / nuancés</div>
           <div class="wl-row"><span class="wl-fr">fragilisé(e)<span class="wl-star">★</span></span><span class="wl-en">weakened / vulnerable</span></div>
-          <div class="wl-row"><span class="wl-fr">éprouvant(e)<span class="wl-star">★</span></span><span class="wl-en">gruelling / exhausting</span></div>
           <div class="wl-row"><span class="wl-fr">ingérable<span class="wl-star">★</span></span><span class="wl-en">unmanageable</span></div>
           <div class="wl-row"><span class="wl-fr">imprévisible<span class="wl-star">★</span></span><span class="wl-en">unpredictable</span></div>
           <div class="wl-row"><span class="wl-fr">non négligeable<span class="wl-star">★</span></span><span class="wl-en">significant / not to be overlooked</span></div>
         </div>
       </div>
     </div>
-
     <div class="wl-section">
       <div class="wl-section-title">Paire contrastée</div>
       <div class="contrast-grid">
@@ -209,13 +440,11 @@
           <div class="contrast-header contrast-header-b">NON — un animal n'est pas forcément une bonne idée</div>
           <div class="contrast-item">responsabilités trop lourdes</div>
           <div class="contrast-item">charge financière imprévisible</div>
-          <div class="contrast-item">risque de chute accidentelle</div>
           <div class="contrast-item">peut devenir un fardeau</div>
           <div class="contrast-item">aggrave la fragilité physique</div>
         </div>
       </div>
     </div>
-
     <div class="wl-section">
       <div class="wl-section-title">Expressions C1 — à réutiliser</div>
       <div class="chunk-list">
@@ -239,116 +468,59 @@
           <div class="chunk-en">Over the years, caring for a pet can become a source of stress rather than well-being.</div>
           <div class="chunk-note">✦ Au fil des années — marqueur temporel C1 élégant</div>
         </div>
-        <div class="chunk-card">
-          <div class="chunk-fr">Il convient de souligner que les bienfaits de la présence animale sont reconnus par de nombreux professionnels de santé.</div>
-          <div class="chunk-en">It is worth noting that the benefits of animal companionship are recognised by many health professionals.</div>
-          <div class="chunk-note">✦ Il convient de souligner que — registre soutenu, idéal pour appuyer un argument</div>
-        </div>
       </div>
     </div>
-
   </div>
 </div>
 
 <script>
-const scriptA = {
-  header: "✅ Position A — OUI : posséder un animal est une bonne idée pour une personne âgée",
-  headerClass:"card-header-green", titleClass:"card-title-green",
-  badge:"Plus facile à défendre", badgeClass:"badge-easy",
-  posKey:"posA",
-  blocks:[
-    { label:"Introduction", timing:"~40s", nuance:false,
-      textHtml:[
-        `Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si posséder un animal de compagnie est vraiment bénéfique pour une personne âgée, et les avis sont mitigés.`,
-        `Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">posséder un animal de compagnie peut être une excellente idée pour une personne âgée</span>, à un certain point.`,
-        `Alors, je vais expliquer mes raisons.`
-      ],
-      note:"" },
-    { label:"Point 1 — Un animal combat la solitude", timing:"~1 min", nuance:false, wc:"~78 mots ✓",
-      textHtml:[
-        `Tout d'abord, il convient de souligner que <span class="hl-pink">posséder un animal de compagnie permet de lutter contre la solitude, qui est l'un des principaux défis du vieillissement.</span>`,
-        `En effet, les personnes âgées perdent souvent leurs proches au fil des années et se retrouvent isolées. Un animal crée un lien affectif quotidien et donne à la personne le sentiment d'être utile et aimée.`,
-        `<span class="hl-pink">Ce lien favorise un meilleur équilibre émotionnel et réduit considérablement le sentiment d'isolement.</span>`
-      ],
-      note:"💬 <em>au fil des années</em> = over the years · <em>lutter contre</em> = to fight against · <em>le lien affectif</em> = emotional bond · <em>l'isolement</em> = isolation" },
-    { label:"Point 2 — Un animal encourage l'activité physique", timing:"~1 min", nuance:false, wc:"~79 mots ✓",
-      textHtml:[
-        `De plus, <span class="hl-pink">le fait de s'occuper d'un animal encourage la personne âgée à rester physiquement active.</span>`,
-        `Promener un chien tous les jours, par exemple, oblige la personne à sortir, marcher et maintenir une certaine mobilité. Cette activité régulière contribue à ralentir les effets du vieillissement sur le corps.`,
-        `<span class="hl-pink">Les médecins reconnaissent d'ailleurs que l'activité physique modérée est l'un des meilleurs moyens de préserver la santé des personnes âgées.</span>`
-      ],
-      note:"💬 <em>le fait de + infinitif</em> = the fact of / the act of · <em>oblige à</em> = forces to · <em>contribue à ralentir</em> = helps slow down · <em>préserver</em> = to preserve" },
-    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~68 mots ✓",
-      textHtml:[
-        `Il est certes vrai que <span class="hl-blue">les contraintes physiques liées à l'entretien d'un animal peuvent devenir difficiles à gérer pour certaines personnes âgées.</span>`,
-        `À mesure que la mobilité diminue ou que la santé se fragilise, des tâches comme les promenades quotidiennes ou les visites chez le vétérinaire peuvent représenter une charge trop lourde. Dans ces cas, l'animal risque de devenir une source de stress plutôt que de bien-être.`
-      ],
-      note:"💬 <em>à mesure que</em> = as / the more · <em>se fragilise</em> = weakens · <em>une charge trop lourde</em> = too heavy a burden · <em>plutôt que</em> = rather than" },
-    { label:"Conclusion", timing:"~50s", nuance:false,
-      textHtml:[
-        `En conclusion, bien que <span class="hl-blue">les contraintes physiques présentent certains inconvénients, comme le risque de surcharge pour les personnes très fragilisées,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages sont indéniables, comme le renforcement du lien social et le maintien de l'activité physique.</span>`,
-        `Tout bien considéré, il serait souhaitable que <span class="hl-p1">les familles et les professionnels de santé accompagnent les personnes âgées dans le choix d'un animal adapté à leur condition.</span>`,
-        `Merci pour votre attention.`
-      ],
-      note:"💬 Subjonctif : <em>il serait souhaitable que les familles accompagnent</em> ✓ (3ème pers. pluriel) · <em>il n'en demeure pas moins que</em> = the fact remains that" }
-  ]
-};
-
 const scriptB = {
   header: "❎ Position B — NON : posséder un animal n'est pas forcément une bonne idée pour une personne âgée",
   headerClass:"card-header-blue", titleClass:"card-title-blue",
   badge:"Plus ardu", badgeClass:"badge-hard",
-  posKey:"posB",
   blocks:[
     { label:"Introduction", timing:"~40s", nuance:false,
       textHtml:[
         `Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si posséder un animal de compagnie est vraiment bénéfique pour une personne âgée, et les avis sont mitigés.`,
         `Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">posséder un animal de compagnie n'est pas forcément une bonne idée pour une personne âgée</span>, à un certain point.`,
         `Alors, je vais expliquer mes raisons.`
-      ],
-      note:"" },
+      ], note:"" },
     { label:"Point 1 — Les responsabilités physiques sont trop lourdes", timing:"~1 min", nuance:false, wc:"~77 mots ✓",
       textHtml:[
         `Tout d'abord, il convient de souligner que <span class="hl-pink">s'occuper d'un animal exige un niveau d'énergie et de mobilité que beaucoup de personnes âgées ne peuvent plus garantir.</span>`,
         `Les promenades quotidiennes, les visites régulières chez le vétérinaire et les soins de base représentent des obligations physiques importantes.`,
         `<span class="hl-pink">Pour une personne dont la santé se fragilise, ces responsabilités peuvent rapidement devenir épuisantes et transformer l'animal en source de stress plutôt que de bien-être.</span>`
-      ],
-      note:"💬 <em>garantir</em> = to guarantee · <em>se fragilise</em> = weakens · <em>rapidement devenir</em> = quickly become · <em>épuisant(e)</em> = exhausting" },
+      ], note:"💬 <em>garantir</em> = to guarantee · <em>se fragilise</em> = weakens · <em>épuisant(e)</em> = exhausting" },
     { label:"Point 2 — La charge financière peut devenir ingérable", timing:"~1 min", nuance:false, wc:"~79 mots ✓",
       textHtml:[
         `De plus, <span class="hl-pink">posséder un animal représente une charge financière non négligeable, difficile à assumer pour une personne à la retraite.</span>`,
         `Les soins vétérinaires, la nourriture et les accessoires engendrent des dépenses régulières et souvent imprévisibles. Une maladie de l'animal peut coûter plusieurs centaines, voire plusieurs milliers de dollars.`,
         `<span class="hl-pink">Pour les personnes âgées vivant avec une pension fixe et limitée, cette pression financière risque d'aggraver une situation déjà précaire.</span>`
-      ],
-      note:"💬 <em>non négligeable</em> = significant / not to be overlooked · <em>imprévisible</em> = unpredictable · <em>voire</em> = or even · <em>précaire</em> = precarious" },
+      ], note:"💬 <em>non négligeable</em> = significant · <em>imprévisible</em> = unpredictable · <em>voire</em> = or even · <em>précaire</em> = precarious" },
     { label:"Nuance", timing:"~1 min", nuance:true, wc:"~67 mots ✓",
       textHtml:[
         `Il est certes vrai que <span class="hl-blue">la présence d'un animal apporte un réel soutien émotionnel aux personnes âgées.</span>`,
         `Des études montrent que le simple contact avec un animal abaisse le niveau de stress et procure un sentiment de réconfort difficile à trouver ailleurs. Pour des personnes souffrant d'isolement profond, cet apport affectif peut même avoir un impact positif sur leur santé mentale globale.`
-      ],
-      note:"💬 <em>abaisse</em> = lowers · <em>procure</em> = provides · <em>l'apport affectif</em> = emotional contribution · <em>souffrir de</em> = to suffer from" },
+      ], note:"💬 <em>abaisse</em> = lowers · <em>procure</em> = provides · <em>l'apport affectif</em> = emotional contribution" },
     { label:"Conclusion", timing:"~50s", nuance:false,
       textHtml:[
         `En conclusion, bien que <span class="hl-blue">le soutien émotionnel présente certains avantages, comme le sentiment de réconfort pour les personnes isolées,</span> il n'en demeure pas moins que <span class="hl-pink">les inconvénients sont indéniables, comme le fardeau physique et la pression financière.</span>`,
         `Tout bien considéré, il serait souhaitable que <span class="hl-p1">les familles et les institutions explorent des alternatives adaptées, comme les visites d'animaux en résidence, pour que les personnes âgées bénéficient du lien affectif sans en subir les contraintes.</span>`,
         `Merci pour votre attention.`
-      ],
-      note:"💬 Subjonctif : <em>il serait souhaitable que les familles explorent</em> ✓ · <em>sans en subir les contraintes</em> = without suffering the constraints" }
+      ], note:"💬 Subjonctif : <em>il serait souhaitable que les familles explorent</em> ✓ · <em>sans en subir les contraintes</em> = without suffering the constraints" }
   ]
 };
 
 function buildCard(s){
-  const blocks = s.blocks.map((b, i) => {
+  const blocks = s.blocks.map(b => {
     const paras = b.textHtml.map(html => `<div class="para-wrap"><p>${html}</p></div>`).join('');
-    return `
-      <div class="block ${b.nuance?'block-nuance':''}">
-        <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
-        <div class="script-text">${paras}</div>
-        ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
-        ${b.wc   ? `<div class="wc">${b.wc}</div>` : ''}
-      </div>`;
+    return `<div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${paras}</div>
+      ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
+      ${b.wc   ? `<div class="wc">${b.wc}</div>` : ''}
+    </div>`;
   }).join('');
-
   return `<div class="script-card">
     <div class="card-header ${s.headerClass}">
       <div class="card-title ${s.titleClass}">${s.header}</div>
@@ -356,13 +528,57 @@ function buildCard(s){
     </div>${blocks}</div>`;
 }
 
-document.getElementById('bothGrid').innerHTML  = buildCard(scriptA) + buildCard(scriptB);
-document.getElementById('posAGrid').innerHTML  = buildCard(scriptA);
-document.getElementById('posBGrid').innerHTML  = buildCard(scriptB);
+// Both tab uses full scriptA (inline) + scriptB
+const scriptAFull = {
+  header: "✅ Position A — OUI : posséder un animal est une bonne idée pour une personne âgée",
+  headerClass:"card-header-green", titleClass:"card-title-green",
+  badge:"Plus facile à défendre", badgeClass:"badge-easy",
+  blocks:[
+    { label:"Introduction", timing:"~40s", nuance:false,
+      textHtml:[
+        `Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si posséder un animal de compagnie est vraiment bénéfique pour une personne âgée, et les avis sont mitigés.`,
+        `Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">posséder un animal de compagnie peut être une excellente idée pour une personne âgée</span>, à un certain point.`,
+        `Alors, je vais expliquer mes raisons.`
+      ], note:"" },
+    { label:"Point 1 — Un animal combat la solitude", timing:"~1 min", nuance:false, wc:"~78 mots ✓",
+      textHtml:[
+        `Tout d'abord, il convient de souligner que <span class="hl-pink">posséder un animal de compagnie permet de lutter contre la solitude, qui est l'un des principaux défis du vieillissement.</span>`,
+        `En effet, les personnes âgées perdent souvent leurs proches au fil des années et se retrouvent isolées. Un animal crée un lien affectif quotidien et donne à la personne le sentiment d'être utile et aimée.`,
+        `<span class="hl-pink">Ce lien favorise un meilleur équilibre émotionnel et réduit considérablement le sentiment d'isolement.</span>`
+      ], note:"💬 <em>au fil des années</em> = over the years · <em>lutter contre</em> = to fight against · <em>le lien affectif</em> = emotional bond · <em>l'isolement</em> = isolation" },
+    { label:"Point 2 — Un animal encourage l'activité physique", timing:"~1 min", nuance:false, wc:"~79 mots ✓",
+      textHtml:[
+        `De plus, <span class="hl-pink">le fait de s'occuper d'un animal encourage la personne âgée à rester physiquement active.</span>`,
+        `Promener un chien tous les jours, par exemple, oblige la personne à sortir, marcher et maintenir une certaine mobilité. Cette activité régulière contribue à ralentir les effets du vieillissement sur le corps.`,
+        `<span class="hl-pink">Les médecins reconnaissent d'ailleurs que l'activité physique modérée est l'un des meilleurs moyens de préserver la santé des personnes âgées.</span>`
+      ], note:"💬 <em>le fait de + infinitif</em> = the fact of · <em>oblige à</em> = forces to · <em>contribue à ralentir</em> = helps slow down" },
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~68 mots ✓",
+      textHtml:[
+        `Il est certes vrai que <span class="hl-blue">les contraintes physiques liées à l'entretien d'un animal peuvent devenir difficiles à gérer pour certaines personnes âgées.</span>`,
+        `À mesure que la mobilité diminue ou que la santé se fragilise, des tâches comme les promenades quotidiennes ou les visites chez le vétérinaire peuvent représenter une charge trop lourde. Dans ces cas, l'animal risque de devenir une source de stress plutôt que de bien-être.`
+      ], note:"💬 <em>à mesure que</em> = as · <em>se fragilise</em> = weakens · <em>une charge trop lourde</em> = too heavy a burden" },
+    { label:"Conclusion", timing:"~50s", nuance:false,
+      textHtml:[
+        `En conclusion, bien que <span class="hl-blue">les contraintes physiques présentent certains inconvénients, comme le risque de surcharge pour les personnes très fragilisées,</span> il n'en demeure pas moins que <span class="hl-pink">les avantages sont indéniables, comme le renforcement du lien social et le maintien de l'activité physique.</span>`,
+        `Tout bien considéré, il serait souhaitable que <span class="hl-p1">les familles et les professionnels de santé accompagnent les personnes âgées dans le choix d'un animal adapté à leur condition.</span>`,
+        `Merci pour votre attention.`
+      ], note:"💬 Subjonctif : <em>il serait souhaitable que les familles accompagnent</em> ✓" }
+  ]
+};
+
+document.getElementById('bothGrid').innerHTML = buildCard(scriptAFull) + buildCard(scriptB);
+document.getElementById('posBGrid').innerHTML = buildCard(scriptB);
 
 function showTab(id, btn){
   document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showStage(id, btn){
+  document.querySelectorAll('.stage-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
