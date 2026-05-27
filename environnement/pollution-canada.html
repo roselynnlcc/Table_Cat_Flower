@@ -66,6 +66,23 @@
   .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
   .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
 
+  /* ── Stage pill toggle ── */
+  .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
+  .stage-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:3px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);cursor:pointer;transition:all .15s;}
+  .stage-btn:hover{border-color:var(--accent);color:var(--text);}
+  .stage-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500;}
+  /* ── Hidden word mechanic ── */
+  .h{color:#fff;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;text-decoration-thickness:1px;}
+  .hl-pink .h{color:var(--pink-bg);text-decoration-color:#e8b4c4;}
+  .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
+  .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
+  /* stage content visibility */
+  .stage-content{display:none;}
+  .stage-content.active{display:block;}
+  .para-wrap{position:relative;margin-bottom:10px;}
+  .para-wrap:last-child{margin-bottom:0;}
+  .para-wrap p{margin-bottom:0;}
+
   .wl-page{max-width:860px;}
   .wl-section{margin-bottom:28px;}
   .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
@@ -123,13 +140,213 @@
 <nav class="tab-nav">
   <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
   <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
-  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">🎯 Position B 🎯</button>
   <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
 </nav>
 
 <div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
 <div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
-<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+<div id="posB" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-green">
+        <div class="card-title card-title-green">✅ Position B — Les actions du Canada vont dans le bon sens</div>
+        <span class="stance-badge badge-easy">Plus facile à défendre</span>
+      </div>
+      <div class="stage-toggle">
+        <button class="stage-btn active" onclick="showStage('b0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('b1',this)">Étape 1</button>
+        <button class="stage-btn" onclick="showStage('b2',this)">Étape 2</button>
+        <button class="stage-btn" onclick="showStage('b3',this)">Étape 3</button>
+      </div>
+
+      <!-- COMPLET -->
+      <div id="b0" class="stage-content active">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si les actions prises au Canada pour diminuer la pollution sont vraiment efficaces</span>, et les avis sont mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">ces actions vont dans le bon sens à un certain point.</span></p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Les énergies renouvelables <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink">le Canada investit de plus en plus dans les énergies renouvelables, notamment l'hydroélectricité, l'éolien et le solaire.</span></p></div>
+            <div class="para-wrap"><p>Ces investissements permettent de réduire la dépendance aux combustibles fossiles dans plusieurs provinces. Par voie de conséquence, la part des énergies propres dans le mix énergétique augmente progressivement, ce qui contribue à réduire les émissions à long terme.</p></div>
+          </div>
+          <div class="en-note">💬 <em>le mix énergétique</em> = energy mix · <em>à long terme</em> = in the long term · <em>progressivement</em> = gradually</div>
+          <div class="wc">~70 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — L'électrification des transports <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">le gouvernement canadien subventionne activement l'achat de véhicules électriques et développe les infrastructures de recharge à travers le pays.</span></p></div>
+            <div class="para-wrap"><p>Par ailleurs, des villes comme Toronto et Montréal améliorent leurs réseaux de transports en commun. Ces efforts réduisent concrètement les émissions liées aux déplacements quotidiens.</p></div>
+          </div>
+          <div class="en-note">💬 <em>subventionner activement</em> = to actively subsidize · <em>les infrastructures de recharge</em> = EV charging infrastructure · <em>concrètement</em> = concretely, in practice</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p><span class="hl-blue">En revanche, il est certes vrai que le Canada continue d'exploiter massivement ses sables bitumineux en Alberta, qui sont parmi les sources de pétrole les plus polluantes au monde.</span></p></div>
+            <div class="para-wrap"><p>Cette contradiction entre les discours climatiques et la réalité industrielle nuit à la crédibilité des engagements environnementaux du pays.</p></div>
+          </div>
+          <div class="en-note">💬 <em>exploiter</em> = to extract / exploit · <em>nuire à</em> = to undermine · <em>la crédibilité</em> = credibility</div>
+          <div class="wc">~50 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">certaines sources de pollution persistent encore au Canada, notamment l'exploitation des sables bitumineux</span>, il n'en demeure pas moins que <span class="hl-pink">les avancées des actions récentes sont indéniables, comme le développement des énergies renouvelables et l'électrification des transports.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les gouvernements informent davantage la population sur les mesures déjà prises et celles qui sont prévues pour réduire la pollution.</span></p></div>
+          </div>
+        </div>
+      </div><!-- /b0 -->
+
+      <!-- ÉTAPE 1 -->
+      <div id="b1" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si les actions prises au Canada pour diminuer la pollution sont vraiment <span class="h">efficaces</span></span>, et les avis sont mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">ces actions vont dans le bon sens à un certain point.</span></p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Les énergies renouvelables <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink">le Canada <span class="h">investit</span> de plus en plus dans les énergies <span class="h">renouvelables</span>, notamment l'<span class="h">hydroélectricité</span>, l'<span class="h">éolien</span> et le <span class="h">solaire</span>.</span></p></div>
+            <div class="para-wrap"><p>Ces investissements permettent de réduire la <span class="h">dépendance</span> aux <span class="h">combustibles fossiles</span> dans plusieurs provinces. Par voie de conséquence, la part des énergies <span class="h">propres</span> dans le mix <span class="h">énergétique</span> augmente <span class="h">progressivement</span>, ce qui contribue à réduire les <span class="h">émissions</span> à long terme.</p></div>
+          </div>
+          <div class="en-note">💬 <em>le mix énergétique</em> = energy mix · <em>à long terme</em> = in the long term · <em>progressivement</em> = gradually</div>
+          <div class="wc">~70 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — L'électrification des transports <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">le gouvernement canadien <span class="h">subventionne</span> activement l'achat de <span class="h">véhicules électriques</span> et développe les <span class="h">infrastructures de recharge</span> à travers le pays.</span></p></div>
+            <div class="para-wrap"><p>Par ailleurs, des villes comme Toronto et Montréal améliorent leurs réseaux de <span class="h">transports en commun</span>. Ces efforts réduisent <span class="h">concrètement</span> les émissions liées aux <span class="h">déplacements</span> quotidiens.</p></div>
+          </div>
+          <div class="en-note">💬 <em>subventionner activement</em> = to actively subsidize · <em>les infrastructures de recharge</em> = EV charging infrastructure · <em>concrètement</em> = concretely, in practice</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p><span class="hl-blue">En revanche, il est certes vrai que le Canada continue d'<span class="h">exploiter</span> massivement ses <span class="h">sables bitumineux</span> en Alberta, qui sont parmi les sources de pétrole les plus <span class="h">polluantes</span> au monde.</span></p></div>
+            <div class="para-wrap"><p>Cette <span class="h">contradiction</span> entre les discours <span class="h">climatiques</span> et la réalité industrielle <span class="h">nuit à</span> la <span class="h">crédibilité</span> des <span class="h">engagements</span> environnementaux du pays.</p></div>
+          </div>
+          <div class="en-note">💬 <em>exploiter</em> = to extract / exploit · <em>nuire à</em> = to undermine · <em>la crédibilité</em> = credibility</div>
+          <div class="wc">~50 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">certaines sources de pollution <span class="h">persistent</span> encore au Canada, notamment l'<span class="h">exploitation</span> des sables bitumineux</span>, il n'en demeure pas moins que <span class="hl-pink">les <span class="h">avancées</span> des actions récentes sont indéniables, comme le <span class="h">développement</span> des énergies renouvelables et l'<span class="h">électrification</span> des transports.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les gouvernements <span class="h">informent</span> davantage la population sur les mesures déjà prises et celles qui sont prévues pour réduire la pollution.</span></p></div>
+          </div>
+        </div>
+      </div><!-- /b1 -->
+
+      <!-- ÉTAPE 2 -->
+      <div id="b2" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si les actions <span class="h">prises</span> au Canada pour <span class="h">diminuer</span> la pollution sont vraiment <span class="h">efficaces</span></span>, et les avis sont mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">ces actions <span class="h">vont dans le bon sens</span> à un certain point.</span></p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Les énergies renouvelables <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink">le Canada <span class="h">investit de plus en plus</span> dans les énergies renouvelables, notamment l'hydroélectricité, l'éolien et le solaire.</span></p></div>
+            <div class="para-wrap"><p>Ces investissements <span class="h">permettent de réduire</span> la dépendance aux combustibles fossiles dans plusieurs provinces. Par voie de conséquence, la part des énergies propres dans le mix énergétique <span class="h">augmente progressivement</span>, ce qui <span class="h">contribue à réduire</span> les émissions <span class="h">à long terme</span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>le mix énergétique</em> = energy mix · <em>à long terme</em> = in the long term · <em>progressivement</em> = gradually</div>
+          <div class="wc">~70 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — L'électrification des transports <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">le gouvernement canadien <span class="h">subventionne activement</span> l'achat de véhicules électriques et <span class="h">développe les infrastructures de recharge</span> à travers le pays.</span></p></div>
+            <div class="para-wrap"><p>Par ailleurs, des villes comme Toronto et Montréal <span class="h">améliorent leurs réseaux</span> de transports en commun. Ces efforts réduisent concrètement les émissions liées <span class="h">aux déplacements quotidiens</span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>subventionner activement</em> = to actively subsidize · <em>les infrastructures de recharge</em> = EV charging infrastructure · <em>concrètement</em> = concretely, in practice</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p><span class="hl-blue">En revanche, il est certes vrai que le Canada continue <span class="h">d'exploiter massivement</span> ses sables bitumineux en Alberta, qui sont <span class="h">parmi les sources de pétrole les plus polluantes au monde</span>.</span></p></div>
+            <div class="para-wrap"><p>Cette contradiction <span class="h">nuit à la crédibilité des engagements</span> environnementaux du pays.</p></div>
+          </div>
+          <div class="en-note">💬 <em>exploiter</em> = to extract / exploit · <em>nuire à</em> = to undermine · <em>la crédibilité</em> = credibility</div>
+          <div class="wc">~50 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue"><span class="h">certaines sources de pollution</span> persistent encore au Canada, notamment <span class="h">l'exploitation des sables bitumineux</span></span>, il n'en demeure pas moins que <span class="hl-pink"><span class="h">les avancées des actions récentes</span> sont indéniables, comme <span class="h">le développement des énergies renouvelables</span> et <span class="h">l'électrification des transports</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les gouvernements <span class="h">informent davantage la population</span> sur <span class="h">les mesures déjà prises</span> et <span class="h">celles qui sont prévues</span> pour réduire la pollution.</span></p></div>
+          </div>
+        </div>
+      </div><!-- /b2 -->
+
+      <!-- ÉTAPE 3 -->
+      <div id="b3" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si les actions prises au Canada pour diminuer la pollution sont vraiment efficaces</span>, et les avis sont mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">ces actions vont dans le bon sens à un certain point.</span></p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Les énergies renouvelables <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink">le Canada investit de plus en plus dans les énergies renouvelables, notamment l'hydroélectricité, l'éolien et le solaire.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Ces investissements permettent de réduire la dépendance aux combustibles fossiles dans plusieurs provinces.</span> Par voie de conséquence, <span class="h">la part des énergies propres dans le mix énergétique augmente progressivement</span>, ce qui contribue à réduire les émissions à long terme.</p></div>
+          </div>
+          <div class="en-note">💬 <em>le mix énergétique</em> = energy mix · <em>à long terme</em> = in the long term · <em>progressivement</em> = gradually</div>
+          <div class="wc">~70 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — L'électrification des transports <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">le gouvernement canadien subventionne activement l'achat de véhicules électriques et développe les infrastructures de recharge à travers le pays.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Par ailleurs, des villes comme Toronto et Montréal améliorent leurs réseaux de transports en commun.</span> Ces efforts réduisent concrètement <span class="h">les émissions liées aux déplacements quotidiens</span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>subventionner activement</em> = to actively subsidize · <em>les infrastructures de recharge</em> = EV charging infrastructure · <em>concrètement</em> = concretely, in practice</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p><span class="hl-blue">En revanche, il est certes vrai que le Canada continue d'exploiter massivement ses sables bitumineux en Alberta, qui sont parmi les sources de pétrole les plus polluantes au monde.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Cette contradiction entre les discours climatiques et la réalité industrielle nuit à la crédibilité des engagements environnementaux du pays.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>exploiter</em> = to extract / exploit · <em>nuire à</em> = to undermine · <em>la crédibilité</em> = credibility</div>
+          <div class="wc">~50 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">certaines sources de pollution persistent encore au Canada, notamment l'exploitation des sables bitumineux</span>, il n'en demeure pas moins que <span class="hl-pink">les avancées des actions récentes sont indéniables, comme le développement des énergies renouvelables et l'électrification des transports.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les gouvernements informent davantage la population sur les mesures déjà prises et celles qui sont prévues pour réduire la pollution.</span></p></div>
+          </div>
+        </div>
+      </div><!-- /b3 -->
+
+    </div><!-- /script-card -->
+  </div><!-- /single-view -->
+</div><!-- /posB -->
 
 <!-- WORD LIST -->
 <div id="words" class="content">
@@ -320,11 +537,16 @@ function buildCard(s){
 
 document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
 document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
-document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
 
 function showTab(id,btn){
   document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');}
+
+function showStage(id,btn){
+  document.querySelectorAll('.stage-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.stage-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');}
 </script>
