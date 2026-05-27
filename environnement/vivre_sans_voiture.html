@@ -100,6 +100,22 @@
   .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
   .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
   .chunk-note{font-size:11px;color:var(--text-muted);}
+
+  /* ── Stage pill toggle ── */
+  .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
+  .stage-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:3px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);cursor:pointer;transition:all .15s;}
+  .stage-btn:hover{border-color:var(--accent);color:var(--text);}
+  .stage-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500;}
+
+  /* ── Hidden word mechanic ── */
+  .h{color:#fff;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;text-decoration-thickness:1px;}
+  .hl-pink .h{color:var(--pink-bg);text-decoration-color:#e8b4c4;}
+  .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
+  .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
+
+  /* stage content visibility */
+  .stage-content{display:none;}
+  .stage-content.active{display:block;}
 </style>
 </head>
 <body>
@@ -118,7 +134,220 @@
 </nav>
 
 <div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
-<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+<!-- Position A with stage toggle -->
+<div id="posA" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-green">
+        <div class="card-title card-title-green">✅ Position A — OUI, il est possible de vivre sans voiture</div>
+        <span class="stance-badge badge-easy">Plus facile à défendre</span>
+      </div>
+      <div class="stage-toggle">
+        <button class="stage-btn active" onclick="showStage('s0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('s1',this)">Étape 1</button>
+        <button class="stage-btn" onclick="showStage('s2',this)">Étape 2</button>
+        <button class="stage-btn" onclick="showStage('s3',this)">Étape 3</button>
+      </div>
+
+      <!-- COMPLET -->
+      <div id="s0" class="stage-content active">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander s'il est vraiment possible de vivre sans voiture de nos jours, et les avis sont mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">vivre sans voiture est tout à fait envisageable pour la plupart des gens</span> à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Le choix stratégique de résidence rend la voiture inutile <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink">vivre sans voiture est tout à fait possible à condition de choisir stratégiquement son lieu de résidence.</span></p></div>
+            <div class="para-wrap"><p>En s'installant près d'une station de métro ou d'un arrêt de bus, et à proximité des commerces et des loisirs, la plupart des besoins quotidiens peuvent être couverts sans véhicule personnel.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">ce choix de vie planifié élimine la grande majorité des obstacles liés à l'absence de voiture,</span> et permet de se déplacer de façon autonome et efficace au quotidien.</p></div>
+          </div>
+          <div class="en-note">💬 <em>à condition de + infinitif</em> = provided that (C1) · <em>à proximité de</em> = in the vicinity of · <em>de façon autonome</em> = independently</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Posséder une voiture représente une lourde charge financière <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">se passer de voiture permet de réaliser des économies considérables.</span></p></div>
+            <div class="para-wrap"><p>En effet, entre l'assurance, l'essence, l'entretien et le stationnement, les dépenses s'accumulent rapidement d'une année à l'autre.</p></div>
+            <div class="para-wrap"><p>Pour beaucoup de ménages, se passer de voiture et utiliser les transports en commun permet de réaliser des économies substantielles. <span class="hl-pink">Ce budget peut alors être réalloué à d'autres priorités essentielles,</span> comme le logement ou l'éducation, ce qui améliore la qualité de vie de façon durable.</p></div>
+          </div>
+          <div class="en-note">💬 <em>s'accumulent rapidement</em> = add up quickly · <em>réallouer</em> = to reallocate (C1) · <em>de façon durable</em> = in a lasting way</div>
+          <div class="wc">~77 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">dans certaines régions du Canada, le climat rigoureux et les grandes distances rendent la vie sans voiture beaucoup plus difficile.</span></p></div>
+            <div class="para-wrap"><p>Dans les zones rurales ou les villes moins bien desservies par les transports en commun, l'accès aux services essentiels — comme les hôpitaux ou les grandes surfaces — peut devenir très limité, voire impossible, sans véhicule personnel.</p></div>
+          </div>
+          <div class="en-note">💬 <em>voire impossible</em> = or even impossible (C1 emphase) · <em>desservi par</em> = served by · <em>les zones rurales</em> = rural areas</div>
+          <div class="wc">~67 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">certaines régions présentent certains inconvénients, comme le manque de desserte dans les zones éloignées,</span> il n'en demeure pas moins que les avantages sont indéniables, comme <span class="hl-pink">les économies financières et la liberté de déplacement.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les individus évaluent leur situation personnelle et envisagent de recourir occasionnellement au taxi ou à des services comme Uber,</span> afin qu'ils puissent se déplacer librement sans dépendre d'un véhicule personnel.</p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /s0 -->
+
+      <!-- ÉTAPE 1 -->
+      <div id="s1" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est [légitime] de se demander s'il est vraiment possible de vivre sans voiture de nos jours, et les avis sont <span class="h">mitigés</span>.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">vivre sans voiture est tout à fait <span class="h">envisageable</span> pour la plupart des gens</span> à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Le choix stratégique de résidence rend la voiture inutile <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink">vivre sans voiture est tout à fait possible à condition de choisir <span class="h">stratégiquement</span> son <span class="h">lieu de résidence</span>.</span></p></div>
+            <div class="para-wrap"><p>En s'installant près d'une station de métro ou d'un arrêt de bus, et à <span class="h">proximité</span> des commerces et des loisirs, la plupart des besoins <span class="h">quotidiens</span> peuvent être couverts sans véhicule personnel.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">ce choix de vie <span class="h">planifié</span> élimine la grande majorité des <span class="h">obstacles</span> liés à l'absence de voiture,</span> et permet de se déplacer de façon <span class="h">autonome</span> et efficace au quotidien.</p></div>
+          </div>
+          <div class="en-note">💬 <em>à condition de + infinitif</em> = provided that (C1) · <em>à proximité de</em> = in the vicinity of · <em>de façon autonome</em> = independently</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Posséder une voiture représente une lourde charge financière <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">se passer de voiture permet de réaliser des <span class="h">économies</span> considérables.</span></p></div>
+            <div class="para-wrap"><p>En effet, entre l'<span class="h">assurance</span>, l'<span class="h">essence</span>, l'<span class="h">entretien</span> et le <span class="h">stationnement</span>, les dépenses s'<span class="h">accumulent</span> rapidement d'une année à l'autre.</p></div>
+            <div class="para-wrap"><p>Pour beaucoup de ménages, se passer de voiture et utiliser les transports en commun permet de réaliser des économies <span class="h">substantielles</span>. <span class="hl-pink">Ce budget peut alors être <span class="h">réalloué</span> à d'autres priorités <span class="h">essentielles</span>,</span> comme le logement ou l'éducation, ce qui améliore la qualité de vie de façon <span class="h">durable</span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>s'accumulent rapidement</em> = add up quickly · <em>réallouer</em> = to reallocate (C1) · <em>de façon durable</em> = in a lasting way</div>
+          <div class="wc">~77 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">dans certaines régions du Canada, le climat <span class="h">rigoureux</span> et les grandes <span class="h">distances</span> rendent la vie sans voiture beaucoup plus difficile.</span></p></div>
+            <div class="para-wrap"><p>Dans les zones <span class="h">rurales</span> ou les villes moins bien <span class="h">desservies</span> par les transports en commun, l'accès aux services <span class="h">essentiels</span> — comme les hôpitaux ou les grandes surfaces — peut devenir très limité, <span class="h">voire</span> impossible, sans véhicule personnel.</p></div>
+          </div>
+          <div class="en-note">💬 <em>voire impossible</em> = or even impossible (C1 emphase) · <em>desservi par</em> = served by · <em>les zones rurales</em> = rural areas</div>
+          <div class="wc">~67 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">certaines régions présentent certains inconvénients, comme le manque de <span class="h">desserte</span> dans les zones <span class="h">éloignées</span>,</span> il n'en demeure pas moins que les avantages sont <span class="h">indéniables</span>, comme <span class="hl-pink">les <span class="h">économies financières</span> et la <span class="h">liberté de déplacement</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les individus <span class="h">évaluent</span> leur situation personnelle et <span class="h">envisagent</span> de recourir <span class="h">occasionnellement</span> au taxi ou à des services comme Uber,</span> afin qu'ils puissent se déplacer librement sans dépendre d'un véhicule personnel.</p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /s1 -->
+
+      <!-- ÉTAPE 2 -->
+      <div id="s2" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander s'il est vraiment possible <span class="h">de vivre sans voiture</span> de nos jours, et les avis sont mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink"><span class="h">vivre sans voiture est tout à fait envisageable</span> pour la plupart des gens</span> à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Le choix stratégique de résidence rend la voiture inutile <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink">vivre sans voiture est tout à fait possible <span class="h">à condition de choisir stratégiquement</span> son lieu de résidence.</span></p></div>
+            <div class="para-wrap"><p>En s'installant <span class="h">près d'une station de métro ou d'un arrêt de bus</span>, et à proximité des commerces et des loisirs, <span class="h">la plupart des besoins quotidiens peuvent être couverts</span> sans véhicule personnel.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">ce choix de vie planifié <span class="h">élimine la grande majorité des obstacles liés à l'absence de voiture</span>,</span> et permet de se déplacer de façon autonome et efficace au quotidien.</p></div>
+          </div>
+          <div class="en-note">💬 <em>à condition de + infinitif</em> = provided that (C1) · <em>à proximité de</em> = in the vicinity of · <em>de façon autonome</em> = independently</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Posséder une voiture représente une lourde charge financière <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink"><span class="h">se passer de voiture</span> permet de <span class="h">réaliser des économies considérables</span>.</span></p></div>
+            <div class="para-wrap"><p>En effet, entre l'assurance, l'essence, l'entretien et le stationnement, <span class="h">les dépenses s'accumulent rapidement</span> d'une année à l'autre.</p></div>
+            <div class="para-wrap"><p>Pour beaucoup de ménages, se passer de voiture et <span class="h">utiliser les transports en commun</span> permet de réaliser des économies substantielles. <span class="hl-pink">Ce budget peut alors être <span class="h">réalloué à d'autres priorités essentielles</span>,</span> comme le logement ou l'éducation, ce qui <span class="h">améliore la qualité de vie de façon durable</span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>s'accumulent rapidement</em> = add up quickly · <em>réallouer</em> = to reallocate (C1) · <em>de façon durable</em> = in a lasting way</div>
+          <div class="wc">~77 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">dans certaines régions du Canada, <span class="h">le climat rigoureux et les grandes distances</span> rendent la vie sans voiture beaucoup plus difficile.</span></p></div>
+            <div class="para-wrap"><p>Dans les zones rurales ou les villes <span class="h">moins bien desservies par les transports en commun</span>, l'accès aux services essentiels — comme <span class="h">les hôpitaux ou les grandes surfaces</span> — peut devenir <span class="h">très limité, voire impossible</span>, sans véhicule personnel.</p></div>
+          </div>
+          <div class="en-note">💬 <em>voire impossible</em> = or even impossible (C1 emphase) · <em>desservi par</em> = served by · <em>les zones rurales</em> = rural areas</div>
+          <div class="wc">~67 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue"><span class="h">certaines régions</span> présentent certains <span class="h">inconvénients</span>, comme <span class="h">le manque de desserte dans les zones éloignées</span>,</span> il n'en demeure pas moins que <span class="hl-pink"><span class="h">les avantages</span> sont indéniables, comme <span class="h">les économies financières et la liberté de déplacement</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les individus <span class="h">évaluent leur situation personnelle</span> et <span class="h">envisagent de recourir occasionnellement au taxi ou à des services comme Uber</span>,</span> afin qu'ils puissent <span class="h">se déplacer librement sans dépendre d'un véhicule personnel</span>.</p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /s2 -->
+
+      <!-- ÉTAPE 3 -->
+      <div id="s3" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p><span class="h">Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander s'il est vraiment possible de vivre sans voiture de nos jours, et les avis sont mitigés.</span></p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">vivre sans voiture est tout à fait envisageable pour <span class="h">la plupart des gens</span></span> à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Le choix stratégique de résidence rend la voiture inutile <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink">vivre sans voiture est tout à fait possible à condition de choisir stratégiquement son lieu de résidence.</span></p></div>
+            <div class="para-wrap"><p><span class="h">En s'installant près d'une station de métro ou d'un arrêt de bus, et à proximité des commerces et des loisirs, la plupart des besoins quotidiens peuvent être couverts sans véhicule personnel.</span></p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">ce choix de vie planifié élimine la grande majorité des obstacles liés à l'absence de voiture,</span> et permet de se déplacer de façon <span class="h">autonome et efficace</span> au quotidien.</p></div>
+          </div>
+          <div class="en-note">💬 <em>à condition de + infinitif</em> = provided that (C1) · <em>à proximité de</em> = in the vicinity of · <em>de façon autonome</em> = independently</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Posséder une voiture représente une lourde charge financière <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">se passer de voiture permet de réaliser des économies considérables.</span></p></div>
+            <div class="para-wrap"><p><span class="h">En effet, entre l'assurance, l'essence, l'entretien et le stationnement, les dépenses s'accumulent rapidement d'une année à l'autre.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Pour beaucoup de ménages, se passer de voiture et utiliser les transports en commun permet de réaliser des économies substantielles.</span> <span class="hl-pink">Ce budget peut alors être réalloué à d'autres priorités essentielles,</span> comme le logement ou l'éducation, ce qui améliore la qualité de vie de façon durable.</p></div>
+          </div>
+          <div class="en-note">💬 <em>s'accumulent rapidement</em> = add up quickly · <em>réallouer</em> = to reallocate (C1) · <em>de façon durable</em> = in a lasting way</div>
+          <div class="wc">~77 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">dans certaines régions du Canada, le climat rigoureux et les grandes distances rendent la vie sans voiture beaucoup plus difficile.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Dans les zones rurales ou les villes moins bien desservies par les transports en commun, l'accès aux services essentiels — comme les hôpitaux ou les grandes surfaces — peut devenir très limité, voire impossible, sans véhicule personnel.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>voire impossible</em> = or even impossible (C1 emphase) · <em>desservi par</em> = served by · <em>les zones rurales</em> = rural areas</div>
+          <div class="wc">~67 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">certaines régions présentent certains inconvénients, comme le manque de desserte dans les zones éloignées,</span> il n'en demeure pas moins que les avantages sont indéniables, comme <span class="hl-pink">les économies financières et la liberté de déplacement.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les individus évaluent leur situation personnelle et envisagent de recourir occasionnellement au taxi ou à des services comme Uber,</span> afin qu'ils puissent <span class="h">se déplacer librement sans dépendre d'un véhicule personnel</span>.</p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /s3 -->
+
+    </div><!-- /script-card -->
+  </div><!-- /single-view -->
+</div><!-- /posA -->
 <div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
 
 <div id="words" class="content">
@@ -344,12 +573,18 @@ function buildCard(s){
 }
 
 document.getElementById('bothGrid').innerHTML  = buildCard(scriptA) + buildCard(scriptB);
-document.getElementById('posAGrid').innerHTML  = buildCard(scriptA);
 document.getElementById('posBGrid').innerHTML  = buildCard(scriptB);
 
 function showTab(id, btn){
   document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showStage(id, btn){
+  document.querySelectorAll('.stage-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
