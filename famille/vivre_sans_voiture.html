@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Vivre sans voiture</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --amber:#92400e;--amber-bg:#fef3c7;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;position:relative;}
+  .script-text p:last-child{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .hl-p2{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+  .single-view .script-card{max-width:620px;margin:0 auto;}
+  .para-wrap{position:relative;padding-right:32px;margin-bottom:10px;}
+  .para-wrap:last-child{margin-bottom:0;}
+  .para-wrap p{margin-bottom:0;}
+  .block-audio{display:flex;align-items:center;gap:8px;margin-top:10px;}
+  .block-play-btn{background:var(--accent);color:#fff;border:none;border-radius:20px;padding:4px 14px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:5px;transition:opacity .15s;}
+  .block-play-btn:hover{opacity:0.85;}
+  .block-play-btn.playing{background:#c0392b;}
+  .block-play-btn:disabled{opacity:0.4;cursor:not-allowed;}
+  .audio-progress{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+  .audio-progress-bar{height:100%;background:var(--accent);width:0%;border-radius:2px;}
+  .audio-time{font-size:10px;color:var(--text-muted);min-width:32px;text-align:right;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-prep{font-size:11px;color:#7a5230;background:#fef3c7;border-radius:4px;padding:1px 5px;margin-left:4px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Tâche 3</span></h1>
+  <div class="question-title">De nos jours, il est possible de vivre sans voiture. Qu'en pensez-vous ?</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Transport et mobilité ★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">le réseau de transport <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">transit network</span></div>
+          <div class="wl-row"><span class="wl-fr">les transports en commun <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">public transit</span></div>
+          <div class="wl-row"><span class="wl-fr">le trajet <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">commute, journey</span></div>
+          <div class="wl-row"><span class="wl-fr">le véhicule personnel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">personal vehicle</span></div>
+          <div class="wl-row"><span class="wl-fr">le permis de conduire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">driver's licence</span></div>
+          <div class="wl-row"><span class="wl-fr">le covoiturage <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">carpooling</span></div>
+          <div class="wl-row"><span class="wl-fr">les déplacements <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">travel, movement</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Économie et environnement</div>
+          <div class="wl-row"><span class="wl-fr">les émissions de CO₂ <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">CO₂ emissions</span></div>
+          <div class="wl-row"><span class="wl-fr">les gaz à effet de serre <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">greenhouse gases</span></div>
+          <div class="wl-row"><span class="wl-fr">le changement climatique <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">climate change</span></div>
+          <div class="wl-row"><span class="wl-fr">l'entretien <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">maintenance</span></div>
+          <div class="wl-row"><span class="wl-fr">les opportunités économiques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">economic opportunities</span></div>
+          <div class="wl-row"><span class="wl-fr">la charge financière <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">financial burden</span></div>
+          <div class="wl-row"><span class="wl-fr">le lieu de résidence <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">place of residence</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs — relative pronoun in yellow</div>
+        <div class="wl-row"><span class="wl-fr">desservir <em>(une zone)</em><span class="wl-star">★</span></span><span class="wl-en">to serve (an area) — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">dépendre <em>(de)</em><span class="wl-star">★</span></span><span class="wl-en">to depend (on)<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">contribuer <em>(à)</em><span class="wl-star">★</span></span><span class="wl-en">to contribute (to)<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">réallouer <em>(qqch à)</em><span class="wl-star">★</span></span><span class="wl-en">to reallocate (something to)<span class="wl-prep">auquel</span></span></div>
+        <div class="wl-row"><span class="wl-fr">exiger <em>(qqch de qqn)</em><span class="wl-star">★</span></span><span class="wl-en">to require (something of someone)<span class="wl-prep">dont</span></span></div>
+        <div class="wl-row"><span class="wl-fr">restreindre <em>(qqch)</em><span class="wl-star">★</span></span><span class="wl-en">to restrict (something) — no prep<span class="wl-prep">que</span></span></div>
+        <div class="wl-row"><span class="wl-fr">se passer <em>(de)</em><span class="wl-star">★</span></span><span class="wl-en">to do without<span class="wl-prep">dont</span></span></div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectives</div>
+        <div class="wl-row"><span class="wl-fr">rigoureux<span class="wl-star">★</span></span><span class="wl-en">harsh, rigorous</span></div>
+        <div class="wl-row"><span class="wl-fr">stratégique<span class="wl-star">★</span></span><span class="wl-en">strategic</span></div>
+        <div class="wl-row"><span class="wl-fr">indispensable<span class="wl-star">★</span></span><span class="wl-en">essential, indispensable</span></div>
+        <div class="wl-row"><span class="wl-fr">restreint<span class="wl-star">★</span></span><span class="wl-en">limited, restricted</span></div>
+        <div class="wl-row"><span class="wl-fr">considérable<span class="wl-star">★</span></span><span class="wl-en">considerable, significant</span></div>
+        <div class="wl-row"><span class="wl-fr">imprévu<span class="wl-star">★</span></span><span class="wl-en">unexpected, unforeseen</span></div>
+        <div class="wl-row"><span class="wl-fr">accessible<span class="wl-star">★</span></span><span class="wl-en">accessible</span></div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paire contrastée</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">OUI — on peut vivre sans voiture</div>
+          <div class="contrast-item">choisir stratégiquement son lieu de résidence</div>
+          <div class="contrast-item">vivre près des commerces et des transports</div>
+          <div class="contrast-item">économiser sur l'assurance, l'essence, l'entretien</div>
+          <div class="contrast-item">réallouer le budget à d'autres priorités</div>
+          <div class="contrast-item">réduire son empreinte carbone</div>
+          <div class="contrast-item">recourir au taxi ou à l'Uber pour les urgences</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">NON — la voiture reste indispensable</div>
+          <div class="contrast-item">les trajets en bus peuvent tripler en durée</div>
+          <div class="contrast-item">Calgary mal desservi hors du centre</div>
+          <div class="contrast-item">beaucoup d'emplois exigent un permis de conduire</div>
+          <div class="contrast-item">le choix d'emploi devient restreint sans voiture</div>
+          <div class="contrast-item">attendre le bus par -20°C pose des risques</div>
+          <div class="contrast-item">la voiture contribue aux émissions de CO₂</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">un trajet de 15 minutes en voiture peut facilement devenir une heure en bus</div>
+          <div class="chunk-en">a 15-minute car journey can easily become a one-hour bus ride</div>
+          <div class="chunk-note">exemple concret et frappant — très efficace à l'oral pour illustrer l'inefficacité des transports</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">beaucoup d'emplois exigent explicitement un permis de conduire ou un véhicule personnel</div>
+          <div class="chunk-en">many jobs explicitly require a driver's licence or a personal vehicle</div>
+          <div class="chunk-note">preuve concrète — renforce directement le Point 2 Position B</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">à condition de choisir stratégiquement son lieu de résidence</div>
+          <div class="chunk-en">provided one strategically chooses their place of residence</div>
+          <div class="chunk-note">à condition de + infinitif — structure C1 pour nuancer une affirmation</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">posséder une voiture représente une charge financière considérable</div>
+          <div class="chunk-en">owning a car represents a considerable financial burden</div>
+          <div class="chunk-note">représenter une charge — verbe élégant, évite "coûter beaucoup"</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il serait souhaitable que les villes investissent davantage dans des réseaux de transport efficaces</div>
+          <div class="chunk-en">it would be desirable for cities to invest more in efficient transit networks</div>
+          <div class="chunk-note">subjonctif après il serait souhaitable que — signal C1 · parfait en conclusion</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptA = {
+  header: "✅ Position A — OUI, il est possible de vivre sans voiture",
+  headerClass:"card-header-green", titleClass:"card-title-green",
+  badge:"Plus facile à défendre", badgeClass:"badge-easy",
+  posKey:"posA",
+  blocks:[
+    { label:"Introduction", timing:"~40s", nuance:false,
+      textHtml:[
+        `Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander s'il est vraiment possible de vivre sans voiture de nos jours, et les avis sont mitigés.`,
+        `Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">vivre sans voiture est tout à fait envisageable pour la plupart des gens</span> à un certain point.`,
+        `Alors, je vais expliquer mes raisons.`
+      ],
+      note:"" },
+    { label:"Point 1 — Le choix stratégique de résidence rend la voiture inutile", timing:"~1 min", nuance:false, wc:"~78 mots ✓",
+      textHtml:[
+        `Tout d'abord, <span class="hl-pink">vivre sans voiture est tout à fait possible à condition de choisir stratégiquement son lieu de résidence.</span>`,
+        `En s'installant près d'une station de métro ou d'un arrêt de bus, et à proximité des commerces et des loisirs, la plupart des besoins quotidiens peuvent être couverts sans véhicule personnel.`,
+        `De ce fait, <span class="hl-pink">ce choix de vie planifié élimine la grande majorité des obstacles liés à l'absence de voiture,</span> et permet de se déplacer de façon autonome et efficace au quotidien.`
+      ],
+      note:"💬 <em>à condition de + infinitif</em> = provided that (C1) · <em>à proximité de</em> = in the vicinity of · <em>de façon autonome</em> = independently" },
+    { label:"Point 2 — Posséder une voiture représente une lourde charge financière", timing:"~1 min", nuance:false, wc:"~77 mots ✓",
+      textHtml:[
+        `De plus, <span class="hl-pink">se passer de voiture permet de réaliser des économies considérables.</span>`,
+        `En effet, entre l'assurance, l'essence, l'entretien et le stationnement, les dépenses s'accumulent rapidement d'une année à l'autre.`,
+        `Pour beaucoup de ménages, se passer de voiture et utiliser les transports en commun permet de réaliser des économies substantielles. <span class="hl-pink">Ce budget peut alors être réalloué à d'autres priorités essentielles,</span> comme le logement ou l'éducation, ce qui améliore la qualité de vie de façon durable.`
+      ],
+      note:"💬 <em>s'accumulent rapidement</em> = add up quickly · <em>réallouer</em> = to reallocate (C1) · <em>de façon durable</em> = in a lasting way" },
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~67 mots ✓",
+      textHtml:[
+        `Il est certes vrai que <span class="hl-blue">dans certaines régions du Canada, le climat rigoureux et les grandes distances rendent la vie sans voiture beaucoup plus difficile.</span>`,
+        `Dans les zones rurales ou les villes moins bien desservies par les transports en commun, l'accès aux services essentiels — comme les hôpitaux ou les grandes surfaces — peut devenir très limité, voire impossible, sans véhicule personnel.`
+      ],
+      note:"💬 <em>voire impossible</em> = or even impossible (C1 emphase) · <em>desservi par</em> = served by · <em>les zones rurales</em> = rural areas" },
+    { label:"Conclusion", timing:"~50s", nuance:false,
+      textHtml:[
+        `En conclusion, bien que <span class="hl-blue">certaines régions présentent certains inconvénients, comme le manque de desserte dans les zones éloignées,</span> il n'en demeure pas moins que les avantages sont indéniables, comme <span class="hl-pink">les économies financières et la liberté de déplacement.</span>`,
+        `Tout bien considéré, il serait souhaitable que <span class="hl-p1">les individus évaluent leur situation personnelle et envisagent de recourir occasionnellement au taxi ou à des services comme Uber,</span> afin qu'ils puissent se déplacer librement sans dépendre d'un véhicule personnel.`,
+        `Merci pour votre attention.`
+      ],
+      note:"" }
+  ]
+};
+
+const scriptB = {
+  header: "❎ Position B — NON, la voiture reste indispensable",
+  headerClass:"card-header-blue", titleClass:"card-title-blue",
+  badge:"Plus ardu", badgeClass:"badge-hard",
+  posKey:"posB",
+  blocks:[
+    { label:"Introduction", timing:"~40s", nuance:false,
+      textHtml:[
+        `Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander s'il est vraiment possible de vivre sans voiture de nos jours, et les avis sont mitigés.`,
+        `Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">la voiture reste indispensable pour la grande majorité des gens</span> à un certain point.`,
+        `Alors, je vais expliquer mes raisons.`
+      ],
+      note:"" },
+    { label:"Point 1 — Le climat canadien rend les déplacements sans voiture très difficiles", timing:"~1 min", nuance:false, wc:"~76 mots ✓",
+      textHtml:[
+        `Tout d'abord, <span class="hl-pink">le climat canadien est extrêmement rigoureux pendant six à sept mois par année.</span>`,
+        `Attendre un autobus par -20°C présente des risques réels pour la santé, et transporter ses courses ou ses bagages dans ces conditions est très pénible.`,
+        `De plus, la voiture est indispensable pour découvrir la nature autour de Calgary. Des destinations comme Banff ou Canmore ne sont accessibles en transports en commun qu'à des horaires très limités, voire pas du tout. <span class="hl-pink">De ce fait, sans voiture, de nombreux parcs et sentiers de randonnée restent tout simplement hors de portée.</span>`
+      ],
+      note:"💬 <em>pénible</em> = painful, arduous · <em>précieux</em> = precious, valuable · <em>présente des risques réels pour</em> = presents real risks for (C1)" },
+    { label:"Point 2 — Le manque de connectivité restreint directement les opportunités d'emploi", timing:"~1 min", nuance:false, wc:"~79 mots ✓",
+      textHtml:[
+        `De plus, <span class="hl-pink">dans de nombreuses villes, les transports en commun ne desservent pas suffisamment les zones où se concentrent les emplois.</span>`,
+        `Un trajet de 15 minutes en voiture peut facilement devenir une heure en bus, ce qui rend la vie professionnelle difficile à gérer.`,
+        `Par ailleurs, beaucoup d'emplois exigent explicitement un permis de conduire ou un véhicule personnel. De ce fait, <span class="hl-pink">sans voiture, le choix d'emploi devient restreint,</span> ce qui peut freiner la progression professionnelle et réduire les opportunités économiques.`
+      ],
+      note:"💬 <em>se concentrent</em> = are concentrated · <em>exiger explicitement</em> = to explicitly require · <em>freiner la progression</em> = to hinder career advancement (C1)" },
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~66 mots ✓",
+      textHtml:[
+        `Il est certes vrai que <span class="hl-blue">la voiture contribue de façon significative aux émissions de CO₂.</span>`,
+        `Dans un contexte de changement climatique, cette dépendance a un coût environnemental réel que <span class="hl-blue">les gouvernements devront affronter à long terme.</span>`
+      ],
+      note:"💬 <em>de façon significative</em> = significantly · <em>indéfiniment</em> = indefinitely · <em>soulève une question</em> = raises a question (C1)" },
+    { label:"Conclusion", timing:"~50s", nuance:false,
+      textHtml:[
+        `En conclusion, bien que <span class="hl-blue">la voiture présente certains inconvénients, comme le risque de pollution et l'excès d'émissions de CO₂,</span> il n'en demeure pas moins que les avantages, comme <span class="hl-pink">le gain de temps et l'accès à l'emploi,</span> sont indéniables.`,
+        `Tout bien considéré, il serait souhaitable que <span class="hl-p1">les gens envisagent d'acheter ou de garder une voiture</span> comme un outil essentiel à leur qualité de vie.`,
+        `Merci pour votre attention.`
+      ],
+      note:"" }
+  ]
+};
+
+// ── Card builder ─────────────────────────────────────────────────────
+function buildCard(s){
+  const blocks = s.blocks.map((b, i) => {
+    const paras = b.textHtml.map(html => `<div class="para-wrap"><p>${html}</p></div>`).join('');
+    return `
+      <div class="block ${b.nuance?'block-nuance':''}">
+        <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+        <div class="script-text">${paras}</div>
+        ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
+        ${b.wc   ? `<div class="wc">${b.wc}</div>` : ''}
+      </div>`;
+  }).join('');
+
+  return `<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;
+}
+
+document.getElementById('bothGrid').innerHTML  = buildCard(scriptA) + buildCard(scriptB);
+document.getElementById('posAGrid').innerHTML  = buildCard(scriptA);
+document.getElementById('posBGrid').innerHTML  = buildCard(scriptB);
+
+function showTab(id, btn){
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
