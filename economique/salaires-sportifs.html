@@ -96,6 +96,27 @@
   .adj-fr{font-weight:500;}
   .adj-en{color:var(--text-soft);font-size:12px;}
 
+  /* ── Stage pill toggle ── */
+  .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
+  .stage-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:3px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);cursor:pointer;transition:all .15s;}
+  .stage-btn:hover{border-color:var(--accent);color:var(--text);}
+  .stage-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500;}
+
+  /* ── Hidden word mechanic ── */
+  .h{color:#fff;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;text-decoration-thickness:1px;}
+  .hl-pink .h{color:var(--pink-bg);text-decoration-color:#e8b4c4;}
+  .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
+  .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
+
+  /* ── Stage content visibility ── */
+  .stage-content{display:none;}
+  .stage-content.active{display:block;}
+
+  /* ── Para wrap ── */
+  .para-wrap{position:relative;margin-bottom:10px;}
+  .para-wrap:last-child{margin-bottom:0;}
+  .para-wrap p{margin-bottom:0;}
+
   .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
   .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
@@ -129,7 +150,260 @@
 
 <div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
 <div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
-<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+<!-- Position B with stage toggle -->
+<div id="posB" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-blue">
+        <div class="card-title card-title-blue">❌ Position B — NON, ces salaires ne sont pas excessifs</div>
+        <span class="stance-badge badge-easy">Plus facile à défendre</span>
+      </div>
+      <div class="stage-toggle">
+        <button class="stage-btn active" onclick="showStage('sb0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('sb1',this)">Étape 1</button>
+        <button class="stage-btn" onclick="showStage('sb2',this)">Étape 2</button>
+        <button class="stage-btn" onclick="showStage('sb3',this)">Étape 3</button>
+      </div>
+
+      <!-- COMPLET -->
+      <div id="sb0" class="stage-content active">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si les salaires des sportifs professionnels sont vraiment excessifs ou s'ils reflètent simplement la réalité économique du sport</span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">ces salaires ne sont pas excessifs, à un certain point.</span></p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Lois du marché <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">ces salaires sont le résultat direct des lois du marché.</span></p></div>
+            <div class="para-wrap"><p>En effet, les grands clubs sportifs génèrent des milliards de dollars grâce aux droits télévisés, aux sponsors et aux billets vendus.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">les sportifs ne font que recevoir leur juste part de la valeur marchande qu'ils créent eux-mêmes,</span> à l'image de n'importe quel professionnel dont le talent attire des investissements considérables.</p></div>
+          </div>
+          <div class="en-note">💬 <em>les lois du marché</em> = the laws of the market · <em>ne faire que</em> = to simply do (restrictive C1) · <em>à l'image de</em> = just like · <em>valeur marchande</em> = market value</div>
+          <div class="wc">~76 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Pression psychologique et médiatique <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">ces salaires sont proportionnels à la pression médiatique immense que subissent ces athlètes au quotidien.</span></p></div>
+            <div class="para-wrap"><p>Contrairement à d'autres professionnels, ils sont exposés en permanence au jugement public sous les projecteurs. <span class="hl-pink">Prenons l'exemple des Jeux Olympiques, où la moindre contre-performance d'un favori déclenche immédiatement une vague de critiques virulentes sur les réseaux sociaux.</span></p></div>
+            <div class="para-wrap"><p>Cette pression constante peut nuire à leur santé mentale, ce qui justifie une compensation financière à la hauteur de ce sacrifice.</p></div>
+          </div>
+          <div class="en-note">💬 <em>subir</em> = to undergo · <em>sous les projecteurs</em> = under the spotlight · <em>la moindre contre-performance</em> = the slightest underperformance · <em>une vague de critiques virulentes</em> = a wave of virulent criticism · <em>à la hauteur de</em> = commensurate with</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 3 — Rayonnement national et retombées économiques <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Qui plus est, <span class="hl-pink">il ne faut pas négliger le fait que les grands athlètes sont bien plus que de simples sportifs : ils sont de véritables ambassadeurs de leur pays sur la scène internationale.</span></p></div>
+            <div class="para-wrap"><p>En effet, des joueurs comme Lionel Messi pour l'Argentine ou Cristiano Ronaldo pour le Portugal incarnent l'identité nationale et suscitent une fierté collective qui dépasse largement le cadre du sport.</p></div>
+            <div class="para-wrap"><p>Par ailleurs, <span class="hl-pink">leur rayonnement mondial génère des retombées économiques considérables,</span> notamment en matière de tourisme, de ventes de maillots et de partenariats commerciaux. De ce fait, leur salaire élevé reflète non seulement leur valeur sportive, mais aussi leur contribution économique et symbolique à toute une nation.</p></div>
+          </div>
+          <div class="en-note">💬 <em>qui plus est</em> = what's more (C1) · <em>rayonnement</em> = influence, reach · <em>retombées économiques</em> = economic spinoffs (C1) · <em>incarner</em> = to embody · <em>dépasser le cadre de</em> = to go beyond the scope of</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que <span class="hl-blue">les revenus élevés des athlètes peuvent être considérés comme injustifiés et créer un sentiment d'inconfort chez d'autres travailleurs, comme les enseignants et les infirmiers,</span> particulièrement parce qu'ils considèrent que sauver des vies ou former les générations futures est plus important que de montrer sa force et ses muscles ou courir derrière un ballon,</p></div>
+            <div class="para-wrap"><p>et pourtant <span class="hl-blue">ils reçoivent une fraction de ce que gagne un footballeur, ce qui reste difficile à justifier sur le plan humain et moral.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>en revanche</em> = on the other hand · <em>un sentiment d'inconfort</em> = a feeling of unease · <em>considérés comme</em> = regarded as · <em>sur le plan humain et moral</em> = on a human and moral level</div>
+          <div class="wc">~66 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">cet écart salarial entre les sportifs professionnels et les autres</span> présente certaines <span class="hl-blue">limites</span>, notamment <span class="hl-blue">le sentiment d'injustice</span> qu'il génère dans la société, il n'en demeure pas moins que <span class="hl-pink">les fondements de cette rémunération sont incontestables,</span> comme <span class="hl-pink">le reflet de la valeur marchande et la compensation de la pression subie.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les sportifs vedettes s'impliquent davantage dans des œuvres caritatives ou financent des infrastructures locales, afin de restituer une partie de leur fortune à la collectivité.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les sportifs s'impliquent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>restituer</em> = to give back</div>
+        </div>
+      </div><!-- /sb0 -->
+
+      <!-- ÉTAPE 1 — individual content words hidden -->
+      <div id="sb1" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si les salaires des sportifs professionnels sont vraiment <span class="h">excessifs</span> ou s'ils reflètent simplement la <span class="h">réalité économique</span> du sport</span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">ces salaires ne sont pas <span class="h">excessifs</span>, à un certain point.</span></p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Lois du marché <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">ces salaires sont le résultat direct des <span class="h">lois du marché</span>.</span></p></div>
+            <div class="para-wrap"><p>En effet, les grands clubs sportifs génèrent des milliards de dollars grâce aux <span class="h">droits télévisés</span>, aux sponsors et aux billets vendus.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">les sportifs ne font que recevoir leur juste part de la <span class="h">valeur marchande</span> qu'ils créent eux-mêmes,</span> <span class="h">à l'image de</span> n'importe quel professionnel dont le talent attire des investissements considérables.</p></div>
+          </div>
+          <div class="en-note">💬 <em>les lois du marché</em> = the laws of the market · <em>ne faire que</em> = to simply do (restrictive C1) · <em>à l'image de</em> = just like · <em>valeur marchande</em> = market value</div>
+          <div class="wc">~76 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Pression psychologique et médiatique <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">ces salaires sont proportionnels à la pression <span class="h">médiatique</span> immense que <span class="h">subissent</span> ces athlètes au quotidien.</span></p></div>
+            <div class="para-wrap"><p>Contrairement à d'autres professionnels, ils sont exposés en permanence au jugement public <span class="h">sous les projecteurs</span>. <span class="hl-pink">Prenons l'exemple des Jeux Olympiques, où <span class="h">la moindre contre-performance</span> d'un favori déclenche immédiatement une vague de critiques <span class="h">virulentes</span> sur les réseaux sociaux.</span></p></div>
+            <div class="para-wrap"><p>Cette pression constante peut nuire à leur santé mentale, ce qui justifie une compensation financière <span class="h">à la hauteur de</span> ce sacrifice.</p></div>
+          </div>
+          <div class="en-note">💬 <em>subir</em> = to undergo · <em>sous les projecteurs</em> = under the spotlight · <em>la moindre contre-performance</em> = the slightest underperformance · <em>une vague de critiques virulentes</em> = a wave of virulent criticism · <em>à la hauteur de</em> = commensurate with</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 3 — Rayonnement national et retombées économiques <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Qui plus est, <span class="hl-pink">il ne faut pas négliger le fait que les grands athlètes sont bien plus que de simples sportifs : ils sont de véritables <span class="h">ambassadeurs</span> de leur pays sur la scène internationale.</span></p></div>
+            <div class="para-wrap"><p>En effet, des joueurs comme Lionel Messi pour l'Argentine ou Cristiano Ronaldo pour le Portugal <span class="h">incarnent</span> l'identité nationale et <span class="h">suscitent</span> une fierté collective qui <span class="h">dépasse largement</span> le cadre du sport.</p></div>
+            <div class="para-wrap"><p>Par ailleurs, <span class="hl-pink">leur <span class="h">rayonnement</span> mondial génère des <span class="h">retombées économiques</span> considérables,</span> notamment en matière de tourisme, de ventes de maillots et de partenariats commerciaux. De ce fait, leur salaire élevé reflète non seulement leur valeur sportive, mais aussi leur contribution économique et <span class="h">symbolique</span> à toute une nation.</p></div>
+          </div>
+          <div class="en-note">💬 <em>qui plus est</em> = what's more (C1) · <em>rayonnement</em> = influence, reach · <em>retombées économiques</em> = economic spinoffs (C1) · <em>incarner</em> = to embody · <em>dépasser le cadre de</em> = to go beyond the scope of</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que <span class="hl-blue">les revenus élevés des athlètes peuvent être considérés comme injustifiés et créer un <span class="h">sentiment d'inconfort</span> chez d'autres travailleurs, comme les enseignants et les infirmiers,</span> particulièrement parce qu'ils considèrent que sauver des vies ou former les générations futures est plus important que de montrer sa force et ses muscles ou courir derrière un ballon,</p></div>
+            <div class="para-wrap"><p>et pourtant <span class="hl-blue">ils reçoivent une fraction de ce que gagne un footballeur, ce qui reste difficile à justifier <span class="h">sur le plan humain et moral</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>en revanche</em> = on the other hand · <em>un sentiment d'inconfort</em> = a feeling of unease · <em>considérés comme</em> = regarded as · <em>sur le plan humain et moral</em> = on a human and moral level</div>
+          <div class="wc">~66 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">cet écart salarial entre les sportifs professionnels et les autres</span> présente certaines <span class="hl-blue">limites</span>, notamment <span class="hl-blue">le sentiment d'injustice</span> qu'il génère dans la société, il n'en demeure pas moins que <span class="hl-pink">les fondements de cette <span class="h">rémunération</span> sont <span class="h">incontestables</span>,</span> comme <span class="hl-pink">le reflet de la valeur marchande et la compensation de la pression subie.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les sportifs vedettes s'<span class="h">impliquent</span> davantage dans des œuvres <span class="h">caritatives</span> ou financent des <span class="h">infrastructures</span> locales, afin de <span class="h">restituer</span> une partie de leur fortune à la <span class="h">collectivité</span>.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les sportifs s'impliquent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>restituer</em> = to give back</div>
+        </div>
+      </div><!-- /sb1 -->
+
+      <!-- ÉTAPE 2 — more words + verbs + full expressions hidden -->
+      <div id="sb2" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink"><span class="h">si les salaires des sportifs professionnels sont vraiment excessifs</span> ou s'ils reflètent simplement <span class="h">la réalité économique du sport</span></span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink"><span class="h">ces salaires ne sont pas excessifs</span>, à un certain point.</span></p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Lois du marché <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">ces salaires sont le résultat direct des lois du marché.</span></p></div>
+            <div class="para-wrap"><p>En effet, les grands clubs sportifs <span class="h">génèrent des milliards de dollars</span> grâce aux droits télévisés, aux sponsors et aux billets vendus.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">les sportifs <span class="h">ne font que recevoir leur juste part</span> de la valeur marchande qu'ils <span class="h">créent eux-mêmes</span>,</span> à l'image de n'importe quel professionnel dont le talent <span class="h">attire des investissements considérables</span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>les lois du marché</em> = the laws of the market · <em>ne faire que</em> = to simply do (restrictive C1) · <em>à l'image de</em> = just like · <em>valeur marchande</em> = market value</div>
+          <div class="wc">~76 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Pression psychologique et médiatique <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">ces salaires sont proportionnels à la pression médiatique immense que subissent ces athlètes au quotidien.</span></p></div>
+            <div class="para-wrap"><p>Contrairement à d'autres professionnels, <span class="h">ils sont exposés en permanence au jugement public</span> sous les projecteurs. <span class="hl-pink">Prenons l'exemple des Jeux Olympiques, où <span class="h">la moindre contre-performance d'un favori déclenche immédiatement une vague de critiques virulentes sur les réseaux sociaux</span>.</span></p></div>
+            <div class="para-wrap"><p>Cette pression constante <span class="h">peut nuire à leur santé mentale</span>, ce qui justifie une compensation financière à la hauteur de ce sacrifice.</p></div>
+          </div>
+          <div class="en-note">💬 <em>subir</em> = to undergo · <em>sous les projecteurs</em> = under the spotlight · <em>la moindre contre-performance</em> = the slightest underperformance · <em>une vague de critiques virulentes</em> = a wave of virulent criticism · <em>à la hauteur de</em> = commensurate with</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 3 — Rayonnement national et retombées économiques <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Qui plus est, <span class="hl-pink">il ne faut pas négliger le fait que <span class="h">les grands athlètes sont bien plus que de simples sportifs</span> : ils sont de véritables ambassadeurs de leur pays sur la scène internationale.</span></p></div>
+            <div class="para-wrap"><p>En effet, des joueurs comme Lionel Messi pour l'Argentine ou Cristiano Ronaldo pour le Portugal <span class="h">incarnent l'identité nationale</span> et <span class="h">suscitent une fierté collective qui dépasse largement le cadre du sport</span>.</p></div>
+            <div class="para-wrap"><p>Par ailleurs, <span class="hl-pink">leur rayonnement mondial <span class="h">génère des retombées économiques considérables</span>,</span> notamment en matière de tourisme, de ventes de maillots et de partenariats commerciaux. De ce fait, leur salaire élevé reflète non seulement leur valeur sportive, mais aussi <span class="h">leur contribution économique et symbolique à toute une nation</span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>qui plus est</em> = what's more (C1) · <em>rayonnement</em> = influence, reach · <em>retombées économiques</em> = economic spinoffs (C1) · <em>incarner</em> = to embody · <em>dépasser le cadre de</em> = to go beyond the scope of</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que <span class="hl-blue">les revenus élevés des athlètes peuvent être considérés comme injustifiés et <span class="h">créer un sentiment d'inconfort chez d'autres travailleurs, comme les enseignants et les infirmiers</span>,</span> particulièrement parce qu'ils considèrent que <span class="h">sauver des vies ou former les générations futures est plus important que de montrer sa force et ses muscles ou courir derrière un ballon</span>,</p></div>
+            <div class="para-wrap"><p>et pourtant <span class="hl-blue"><span class="h">ils reçoivent une fraction de ce que gagne un footballeur</span>, ce qui reste difficile à justifier sur le plan humain et moral.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>en revanche</em> = on the other hand · <em>un sentiment d'inconfort</em> = a feeling of unease · <em>considérés comme</em> = regarded as · <em>sur le plan humain et moral</em> = on a human and moral level</div>
+          <div class="wc">~66 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue"><span class="h">cet écart salarial</span> entre les sportifs professionnels et les autres</span> présente certaines <span class="hl-blue">limites</span>, notamment <span class="hl-blue"><span class="h">le sentiment d'injustice</span></span> qu'il génère dans la société, il n'en demeure pas moins que <span class="hl-pink">les fondements de cette rémunération sont <span class="h">incontestables</span>,</span> comme <span class="hl-pink"><span class="h">le reflet de la valeur marchande</span> et <span class="h">la compensation de la pression subie</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1"><span class="h">les sportifs vedettes s'impliquent davantage dans des œuvres caritatives ou financent des infrastructures locales, afin de restituer une partie de leur fortune à la collectivité</span>.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les sportifs s'impliquent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>restituer</em> = to give back</div>
+        </div>
+      </div><!-- /sb2 -->
+
+      <!-- ÉTAPE 3 — whole phrases and clauses hidden; highlighted anchors visible -->
+      <div id="sb3" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink"><span class="h">si les salaires des sportifs professionnels sont vraiment excessifs ou s'ils reflètent simplement la réalité économique du sport</span></span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink"><span class="h">ces salaires ne sont pas excessifs, à un certain point.</span></span></p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Lois du marché <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">ces salaires sont le résultat direct des lois du marché.</span></p></div>
+            <div class="para-wrap"><p>En effet, <span class="h">les grands clubs sportifs génèrent des milliards de dollars grâce aux droits télévisés, aux sponsors et aux billets vendus.</span></p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">les sportifs ne font que recevoir leur juste part de la valeur marchande qu'ils créent eux-mêmes,</span> <span class="h">à l'image de n'importe quel professionnel dont le talent attire des investissements considérables.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>les lois du marché</em> = the laws of the market · <em>ne faire que</em> = to simply do (restrictive C1) · <em>à l'image de</em> = just like · <em>valeur marchande</em> = market value</div>
+          <div class="wc">~76 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Pression psychologique et médiatique <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">ces salaires sont proportionnels à la pression médiatique immense que subissent ces athlètes au quotidien.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Contrairement à d'autres professionnels, ils sont exposés en permanence au jugement public sous les projecteurs.</span> <span class="hl-pink">Prenons l'exemple des Jeux Olympiques, où la moindre contre-performance d'un favori déclenche immédiatement une vague de critiques virulentes sur les réseaux sociaux.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Cette pression constante peut nuire à leur santé mentale, ce qui justifie une compensation financière à la hauteur de ce sacrifice.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>subir</em> = to undergo · <em>sous les projecteurs</em> = under the spotlight · <em>la moindre contre-performance</em> = the slightest underperformance · <em>une vague de critiques virulentes</em> = a wave of virulent criticism · <em>à la hauteur de</em> = commensurate with</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 3 — Rayonnement national et retombées économiques <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Qui plus est, <span class="hl-pink">il ne faut pas négliger le fait que les grands athlètes sont bien plus que de simples sportifs : ils sont de véritables ambassadeurs de leur pays sur la scène internationale.</span></p></div>
+            <div class="para-wrap"><p><span class="h">En effet, des joueurs comme Lionel Messi pour l'Argentine ou Cristiano Ronaldo pour le Portugal incarnent l'identité nationale et suscitent une fierté collective qui dépasse largement le cadre du sport.</span></p></div>
+            <div class="para-wrap"><p>Par ailleurs, <span class="hl-pink">leur rayonnement mondial génère des retombées économiques considérables,</span> <span class="h">notamment en matière de tourisme, de ventes de maillots et de partenariats commerciaux. De ce fait, leur salaire élevé reflète non seulement leur valeur sportive, mais aussi leur contribution économique et symbolique à toute une nation.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>qui plus est</em> = what's more (C1) · <em>rayonnement</em> = influence, reach · <em>retombées économiques</em> = economic spinoffs (C1) · <em>incarner</em> = to embody · <em>dépasser le cadre de</em> = to go beyond the scope of</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que <span class="hl-blue">les revenus élevés des athlètes peuvent être considérés comme injustifiés et créer un sentiment d'inconfort chez d'autres travailleurs, comme les enseignants et les infirmiers,</span> <span class="h">particulièrement parce qu'ils considèrent que sauver des vies ou former les générations futures est plus important que de montrer sa force et ses muscles ou courir derrière un ballon,</span></p></div>
+            <div class="para-wrap"><p>et pourtant <span class="hl-blue"><span class="h">ils reçoivent une fraction de ce que gagne un footballeur,</span> ce qui reste difficile à justifier sur le plan humain et moral.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>en revanche</em> = on the other hand · <em>un sentiment d'inconfort</em> = a feeling of unease · <em>considérés comme</em> = regarded as · <em>sur le plan humain et moral</em> = on a human and moral level</div>
+          <div class="wc">~66 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">cet écart salarial entre les sportifs professionnels et les autres</span> présente certaines <span class="hl-blue">limites</span>, notamment <span class="hl-blue">le sentiment d'injustice</span> qu'il génère dans la société, il n'en demeure pas moins que <span class="hl-pink">les fondements de cette rémunération sont incontestables,</span> comme <span class="hl-pink"><span class="h">le reflet de la valeur marchande et la compensation de la pression subie</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1"><span class="h">les sportifs vedettes s'impliquent davantage dans des œuvres caritatives ou financent des infrastructures locales, afin de restituer une partie de leur fortune à la collectivité</span>.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les sportifs s'impliquent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>restituer</em> = to give back</div>
+        </div>
+      </div><!-- /sb3 -->
+
+    </div><!-- /script-card -->
+  </div><!-- /single-view -->
+</div><!-- /posB -->
 
 <!-- WORD LIST -->
 <div id="words" class="content">
@@ -338,11 +612,16 @@ function buildCard(s){
 
 document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
 document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
-document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
 
 function showTab(id,btn){
   document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');}
+
+function showStage(id,btn){
+  document.querySelectorAll('.stage-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.stage-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');}
 </script>
