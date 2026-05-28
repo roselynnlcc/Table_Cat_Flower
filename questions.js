@@ -120,7 +120,7 @@ const TCF_QUESTIONS = [
   id: 14,
   cat: 'technologie',
   question: 'Le télétravail permet-il réellement de mieux concilier la vie professionnelle et la vie personnelle ? Qu\'en pensez-vous ?',
-  scriptUrl: 'travail/teletravail_equilibre.html',
+  scriptUrl: 'technologie/teletravail_equilibre.html',
   date: '2026-05-13',
   stars: 1,
   status: "À faire"
