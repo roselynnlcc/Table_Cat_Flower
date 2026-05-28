@@ -32,7 +32,7 @@
   /* TABS */
   .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
   .tab-nav::-webkit-scrollbar{display:none;}
-  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn{padding:10px 10px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
   .tab-btn:hover{color:var(--text);background:var(--surface2);}
   .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
 
@@ -123,6 +123,27 @@
   .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
   .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
   .chunk-note{font-size:11px;color:var(--text-muted);}
+
+  /* ── Para wrap ── */
+  .para-wrap{position:relative;margin-bottom:10px;}
+  .para-wrap:last-child{margin-bottom:0;}
+  .para-wrap p{margin-bottom:0;}
+
+  /* ── Stage pill toggle ── */
+  .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
+  .stage-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:3px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);cursor:pointer;transition:all .15s;}
+  .stage-btn:hover{border-color:var(--accent);color:var(--text);}
+  .stage-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500;}
+
+  /* ── Hidden word mechanic ── */
+  .h{color:#fff;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;text-decoration-thickness:1px;}
+  .hl-pink .h{color:var(--pink-bg);text-decoration-color:#e8b4c4;}
+  .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
+  .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
+
+  /* ── Stage content visibility ── */
+  .stage-content{display:none;}
+  .stage-content.active{display:block;}
 </style>
 </head>
 <body>
@@ -135,13 +156,197 @@
 
 <nav class="tab-nav">
   <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
-  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">🎯 Position A 🎯</button>
   <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
   <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
 </nav>
 
 <div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
-<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+<div id="posA" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-green">
+        <div class="card-title card-title-green">✅ Position A — OUI, le télétravail aide à concilier vie pro et vie perso</div>
+        <span class="stance-badge badge-easy">Plus facile à défendre</span>
+      </div>
+      <div class="stage-toggle">
+        <button class="stage-btn active" onclick="showStage('s0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('s1',this)">Étape 1</button>
+        <button class="stage-btn" onclick="showStage('s2',this)">Étape 2</button>
+        <button class="stage-btn" onclick="showStage('s3',this)">Étape 3</button>
+      </div>
+
+      <!-- COMPLET -->
+      <div id="s0" class="stage-content active">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si le télétravail permet réellement de mieux concilier la vie professionnelle et la vie personnelle et les avis sont mitigés. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que le télétravail <span class="hl-pink">contribue à un meilleur</span> équilibre, à un certain point. Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Gain de temps sur les trajets <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que le télétravail élimine les trajets <span class="hl-pink">domicile-bureau</span>, ce qui <span class="hl-pink">libère</span> chaque semaine plusieurs heures que les travailleurs peuvent <span class="hl-pink">consacrer à</span> leur famille, à leurs loisirs ou à leur santé. Dans une ville comme Calgary, où les trajets peuvent <span class="hl-pink">dépasser</span> une heure par jour, ce <span class="hl-pink">gain</span> de temps est particulièrement <span class="hl-pink">concret</span>. De ce fait, la qualité de vie <span class="hl-pink">s'améliore</span> directement, <strong>sans que</strong> l'employé <span class="hl-pink">ait à changer</span> son rythme de travail.</p></div>
+          </div>
+          <div class="en-note">💬 <em>consacrer à</em> = to devote to · <em>un gain de temps</em> = a time saving · <em>sans que + subjonctif</em> = without (C1 structure)</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Gestion des responsabilités familiales <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En plus, le télétravail permet aux parents de mieux <span class="hl-pink">gérer</span> les responsabilités familiales <strong>sans</strong> <span class="hl-pink">sacrifier</span> leur carrière. Être présent à la maison facilite la coordination <span class="hl-pink">du quotidien</span> : récupérer les enfants à l'école, gérer un <span class="hl-pink">imprévu</span> ou préparer un repas en famille. Par ailleurs, cette flexibilité bénéficie particulièrement aux femmes, qui portent encore aujourd'hui une part plus importante des tâches <span class="hl-pink">domestiques</span>, en leur permettant de <span class="hl-pink">jongler</span> entre les deux sphères avec moins de <span class="hl-pink">pression</span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>jongler entre</em> = to juggle between · <em>les tâches domestiques</em> = domestic tasks · <em>la sphère</em> = sphere, domain</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que le télétravail peut engendrer un sentiment d'<span class="hl-blue">isolement</span> chez certains employés. <strong>Sans</strong> les interactions <span class="hl-blue">sociales</span> du bureau, c'est-à-dire les échanges <span class="hl-blue">informels</span>, l'entraide spontanée ou le simple fait de partager un repas avec des collègues, certains travailleurs se sentent <span class="hl-blue">coupés</span> de leur équipe.</p></div>
+          </div>
+          <div class="en-note">💬 <em>engendrer</em> = to generate, cause · <em>être coupé de</em> = to be cut off from · <em>c'est-à-dire</em> = that is to say (spoken clarifier)</div>
+          <div class="wc">~52 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que le télétravail puisse provoquer certains inconvénients, comme le <span class="hl-blue">risque d'isolement</span>, il n'en demeure pas moins que les avantages sont indéniables, comme le <span class="hl-pink">gain</span> de temps et le <span class="hl-pink">renforcement</span> de la vie familiale.</p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que les entreprises proposent le télétravail comme une option <span class="hl-p1">flexible</span> plutôt qu'une <span class="hl-p1">obligation</span>, et qu'elles organisent régulièrement des activités <span class="hl-p1">collectives</span> afin que les employés maintiennent un sentiment d'appartenance à leur équipe.</p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /s0 -->
+
+      <!-- ÉTAPE 1 -->
+      <div id="s1" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si <span class="hl-pink"><span class="h">le télétravail permet réellement de mieux concilier la vie professionnelle et la vie personnelle</span></span> et les avis sont mitigés. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que le télétravail <span class="hl-pink">contribue à <span class="h">un meilleur</span></span> équilibre, à un certain point. Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Gain de temps sur les trajets <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que le télétravail élimine les trajets <span class="hl-pink"><span class="h">domicile-bureau</span></span>, ce qui <span class="hl-pink"><span class="h">libère</span></span> chaque semaine plusieurs heures que les travailleurs peuvent <span class="hl-pink"><span class="h">consacrer à</span></span> leur famille, à leurs loisirs ou à leur santé. Dans une ville comme Calgary, où les trajets peuvent <span class="hl-pink"><span class="h">dépasser</span></span> une heure par jour, ce <span class="hl-pink"><span class="h">gain</span></span> de temps est particulièrement <span class="hl-pink"><span class="h">concret</span></span>. De ce fait, la qualité de vie <span class="hl-pink"><span class="h">s'améliore</span></span> directement, <strong>sans que</strong> l'employé <span class="hl-pink"><span class="h">ait à changer</span></span> son rythme de travail.</p></div>
+          </div>
+          <div class="en-note">💬 <em>consacrer à</em> = to devote to · <em>un gain de temps</em> = a time saving · <em>sans que + subjonctif</em> = without (C1 structure)</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Gestion des responsabilités familiales <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En plus, le télétravail permet aux parents de mieux <span class="hl-pink"><span class="h">gérer</span></span> les responsabilités familiales <strong>sans</strong> <span class="hl-pink"><span class="h">sacrifier</span></span> leur carrière. Être présent à la maison facilite la coordination <span class="hl-pink"><span class="h">du quotidien</span></span> : récupérer les enfants à l'école, gérer un <span class="hl-pink"><span class="h">imprévu</span></span> ou préparer un repas en famille. Par ailleurs, cette flexibilité bénéficie particulièrement aux femmes, qui portent encore aujourd'hui une part plus importante des tâches <span class="hl-pink"><span class="h">domestiques</span></span>, en leur permettant de <span class="hl-pink"><span class="h">jongler</span></span> entre les deux sphères avec moins de <span class="hl-pink"><span class="h">pression</span></span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>jongler entre</em> = to juggle between · <em>les tâches domestiques</em> = domestic tasks · <em>la sphère</em> = sphere, domain</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que le télétravail peut engendrer un sentiment d'<span class="hl-blue"><span class="h">isolement</span></span> chez certains employés. <strong>Sans</strong> les interactions <span class="hl-blue"><span class="h">sociales</span></span> du bureau, c'est-à-dire les échanges <span class="hl-blue"><span class="h">informels</span></span>, l'entraide spontanée ou le simple fait de partager un repas avec des collègues, certains travailleurs se sentent <span class="hl-blue"><span class="h">coupés</span></span> de leur équipe.</p></div>
+          </div>
+          <div class="en-note">💬 <em>engendrer</em> = to generate, cause · <em>être coupé de</em> = to be cut off from · <em>c'est-à-dire</em> = that is to say (spoken clarifier)</div>
+          <div class="wc">~52 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que le télétravail puisse <span class="hl-blue"><span class="h">provoquer</span></span> certains inconvénients, comme le risque d'isolement, il n'en demeure pas moins que les avantages sont indéniables, comme le <span class="hl-pink"><span class="h">gain</span></span> de temps et le <span class="hl-pink"><span class="h">renforcement</span></span> de la vie familiale.</p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que les entreprises proposent le télétravail comme une option <span class="hl-p1"><span class="h">flexible</span></span> plutôt qu'une <span class="hl-p1"><span class="h">obligation</span></span>, et qu'elles organisent régulièrement des activités <span class="hl-p1"><span class="h">collectives</span></span> afin que les employés maintiennent un sentiment d'appartenance à leur équipe.</p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /s1 -->
+
+      <!-- ÉTAPE 2 -->
+      <div id="s2" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si <span class="hl-pink"><span class="h">le télétravail permet réellement de mieux concilier la vie professionnelle et la vie personnelle</span></span> et les avis sont mitigés. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que le télétravail contribue à <span class="hl-pink"><span class="h">un meilleur équilibre</span></span>, à un certain point. Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Gain de temps sur les trajets <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que le télétravail élimine <span class="hl-pink"><span class="h">les trajets domicile-bureau</span></span>, ce qui libère <span class="hl-pink"><span class="h">chaque semaine plusieurs heures</span></span> que les travailleurs peuvent <span class="hl-pink"><span class="h">consacrer à</span></span> leur <span class="hl-pink"><span class="h">famille</span></span>, à leurs <span class="hl-pink"><span class="h">loisirs</span></span> ou à leur <span class="hl-pink"><span class="h">santé</span></span>. Dans une ville comme Calgary, où les trajets peuvent <span class="hl-pink"><span class="h">dépasser une heure par jour</span></span>, ce <span class="hl-pink"><span class="h">gain de temps</span></span> est particulièrement <span class="hl-pink"><span class="h">concret</span></span>. De ce fait, la <span class="hl-pink"><span class="h">qualité de vie</span></span> s'améliore directement, <strong>sans que</strong> l'employé <span class="hl-pink"><span class="h">ait à changer</span></span> son rythme de travail.</p></div>
+          </div>
+          <div class="en-note">💬 <em>consacrer à</em> = to devote to · <em>un gain de temps</em> = a time saving · <em>sans que + subjonctif</em> = without (C1 structure)</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Gestion des responsabilités familiales <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En plus, le télétravail permet aux parents de mieux <span class="hl-pink"><span class="h">gérer les responsabilités familiales</span></span> <strong>sans</strong> <span class="hl-pink"><span class="h">sacrifier</span></span> leur carrière. Être présent <span class="hl-pink"><span class="h">à la maison</span></span> facilite la coordination <span class="hl-pink"><span class="h">du quotidien</span></span> : <span class="hl-pink"><span class="h">récupérer</span></span> les enfants à l'école, <span class="hl-pink"><span class="h">gérer un imprévu</span></span> ou préparer <span class="hl-pink"><span class="h">un repas</span></span> en famille. Par ailleurs, <span class="hl-pink"><span class="h">cette flexibilité</span></span> bénéficie particulièrement <span class="hl-pink"><span class="h">aux femmes</span></span>, qui portent encore aujourd'hui une part <span class="hl-pink"><span class="h">plus importante</span></span> des tâches <span class="hl-pink"><span class="h">domestiques</span></span>, en leur permettant de <span class="hl-pink"><span class="h">jongler entre les deux sphères</span></span> avec moins de <span class="hl-pink"><span class="h">pression</span></span>.</p></div>
+          </div>
+          <div class="en-note">💬 <em>jongler entre</em> = to juggle between · <em>les tâches domestiques</em> = domestic tasks · <em>la sphère</em> = sphere, domain</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que le télétravail peut <span class="hl-blue"><span class="h">engendrer un sentiment d'isolement</span></span> chez certains employés. <strong>Sans</strong> les <span class="hl-blue"><span class="h">interactions sociales</span></span> du bureau, c'est-à-dire les échanges <span class="hl-blue"><span class="h">informels</span></span>, l'entraide <span class="hl-blue"><span class="h">spontanée</span></span> ou le simple fait de <span class="hl-blue"><span class="h">partager</span></span> un repas avec des collègues, certains <span class="hl-blue"><span class="h">travailleurs</span></span> se sentent <span class="hl-blue"><span class="h">coupés</span></span> de leur équipe.</p></div>
+          </div>
+          <div class="en-note">💬 <em>engendrer</em> = to generate, cause · <em>être coupé de</em> = to be cut off from · <em>c'est-à-dire</em> = that is to say (spoken clarifier)</div>
+          <div class="wc">~52 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que le télétravail puisse <span class="hl-blue"><span class="h">provoquer</span></span> certains inconvénients, comme <span class="hl-blue"><span class="h">le risque d'isolement</span></span>, il n'en demeure pas moins que <span class="hl-blue"><span class="h">les avantages</span></span> sont indéniables, comme le <span class="hl-pink"><span class="h">gain de temps</span></span> et le <span class="hl-pink"><span class="h">renforcement</span></span> de la vie familiale.</p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que les entreprises proposent <span class="hl-p1"><span class="h">le télétravail comme</span></span> une <span class="hl-p1"><span class="h">option</span></span> flexible plutôt qu'une <span class="hl-p1"><span class="h">obligation</span></span>, et qu'elles organisent régulièrement des <span class="hl-p1"><span class="h">activités collectives</span></span> afin que les employés maintiennent un sentiment <span class="hl-p1"><span class="h">d'appartenance à</span></span> leur équipe.</p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /s2 -->
+
+      <!-- ÉTAPE 3 -->
+      <div id="s3" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si <span class="hl-pink"><span class="h">le télétravail permet réellement de mieux concilier la vie professionnelle et la vie personnelle</span></span> et les avis sont mitigés. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink"><span class="h">le télétravail contribue à un meilleur équilibre</span></span>, à un certain point. Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Gain de temps sur les trajets <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que le télétravail élimine les trajets domicile-bureau, ce qui libère <span class="hl-pink"><span class="h">chaque semaine plusieurs heures que les travailleurs peuvent consacrer à leur famille, à leurs loisirs ou à leur santé. Dans une ville comme Calgary, où les trajets peuvent dépasser une heure par jour, ce gain de temps est particulièrement concret</span></span>. De ce fait, la qualité de vie s'améliore directement, <span class="hl-pink"><strong>sans que</strong> <span class="h">l'employé ait à changer son rythme de travail.</span></span></p></div>
+          </div>
+          <div class="en-note">💬 <em>consacrer à</em> = to devote to · <em>un gain de temps</em> = a time saving · <em>sans que + subjonctif</em> = without (C1 structure)</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Gestion des responsabilités familiales <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En plus, le télétravail permet aux parents de mieux gérer les responsabilités familiales <strong>sans</strong> sacrifier leur carrière. Être présent à la maison facilite <span class="hl-pink"><span class="h">la coordination du quotidien : récupérer les enfants à l'école, gérer un imprévu ou préparer un repas en famille</span></span>. Par ailleurs, <span class="hl-pink"><span class="h">cette flexibilité bénéficie particulièrement</span></span> aux femmes, qui portent <span class="hl-pink"><span class="h">encore aujourd'hui une part plus importante des tâches domestiques</span></span>, en leur permettant de <span class="hl-pink"><span class="h">jongler entre les deux sphères avec moins de pression.</span></span></p></div>
+          </div>
+          <div class="en-note">💬 <em>jongler entre</em> = to juggle between · <em>les tâches domestiques</em> = domestic tasks · <em>la sphère</em> = sphere, domain</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que le télétravail peut engendrer un sentiment d'isolement chez certains employés. <strong>Sans</strong> les interactions sociales du bureau, <span class="hl-blue"><span class="h">c'est-à-dire les échanges informels, l'entraide spontanée ou le simple fait de partager un repas avec des collègues,</span></span> certains travailleurs se sentent coupés de leur équipe.</p></div>
+          </div>
+          <div class="en-note">💬 <em>engendrer</em> = to generate, cause · <em>être coupé de</em> = to be cut off from · <em>c'est-à-dire</em> = that is to say (spoken clarifier)</div>
+          <div class="wc">~52 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue"><span class="h">le télétravail puisse provoquer</span></span> certains <span class="hl-blue"><span class="h">inconvénients</span></span>, comme <span class="hl-blue"><span class="h">le risque d'isolement</span></span>, il n'en demeure pas moins que les avantages sont indéniables, comme <span class="hl-pink"><span class="h">le gain de temps</span></span> et <span class="hl-pink"><span class="h">le renforcement de la vie familiale</span></span>.</p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que les entreprises <span class="hl-p1"><span class="h">proposent le télétravail comme une option flexible</span></span> plutôt qu'une <span class="hl-p1"><span class="h">obligation</span></span>, et qu'elles organisent <span class="hl-p1"><span class="h">régulièrement des activités collectives</span></span> afin que les employés maintiennent <span class="hl-p1"><span class="h">un sentiment d'appartenance à leur équipe</span></span>.</p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /s3 -->
+
+    </div><!-- /script-card -->
+  </div><!-- /single-view -->
+</div><!-- /posA -->
 <div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
 
 <!-- WORD LIST -->
@@ -361,12 +566,17 @@ function buildCard(s){
     </div>${blocks}</div>`;}
 
 document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
-document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
 document.getElementById('posBGrid').innerHTML=buildCard(scriptB);
 
 function showTab(id,btn){
   document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');}
+
+function showStage(id,btn){
+  document.querySelectorAll('.stage-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.stage-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');}
 </script>
