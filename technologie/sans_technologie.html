@@ -28,7 +28,7 @@
   .back-link:hover{color:var(--accent);}
   .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
   .tab-nav::-webkit-scrollbar{display:none;}
-  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn{padding:10px 10px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
   .tab-btn:hover{color:var(--text);background:var(--surface2);}
   .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
   .content{display:none;padding:20px 16px 48px;}
@@ -93,6 +93,22 @@
   .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
   .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
   .chunk-note{font-size:11px;color:var(--text-muted);}
+
+  /* ── Stage pill toggle ── */
+  .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
+  .stage-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:3px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);cursor:pointer;transition:all .15s;}
+  .stage-btn:hover{border-color:var(--accent);color:var(--text);}
+  .stage-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500;}
+
+  /* ── Hidden word mechanic ── */
+  .h{color:#fff;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;text-decoration-thickness:1px;}
+  .hl-pink .h{color:var(--pink-bg);text-decoration-color:#e8b4c4;}
+  .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
+  .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
+
+  /* stage content visibility */
+  .stage-content{display:none;}
+  .stage-content.active{display:block;}
 </style>
 </head>
 <body>
@@ -106,13 +122,223 @@
 <nav class="tab-nav">
   <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
   <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
-  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">🎯 Position B 🎯</button>
   <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
 </nav>
 
 <div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
 <div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
-<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<!-- Position B with stage toggle -->
+<div id="posB" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-blue">
+        <div class="card-title card-title-blue">✅ Position B — NON : la technologie est essentielle à la vie moderne</div>
+        <span class="stance-badge badge-easy">Plus facile à défendre</span>
+      </div>
+      <div class="stage-toggle">
+        <button class="stage-btn active" onclick="showStage('bs0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('bs1',this)">Étape 1</button>
+        <button class="stage-btn" onclick="showStage('bs2',this)">Étape 2</button>
+        <button class="stage-btn" onclick="showStage('bs3',this)">Étape 3</button>
+      </div>
+
+      <!-- COMPLET -->
+      <div id="bs0" class="stage-content active">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si vivre sans technologie — sans Internet, sans ordinateur, sans téléphone — est vraiment possible et souhaitable, et les avis sont très mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">la technologie est aujourd'hui indispensable à la vie moderne</span> à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Indispensable pour l'éducation et l'emploi <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, force est de constater que <span class="hl-pink">la technologie est devenue indispensable pour accéder à l'éducation et au marché du travail.</span> Aujourd'hui, la grande majorité des offres d'emploi, des formations et des ressources pédagogiques se trouvent en ligne.</p></div>
+            <div class="para-wrap"><p>Sans Internet ni ordinateur, il est presque impossible de se former, de postuler à un emploi ou de progresser professionnellement. <span class="hl-pink">Par voie de conséquence, se priver de technologie, c'est s'exposer à une exclusion réelle du monde professionnel et éducatif.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>force est de constater que</em> = one cannot deny that (C1) · <em>postuler à</em> = to apply for · <em>se priver de</em> = to deprive oneself of · <em>par voie de conséquence</em> = as a result (C1)</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Maintenir les liens familiaux à distance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">la technologie permet de maintenir des liens familiaux forts, surtout pour les proches séparés par la distance.</span> Grâce aux appels vidéo et aux messageries, des familles séparées par des milliers de kilomètres peuvent rester présentes dans la vie des unes et des autres — partager un repas en vidéo, voir grandir ses petits-enfants, soutenir un proche dans les moments difficiles.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Sans ces outils, ce lien affectif serait bien plus difficile à entretenir au quotidien.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>maintenir des liens</em> = to maintain bonds · <em>le lien affectif</em> = emotional bond · <em>entretenir</em> = to maintain, to keep up · <em>au quotidien</em> = on a daily basis</div>
+          <div class="wc">~77 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">En revanche <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai qu'<span class="hl-blue">un usage excessif de la technologie peut nuire à la santé mentale et créer une véritable dépendance.</span> Les recherches montrent que le temps d'écran élevé est associé à l'anxiété, à l'isolement paradoxal et à la perte de concentration, surtout chez les jeunes.</p></div>
+            <div class="para-wrap"><p><span class="hl-blue">De même, la surcharge informationnelle et les réseaux sociaux peuvent engendrer un sentiment de mal-être constant, voire affecter l'estime de soi.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>nuire à</em> = to harm (C1) · <em>l'isolement paradoxal</em> = paradoxical isolation · <em>engendrer</em> = to generate, to cause (C1) · <em>l'estime de soi</em> = self-esteem</div>
+          <div class="wc">~67 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">l'usage excessif des écrans présente certains inconvénients, comme le risque de dépendance et le frein à la santé mentale,</span> il n'en demeure pas moins que les avantages sont indéniables dans le monde actuel, comme <span class="hl-pink">le développement des compétences et le renforcement des liens familiaux.</span></p></div>
+            <div class="para-wrap"><p>Il faudrait que <span class="hl-p1">chaque individu apprenne à utiliser les outils numériques de manière consciente et équilibrée, plutôt que de les rejeter entièrement.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il faudrait que chaque individu apprenne</em> ✓ · <em>plutôt que de rejeter</em> = rather than reject entirely</div>
+        </div>
+      </div><!-- /bs0 -->
+
+      <!-- ÉTAPE 1 -->
+      <div id="bs1" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si <span class="h">vivre sans technologie</span> — sans Internet, sans ordinateur, sans téléphone — est vraiment possible et souhaitable, et les avis sont très mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">la technologie est aujourd'hui <span class="h">indispensable</span> à la vie moderne</span> à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Indispensable pour l'éducation et l'emploi <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, force est de constater que <span class="hl-pink">la technologie est devenue <span class="h">indispensable</span> pour <span class="h">accéder à</span> l'éducation et <span class="h">au marché</span> du travail.</span> Aujourd'hui, la grande majorité des <span class="h">offres d'emploi</span>, des <span class="h">formations</span> et des <span class="h">ressources pédagogiques</span> se trouvent en ligne.</p></div>
+            <div class="para-wrap"><p>Sans Internet <span class="h">ni</span> ordinateur, il est <span class="h">presque impossible</span> de se former, de postuler à un emploi ou de progresser professionnellement. <span class="hl-pink">Par voie de conséquence, se priver de technologie, c'est s'exposer à une <span class="h">exclusion</span> réelle du monde <span class="h">professionnel</span> et <span class="h">éducatif</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>force est de constater que</em> = one cannot deny that (C1) · <em>postuler à</em> = to apply for · <em>se priver de</em> = to deprive oneself of · <em>par voie de conséquence</em> = as a result (C1)</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Maintenir les liens familiaux à distance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">la technologie permet de <span class="h">maintenir</span> des liens familiaux <span class="h">forts</span>, surtout pour les proches <span class="h">séparés</span> par la distance.</span> Grâce aux <span class="h">appels</span> vidéo et aux messageries, des familles séparées par des <span class="h">milliers de kilomètres</span> peuvent rester présentes dans la vie des <span class="h">unes</span> et des <span class="h">autres</span> — partager un repas en vidéo, voir <span class="h">grandir</span> ses petits-enfants, <span class="h">soutenir</span> un proche dans les moments difficiles.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Sans ces <span class="h">outils</span>, ce lien <span class="h">affectif</span> serait bien plus difficile à <span class="h">entretenir</span> au quotidien.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>maintenir des liens</em> = to maintain bonds · <em>le lien affectif</em> = emotional bond · <em>entretenir</em> = to maintain, to keep up · <em>au quotidien</em> = on a daily basis</div>
+          <div class="wc">~77 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">En revanche <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai qu'<span class="hl-blue">un usage <span class="h">excessif</span> de la technologie peut nuire à la <span class="h">santé</span> mentale et créer une <span class="h">véritable</span> dépendance.</span> Les recherches montrent que le temps d'écran élevé est associé à <span class="h">l'anxiété</span>, à <span class="h">l'isolement</span> paradoxal et à la perte de <span class="h">concentration</span>, surtout chez les jeunes.</p></div>
+            <div class="para-wrap"><p><span class="hl-blue">De même, la <span class="h">surcharge</span> informationnelle et les réseaux sociaux peuvent engendrer un sentiment de <span class="h">mal-être</span> constant, voire affecter l'estime de soi.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>nuire à</em> = to harm (C1) · <em>l'isolement paradoxal</em> = paradoxical isolation · <em>engendrer</em> = to generate, to cause (C1) · <em>l'estime de soi</em> = self-esteem</div>
+          <div class="wc">~67 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">l'usage <span class="h">excessif</span> des écrans présente certains inconvénients, comme le risque de <span class="h">dépendance</span> et le frein à la santé mentale,</span> il n'en demeure pas moins que les avantages sont indéniables dans le monde actuel, comme <span class="hl-pink">le développement des compétences et le renforcement des liens familiaux.</span></p></div>
+            <div class="para-wrap"><p>Il faudrait que <span class="hl-p1">chaque individu apprenne à utiliser les outils numériques de manière <span class="h">consciente</span> et <span class="h">équilibrée</span>, plutôt que de les rejeter entièrement.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il faudrait que chaque individu apprenne</em> ✓ · <em>plutôt que de rejeter</em> = rather than reject entirely</div>
+        </div>
+      </div><!-- /bs1 -->
+
+      <!-- ÉTAPE 2 -->
+      <div id="bs2" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si <span class="h">vivre sans technologie</span> — sans Internet, sans ordinateur, sans téléphone — est vraiment <span class="h">possible</span> et <span class="h">souhaitable</span>, et les avis sont très mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">la technologie est aujourd'hui <span class="h">indispensable à la vie</span> moderne</span> à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Indispensable pour l'éducation et l'emploi <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, force est de constater que <span class="hl-pink">la technologie est devenue <span class="h">indispensable</span> pour <span class="h">accéder à</span> l'éducation et <span class="h">au marché</span> du travail.</span> Aujourd'hui, la grande majorité des <span class="h">offres d'emploi</span>, des <span class="h">formations</span> et des <span class="h">ressources pédagogiques</span> se trouvent <span class="h">en ligne</span>.</p></div>
+            <div class="para-wrap"><p>Sans Internet <span class="h">ni</span> ordinateur, il est <span class="h">presque impossible</span> de se former, de <span class="h">postuler à</span> un emploi ou de <span class="h">progresser professionnellement</span>. <span class="hl-pink">Par voie de conséquence, se priver de technologie, c'est s'exposer à une <span class="h">exclusion</span> réelle du monde <span class="h">professionnel</span> et <span class="h">éducatif</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>force est de constater que</em> = one cannot deny that (C1) · <em>postuler à</em> = to apply for · <em>se priver de</em> = to deprive oneself of · <em>par voie de conséquence</em> = as a result (C1)</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Maintenir les liens familiaux à distance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">la technologie permet de maintenir des liens familiaux <span class="h">forts</span>, surtout pour les proches <span class="h">séparés par la distance</span>.</span> Grâce aux <span class="h">appels vidéo</span> et aux <span class="h">messageries</span>, des familles séparées par des <span class="h">milliers de kilomètres</span> peuvent rester <span class="h">présentes</span> dans la vie des <span class="h">unes</span> et des <span class="h">autres</span> — partager un repas <span class="h">en vidéo</span>, voir <span class="h">grandir</span> ses petits-enfants, <span class="h">soutenir</span> un proche dans les moments <span class="h">difficiles</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Sans ces <span class="h">outils</span>, ce lien <span class="h">affectif</span> serait bien plus difficile à <span class="h">entretenir au quotidien</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>maintenir des liens</em> = to maintain bonds · <em>le lien affectif</em> = emotional bond · <em>entretenir</em> = to maintain, to keep up · <em>au quotidien</em> = on a daily basis</div>
+          <div class="wc">~77 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">En revanche <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai qu'<span class="hl-blue">un usage <span class="h">excessif</span> de la technologie peut <span class="h">nuire à la santé</span> mentale et créer une <span class="h">véritable dépendance</span>.</span> Les recherches montrent que <span class="h">le temps d'écran élevé</span> est associé à <span class="h">l'anxiété</span>, à <span class="h">l'isolement paradoxal</span> et à la perte de <span class="h">concentration</span>, surtout chez <span class="h">les jeunes</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-blue">De même, la <span class="h">surcharge</span> informationnelle et les réseaux sociaux peuvent engendrer un sentiment de <span class="h">mal-être</span> constant, voire affecter l'estime de soi.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>nuire à</em> = to harm (C1) · <em>l'isolement paradoxal</em> = paradoxical isolation · <em>engendrer</em> = to generate, to cause (C1) · <em>l'estime de soi</em> = self-esteem</div>
+          <div class="wc">~67 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">l'usage <span class="h">excessif</span> des écrans présente certains inconvénients, comme le risque de <span class="h">dépendance</span> et <span class="h">le frein</span> à la santé mentale,</span> il n'en demeure pas moins que les avantages sont indéniables dans le monde actuel, comme <span class="hl-pink">le développement des <span class="h">compétences</span> et le renforcement des <span class="h">liens familiaux</span>.</span></p></div>
+            <div class="para-wrap"><p>Il faudrait que <span class="hl-p1">chaque individu <span class="h">apprenne à</span> utiliser les outils <span class="h">numériques</span> de manière <span class="h">consciente</span> et <span class="h">équilibrée</span>, plutôt que de les rejeter entièrement.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il faudrait que chaque individu apprenne</em> ✓ · <em>plutôt que de rejeter</em> = rather than reject entirely</div>
+        </div>
+      </div><!-- /bs2 -->
+
+      <!-- ÉTAPE 3 -->
+      <div id="bs3" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si <span class="h">vivre sans technologie</span> — sans Internet, sans ordinateur, sans téléphone — est <span class="h">vraiment possible</span> et <span class="h">souhaitable</span>, et les avis sont très mitigés.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink"><span class="h">la technologie est aujourd'hui indispensable à la vie moderne</span></span> à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — Indispensable pour l'éducation et l'emploi <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, force est de constater que <span class="hl-pink">la technologie est devenue indispensable pour accéder à l'éducation et au marché du travail.</span> Aujourd'hui, la grande majorité des <span class="h">offres d'emploi</span>, des <span class="h">formations</span> et des <span class="h">ressources pédagogiques</span> se trouvent <span class="h">en ligne</span>.</p></div>
+            <div class="para-wrap"><p>Sans Internet <span class="h">ni</span> ordinateur, il est <span class="h">presque impossible</span> de se former, de <span class="h">postuler à</span> un emploi ou de <span class="h">progresser professionnellement</span>. <span class="hl-pink">Par voie de conséquence, <span class="h">se priver de technologie</span>, c'est s'exposer à une <span class="h">exclusion réelle du monde professionnel et éducatif</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>force est de constater que</em> = one cannot deny that (C1) · <em>postuler à</em> = to apply for · <em>se priver de</em> = to deprive oneself of · <em>par voie de conséquence</em> = as a result (C1)</div>
+          <div class="wc">~79 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Maintenir les liens familiaux à distance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">la technologie permet de maintenir des liens familiaux forts, surtout pour les proches séparés par la distance.</span> Grâce aux <span class="h">appels vidéo</span> et aux <span class="h">messageries</span>, des familles séparées par des <span class="h">milliers de kilomètres</span> peuvent <span class="h">rester présentes</span> dans la vie des <span class="h">unes et des autres</span> — <span class="h">partager un repas en vidéo</span>, <span class="h">voir grandir</span> ses petits-enfants, <span class="h">soutenir</span> un proche dans les moments <span class="h">difficiles</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Sans ces <span class="h">outils</span>, <span class="h">ce lien affectif</span> serait bien plus difficile à <span class="h">entretenir au quotidien</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>maintenir des liens</em> = to maintain bonds · <em>le lien affectif</em> = emotional bond · <em>entretenir</em> = to maintain, to keep up · <em>au quotidien</em> = on a daily basis</div>
+          <div class="wc">~77 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">En revanche <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai qu'<span class="hl-blue">un usage excessif de la technologie peut nuire à la santé mentale et créer une véritable dépendance.</span> Les recherches montrent que <span class="h">le temps d'écran élevé est associé à l'anxiété</span>, à <span class="h">l'isolement paradoxal</span> et à la perte de <span class="h">concentration</span>, surtout chez <span class="h">les jeunes</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-blue">De même, la <span class="h">surcharge</span> informationnelle et les réseaux sociaux peuvent <span class="h">engendrer un sentiment</span> de <span class="h">mal-être</span> constant, voire affecter <span class="h">l'estime de soi</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>nuire à</em> = to harm (C1) · <em>l'isolement paradoxal</em> = paradoxical isolation · <em>engendrer</em> = to generate, to cause (C1) · <em>l'estime de soi</em> = self-esteem</div>
+          <div class="wc">~67 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue"><span class="h">l'usage excessif des écrans</span> présente certains <span class="h">inconvénients</span>, comme <span class="h">le risque de dépendance</span> et <span class="h">le frein à la santé mentale</span>,</span> il n'en demeure pas moins que les avantages sont indéniables dans le monde actuel, comme <span class="hl-pink"><span class="h">le développement des compétences</span> et <span class="h">le renforcement des liens familiaux</span>.</span></p></div>
+            <div class="para-wrap"><p>Il faudrait que <span class="hl-p1">chaque individu <span class="h">apprenne à utiliser les outils numériques de manière consciente et équilibrée</span>, plutôt que de <span class="h">les rejeter entièrement</span>.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il faudrait que chaque individu apprenne</em> ✓ · <em>plutôt que de rejeter</em> = rather than reject entirely</div>
+        </div>
+      </div><!-- /bs3 -->
+
+    </div><!-- /script-card -->
+  </div><!-- /single-view -->
+</div><!-- /posB -->
 
 <!-- WORD LIST -->
 <div id="words" class="content">
@@ -301,16 +527,16 @@ const scriptB = {
         `<span class="hl-pink">Sans ces outils, ce lien affectif serait bien plus difficile à entretenir au quotidien.</span>`
       ],
       note:"💬 <em>maintenir des liens</em> = to maintain bonds · <em>le lien affectif</em> = emotional bond · <em>entretenir</em> = to maintain, to keep up · <em>au quotidien</em> = on a daily basis" },
-    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~67 mots ✓",
+    { label:"En revanche", timing:"~1 min", nuance:true, wc:"~67 mots ✓",
       textHtml:[
-        `Il est certes vrai que <span class="hl-blue">un usage excessif de la technologie peut nuire à la santé mentale et créer une véritable dépendance.</span> Les recherches montrent que le temps d'écran élevé est associé à l'anxiété, à l'isolement paradoxal et à la perte de concentration, surtout chez les jeunes.`,
+        `En revanche, il est certes vrai qu'<span class="hl-blue">un usage excessif de la technologie peut nuire à la santé mentale et créer une véritable dépendance.</span> Les recherches montrent que le temps d'écran élevé est associé à l'anxiété, à l'isolement paradoxal et à la perte de concentration, surtout chez les jeunes.`,
         `<span class="hl-blue">De même, la surcharge informationnelle et les réseaux sociaux peuvent engendrer un sentiment de mal-être constant, voire affecter l'estime de soi.</span>`
       ],
-      note:"💬 <em>nuire à</em> = to harm (C1) · <em>l'isolement paradoxal</em> = paradoxical isolation (connected but lonely) · <em>engendrer</em> = to generate, to cause (C1) · <em>l'estime de soi</em> = self-esteem" },
+      note:"💬 <em>nuire à</em> = to harm (C1) · <em>l'isolement paradoxal</em> = paradoxical isolation · <em>engendrer</em> = to generate, to cause (C1) · <em>l'estime de soi</em> = self-esteem" },
     { label:"Conclusion", timing:"~50s", nuance:false,
       textHtml:[
-        `En conclusion, bien que <span class="hl-blue">l'usage excessif des écrans présente certains inconvénients, comme le risque de dépendance et le frein à la santé mentale,</span> il n'en demeure pas moins que les avantages, comme <span class="hl-pink">le développement des compétences et le renforcement des liens familiaux,</span> sont indéniables dans le monde actuel.`,
-        `Il serait souhaitable que <span class="hl-p1">les individus et les familles apprennent à faire un usage conscient et équilibré des outils numériques.</span>`,
+        `En conclusion, bien que <span class="hl-blue">l'usage excessif des écrans présente certains inconvénients, comme le risque de dépendance et le frein à la santé mentale,</span> il n'en demeure pas moins que les avantages sont indéniables dans le monde actuel, comme <span class="hl-pink">le développement des compétences et le renforcement des liens familiaux.</span>`,
+        `Il faudrait que <span class="hl-p1">chaque individu apprenne à utiliser les outils numériques de manière consciente et équilibrée, plutôt que de les rejeter entièrement.</span>`,
         `Merci pour votre attention.`
       ],
       note:"" }
@@ -337,11 +563,17 @@ function buildCard(s){
 
 document.getElementById('bothGrid').innerHTML = buildCard(scriptA) + buildCard(scriptB);
 document.getElementById('posAGrid').innerHTML = buildCard(scriptA);
-document.getElementById('posBGrid').innerHTML = buildCard(scriptB);
 
 function showTab(id, btn){
   document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showStage(id, btn){
+  document.querySelectorAll('.stage-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
