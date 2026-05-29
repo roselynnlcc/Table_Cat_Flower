@@ -178,5 +178,14 @@ const TCF_QUESTIONS = [
   date: '2026-05-28',
   stars: 3,
   status: "À faire"
+},
+{
+  id: 21,
+  cat: 'sante',
+  question: 'Croyez-vous que les personnes continuent à cuisiner régulièrement aujourd\'hui ? Pourquoi ?',
+  scriptUrl: 'sante/cuisiner_regulierement.html',
+  date: '2026-05-28',
+  stars: 1,
+  status: "À faire"
 }
 ];
