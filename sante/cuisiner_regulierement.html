@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Cuisiner régulièrement</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .single-view{max-width:620px;margin:0 auto;}
+
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;position:relative;}
+  .script-text p:last-child{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+
+  /* Stage toggle */
+  .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
+  .stage-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:3px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);cursor:pointer;transition:all .15s;}
+  .stage-btn:hover{border-color:var(--accent);color:var(--text);}
+  .stage-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500;}
+  .stage-content{display:none;}
+  .stage-content.active{display:block;}
+
+  /* Hidden word mechanic */
+  .h{color:#fff;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;text-decoration-thickness:1px;}
+  .hl-pink .h{color:var(--pink-bg);text-decoration-color:#e8b4c4;}
+  .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
+  .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
+
+  /* Word list */
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Tâche 3</span></h1>
+  <div class="question-title">Croyez-vous que les personnes continuent à cuisiner régulièrement aujourd'hui ? Pourquoi ?</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+
+<!-- CÔTE À CÔTE -->
+<div id="both" class="content active">
+  <div class="scripts-grid" id="bothGrid"></div>
+</div>
+
+<!-- POSITION A -->
+<div id="posA" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-green">
+        <div class="card-title card-title-green">✅ Position A — OUI, les gens cuisinent encore régulièrement</div>
+        <span class="stance-badge badge-easy">Plus facile à défendre</span>
+      </div>
+
+      <div class="stage-toggle">
+        <button class="stage-btn active" onclick="showStage('s0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('s1',this)">Étape 1</button>
+        <button class="stage-btn" onclick="showStage('s2',this)">Étape 2</button>
+        <button class="stage-btn" onclick="showStage('s3',this)">Étape 3</button>
+      </div>
+
+      <!-- COMPLET -->
+      <div id="s0" class="stage-content active">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si <span class="hl-pink">les habitudes culinaires ont vraiment changé à l'ère de la restauration rapide et des repas prêts à consommer</span>, et les avis sont mitigés.</p>
+            <p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">la plupart des gens continuent à cuisiner régulièrement aujourd'hui</span>. Alors, je vais expliquer mes raisons.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — La cuisine reste ancrée dans le quotidien <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>Tout d'abord, il faut souligner que cuisiner à la maison reste une pratique très <span class="hl-pink">répandue</span>, notamment pour des raisons <span class="hl-pink">économiques</span>. Préparer ses propres repas coûte beaucoup moins cher que de manger au restaurant ou de <span class="hl-pink">commander</span> en ligne, et dans un contexte où le coût de la vie <span class="hl-pink">augmente</span>, de nombreuses personnes reviennent naturellement à la cuisine maison pour gérer leur <span class="hl-pink">budget</span>. D'ailleurs, beaucoup suivent simplement des recettes YouTube pour préparer des repas faciles et rapides au quotidien.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Une prise de conscience liée à la santé <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>Ensuite, on observe une prise de conscience croissante autour de l'alimentation <span class="hl-pink">saine</span>. De plus en plus de personnes font le lien entre ce qu'elles <span class="hl-pink">mangent</span> et leur <span class="hl-pink">bien-être</span>, et préfèrent donc contrôler elles-mêmes les ingrédients de leurs repas plutôt que de <span class="hl-pink">dépendre</span> de produits transformés ou de fast-food. Cuisiner devient ainsi un acte de soin envers soi-même, ce qui explique pourquoi tant de gens continuent à le faire malgré <span class="hl-pink">un emploi du temps chargé</span>.</p>
+          </div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~30s</span></div>
+          <div class="script-text">
+            <p>En revanche, il est certes vrai que <span class="hl-blue">la fréquence</span> et <span class="hl-blue">la complexité</span> des repas préparés ont changé. On cuisine peut-être moins de plats élaborés qu'autrefois, et on a plus souvent recours à des solutions intermédiaires comme les repas semi-préparés. Mais cela ne signifie pas que la cuisine a disparu du quotidien — elle s'est simplement <span class="hl-blue">adaptée</span> aux contraintes de la vie moderne.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>En conclusion, bien que <span class="hl-blue">la cuisine à la maison présente certaines contraintes</span>, notamment le manque de temps dans un quotidien chargé, il n'en demeure pas moins que ses <span class="hl-pink">avantages</span> sont indéniables, comme les économies <span class="hl-pink">réalisées</span> et les <span class="hl-pink">bénéfices</span> pour la santé.</p>
+            <p>Tout bien considéré, il serait souhaitable que les gens <span class="hl-p1">maintiennent</span> cette habitude de cuisiner régulièrement, même sous une forme <span class="hl-p1">simplifiée</span>, afin de préserver leur <span class="hl-p1">santé</span> et leur lien avec la culture <span class="hl-p1">culinaire</span>.</p>
+            <p>Merci pour votre attention.</p>
+          </div>
+        </div>
+      </div><!-- /s0 -->
+
+      <!-- ÉTAPE 1 -->
+      <div id="s1" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si les habitudes culinaires ont vraiment changé à l'ère de la <span class="hl-pink"><span class="h">restauration</span></span> rapide et des <span class="hl-pink"><span class="h">repas</span></span> prêts à consommer, et les avis sont mitigés.</p>
+            <p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que la <span class="hl-pink"><span class="h">plupart</span></span> des gens continuent à cuisiner régulièrement aujourd'hui. Alors, je vais expliquer mes raisons.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — La cuisine reste ancrée dans le quotidien <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>Tout d'abord, il faut souligner que cuisiner à la maison reste une pratique très <span class="hl-pink"><span class="h">répandue</span></span>, notamment pour des raisons <span class="hl-pink"><span class="h">économiques</span></span>. Préparer ses propres repas coûte beaucoup moins cher que de manger au restaurant ou de <span class="hl-pink"><span class="h">commander</span></span> en ligne, et dans un contexte où le coût de la vie <span class="hl-pink"><span class="h">augmente</span></span>, de nombreuses personnes reviennent naturellement à la cuisine maison pour gérer leur <span class="hl-pink"><span class="h">budget</span></span>. D'ailleurs, beaucoup suivent simplement des recettes YouTube pour préparer des repas faciles et rapides au quotidien.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Une prise de conscience liée à la santé <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>Ensuite, on observe une prise de conscience croissante autour de l'alimentation <span class="hl-pink"><span class="h">saine</span></span>. De plus en plus de personnes font le lien entre ce qu'elles <span class="hl-pink"><span class="h">mangent</span></span> et leur <span class="hl-pink"><span class="h">bien-être</span></span>, et préfèrent donc contrôler elles-mêmes les ingrédients de leurs repas plutôt que de <span class="hl-pink"><span class="h">dépendre</span></span> de produits transformés ou de fast-food. Cuisiner devient ainsi un acte de soin envers soi-même, ce qui explique pourquoi tant de gens continuent à le faire malgré <span class="hl-pink"><span class="h">un emploi</span></span> du temps chargé.</p>
+          </div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~30s</span></div>
+          <div class="script-text">
+            <p>En revanche, il est certes vrai que <span class="hl-blue"><span class="h">la fréquence</span></span> et <span class="hl-blue"><span class="h">la complexité</span></span> des repas préparés ont changé. On cuisine peut-être moins de plats élaborés qu'autrefois, et on a plus souvent recours à des solutions intermédiaires comme les repas semi-préparés. Mais cela ne signifie pas que la cuisine a disparu du quotidien — elle s'est simplement <span class="hl-blue"><span class="h">adaptée</span></span> aux contraintes de la vie moderne.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>En conclusion, bien que la cuisine à la maison présente certaines <span class="hl-blue"><span class="h">contraintes</span></span>, notamment le manque de temps dans un quotidien chargé, il n'en demeure pas moins que ses <span class="hl-pink"><span class="h">avantages</span></span> sont indéniables, comme les économies <span class="hl-pink"><span class="h">réalisées</span></span> et les <span class="hl-pink"><span class="h">bénéfices</span></span> pour la santé.</p>
+            <p>Tout bien considéré, il serait souhaitable que les gens <span class="hl-p1"><span class="h">maintiennent</span></span> cette habitude de cuisiner régulièrement, même sous une forme <span class="hl-p1"><span class="h">simplifiée</span></span>, afin de préserver leur <span class="hl-p1"><span class="h">santé</span></span> et leur lien avec la culture <span class="hl-p1"><span class="h">culinaire</span></span>.</p>
+            <p>Merci pour votre attention.</p>
+          </div>
+        </div>
+      </div><!-- /s1 -->
+
+      <!-- ÉTAPE 2 -->
+      <div id="s2" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si les habitudes culinaires ont vraiment changé à l'ère de la <span class="hl-pink"><span class="h">restauration rapide</span></span> et des <span class="hl-pink"><span class="h">repas prêts à consommer</span></span>, et les avis sont mitigés.</p>
+            <p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que la <span class="hl-pink"><span class="h">plupart des gens</span></span> continuent à <span class="hl-pink"><span class="h">cuisiner régulièrement</span></span> aujourd'hui. Alors, je vais expliquer mes raisons.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — La cuisine reste ancrée dans le quotidien <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>Tout d'abord, il faut souligner que cuisiner à la maison reste une <span class="hl-pink"><span class="h">pratique très répandue</span></span>, notamment pour des raisons <span class="hl-pink"><span class="h">économiques</span></span>. Préparer ses propres repas coûte <span class="hl-pink"><span class="h">beaucoup moins cher</span></span> que de manger au <span class="hl-pink"><span class="h">restaurant</span></span> ou de <span class="hl-pink"><span class="h">commander</span></span> en ligne, et dans un contexte où le coût de <span class="hl-pink"><span class="h">la vie augmente</span></span>, de nombreuses personnes reviennent naturellement à la cuisine maison pour <span class="hl-pink"><span class="h">gérer leur budget</span></span>. D'ailleurs, beaucoup suivent simplement des <span class="hl-pink"><span class="h">recettes</span></span> YouTube pour préparer des repas <span class="hl-pink"><span class="h">faciles</span></span> et <span class="hl-pink"><span class="h">rapides</span></span> au quotidien.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Une prise de conscience liée à la santé <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>Ensuite, on observe une <span class="hl-pink"><span class="h">prise de conscience</span></span> croissante autour de <span class="hl-pink"><span class="h">l'alimentation saine</span></span>. De plus en plus de personnes font <span class="hl-pink"><span class="h">le lien entre</span></span> ce qu'elles <span class="hl-pink"><span class="h">mangent</span></span> et leur <span class="hl-pink"><span class="h">bien-être</span></span>, et préfèrent donc contrôler elles-mêmes <span class="hl-pink"><span class="h">les ingrédients</span></span> de leurs repas plutôt que de <span class="hl-pink"><span class="h">dépendre</span></span> de produits <span class="hl-pink"><span class="h">transformés</span></span> ou de fast-food. Cuisiner devient ainsi <span class="hl-pink"><span class="h">un acte de soin envers soi-même</span></span>, ce qui explique pourquoi tant de gens continuent à le faire malgré <span class="hl-pink"><span class="h">un emploi du temps chargé</span></span>.</p>
+          </div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~30s</span></div>
+          <div class="script-text">
+            <p>En revanche, il est certes vrai que <span class="hl-blue"><span class="h">la fréquence</span></span> et <span class="hl-blue"><span class="h">la complexité</span></span> des repas préparés ont <span class="hl-blue"><span class="h">changé</span></span>. On cuisine peut-être moins de plats <span class="hl-blue"><span class="h">élaborés</span></span> qu'autrefois, et on a plus souvent <span class="hl-blue"><span class="h">recours à</span></span> des solutions <span class="hl-blue"><span class="h">intermédiaires</span></span> comme les repas semi-préparés. Mais cela ne signifie pas que la cuisine a disparu du quotidien — elle s'est simplement <span class="hl-blue"><span class="h">adaptée</span></span> aux contraintes de la vie moderne.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>En conclusion, bien que la cuisine à la maison présente certaines <span class="hl-blue"><span class="h">contraintes</span></span>, notamment le manque de temps dans un quotidien chargé, il n'en demeure pas moins que ses <span class="hl-pink"><span class="h">avantages</span></span> sont indéniables, comme les <span class="hl-pink"><span class="h">économies réalisées</span></span> et les <span class="hl-pink"><span class="h">bénéfices pour la santé</span></span>.</p>
+            <p>Tout bien considéré, il serait souhaitable que les gens <span class="hl-p1"><span class="h">maintiennent</span></span> cette habitude de <span class="hl-p1"><span class="h">cuisiner régulièrement</span></span>, même sous <span class="hl-p1"><span class="h">une forme simplifiée</span></span>, afin de préserver leur <span class="hl-p1"><span class="h">santé</span></span> et leur lien avec la culture <span class="hl-p1"><span class="h">culinaire</span></span>.</p>
+            <p>Merci pour votre attention.</p>
+          </div>
+        </div>
+      </div><!-- /s2 -->
+
+      <!-- ÉTAPE 3 -->
+      <div id="s3" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si <span class="hl-pink"><span class="h">les habitudes culinaires ont vraiment changé</span></span> à l'ère de <span class="hl-pink"><span class="h">la restauration rapide et des repas prêts à consommer</span></span>, et les avis sont mitigés.</p>
+            <p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que la <span class="hl-pink"><span class="h">plupart des gens continuent à cuisiner régulièrement</span></span> aujourd'hui. Alors, je vais expliquer mes raisons.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — La cuisine reste ancrée dans le quotidien <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>Tout d'abord, il faut souligner que cuisiner à la maison reste une pratique très répandue, notamment pour des raisons économiques. <span class="hl-pink"><span class="h">Préparer ses propres repas coûte beaucoup moins cher</span></span> que de <span class="hl-pink"><span class="h">manger au restaurant</span></span> ou de <span class="hl-pink"><span class="h">commander en ligne</span></span>, et dans un contexte où <span class="hl-pink"><span class="h">le coût de la vie augmente</span></span>, de nombreuses personnes reviennent naturellement à <span class="hl-pink"><span class="h">la cuisine maison</span></span> pour <span class="hl-pink"><span class="h">gérer leur budget</span></span>. D'ailleurs, beaucoup suivent simplement des <span class="hl-pink"><span class="h">recettes YouTube</span></span> pour préparer des repas <span class="hl-pink"><span class="h">faciles</span></span> et <span class="hl-pink"><span class="h">rapides</span></span> au quotidien.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Une prise de conscience liée à la santé <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>Ensuite, on observe une prise de conscience croissante autour de l'alimentation saine. De plus en plus de personnes font <span class="hl-pink"><span class="h">le lien entre</span></span> ce qu'elles <span class="hl-pink"><span class="h">mangent</span></span> et leur <span class="hl-pink"><span class="h">bien-être</span></span>, et préfèrent donc <span class="hl-pink"><span class="h">contrôler elles-mêmes les ingrédients</span></span> de leurs repas plutôt que de <span class="hl-pink"><span class="h">dépendre de produits transformés</span></span> ou de fast-food. Cuisiner devient ainsi <span class="hl-pink"><span class="h">un acte de soin envers soi-même</span></span>, ce qui explique pourquoi tant de gens continuent à le faire malgré <span class="hl-pink"><span class="h">un emploi du temps chargé</span></span>.</p>
+          </div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~30s</span></div>
+          <div class="script-text">
+            <p>En revanche, il est certes vrai que <span class="hl-blue"><span class="h">la fréquence</span></span> et <span class="hl-blue"><span class="h">la complexité</span></span> des repas préparés ont <span class="hl-blue"><span class="h">changé</span></span>. On cuisine peut-être moins de plats <span class="hl-blue"><span class="h">élaborés qu'autrefois</span></span>, et on a plus souvent <span class="hl-blue"><span class="h">recours à des solutions intermédiaires</span></span> comme les repas <span class="hl-blue"><span class="h">semi-préparés</span></span>. Mais cela ne signifie pas que la cuisine a disparu du quotidien — elle s'est simplement <span class="hl-blue"><span class="h">adaptée aux contraintes de la vie moderne</span></span>.</p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>En conclusion, bien que <span class="hl-blue"><span class="h">la cuisine à la maison présente certaines contraintes</span></span>, notamment le manque de temps dans un quotidien chargé, il n'en demeure pas moins que ses <span class="hl-pink"><span class="h">avantages</span></span> sont indéniables, comme les <span class="hl-pink"><span class="h">économies réalisées</span></span> et les <span class="hl-pink"><span class="h">bénéfices pour la santé</span></span>.</p>
+            <p>Tout bien considéré, il serait souhaitable que les gens <span class="hl-p1"><span class="h">maintiennent</span></span> cette habitude de <span class="hl-p1"><span class="h">cuisiner régulièrement</span></span>, même sous <span class="hl-p1"><span class="h">une forme simplifiée</span></span>, afin de préserver leur <span class="hl-p1"><span class="h">santé</span></span> et leur <span class="hl-p1"><span class="h">lien avec la culture culinaire</span></span>.</p>
+            <p>Merci pour votre attention.</p>
+          </div>
+        </div>
+      </div><!-- /s3 -->
+
+    </div><!-- /script-card -->
+  </div><!-- /single-view -->
+</div><!-- /posA -->
+
+<!-- POSITION B -->
+<div id="posB" class="content">
+  <div class="single-view" id="posBGrid"></div>
+</div>
+
+<!-- LISTE DE MOTS -->
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Cuisine et alimentation ★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les habitudes culinaires <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">cooking habits</span></div>
+          <div class="wl-row"><span class="wl-fr">la cuisine maison <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">home cooking</span></div>
+          <div class="wl-row"><span class="wl-fr">les repas prêts à consommer <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">ready-to-eat meals</span></div>
+          <div class="wl-row"><span class="wl-fr">les repas semi-préparés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">semi-prepared meals</span></div>
+          <div class="wl-row"><span class="wl-fr">les ingrédients <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">ingredients</span></div>
+          <div class="wl-row"><span class="wl-fr">les produits transformés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">processed foods</span></div>
+          <div class="wl-row"><span class="wl-fr">la recette <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">recipe</span></div>
+          <div class="wl-row"><span class="wl-fr">le savoir-faire culinaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">culinary know-how, cooking skills</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Économie et quotidien</div>
+          <div class="wl-row"><span class="wl-fr">le coût de la vie <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">cost of living</span></div>
+          <div class="wl-row"><span class="wl-fr">le budget <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">budget</span></div>
+          <div class="wl-row"><span class="wl-fr">les économies <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">savings</span></div>
+          <div class="wl-row"><span class="wl-fr">la restauration rapide <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">fast food industry</span></div>
+          <div class="wl-row"><span class="wl-fr">un emploi du temps chargé <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a busy schedule</span></div>
+          <div class="wl-row"><span class="wl-fr">le rythme de vie moderne <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">the pace of modern life</span></div>
+          <div class="wl-row"><span class="wl-fr">la livraison à domicile <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">home delivery</span></div>
+          <div class="wl-row"><span class="wl-fr">la transmission familiale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">family transmission (of skills)</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Santé et bien-être</div>
+          <div class="wl-row"><span class="wl-fr">le bien-être <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">well-being</span></div>
+          <div class="wl-row"><span class="wl-fr">l'alimentation saine <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">healthy eating</span></div>
+          <div class="wl-row"><span class="wl-fr">une prise de conscience <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">an awareness, a realization</span></div>
+          <div class="wl-row"><span class="wl-fr">les bénéfices pour la santé <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">health benefits</span></div>
+          <div class="wl-row"><span class="wl-fr">un acte de soin <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">an act of self-care</span></div>
+          <div class="wl-row"><span class="wl-fr">les habitudes alimentaires <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">eating habits</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Culture et société</div>
+          <div class="wl-row"><span class="wl-fr">la culture culinaire <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">culinary culture</span></div>
+          <div class="wl-row"><span class="wl-fr">le lien social <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">social bond</span></div>
+          <div class="wl-row"><span class="wl-fr">les jeunes générations <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">younger generations</span></div>
+          <div class="wl-row"><span class="wl-fr">une routine culinaire <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">a cooking routine</span></div>
+          <div class="wl-row"><span class="wl-fr">un choix conscient <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a conscious choice</span></div>
+          <div class="wl-row"><span class="wl-fr">les contraintes de la vie moderne <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">the constraints of modern life</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions — relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">dépendre</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to depend on</td></tr>
+          <tr><td class="vfr">se nourrir</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to feed on, to eat</td></tr>
+          <tr><td class="vfr">manquer</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to lack</td></tr>
+          <tr><td class="vfr">recourir</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to resort to</td></tr>
+          <tr><td class="vfr">s'adapter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to adapt to</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">revenir</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to come back to</td></tr>
+          <tr><td class="vfr">faire le lien entre</td><td class="vprep">entre</td><td class="vrel">—</td><td class="ven">to make the connection between</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">répandu(e)</span><span class="adj-en">widespread, common</span></div>
+          <div class="adj-row"><span class="adj-fr">élaboré(e)</span><span class="adj-en">elaborate, complex</span></div>
+          <div class="adj-row"><span class="adj-fr">transformé(e)</span><span class="adj-en">processed</span></div>
+          <div class="adj-row"><span class="adj-fr">simplifié(e)</span><span class="adj-en">simplified</span></div>
+          <div class="adj-row"><span class="adj-fr">chargé(e)</span><span class="adj-en">busy, heavy (schedule)</span></div>
+          <div class="adj-row"><span class="adj-fr">croissant(e)</span><span class="adj-en">growing, increasing</span></div>
+          <div class="adj-row"><span class="adj-fr">indéniable</span><span class="adj-en">undeniable</span></div>
+          <div class="adj-row"><span class="adj-fr">économique</span><span class="adj-en">economical, budget-friendly</span></div>
+          <div class="adj-row"><span class="adj-fr">intermédiaire</span><span class="adj-en">intermediate, middle-ground</span></div>
+          <div class="adj-row"><span class="adj-fr">conscient(e)</span><span class="adj-en">conscious, aware</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">OUI — les gens cuisinent encore régulièrement</div>
+          <div class="contrast-item">préparer ses repas coûte moins cher</div>
+          <div class="contrast-item">suivre des recettes YouTube accessibles</div>
+          <div class="contrast-item">contrôler soi-même les ingrédients</div>
+          <div class="contrast-item">faire le lien entre alimentation et bien-être</div>
+          <div class="contrast-item">cuisiner comme acte de soin envers soi-même</div>
+          <div class="contrast-item">la cuisine s'est adaptée, pas disparue</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">NON — les gens cuisinent de moins en moins</div>
+          <div class="contrast-item">le rythme de vie laisse peu de temps</div>
+          <div class="contrast-item">commander en ligne est plus simple et rapide</div>
+          <div class="contrast-item">la transmission familiale des savoir-faire s'est perdue</div>
+          <div class="contrast-item">les jeunes grandissent sans apprendre à cuisiner</div>
+          <div class="contrast-item">la cuisine est réservée au weekend, pas quotidienne</div>
+          <div class="contrast-item">cuisiner est devenu un choix, non une habitude</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">préparer ses propres repas coûte beaucoup moins cher que de manger au restaurant ou de commander en ligne</div>
+          <div class="chunk-en">preparing your own meals costs much less than eating at a restaurant or ordering online</div>
+          <div class="chunk-note">structure de comparaison naturelle à l'oral · coûter moins cher que = très courant en B2-C1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">de plus en plus de personnes font le lien entre ce qu'elles mangent et leur bien-être</div>
+          <div class="chunk-en">more and more people are making the connection between what they eat and their well-being</div>
+          <div class="chunk-note">faire le lien entre = expression C1 très utile · de plus en plus de + nom = tendance sociale</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">sans ces bases acquises dès l'enfance, il est difficile de développer une routine culinaire à l'âge adulte</div>
+          <div class="chunk-en">without these foundations acquired from childhood, it is difficult to develop a cooking routine as an adult</div>
+          <div class="chunk-note">acquis dès l'enfance = structure participiale C1 · il est difficile de + infinitif = tournure impersonnelle soignée</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptB = {
+  header: '❌ Position B — NON, les gens ne cuisinent plus régulièrement',
+  headerClass:'card-header-blue', titleClass:'card-title-blue',
+  badge:'Plus ardu', badgeClass:'badge-hard',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si les habitudes culinaires ont vraiment changé à l'ère de la restauration rapide et des repas prêts à consommer, et les avis sont mitigés.</p><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que les gens ne cuisinent plus aussi régulièrement qu'avant, à un certain point. Alors, je vais expliquer mes raisons.</p>` },
+    { label:'Point 1 — Le manque de temps', timing:'~50s', nuance:false,
+      text:`<p>Tout d'abord, il faut reconnaître que le rythme de vie moderne laisse peu de place à la cuisine. Les journées de travail sont longues, et une fois rentré à la maison, la plupart des gens n'ont ni l'énergie ni le temps de préparer un repas complet. Il est donc beaucoup plus simple et rapide de commander en ligne ou d'acheter un plat prêt à consommer au supermarché. La cuisine devient ainsi une activité que l'on réserve au weekend, et non plus une habitude quotidienne.</p>` },
+    { label:'Point 2 — La perte des savoir-faire culinaires', timing:'~50s', nuance:false,
+      text:`<p>De plus, on observe que les jeunes générations grandissent de moins en moins avec l'habitude de cuisiner, car la transmission familiale de ces savoir-faire est devenue rare. Autrefois, on apprenait à cuisiner en regardant ses parents ou grands-parents, mais aujourd'hui, cette pratique est souvent remplacée par des repas préparés ou des sorties au restaurant. Sans ces bases acquises dès l'enfance, il est difficile de développer une routine culinaire à l'âge adulte.</p>` },
+    { label:'Nuance', timing:'~30s', nuance:true,
+      text:`<p>En revanche, il est certes vrai qu'une partie de la population continue à cuisiner régulièrement, notamment ceux qui ont des enfants ou qui accordent une grande importance à leur santé. Mais il s'agit davantage d'un choix conscient que d'une habitude partagée par tous — cuisiner est devenu l'exception plutôt que la règle.</p>` },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, bien que certaines personnes continuent à cuisiner par choix personnel, notamment celles qui ont des enfants ou qui accordent une grande importance à leur santé, il n'en demeure pas moins que les obstacles sont réels, comme le manque de temps et la perte des savoir-faire familiaux.</p><p>Tout bien considéré, il faudrait que les nouvelles générations redécouvrent le plaisir de cuisiner, afin de préserver un savoir-faire culturel précieux et d'adopter de meilleures habitudes alimentaires.</p><p>Merci pour votre attention.</p>` }
+  ]
+};
+
+const scriptASimple = {
+  header: '✅ Position A — OUI, les gens cuisinent encore régulièrement',
+  headerClass:'card-header-green', titleClass:'card-title-green',
+  badge:'Plus facile à défendre', badgeClass:'badge-easy',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander si <span class="hl-pink">les habitudes culinaires ont vraiment changé à l'ère de la restauration rapide et des repas prêts à consommer</span>, et les avis sont mitigés.</p><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">la plupart des gens continuent à cuisiner régulièrement aujourd'hui</span>. Alors, je vais expliquer mes raisons.</p>` },
+    { label:'Point 1 — La cuisine reste ancrée dans le quotidien', timing:'~50s', nuance:false,
+      text:`<p>Tout d'abord, il faut souligner que cuisiner à la maison reste une pratique très <span class="hl-pink">répandue</span>, notamment pour des raisons <span class="hl-pink">économiques</span>. Préparer ses propres repas coûte beaucoup moins cher que de manger au restaurant ou de <span class="hl-pink">commander</span> en ligne, et dans un contexte où le coût de la vie <span class="hl-pink">augmente</span>, de nombreuses personnes reviennent naturellement à la cuisine maison pour gérer leur <span class="hl-pink">budget</span>. D'ailleurs, beaucoup suivent simplement des recettes YouTube pour préparer des repas faciles et rapides au quotidien.</p>` },
+    { label:'Point 2 — Une prise de conscience liée à la santé', timing:'~50s', nuance:false,
+      text:`<p>Ensuite, on observe une prise de conscience croissante autour de l'alimentation <span class="hl-pink">saine</span>. De plus en plus de personnes font le lien entre ce qu'elles <span class="hl-pink">mangent</span> et leur <span class="hl-pink">bien-être</span>, et préfèrent donc contrôler elles-mêmes les ingrédients de leurs repas plutôt que de <span class="hl-pink">dépendre</span> de produits transformés ou de fast-food. Cuisiner devient ainsi un acte de soin envers soi-même, ce qui explique pourquoi tant de gens continuent à le faire malgré <span class="hl-pink">un emploi du temps chargé</span>.</p>` },
+    { label:'Nuance', timing:'~30s', nuance:true,
+      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">la fréquence</span> et <span class="hl-blue">la complexité</span> des repas préparés ont changé. On cuisine peut-être moins de plats élaborés qu'autrefois, et on a plus souvent recours à des solutions intermédiaires comme les repas semi-préparés. Mais cela ne signifie pas que la cuisine a disparu du quotidien — elle s'est simplement <span class="hl-blue">adaptée</span> aux contraintes de la vie moderne.</p>` },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">la cuisine à la maison présente certaines contraintes</span>, notamment le manque de temps dans un quotidien chargé, il n'en demeure pas moins que ses <span class="hl-pink">avantages</span> sont indéniables, comme les économies <span class="hl-pink">réalisées</span> et les <span class="hl-pink">bénéfices</span> pour la santé.</p><p>Tout bien considéré, il serait souhaitable que les gens <span class="hl-p1">maintiennent</span> cette habitude de cuisiner régulièrement, même sous une forme <span class="hl-p1">simplifiée</span>, afin de préserver leur <span class="hl-p1">santé</span> et leur lien avec la culture <span class="hl-p1">culinaire</span>.</p><p>Merci pour votre attention.</p>` }
+  ]
+};
+
+function buildCard(s){
+  const blocks=s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${b.text}</div>
+      ${b.note?`<div class="en-note">${b.note}</div>`:''}
+      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+    </div>`).join('');
+  return`<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;}
+
+document.getElementById('bothGrid').innerHTML = buildCard(scriptASimple) + buildCard(scriptB);
+document.getElementById('posBGrid').innerHTML = buildCard(scriptB);
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showStage(stageId,btn){
+  const card=btn.closest('.script-card');
+  card.querySelectorAll('.stage-content').forEach(c=>c.classList.remove('active'));
+  card.querySelectorAll('.stage-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(stageId).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
