@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Le désintérêt pour la politique</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .single-view{max-width:620px;margin:0 auto;}
+
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+
+  .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
+  .stage-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:3px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);cursor:pointer;transition:all .15s;}
+  .stage-btn:hover{border-color:var(--accent);color:var(--text);}
+  .stage-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500;}
+
+  .stage-content{display:none;}
+  .stage-content.active{display:block;}
+
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;}
+  .script-text p:last-child{margin-bottom:0;}
+  .para-wrap{position:relative;margin-bottom:10px;}
+  .para-wrap:last-child{margin-bottom:0;}
+  .para-wrap p{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+
+  /* Hidden word mechanic */
+  .h{color:#fff;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;text-decoration-thickness:1px;}
+  .hl-pink .h{color:var(--pink-bg);text-decoration-color:#e8b4c4;}
+  .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
+  .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
+
+  /* Word list */
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="../index.html">← Retour</a>
+  <h1>TCF Canada — <span>Tâche 3</span></h1>
+  <div class="question-title">Pourquoi, selon vous, certaines personnes ne montrent-elles pas d'intérêt pour la politique ?</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">🎯 Position B 🎯</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
+
+<!-- Position B with stage toggle -->
+<div id="posB" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-blue">
+        <div class="card-title card-title-blue">✅ Position B — NON, ce désintérêt est problématique pour la société</div>
+        <span class="stance-badge badge-easy">Plus facile à défendre</span>
+      </div>
+      <div class="stage-toggle">
+        <button class="stage-btn active" onclick="showStage('sb0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('sb1',this)">Étape 1</button>
+        <button class="stage-btn" onclick="showStage('sb2',this)">Étape 2</button>
+        <button class="stage-btn" onclick="showStage('sb3',this)">Étape 3</button>
+      </div>
+
+      <!-- COMPLET -->
+      <div id="sb0" class="stage-content active">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">pourquoi certaines personnes ne montrent pas d'intérêt pour la politique</span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">ce désintérêt est problématique pour la société dans son ensemble, à un certain point.</span></p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — La politique affecte la vie quotidienne <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">la politique touche directement chaque aspect de la vie quotidienne des citoyens.</span></p></div>
+            <div class="para-wrap"><p>En effet, les décisions prises par les gouvernements — qu'il s'agisse des impôts, des services de santé, du logement ou de l'éducation — affectent concrètement les conditions de vie de chacun.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">se désintéresser de la politique revient à laisser d'autres décider à sa place des conditions de sa propre vie.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>il convient de souligner</em> = it is worth noting · <em>qu'il s'agisse de</em> = whether it be (subjonctif) · <em>revenir à</em> = to amount to · <em>à sa place</em> = in one's stead</div>
+          <div class="wc">~74 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Le désintérêt affaiblit la démocratie <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">lorsque les citoyens se désengagent massivement, ce sont les voix les plus radicales qui finissent par dominer le débat public.</span></p></div>
+            <div class="para-wrap"><p>Prenons le cas du référendum sur le Brexit : des millions de citoyens qui n'avaient pas voté ont réalisé trop tard que leur abstention avait des conséquences réelles et irréversibles sur leur vie quotidienne.</p></div>
+            <div class="para-wrap"><p>Par voie de conséquence, <span class="hl-pink">le silence de la majorité crée un vide dangereux que les partis extrémistes s'empressent d'occuper.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>se désengager massivement</em> = to disengage en masse · <em>les voix radicales</em> = radical voices · <em>l'abstention</em> = abstention, not voting · <em>s'empresser de</em> = to rush to (C1)</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance — La précarité limite la participation <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que <span class="hl-blue">s'engager politiquement demande du temps, de l'énergie et un accès à l'information que tout le monde ne possède pas.</span></p></div>
+            <div class="para-wrap"><p>En effet, <span class="hl-blue">les personnes en situation de précarité, surchargées de travail ou sans accès à une éducation civique de qualité, ne peuvent pas toujours se permettre de suivre l'actualité politique.</span></p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Ces personnes consacrent toute leur énergie à répondre à leurs besoins immédiats, ce qui ne leur laisse ni le temps ni la capacité de s'intéresser au débat politique.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>la précarité</em> = financial insecurity, precarious living conditions · <em>surchargé de travail</em> = overloaded with work · <em>se permettre de</em> = to be able to afford to · <em>consacrer à</em> = to devote to</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la précarité</span> présente certaines limites à la participation civique, il n'en demeure pas moins que les inconvénients du désintérêt politique sont indéniables, comme <span class="hl-pink">l'affaiblissement de la démocratie et la perte d'influence sur sa propre vie.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il faudrait que <span class="hl-p1">les gouvernements investissent davantage dans l'éducation civique et dans l'accessibilité du débat politique, afin qu'ils permettent à tous les citoyens de s'engager pleinement.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il faudrait que les gouvernements investissent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>l'affaiblissement</em> = the weakening</div>
+        </div>
+      </div><!-- /sb0 -->
+
+      <!-- ÉTAPE 1 -->
+      <div id="sb1" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">pourquoi <span class="h">certaines personnes ne montrent pas d'intérêt pour la politique</span></span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que ce <span class="h">désintérêt</span> est <span class="h">problématique</span> pour la société dans son ensemble, à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — La politique affecte la vie quotidienne <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">la politique <span class="h">touche</span> directement chaque <span class="h">aspect</span> de la vie quotidienne des citoyens.</span></p></div>
+            <div class="para-wrap"><p>En effet, les décisions <span class="h">prises</span> par les gouvernements — qu'il s'agisse des <span class="h">impôts</span>, des <span class="h">services</span> de santé, du <span class="h">logement</span> ou de l'éducation — affectent concrètement les conditions de vie de chacun.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink"><span class="h">se désintéresser</span> de la politique revient à laisser d'autres décider à <span class="h">sa place</span> des <span class="h">conditions</span> de sa propre vie.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>il convient de souligner</em> = it is worth noting · <em>qu'il s'agisse de</em> = whether it be (subjonctif) · <em>revenir à</em> = to amount to · <em>à sa place</em> = in one's stead</div>
+          <div class="wc">~74 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Le désintérêt affaiblit la démocratie <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">lorsque les citoyens se désengagent <span class="h">massivement</span>, ce sont les voix les plus <span class="h">radicales</span> qui finissent par <span class="h">dominer</span> le débat public.</span></p></div>
+            <div class="para-wrap"><p>Prenons le cas du référendum sur le Brexit : des millions de citoyens qui n'avaient pas voté ont réalisé trop tard que leur <span class="h">abstention</span> avait des conséquences réelles et <span class="h">irréversibles</span> sur leur vie quotidienne.</p></div>
+            <div class="para-wrap"><p>Par voie de conséquence, <span class="hl-pink">le <span class="h">silence</span> de la majorité crée un vide dangereux que les partis extrémistes s'empressent d'occuper.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>se désengager massivement</em> = to disengage en masse · <em>les voix radicales</em> = radical voices · <em>l'abstention</em> = abstention, not voting · <em>s'empresser de</em> = to rush to (C1)</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance — La précarité limite la participation <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que <span class="hl-blue">s'engager politiquement demande du temps, de l'énergie et un accès à l'information que <span class="h">tout le monde</span> ne possède pas.</span></p></div>
+            <div class="para-wrap"><p>En effet, <span class="hl-blue">les personnes en situation de <span class="h">précarité</span>, surchargées de travail ou sans accès à une éducation civique de qualité, ne peuvent pas toujours se permettre de <span class="h">suivre</span> l'actualité politique.</span></p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Ces personnes consacrent toute leur énergie à répondre à leurs besoins <span class="h">immédiats</span>, ce qui ne leur laisse ni le temps ni la capacité de s'intéresser au <span class="h">débat</span> politique.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>la précarité</em> = financial insecurity · <em>surchargé de travail</em> = overloaded with work · <em>se permettre de</em> = to be able to afford to · <em>consacrer à</em> = to devote to</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la précarité</span> présente certaines limites à la participation civique, il n'en demeure pas moins que les inconvénients du désintérêt politique sont indéniables, comme <span class="hl-pink">l'affaiblissement de la <span class="h">démocratie</span> et la <span class="h">perte</span> d'influence sur sa propre vie.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il faudrait que <span class="hl-p1">les gouvernements <span class="h">investissent davantage</span> dans l'éducation civique et dans l'accessibilité du débat politique, afin qu'ils permettent à tous les citoyens de s'engager pleinement.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il faudrait que les gouvernements investissent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>l'affaiblissement</em> = the weakening</div>
+        </div>
+      </div><!-- /sb1 -->
+
+      <!-- ÉTAPE 2 -->
+      <div id="sb2" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">pourquoi <span class="h">certaines personnes ne montrent pas d'intérêt pour la politique</span></span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que ce <span class="h">désintérêt</span> est <span class="h">problématique</span> pour la société dans son ensemble, à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — La politique affecte la vie quotidienne <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">la politique <span class="h">touche</span> directement chaque <span class="h">aspect</span> de la vie quotidienne des citoyens.</span></p></div>
+            <div class="para-wrap"><p>En effet, les décisions <span class="h">prises</span> par les gouvernements — qu'il s'agisse des <span class="h">impôts</span>, des <span class="h">services</span> de santé, du <span class="h">logement</span> ou de l'éducation — affectent concrètement les conditions de vie de chacun.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink"><span class="h">se désintéresser</span> de la politique revient à laisser d'autres décider à <span class="h">sa place</span> des <span class="h">conditions</span> de sa propre vie.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>il convient de souligner</em> = it is worth noting · <em>qu'il s'agisse de</em> = whether it be (subjonctif) · <em>revenir à</em> = to amount to · <em>à sa place</em> = in one's stead</div>
+          <div class="wc">~74 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Le désintérêt affaiblit la démocratie <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">lorsque les citoyens se désengagent <span class="h">massivement</span>, ce sont les voix les plus <span class="h">radicales</span> qui finissent par <span class="h">dominer</span> le débat public.</span></p></div>
+            <div class="para-wrap"><p>Prenons le cas du référendum sur <span class="h">le Brexit</span> : des millions de citoyens qui n'avaient pas voté ont réalisé trop tard que leur <span class="h">abstention</span> avait des conséquences réelles et <span class="h">irréversibles</span> sur leur vie quotidienne.</p></div>
+            <div class="para-wrap"><p>Par voie de conséquence, <span class="hl-pink">le <span class="h">silence</span> de la <span class="h">majorité</span> crée un vide dangereux que les partis extrémistes s'empressent d'occuper.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>se désengager massivement</em> = to disengage en masse · <em>les voix radicales</em> = radical voices · <em>l'abstention</em> = abstention, not voting · <em>s'empresser de</em> = to rush to (C1)</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance — La précarité limite la participation <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que <span class="hl-blue">s'engager politiquement <span class="h">demande du temps</span>, de l'énergie et un accès à l'information que <span class="h">tout le monde</span> ne possède pas.</span></p></div>
+            <div class="para-wrap"><p>En effet, <span class="hl-blue">les personnes en situation de <span class="h">précarité</span>, surchargées de travail ou sans <span class="h">accès à</span> une éducation civique de qualité, ne peuvent pas toujours se permettre de <span class="h">suivre</span> l'actualité politique.</span></p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Ces personnes consacrent <span class="h">toute leur énergie</span> à répondre à leurs besoins <span class="h">immédiats</span>, ce qui ne leur laisse ni le temps ni la capacité de s'intéresser au <span class="h">débat</span> politique.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>la précarité</em> = financial insecurity · <em>surchargé de travail</em> = overloaded with work · <em>se permettre de</em> = to be able to afford to · <em>consacrer à</em> = to devote to</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue"><span class="h">la précarité</span></span> présente certaines limites à la participation civique, il n'en demeure pas moins que les inconvénients du <span class="h">désintérêt politique</span> sont indéniables, comme <span class="hl-pink"><span class="h">l'affaiblissement</span> de la <span class="h">démocratie</span> et la <span class="h">perte</span> d'influence sur sa propre vie.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il faudrait que <span class="hl-p1">les gouvernements <span class="h">investissent davantage</span> dans <span class="h">l'éducation civique</span> et dans <span class="h">l'accessibilité</span> du débat politique, afin qu'ils permettent à tous les citoyens de s'engager pleinement.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il faudrait que les gouvernements investissent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>l'affaiblissement</em> = the weakening</div>
+        </div>
+      </div><!-- /sb2 -->
+
+      <!-- ÉTAPE 3 -->
+      <div id="sb3" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">pourquoi <span class="h">certaines personnes ne montrent pas d'intérêt pour la politique</span></span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que ce <span class="h">désintérêt est problématique pour la société dans son ensemble</span>, à un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 — La politique affecte la vie quotidienne <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">la politique touche directement chaque aspect de la vie quotidienne des citoyens.</span></p></div>
+            <div class="para-wrap"><p>En effet, les décisions prises par les gouvernements — qu'il s'agisse des <span class="h">impôts, des services de santé, du logement ou de l'éducation</span> — affectent concrètement <span class="h">les conditions de vie de chacun</span>.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink"><span class="h">se désintéresser</span> de la politique revient à <span class="h">laisser d'autres décider à sa place des conditions de sa propre vie</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>il convient de souligner</em> = it is worth noting · <em>qu'il s'agisse de</em> = whether it be (subjonctif) · <em>revenir à</em> = to amount to · <em>à sa place</em> = in one's stead</div>
+          <div class="wc">~74 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 — Le désintérêt affaiblit la démocratie <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">lorsque les citoyens se désengagent massivement, ce sont les voix les plus radicales qui finissent par dominer le débat public.</span></p></div>
+            <div class="para-wrap"><p>Prenons le cas du référendum sur le Brexit : <span class="h">des millions de citoyens qui n'avaient pas voté ont réalisé trop tard que leur abstention avait des conséquences réelles et irréversibles sur leur vie quotidienne.</span></p></div>
+            <div class="para-wrap"><p>Par voie de conséquence, <span class="hl-pink">le silence de la majorité crée <span class="h">un vide dangereux</span> que <span class="h">les partis extrémistes s'empressent d'occuper</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>se désengager massivement</em> = to disengage en masse · <em>les voix radicales</em> = radical voices · <em>l'abstention</em> = abstention, not voting · <em>s'empresser de</em> = to rush to (C1)</div>
+          <div class="wc">~78 mots ✓</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance — La précarité limite la participation <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que <span class="hl-blue">s'engager politiquement demande du temps, de l'énergie et un accès à l'information que tout le monde ne possède pas.</span></p></div>
+            <div class="para-wrap"><p>En effet, <span class="hl-blue"><span class="h">les personnes en situation de précarité, surchargées de travail ou sans accès à une éducation civique de qualité, ne peuvent pas toujours se permettre de suivre l'actualité politique.</span></span></p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Ces personnes consacrent toute leur énergie à <span class="h">répondre à leurs besoins immédiats</span>, ce qui ne leur laisse ni <span class="h">le temps</span> ni <span class="h">la capacité</span> de s'intéresser au <span class="h">débat politique</span>.</span></p></div>
+          </div>
+          <div class="en-note">💬 <em>la précarité</em> = financial insecurity · <em>surchargé de travail</em> = overloaded with work · <em>se permettre de</em> = to be able to afford to · <em>consacrer à</em> = to devote to</div>
+          <div class="wc">~68 mots ✓</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue"><span class="h">la précarité</span></span> présente certaines <span class="h">limites</span> à la participation <span class="h">civique</span>, il n'en demeure pas moins que les <span class="h">inconvénients du désintérêt politique</span> sont indéniables, comme <span class="hl-pink"><span class="h">l'affaiblissement</span> de la <span class="h">démocratie</span> et la <span class="h">perte</span> d'influence sur sa propre vie.</span></p></div>
+            <div class="para-wrap"><p>Tout bien considéré, il faudrait que <span class="hl-p1">les gouvernements investissent davantage <span class="h">dans l'éducation civique et dans l'accessibilité du débat politique</span>, afin qu'ils permettent à tous les citoyens de <span class="h">s'engager pleinement</span>.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div class="en-note">💬 Subjonctif : <em>il faudrait que les gouvernements investissent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>l'affaiblissement</em> = the weakening</div>
+        </div>
+      </div><!-- /sb3 -->
+
+    </div><!-- /script-card -->
+  </div><!-- /single-view -->
+</div><!-- /posB -->
+
+<!-- WORD LIST -->
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Politique et démocratie ★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">le désintérêt <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">lack of interest, disengagement</span></div>
+          <div class="wl-row"><span class="wl-fr">le désengagement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">disengagement, withdrawal</span></div>
+          <div class="wl-row"><span class="wl-fr">l'abstention <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">abstention, not voting</span></div>
+          <div class="wl-row"><span class="wl-fr">la démocratie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">democracy</span></div>
+          <div class="wl-row"><span class="wl-fr">le débat public <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">public debate</span></div>
+          <div class="wl-row"><span class="wl-fr">le scrutin <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">ballot, election (C1)</span></div>
+          <div class="wl-row"><span class="wl-fr">le référendum <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">referendum</span></div>
+          <div class="wl-row"><span class="wl-fr">la classe politique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">the political class, politicians</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Confiance et méfiance</div>
+          <div class="wl-row"><span class="wl-fr">la méfiance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">distrust, mistrust</span></div>
+          <div class="wl-row"><span class="wl-fr">la déception <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">disappointment, disillusionment</span></div>
+          <div class="wl-row"><span class="wl-fr">la corruption <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">corruption</span></div>
+          <div class="wl-row"><span class="wl-fr">le scandale politique <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">political scandal</span></div>
+          <div class="wl-row"><span class="wl-fr">les promesses non tenues <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">broken promises</span></div>
+          <div class="wl-row"><span class="wl-fr">le sentiment d'impuissance <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">feeling of powerlessness</span></div>
+          <div class="wl-row"><span class="wl-fr">la résignation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">resignation, giving up</span></div>
+          <div class="wl-row"><span class="wl-fr">la polarisation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">polarisation (of opinion)</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Société et inégalités</div>
+          <div class="wl-row"><span class="wl-fr">la précarité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">financial insecurity, precarious conditions</span></div>
+          <div class="wl-row"><span class="wl-fr">l'éducation civique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">civic education</span></div>
+          <div class="wl-row"><span class="wl-fr">l'accessibilité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">accessibility, access</span></div>
+          <div class="wl-row"><span class="wl-fr">les inégalités sociales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">social inequalities</span></div>
+          <div class="wl-row"><span class="wl-fr">la participation civique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">civic participation</span></div>
+          <div class="wl-row"><span class="wl-fr">le citoyen / la citoyenne <em>(m/f)</em><span class="wl-star">★</span></span><span class="wl-en">citizen</span></div>
+          <div class="wl-row"><span class="wl-fr">les conditions de vie <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">living conditions</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Extrémisme et risques</div>
+          <div class="wl-row"><span class="wl-fr">les partis extrémistes <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">extremist parties</span></div>
+          <div class="wl-row"><span class="wl-fr">les voix radicales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">radical voices</span></div>
+          <div class="wl-row"><span class="wl-fr">un vide dangereux <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">a dangerous void</span></div>
+          <div class="wl-row"><span class="wl-fr">l'affaiblissement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">weakening (C1 noun form)</span></div>
+          <div class="wl-row"><span class="wl-fr">la montée de l'extrémisme <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">the rise of extremism</span></div>
+          <div class="wl-row"><span class="wl-fr">les conséquences irréversibles <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">irreversible consequences</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions — relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">se désintéresser</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to lose interest in</td></tr>
+          <tr><td class="vfr">se désengager</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to disengage from</td></tr>
+          <tr><td class="vfr">se méfier</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to distrust</td></tr>
+          <tr><td class="vfr">nuire</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to harm, to damage</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">s'empresser</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to rush to (C1)</td></tr>
+          <tr><td class="vfr">revenir</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to amount to, to come down to</td></tr>
+          <tr><td class="vfr">consacrer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to devote to</td></tr>
+          <tr><td class="vfr">se permettre</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to afford to, to allow oneself to</td></tr>
+          <tr><td class="vfr">investir</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to invest in</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs — politique et société</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">civique</span><span class="adj-en">civic</span></div>
+          <div class="adj-row"><span class="adj-fr">irréversible</span><span class="adj-en">irreversible</span></div>
+          <div class="adj-row"><span class="adj-fr">radical(e)</span><span class="adj-en">radical, extreme</span></div>
+          <div class="adj-row"><span class="adj-fr">précaire</span><span class="adj-en">precarious, insecure</span></div>
+          <div class="adj-row"><span class="adj-fr">massif / massive</span><span class="adj-en">massive, widespread</span></div>
+          <div class="adj-row"><span class="adj-fr">démocratique</span><span class="adj-en">democratic</span></div>
+          <div class="adj-row"><span class="adj-fr">extrémiste</span><span class="adj-en">extremist</span></div>
+          <div class="adj-row"><span class="adj-fr">accessible</span><span class="adj-en">accessible, available to all</span></div>
+          <div class="adj-row"><span class="adj-fr">concret(ète)</span><span class="adj-en">concrete, tangible</span></div>
+          <div class="adj-row"><span class="adj-fr">indéniable</span><span class="adj-en">undeniable (C1)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Position A — Désintérêt compréhensible</div>
+          <div class="contrast-item">la méfiance envers les élus</div>
+          <div class="contrast-item">les promesses non tenues</div>
+          <div class="contrast-item">le sentiment d'impuissance</div>
+          <div class="contrast-item">se résigner face au système</div>
+          <div class="contrast-item">la déception accumulée</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Position B — Désintérêt problématique</div>
+          <div class="contrast-item">la participation civique</div>
+          <div class="contrast-item">l'éducation civique</div>
+          <div class="contrast-item">l'affaiblissement de la démocratie</div>
+          <div class="contrast-item">s'engager activement</div>
+          <div class="contrast-item">la perte d'influence collective</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">se désintéresser de la politique revient à laisser d'autres décider à sa place</div>
+          <div class="chunk-en">losing interest in politics amounts to letting others decide in your place</div>
+          <div class="chunk-note">revenir à + infinitif = C1 structure for "to amount to" · très fort pour l'argumentation directe</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">le silence de la majorité crée un vide dangereux que les extrémistes s'empressent d'occuper</div>
+          <div class="chunk-en">the silence of the majority creates a dangerous void that extremists rush to fill</div>
+          <div class="chunk-note">s'empresser de = to rush to (C1) · image forte et mémorable à l'oral</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">ces personnes consacrent toute leur énergie à répondre à leurs besoins immédiats</div>
+          <div class="chunk-en">these people devote all their energy to meeting their immediate needs</div>
+          <div class="chunk-note">consacrer à = to devote to · structure réutilisable pour tout sujet de précarité ou inégalité</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">des millions de citoyens ont réalisé trop tard que leur abstention avait des conséquences irréversibles</div>
+          <div class="chunk-en">millions of citizens realised too late that their abstention had irreversible consequences</div>
+          <div class="chunk-note">exemple du Brexit — universel et immédiatement reconnaissable · irréversible = mot fort à l'oral</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptA = {
+  header: '❌ Position A — OUI, ce désintérêt est souvent compréhensible',
+  headerClass:'card-header-green', titleClass:'card-title-green',
+  badge:'Plus ardu', badgeClass:'badge-hard',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">pourquoi certaines personnes ne montrent pas d'intérêt pour la politique</span>, et les avis sont divergents. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">ce désintérêt est souvent le résultat d'une déception profonde envers le système, à un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:'' },
+    { label:'Point 1 — Méfiance et déception', timing:'~1 min', nuance:false, wc:'~72 mots ✓',
+      text:`<p>Tout d'abord, il convient de souligner que <span class="hl-pink">les scandales politiques répétés et les promesses non tenues ont profondément érodé la confiance des citoyens envers leurs dirigeants.</span> En effet, lorsque les élus promettent des réformes importantes pendant les campagnes électorales mais ne les réalisent jamais une fois au pouvoir, les citoyens finissent par percevoir la politique comme un jeu de dupes. De ce fait, <span class="hl-pink">cette déception accumulée pousse naturellement les gens à se détacher complètement du monde politique.</span></p>`,
+      note:'💬 <em>éroderla confiance</em> = to erode trust (C1) · <em>un jeu de dupes</em> = a fool\'s game · <em>déception accumulée</em> = accumulated disappointment · <em>se détacher de</em> = to detach from' },
+    { label:'Point 2 — Sentiment d\'impuissance', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
+      text:`<p>De plus, <span class="hl-pink">beaucoup de personnes sont convaincues que leur participation ne change absolument rien au résultat final.</span> En effet, lorsqu'on observe que les grandes décisions économiques et sociales sont souvent prises par une élite restreinte, indépendamment des résultats électoraux, le citoyen ordinaire développe un sentiment d'impuissance réelle. Par voie de conséquence, <span class="hl-pink">si voter ne change rien et que les dirigeants agissent de toute façon selon leurs propres intérêts, l'indifférence devient une réponse logique et presque inévitable.</span></p>`,
+      note:'💬 <em>une élite restreinte</em> = a small elite · <em>indépendamment de</em> = regardless of · <em>le citoyen ordinaire</em> = the ordinary citizen · <em>inévitable</em> = inevitable' },
+    { label:'Nuance', timing:'~1 min', nuance:true, wc:'~62 mots ✓',
+      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">certaines personnes s'intéressent à la politique mais choisissent de ne pas l'exprimer, non pas par indifférence, mais par crainte des réactions hostiles.</span> En effet, <span class="hl-blue">la polarisation croissante du débat politique — comme en témoignent les violences post-électorales aux États-Unis — pousse de nombreux citoyens à garder leurs opinions pour eux afin d'éviter les conflits, voire les représailles physiques.</span></p>`,
+      note:'💬 <em>par crainte de</em> = out of fear of · <em>les représailles</em> = reprisals, retaliation · <em>voire</em> = or even (C1) · <em>comme en témoignent</em> = as evidenced by' },
+    { label:'Conclusion', timing:'~50s', nuance:false,
+      text:`<p>En conclusion, bien que <span class="hl-blue">la peur de s'exprimer</span> présente certains inconvénients, notamment <span class="hl-blue">le frein à la participation civique</span>, il n'en demeure pas moins que les inconvénients du désintérêt politique sont indéniables, comme <span class="hl-pink">la perte de confiance et le sentiment d'impuissance.</span></p>
+<p>Tout bien considéré, il faudrait que <span class="hl-p1">les gouvernements rétablissent la transparence et tiennent leurs engagements, afin qu'ils regagnent la confiance des citoyens qu'ils représentent.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+function buildCard(s){
+  const blocks=s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${b.text}</div>
+      ${b.note?`<div class="en-note">${b.note}</div>`:''}
+      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+    </div>`).join('');
+  return`<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;}
+
+// Build Position A card
+document.getElementById('posAGrid').innerHTML = buildCard(scriptA);
+
+// Build Côte à côte — Position A + Position B summary card
+const posBSummary = `<div class="script-card">
+  <div class="card-header card-header-blue">
+    <div class="card-title card-title-blue">✅ Position B — NON, ce désintérêt est problématique pour la société</div>
+    <span class="stance-badge badge-easy">Plus facile à défendre</span>
+  </div>
+  <div class="block">
+    <div class="block-label">Introduction <span class="timing">~40s</span></div>
+    <div class="script-text"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">pourquoi certaines personnes ne montrent pas d'intérêt pour la politique</span>, et les avis sont divergents. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">ce désintérêt est problématique pour la société dans son ensemble, à un certain point.</span> Alors, je vais expliquer mes raisons.</p></div>
+  </div>
+  <div class="block">
+    <div class="block-label">Point 1 — La politique affecte la vie quotidienne <span class="timing">~1 min</span></div>
+    <div class="script-text"><p>Tout d'abord, il convient de souligner que <span class="hl-pink">la politique touche directement chaque aspect de la vie quotidienne des citoyens.</span> En effet, les décisions prises par les gouvernements — qu'il s'agisse des impôts, des services de santé, du logement ou de l'éducation — affectent concrètement les conditions de vie de chacun. De ce fait, <span class="hl-pink">se désintéresser de la politique revient à laisser d'autres décider à sa place des conditions de sa propre vie.</span></p></div>
+    <div class="wc">~74 mots ✓</div>
+  </div>
+  <div class="block">
+    <div class="block-label">Point 2 — Le désintérêt affaiblit la démocratie <span class="timing">~1 min</span></div>
+    <div class="script-text"><p>De plus, <span class="hl-pink">lorsque les citoyens se désengagent massivement, ce sont les voix les plus radicales qui finissent par dominer le débat public.</span> Prenons le cas du référendum sur le Brexit : des millions de citoyens qui n'avaient pas voté ont réalisé trop tard que leur abstention avait des conséquences réelles et irréversibles sur leur vie quotidienne. Par voie de conséquence, <span class="hl-pink">le silence de la majorité crée un vide dangereux que les partis extrémistes s'empressent d'occuper.</span></p></div>
+    <div class="wc">~78 mots ✓</div>
+  </div>
+  <div class="block block-nuance">
+    <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+    <div class="script-text"><p>En revanche, il est certes vrai que <span class="hl-blue">s'engager politiquement demande du temps, de l'énergie et un accès à l'information que tout le monde ne possède pas.</span> En effet, <span class="hl-blue">les personnes en situation de précarité, surchargées de travail ou sans accès à une éducation civique de qualité, ne peuvent pas toujours se permettre de suivre l'actualité politique.</span> <span class="hl-blue">Ces personnes consacrent toute leur énergie à répondre à leurs besoins immédiats, ce qui ne leur laisse ni le temps ni la capacité de s'intéresser au débat politique.</span></p></div>
+    <div class="wc">~68 mots ✓</div>
+  </div>
+  <div class="block">
+    <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+    <div class="script-text"><p>En conclusion, bien que <span class="hl-blue">la précarité</span> présente certaines limites à la participation civique, il n'en demeure pas moins que les inconvénients du désintérêt politique sont indéniables, comme <span class="hl-pink">l'affaiblissement de la démocratie et la perte d'influence sur sa propre vie.</span></p>
+<p>Tout bien considéré, il faudrait que <span class="hl-p1">les gouvernements investissent davantage dans l'éducation civique et dans l'accessibilité du débat politique, afin qu'ils permettent à tous les citoyens de s'engager pleinement.</span></p>
+<p>Merci pour votre attention.</p></div>
+  </div>
+</div>`;
+
+document.getElementById('bothGrid').innerHTML = buildCard(scriptA) + posBSummary;
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showStage(id,btn){
+  document.querySelectorAll('.stage-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.stage-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
