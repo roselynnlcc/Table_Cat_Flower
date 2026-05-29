@@ -169,5 +169,14 @@ const TCF_QUESTIONS = [
   date: '2026-05-23',
   stars: 0,
   status: "À faire"
+},
+{
+  id: 20,
+  cat: 'culture',
+  question: 'Pourquoi, selon vous, certaines personnes ne montrent-elles pas d\'intérêt pour la politique ?',
+  scriptUrl: 'culture/desinteret-politique.html',
+  date: '2026-05-28',
+  stars: 3,
+  status: "À faire"
 }
 ];
