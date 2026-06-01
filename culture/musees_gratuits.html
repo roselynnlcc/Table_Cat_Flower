@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Les musées gratuits</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .single-view{max-width:620px;margin:0 auto;}
+
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+
+  .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
+  .stage-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:3px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);cursor:pointer;transition:all .15s;}
+  .stage-btn:hover{border-color:var(--accent);color:var(--text);}
+  .stage-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500;}
+
+  .stage-content{display:none;}
+  .stage-content.active{display:block;}
+
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;}
+  .script-text p:last-child{margin-bottom:0;}
+  .para-wrap{position:relative;margin-bottom:10px;}
+  .para-wrap:last-child{margin-bottom:0;}
+  .para-wrap p{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+
+  /* Hidden word mechanic */
+  .h{color:#fff;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;text-decoration-thickness:1px;}
+  .hl-pink .h{color:var(--pink-bg);text-decoration-color:#e8b4c4;}
+  .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
+  .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
+
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="../index.html">&#8592; Retour</a>
+  <h1>TCF Canada &#8212; <span>T&#226;che 3</span></h1>
+  <div class="question-title">Les mus&#233;es devraient &#234;tre gratuits pour tout le monde. Qu&#8217;en pensez-vous&#160;?</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">C&#244;te &#224; c&#244;te</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">&#127919; Position A &#127919;</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+
+<!-- Position A with stage toggle -->
+<div id="posA" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-green">
+        <div class="card-title card-title-green">&#10003; Position A &#8212; OUI, les mus&#233;es devraient &#234;tre gratuits</div>
+        <span class="stance-badge badge-easy">Plus facile &#224; d&#233;fendre</span>
+      </div>
+      <div class="stage-toggle">
+        <button class="stage-btn active" onclick="showStage('sa0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('sa1',this)">&#201;tape 1</button>
+        <button class="stage-btn" onclick="showStage('sa2',this)">&#201;tape 2</button>
+        <button class="stage-btn" onclick="showStage('sa3',this)">&#201;tape 3</button>
+      </div>
+
+      <!-- COMPLET -->
+      <div id="sa0" class="stage-content active">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander <span class="hl-pink">si les mus&#233;es devraient &#234;tre gratuits pour tout le monde</span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que <span class="hl-pink">les mus&#233;es devraient &#234;tre gratuits &#224; un certain point.</span></p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 &#8212; &#201;ducation <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d&#8217;abord, <span class="hl-pink">rendre les mus&#233;es gratuits repr&#233;sente un investissement direct dans l&#8217;&#233;ducation des jeunes.</span></p></div>
+            <div class="para-wrap"><p>Les &#233;tablissements scolaires peuvent organiser des sorties scolaires sans se soucier du co&#251;t, ce qui permet &#224; un plus grand nombre d&#8217;&#233;l&#232;ves de s&#8217;immerger dans l&#8217;art et de s&#8217;inspirer d&#8217;artistes divers.</p></div>
+            <div class="para-wrap"><p>De ce fait, ces exp&#233;riences contribuent &#224; &#233;largir les horizons de la jeunesse. &#192; long terme, investir dans la curiosit&#233; et la cr&#233;ativit&#233; de la rel&#232;ve, <span class="hl-pink">c&#8217;est un b&#233;n&#233;fice r&#233;el pour la soci&#233;t&#233; dans son ensemble.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>sans se soucier du co&#251;t</em> = without worrying about the cost &#183; <em>la rel&#232;ve</em> = the next generation (C1) &#183; <em>dans son ensemble</em> = as a whole</div>
+          <div class="wc">~78 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 &#8212; &#201;conomie locale <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">l&#8217;entr&#233;e gratuite attire davantage de visiteurs et dynamise l&#8217;&#233;conomie locale.</span></p></div>
+            <div class="para-wrap"><p>Autour des mus&#233;es, on trouve souvent des caf&#233;s, des librairies et des boutiques qui b&#233;n&#233;ficient de ce flux de visiteurs. On le voit bien &#224; New York, o&#249; le MoMA g&#233;n&#232;re des millions de dollars de retomb&#233;es &#233;conomiques chaque ann&#233;e. Ce dynamisme contribue aux recettes fiscales et permet de financer d&#8217;autres services publics.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">le mus&#233;e gratuit ne co&#251;te pas seulement &#224; la soci&#233;t&#233;, il lui rapporte &#233;galement.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>dynamiser</em> = to boost &#183; <em>un flux de visiteurs</em> = a flow of visitors &#183; <em>les retomb&#233;es &#233;conomiques</em> = economic benefits &#183; <em>il lui rapporte</em> = it yields back to it</div>
+          <div class="wc">~80 mots &#10003;</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">le fonctionnement d&#8217;un mus&#233;e engendre des co&#251;ts consid&#233;rables, notamment l&#8217;entretien des salles, la conservation des &#339;uvres et la conception des expositions.</span></p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Si l&#8217;entr&#233;e est gratuite, ces charges reposent enti&#232;rement sur les fonds publics, ce qui peut repr&#233;senter un fardeau pour le gouvernement.</span></p></div>
+            <div class="para-wrap"><p>&#192; long terme, <span class="hl-blue">la gratuit&#233; n&#8217;est pas viable si le mus&#233;e ne g&#233;n&#232;re pas assez de revenus.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>engendre des co&#251;ts</em> = generates costs &#183; <em>un fardeau</em> = a burden &#183; <em>viable</em> = viable, sustainable</div>
+          <div class="wc">~62 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la gratuit&#233;</span> pr&#233;sente certains inconv&#233;nients, notamment <span class="hl-blue">le fardeau pour les fonds publics,</span> il n&#8217;en demeure pas moins que les avantages sont ind&#233;niables, comme <span class="hl-pink">l&#8217;investissement dans la jeunesse et le dynamisme &#233;conomique local.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&#233;r&#233;, il faudrait que <span class="hl-p1">les gouvernements soutiennent chaque mus&#233;e selon ses besoins financiers, afin qu&#8217;ils puissent maintenir un acc&#232;s gratuit ou abordable pour tous.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /sa0 -->
+
+      <!-- ETAPE 1 -->
+      <div id="sa1" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander <span class="hl-pink">si les mus&#233;es devraient &#234;tre <span class="h">gratuits</span> pour tout le monde</span>, et les avis sont <span class="h">divergents</span>.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que les mus&#233;es devraient &#234;tre <span class="h">gratuits</span> &#224; un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 &#8212; &#201;ducation <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d&#8217;abord, <span class="hl-pink">rendre les mus&#233;es gratuits repr&#233;sente un <span class="h">investissement</span> direct dans l&#8217;&#233;ducation des jeunes.</span></p></div>
+            <div class="para-wrap"><p>Les <span class="h">&#233;tablissements scolaires</span> peuvent organiser des <span class="h">sorties scolaires</span> sans se soucier du co&#251;t, ce qui permet &#224; un plus grand nombre d&#8217;&#233;l&#232;ves de s&#8217;<span class="h">immerger</span> dans l&#8217;art et de s&#8217;<span class="h">inspirer</span> d&#8217;artistes divers.</p></div>
+            <div class="para-wrap"><p>De ce fait, ces exp&#233;riences contribuent &#224; <span class="h">&#233;largir les horizons</span> de la jeunesse. &#192; long terme, investir dans la curiosit&#233; et la cr&#233;ativit&#233; de la <span class="h">rel&#232;ve</span>, <span class="hl-pink">c&#8217;est un b&#233;n&#233;fice r&#233;el pour la soci&#233;t&#233; dans son ensemble.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>sans se soucier du co&#251;t</em> = without worrying about the cost &#183; <em>la rel&#232;ve</em> = the next generation (C1) &#183; <em>dans son ensemble</em> = as a whole</div>
+          <div class="wc">~78 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 &#8212; &#201;conomie locale <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">l&#8217;entr&#233;e gratuite <span class="h">attire</span> davantage de visiteurs et <span class="h">dynamise</span> l&#8217;&#233;conomie locale.</span></p></div>
+            <div class="para-wrap"><p>Autour des mus&#233;es, on trouve souvent des caf&#233;s, des librairies et des boutiques qui <span class="h">b&#233;n&#233;ficient</span> de ce <span class="h">flux</span> de visiteurs. On le voit bien &#224; New York, o&#249; le MoMA <span class="h">g&#233;n&#232;re</span> des millions de dollars de <span class="h">retomb&#233;es &#233;conomiques</span> chaque ann&#233;e. Ce dynamisme contribue aux <span class="h">recettes fiscales</span> et permet de financer d&#8217;autres services publics.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">le mus&#233;e gratuit ne co&#251;te pas seulement &#224; la soci&#233;t&#233;, il lui <span class="h">rapporte</span> &#233;galement.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>dynamiser</em> = to boost &#183; <em>un flux de visiteurs</em> = a flow of visitors &#183; <em>les retomb&#233;es &#233;conomiques</em> = economic benefits &#183; <em>il lui rapporte</em> = it yields back to it</div>
+          <div class="wc">~80 mots &#10003;</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">le fonctionnement d&#8217;un mus&#233;e <span class="h">engendre</span> des co&#251;ts <span class="h">consid&#233;rables</span>, notamment l&#8217;<span class="h">entretien</span> des salles, la <span class="h">conservation</span> des &#339;uvres et la conception des expositions.</span></p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Si l&#8217;entr&#233;e est gratuite, ces charges reposent enti&#232;rement sur les <span class="h">fonds publics</span>, ce qui peut repr&#233;senter un <span class="h">fardeau</span> pour le gouvernement.</span></p></div>
+            <div class="para-wrap"><p>&#192; long terme, <span class="hl-blue">la gratuit&#233; n&#8217;est pas <span class="h">viable</span> si le mus&#233;e ne <span class="h">g&#233;n&#232;re</span> pas assez de revenus.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>engendre des co&#251;ts</em> = generates costs &#183; <em>un fardeau</em> = a burden &#183; <em>viable</em> = viable, sustainable</div>
+          <div class="wc">~62 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la gratuit&#233;</span> pr&#233;sente certains <span class="h">inconv&#233;nients</span>, notamment <span class="hl-blue">le <span class="h">fardeau</span> pour les fonds publics,</span> il n&#8217;en demeure pas moins que les avantages sont <span class="h">ind&#233;niables</span>, comme <span class="hl-pink">l&#8217;<span class="h">investissement</span> dans la jeunesse et le <span class="h">dynamisme</span> &#233;conomique local.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&#233;r&#233;, il faudrait que <span class="hl-p1">les gouvernements <span class="h">soutiennent</span> chaque mus&#233;e selon ses besoins financiers, afin qu&#8217;ils puissent maintenir un acc&#232;s <span class="h">gratuit ou abordable</span> pour tous.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /sa1 -->
+
+      <!-- ETAPE 2 -->
+      <div id="sa2" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander <span class="hl-pink">si les mus&#233;es devraient &#234;tre <span class="h">gratuits pour tout le monde</span></span>, et les avis sont <span class="h">divergents</span>.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que <span class="h">les mus&#233;es devraient &#234;tre gratuits</span> &#224; un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 &#8212; &#201;ducation <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d&#8217;abord, <span class="hl-pink">rendre les mus&#233;es gratuits repr&#233;sente un investissement direct dans l&#8217;&#233;ducation des jeunes.</span></p></div>
+            <div class="para-wrap"><p>Les &#233;tablissements scolaires peuvent organiser des sorties scolaires <span class="h">sans se soucier du co&#251;t</span>, ce qui permet &#224; un plus grand nombre d&#8217;&#233;l&#232;ves de <span class="h">s&#8217;immerger dans l&#8217;art</span> et de s&#8217;inspirer d&#8217;artistes divers.</p></div>
+            <div class="para-wrap"><p>De ce fait, ces exp&#233;riences contribuent &#224; <span class="h">&#233;largir les horizons de la jeunesse</span>. &#192; long terme, investir dans la <span class="h">curiosit&#233;</span> et la <span class="h">cr&#233;ativit&#233;</span> de la rel&#232;ve, <span class="hl-pink">c&#8217;est un b&#233;n&#233;fice r&#233;el pour la soci&#233;t&#233; dans son ensemble.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>sans se soucier du co&#251;t</em> = without worrying about the cost &#183; <em>la rel&#232;ve</em> = the next generation (C1) &#183; <em>dans son ensemble</em> = as a whole</div>
+          <div class="wc">~78 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 &#8212; &#201;conomie locale <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">l&#8217;entr&#233;e gratuite attire davantage de visiteurs et <span class="h">dynamise l&#8217;&#233;conomie locale</span>.</span></p></div>
+            <div class="para-wrap"><p>Autour des mus&#233;es, on trouve souvent des caf&#233;s, des librairies et des boutiques qui <span class="h">b&#233;n&#233;ficient de ce flux de visiteurs</span>. On le voit bien &#224; New York, o&#249; le MoMA <span class="h">g&#233;n&#232;re des millions de dollars de retomb&#233;es &#233;conomiques</span> chaque ann&#233;e. Ce dynamisme <span class="h">contribue aux recettes fiscales</span> et permet de financer d&#8217;autres services publics.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">le mus&#233;e gratuit <span class="h">ne co&#251;te pas seulement &#224; la soci&#233;t&#233;</span>, il lui rapporte &#233;galement.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>dynamiser</em> = to boost &#183; <em>un flux de visiteurs</em> = a flow of visitors &#183; <em>les retomb&#233;es &#233;conomiques</em> = economic benefits &#183; <em>il lui rapporte</em> = it yields back to it</div>
+          <div class="wc">~80 mots &#10003;</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue"><span class="h">le fonctionnement d&#8217;un mus&#233;e engendre des co&#251;ts consid&#233;rables</span>, notamment l&#8217;entretien des salles, la conservation des &#339;uvres et la conception des expositions.</span></p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Si l&#8217;entr&#233;e est gratuite, ces charges <span class="h">reposent enti&#232;rement sur les fonds publics</span>, ce qui peut repr&#233;senter un fardeau pour le gouvernement.</span></p></div>
+            <div class="para-wrap"><p>&#192; long terme, <span class="hl-blue">la gratuit&#233; <span class="h">n&#8217;est pas viable</span> si le mus&#233;e ne g&#233;n&#232;re pas assez de revenus.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>engendre des co&#251;ts</em> = generates costs &#183; <em>un fardeau</em> = a burden &#183; <em>viable</em> = viable, sustainable</div>
+          <div class="wc">~62 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue"><span class="h">la gratuit&#233;</span></span> pr&#233;sente certains inconv&#233;nients, notamment <span class="hl-blue"><span class="h">le fardeau pour les fonds publics</span>,</span> il n&#8217;en demeure pas moins que les avantages sont ind&#233;niables, comme <span class="hl-pink"><span class="h">l&#8217;investissement dans la jeunesse</span> et <span class="h">le dynamisme &#233;conomique local</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&#233;r&#233;, il faudrait que <span class="hl-p1">les gouvernements <span class="h">soutiennent chaque mus&#233;e selon ses besoins financiers</span>, afin qu&#8217;ils puissent maintenir <span class="h">un acc&#232;s gratuit ou abordable pour tous</span>.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /sa2 -->
+
+      <!-- ETAPE 3 -->
+      <div id="sa3" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander <span class="hl-pink">si les mus&#233;es devraient &#234;tre gratuits pour tout le monde</span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que <span class="h">les mus&#233;es devraient &#234;tre gratuits &#224; un certain point.</span></p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 &#8212; &#201;ducation <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d&#8217;abord, <span class="hl-pink">rendre les mus&#233;es gratuits repr&#233;sente un investissement direct dans l&#8217;&#233;ducation des jeunes.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Les &#233;tablissements scolaires peuvent organiser des sorties scolaires sans se soucier du co&#251;t</span>, ce qui permet &#224; un plus grand nombre d&#8217;&#233;l&#232;ves de s&#8217;immerger dans l&#8217;art et <span class="h">de s&#8217;inspirer d&#8217;artistes divers</span>.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="h">ces exp&#233;riences contribuent &#224; &#233;largir les horizons de la jeunesse</span>. &#192; long terme, <span class="hl-pink">c&#8217;est un b&#233;n&#233;fice r&#233;el pour la soci&#233;t&#233; dans son ensemble.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>sans se soucier du co&#251;t</em> = without worrying about the cost &#183; <em>la rel&#232;ve</em> = the next generation (C1) &#183; <em>dans son ensemble</em> = as a whole</div>
+          <div class="wc">~78 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 &#8212; &#201;conomie locale <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">l&#8217;entr&#233;e gratuite attire davantage de visiteurs et dynamise l&#8217;&#233;conomie locale.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Autour des mus&#233;es, on trouve souvent des caf&#233;s, des librairies et des boutiques qui b&#233;n&#233;ficient de ce flux de visiteurs.</span> On le voit bien &#224; New York, o&#249; <span class="h">le MoMA g&#233;n&#232;re des millions de dollars de retomb&#233;es &#233;conomiques chaque ann&#233;e</span>. <span class="h">Ce dynamisme contribue aux recettes fiscales et permet de financer d&#8217;autres services publics.</span></p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">le mus&#233;e gratuit ne co&#251;te pas seulement &#224; la soci&#233;t&#233;, il lui rapporte &#233;galement.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>dynamiser</em> = to boost &#183; <em>un flux de visiteurs</em> = a flow of visitors &#183; <em>les retomb&#233;es &#233;conomiques</em> = economic benefits &#183; <em>il lui rapporte</em> = it yields back to it</div>
+          <div class="wc">~80 mots &#10003;</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">le fonctionnement d&#8217;un mus&#233;e engendre des co&#251;ts consid&#233;rables, notamment l&#8217;entretien des salles, la conservation des &#339;uvres et la conception des expositions.</span></p></div>
+            <div class="para-wrap"><p><span class="hl-blue"><span class="h">Si l&#8217;entr&#233;e est gratuite, ces charges reposent enti&#232;rement sur les fonds publics, ce qui peut repr&#233;senter un fardeau pour le gouvernement.</span></span></p></div>
+            <div class="para-wrap"><p>&#192; long terme, <span class="hl-blue"><span class="h">la gratuit&#233; n&#8217;est pas viable si le mus&#233;e ne g&#233;n&#232;re pas assez de revenus.</span></span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>engendre des co&#251;ts</em> = generates costs &#183; <em>un fardeau</em> = a burden &#183; <em>viable</em> = viable, sustainable</div>
+          <div class="wc">~62 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la gratuit&#233;</span> pr&#233;sente certains inconv&#233;nients, notamment <span class="hl-blue">le fardeau pour les fonds publics,</span> il n&#8217;en demeure pas moins que les avantages sont ind&#233;niables, comme <span class="hl-pink">l&#8217;investissement dans la jeunesse et le dynamisme &#233;conomique local.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&#233;r&#233;, il faudrait que <span class="hl-p1"><span class="h">les gouvernements soutiennent chaque mus&#233;e selon ses besoins financiers, afin qu&#8217;ils puissent maintenir un acc&#232;s gratuit ou abordable pour tous.</span></span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /sa3 -->
+
+    </div><!-- /script-card -->
+  </div><!-- /single-view -->
+</div><!-- /posA -->
+
+<!-- Position B full script only -->
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<!-- WORD LIST -->
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; cl&#233;s du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Finances et financement &#9733; = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les contribuables <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">taxpayers</span></div>
+          <div class="wl-row"><span class="wl-fr">les fonds publics <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">public funds</span></div>
+          <div class="wl-row"><span class="wl-fr">les recettes <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">revenue, receipts</span></div>
+          <div class="wl-row"><span class="wl-fr">la billetterie <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">ticketing, ticket sales</span></div>
+          <div class="wl-row"><span class="wl-fr">une participation financi&#232;re <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">a financial contribution</span></div>
+          <div class="wl-row"><span class="wl-fr">une charge collective <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">a collective burden</span></div>
+          <div class="wl-row"><span class="wl-fr">les recettes fiscales <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">tax revenue</span></div>
+          <div class="wl-row"><span class="wl-fr">les retomb&#233;es &#233;conomiques <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">economic benefits, spinoffs</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Culture et patrimoine</div>
+          <div class="wl-row"><span class="wl-fr">le patrimoine <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">heritage, patrimony</span></div>
+          <div class="wl-row"><span class="wl-fr">une exposition temporaire <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">a temporary exhibition</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#8217;entretien <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">upkeep, maintenance</span></div>
+          <div class="wl-row"><span class="wl-fr">la conservation des &#339;uvres <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">conservation of artworks</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie culturelle <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">cultural life</span></div>
+          <div class="wl-row"><span class="wl-fr">un droit d&#8217;entr&#233;e <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">an entry fee</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">&#201;ducation et jeunesse</div>
+          <div class="wl-row"><span class="wl-fr">les &#233;tablissements scolaires <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">schools</span></div>
+          <div class="wl-row"><span class="wl-fr">une sortie scolaire <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">a school trip</span></div>
+          <div class="wl-row"><span class="wl-fr">la jeunesse <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">the youth, young people</span></div>
+          <div class="wl-row"><span class="wl-fr">la rel&#232;ve <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">the next generation</span></div>
+          <div class="wl-row"><span class="wl-fr">&#233;largir les horizons</span><span class="wl-en">to broaden horizons</span></div>
+          <div class="wl-row"><span class="wl-fr">s&#8217;immerger dans</span><span class="wl-en">to immerse oneself in</span></div>
+          <div class="wl-row"><span class="wl-fr">s&#8217;inspirer de</span><span class="wl-en">to be inspired by</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Soci&#233;t&#233; et &#233;galit&#233;</div>
+          <div class="wl-row"><span class="wl-fr">les citoyens modestes <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">low-income citizens</span></div>
+          <div class="wl-row"><span class="wl-fr">les plus ais&#233;s <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">the wealthiest</span></div>
+          <div class="wl-row"><span class="wl-fr">un obstacle financier <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">a financial barrier</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#8217;in&#233;galit&#233; culturelle <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">cultural inequality</span></div>
+          <div class="wl-row"><span class="wl-fr">&#234;tre exclu(e)</span><span class="wl-en">to be excluded</span></div>
+          <div class="wl-row"><span class="wl-fr">un fardeau <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">a burden</span></div>
+          <div class="wl-row"><span class="wl-fr">r&#233;partir le co&#251;t</span><span class="wl-en">to spread the cost</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + pr&#233;positions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Pr&#233;p.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">assumer</td><td class="vprep">&#8212;</td><td class="vrel">que</td><td class="ven">to take on, assume</td></tr>
+          <tr><td class="vfr">b&#233;n&#233;ficier</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to benefit from</td></tr>
+          <tr><td class="vfr">reposer</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to rest on, rely on</td></tr>
+          <tr><td class="vfr">p&#226;tir</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to suffer from</td></tr>
+          <tr><td class="vfr">se d&#233;grader</td><td class="vprep">&#8212;</td><td class="vrel">qui</td><td class="ven">to deteriorate</td></tr>
+          <tr><td class="vfr">dynamiser</td><td class="vprep">&#8212;</td><td class="vrel">que</td><td class="ven">to boost, energize</td></tr>
+          <tr><td class="vfr">g&#233;n&#233;rer</td><td class="vprep">&#8212;</td><td class="vrel">que</td><td class="ven">to generate</td></tr>
+          <tr><td class="vfr">exiger</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to require, demand</td></tr>
+          <tr><td class="vfr">financer / subventionner</td><td class="vprep">&#8212;</td><td class="vrel">que</td><td class="ven">to fund / to subsidize</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">gratuit(e)</span><span class="adj-en">free of charge</span></div>
+          <div class="adj-row"><span class="adj-fr">payant(e)</span><span class="adj-en">paid, not free</span></div>
+          <div class="adj-row"><span class="adj-fr">abordable</span><span class="adj-en">affordable</span></div>
+          <div class="adj-row"><span class="adj-fr">viable</span><span class="adj-en">viable, sustainable</span></div>
+          <div class="adj-row"><span class="adj-fr">injuste</span><span class="adj-en">unfair</span></div>
+          <div class="adj-row"><span class="adj-fr">profond&#233;ment injuste</span><span class="adj-en">deeply unfair</span></div>
+          <div class="adj-row"><span class="adj-fr">accessible</span><span class="adj-en">accessible</span></div>
+          <div class="adj-row"><span class="adj-fr">consid&#233;rable</span><span class="adj-en">considerable, significant</span></div>
+          <div class="adj-row"><span class="adj-fr">modeste</span><span class="adj-en">modest, low-income</span></div>
+          <div class="adj-row"><span class="adj-fr">ais&#233;(e)</span><span class="adj-en">wealthy, well-off</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">OUI &#8212; les mus&#233;es devraient &#234;tre gratuits</div>
+          <div class="contrast-item">investissement dans l&#8217;&#233;ducation des jeunes</div>
+          <div class="contrast-item">sorties scolaires accessibles &#224; tous</div>
+          <div class="contrast-item">&#233;largir les horizons de la jeunesse</div>
+          <div class="contrast-item">dynamiser l&#8217;&#233;conomie locale</div>
+          <div class="contrast-item">g&#233;n&#233;rer des retomb&#233;es &#233;conomiques</div>
+          <div class="contrast-item">la culture accessible &#224; tous les citoyens</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">NON &#8212; les mus&#233;es devraient &#234;tre payants</div>
+          <div class="contrast-item">injuste pour les contribuables</div>
+          <div class="contrast-item">charge collective sur les non-visiteurs</div>
+          <div class="contrast-item">les visiteurs doivent assumer une part du co&#251;t</div>
+          <div class="contrast-item">les recettes financent la qualit&#233;</div>
+          <div class="contrast-item">sans billetterie, la qualit&#233; se d&#233;grade</div>
+          <div class="contrast-item">la gratuit&#233; n&#8217;est pas viable &#224; long terme</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases fig&#233;es C1 &#8212; m&#233;moriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">chaque livre investie dans les mus&#233;es en rapporte plusieurs &#224; la ville</div>
+          <div class="chunk-en">every pound invested in museums yields several back to the city</div>
+          <div class="chunk-note">rapporter = to yield / bring back &#183; pattern r&#233;utilisable : chaque [unit&#233;] investie en rapporte [X]</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">le mus&#233;e gratuit ne co&#251;te pas seulement &#224; la soci&#233;t&#233;, il lui rapporte &#233;galement</div>
+          <div class="chunk-en">the free museum does not only cost society, it gives back as well</div>
+          <div class="chunk-note">structure de renversement C1 &#183; tr&#232;s efficace en conclusion de point</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">sans ces recettes, la qualit&#233; se d&#233;grade et le public en p&#226;tit</div>
+          <div class="chunk-en">without this revenue, quality deteriorates and the public suffers for it</div>
+          <div class="chunk-note">en p&#226;tit = en p&#226;tit de cela &#183; sujet singulier : en p&#226;tit &#183; sujet pluriel : en p&#226;tissent</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">investir dans la curiosit&#233; et la cr&#233;ativit&#233; de la rel&#232;ve, c&#8217;est un b&#233;n&#233;fice r&#233;el pour la soci&#233;t&#233; dans son ensemble</div>
+          <div class="chunk-en">investing in the curiosity and creativity of the next generation is a real benefit for society as a whole</div>
+          <div class="chunk-note">la rel&#232;ve = next generation (C1) &#183; dans son ensemble = as a whole</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">c&#8217;est la qualit&#233; m&#234;me du lieu qui est en jeu</div>
+          <div class="chunk-en">it is the very quality of the place that is at stake</div>
+          <div class="chunk-note">c&#8217;est X m&#234;me qui = emphase C1 &#183; &#234;tre en jeu = to be at stake &#183; m&#234;me apr&#232;s le nom = itself</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptB = {
+  header: "&#10007; Position B &#8212; NON, les mus&#233;es devraient &#234;tre payants",
+  headerClass:"card-header-blue", titleClass:"card-title-blue",
+  badge:"Plus ardu", badgeClass:"badge-hard",
+  blocks:[
+    { label:"Introduction", timing:"~40s", nuance:false,
+      text:`<p>Pour commencer, merci pour votre question ! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander <span class="hl-pink">si les mus&#233;es devraient &#234;tre gratuits pour tout le monde</span>, et les avis sont divergents. Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que <span class="hl-pink">les mus&#233;es devraient toujours exiger une participation financi&#232;re de leurs visiteurs &#224; un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:"" },
+    { label:"Point 1 &#8212; &#201;quit&#233; fiscale", timing:"~1 min", nuance:false, wc:"~68 mots &#10003;",
+      text:`<p>Tout d&#8217;abord, <span class="hl-pink">force est de constater que rendre les mus&#233;es gratuits pour tous est profond&#233;ment injuste pour les contribuables.</span> Au Royaume-Uni par exemple, les grands mus&#233;es nationaux sont enti&#232;rement gratuits, et ils co&#251;tent des centaines de millions de livres par an aux contribuables, m&#234;me ceux qui ne visitent jamais un mus&#233;e. Pour maintenir une certaine &#233;quit&#233;, <span class="hl-pink">il est donc juste que les visiteurs assument une part du co&#251;t.</span></p>`,
+      note:"&#128172; <em>force est de constater que</em> = one must acknowledge that (C1) &#183; <em>les contribuables</em> = taxpayers &#183; <em>assumer une part du co&#251;t</em> = to bear a share of the cost" },
+    { label:"Point 2 &#8212; Qualit&#233; culturelle", timing:"~1 min", nuance:false, wc:"~80 mots &#10003;",
+      text:`<p>De plus, <span class="hl-pink">le prix du billet repr&#233;sente bien plus qu&#8217;un simple droit d&#8217;entr&#233;e, c&#8217;est une contribution &#224; la vie culturelle.</span> Les recettes de la billetterie financent l&#8217;entretien des salles et la conception des expositions. Sans ces recettes, la qualit&#233; se d&#233;grade et le public en p&#226;tit. Prenons le cas du Louvre : en 2026, le mus&#233;e a d&#251; augmenter ses billets de 45% pour financer des r&#233;parations urgentes. Sans cela, <span class="hl-pink">c&#8217;est la qualit&#233; m&#234;me du lieu qui est en jeu.</span></p>`,
+      note:"&#128172; <em>les recettes de la billetterie</em> = ticket revenue &#183; <em>en p&#226;tit</em> = suffers for it &#183; <em>c&#8217;est X m&#234;me qui</em> = emphatic structure C1 &#183; <em>&#234;tre en jeu</em> = to be at stake" },
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~69 mots &#10003;",
+      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">le prix du billet peut repr&#233;senter un obstacle r&#233;el pour certaines familles qui n&#8217;ont pas les moyens d&#8217;acc&#233;der &#224; la culture.</span> De ce fait, si les mus&#233;es restent payants sans exception, la culture risque de devenir r&#233;serv&#233;e aux plus ais&#233;s. Les citoyens modestes se retrouvent alors exclus d&#8217;un patrimoine qui appartient pourtant &#224; tous. <span class="hl-blue">Cette in&#233;galit&#233; culturelle est une limite r&#233;elle qu&#8217;il ne faut pas ignorer.</span></p>`,
+      note:"&#128172; <em>un obstacle r&#233;el</em> = a real barrier &#183; <em>les plus ais&#233;s</em> = the wealthiest &#183; <em>un patrimoine qui appartient &#224; tous</em> = a heritage that belongs to everyone" },
+    { label:"Conclusion", timing:"~50s", nuance:false,
+      text:`<p>En conclusion, bien qu&#8217;<span class="hl-blue">un syst&#232;me payant</span> pr&#233;sente certains inconv&#233;nients, notamment <span class="hl-blue">le frein &#224; l&#8217;inclusion des citoyens modestes,</span> il n&#8217;en demeure pas moins que les avantages sont ind&#233;niables, comme <span class="hl-pink">l&#8217;&#233;quit&#233; envers les contribuables et le financement de la qualit&#233; des mus&#233;es.</span></p>
+<p>Tout bien consid&#233;r&#233;, il serait souhaitable que <span class="hl-p1">les mus&#233;es proposent des tarifs r&#233;duits, voire gratuits, pour les personnes qui n&#8217;ont pas les moyens, afin qu&#8217;ils puissent maintenir un acc&#232;s culturel pour tous sans reposer enti&#232;rement sur les fonds publics.</span></p>
+<p>Merci pour votre attention.</p>`, note:"" }
+  ]
+};
+
+const scriptASummary = `<div class="script-card">
+  <div class="card-header card-header-green">
+    <div class="card-title card-title-green">&#10003; Position A &#8212; OUI, les mus&#233;es devraient &#234;tre gratuits</div>
+    <span class="stance-badge badge-easy">Plus facile &#224; d&#233;fendre</span>
+  </div>
+  <div class="block">
+    <div class="block-label">Introduction <span class="timing">~40s</span></div>
+    <div class="script-text"><p>Pour commencer, merci pour votre question ! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander <span class="hl-pink">si les mus&#233;es devraient &#234;tre gratuits pour tout le monde</span>, et les avis sont divergents. Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que <span class="hl-pink">les mus&#233;es devraient &#234;tre gratuits &#224; un certain point.</span> Alors, je vais expliquer mes raisons.</p></div>
+  </div>
+  <div class="block">
+    <div class="block-label">Point 1 &#8212; &#201;ducation <span class="timing">~1 min</span></div>
+    <div class="script-text"><p>Tout d&#8217;abord, <span class="hl-pink">rendre les mus&#233;es gratuits repr&#233;sente un investissement direct dans l&#8217;&#233;ducation des jeunes.</span> Les &#233;tablissements scolaires peuvent organiser des sorties scolaires sans se soucier du co&#251;t, ce qui permet &#224; un plus grand nombre d&#8217;&#233;l&#232;ves de s&#8217;immerger dans l&#8217;art et de s&#8217;inspirer d&#8217;artistes divers. De ce fait, ces exp&#233;riences contribuent &#224; &#233;largir les horizons de la jeunesse. &#192; long terme, investir dans la curiosit&#233; et la cr&#233;ativit&#233; de la rel&#232;ve, <span class="hl-pink">c&#8217;est un b&#233;n&#233;fice r&#233;el pour la soci&#233;t&#233; dans son ensemble.</span></p></div>
+    <div class="wc">~78 mots &#10003;</div>
+  </div>
+  <div class="block">
+    <div class="block-label">Point 2 &#8212; &#201;conomie locale <span class="timing">~1 min</span></div>
+    <div class="script-text"><p>De plus, <span class="hl-pink">l&#8217;entr&#233;e gratuite attire davantage de visiteurs et dynamise l&#8217;&#233;conomie locale.</span> Autour des mus&#233;es, on trouve souvent des caf&#233;s, des librairies et des boutiques qui b&#233;n&#233;ficient de ce flux de visiteurs. On le voit bien &#224; New York, o&#249; le MoMA g&#233;n&#232;re des millions de dollars de retomb&#233;es &#233;conomiques chaque ann&#233;e. Ce dynamisme contribue aux recettes fiscales et permet de financer d&#8217;autres services publics. De ce fait, <span class="hl-pink">le mus&#233;e gratuit ne co&#251;te pas seulement &#224; la soci&#233;t&#233;, il lui rapporte &#233;galement.</span></p></div>
+    <div class="wc">~80 mots &#10003;</div>
+  </div>
+  <div class="block block-nuance">
+    <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+    <div class="script-text"><p>Il est certes vrai que <span class="hl-blue">le fonctionnement d&#8217;un mus&#233;e engendre des co&#251;ts consid&#233;rables, notamment l&#8217;entretien des salles, la conservation des &#339;uvres et la conception des expositions.</span> <span class="hl-blue">Si l&#8217;entr&#233;e est gratuite, ces charges reposent enti&#232;rement sur les fonds publics, ce qui peut repr&#233;senter un fardeau pour le gouvernement.</span> &#192; long terme, <span class="hl-blue">la gratuit&#233; n&#8217;est pas viable si le mus&#233;e ne g&#233;n&#232;re pas assez de revenus.</span></p></div>
+    <div class="wc">~62 mots &#10003;</div>
+  </div>
+  <div class="block">
+    <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+    <div class="script-text"><p>En conclusion, bien que <span class="hl-blue">la gratuit&#233;</span> pr&#233;sente certains inconv&#233;nients, notamment <span class="hl-blue">le fardeau pour les fonds publics,</span> il n&#8217;en demeure pas moins que les avantages sont ind&#233;niables, comme <span class="hl-pink">l&#8217;investissement dans la jeunesse et le dynamisme &#233;conomique local.</span></p>
+<p>Tout bien consid&#233;r&#233;, il faudrait que <span class="hl-p1">les gouvernements soutiennent chaque mus&#233;e selon ses besoins financiers, afin qu&#8217;ils puissent maintenir un acc&#232;s gratuit ou abordable pour tous.</span></p>
+<p>Merci pour votre attention.</p></div>
+  </div>
+</div>`;
+
+function buildCard(s){
+  const blocks=s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${b.text}</div>
+      ${b.note?`<div class="en-note">${b.note}</div>`:''}
+      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+    </div>`).join('');
+  return`<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;}
+
+document.getElementById('bothGrid').innerHTML = scriptASummary + buildCard(scriptB);
+document.getElementById('posBGrid').innerHTML = buildCard(scriptB);
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showStage(id,btn){
+  document.querySelectorAll('.stage-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.stage-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
