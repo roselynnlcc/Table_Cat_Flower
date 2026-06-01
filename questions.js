@@ -194,7 +194,7 @@ const TCF_QUESTIONS = [
     question: 'Les musées devraient être gratuits pour tout le monde. Qu\'en pensez-vous ?',
     scriptUrl: 'culture/musees_gratuits.html',
     date: '2026-06-01',
-    stars: 0,
-    status: "À faire"
+    stars: 1,
+    status: "En cours"
 }
 ];
