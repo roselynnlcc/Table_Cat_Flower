@@ -18,9 +18,12 @@
   .header-row{display:flex;align-items:center;justify-content:space-between;}
   .header h1{font-family:'Fraunces',serif;font-size:20px;font-weight:300;}
   .header em{color:var(--accent);font-style:italic;}
-  .tips-icon{font-size:20px;line-height:1;cursor:pointer;text-decoration:none;transition:transform .15s;display:inline-flex;align-items:center;margin-left:auto;}
+  .header-icons{display:flex;align-items:center;gap:10px;margin-left:auto;}
+  .tips-icon{font-size:20px;line-height:1;cursor:pointer;text-decoration:none;transition:transform .15s;display:inline-flex;align-items:center;}
   .tips-icon:hover{transform:scale(1.15);}
   .tips-icon.active{filter:drop-shadow(0 0 4px rgba(255,140,0,.7));}
+  .ideas-icon{font-size:20px;line-height:1;text-decoration:none;display:inline-flex;align-items:center;transition:transform .15s;}
+  .ideas-icon:hover{transform:scale(1.15);}
 
   .motivation-bar{background:var(--text);padding:0 20px 10px;color:#fff;font-size:13px;font-weight:400;letter-spacing:0.3px;border-bottom:1px solid rgba(255,255,255,0.1);}
 
@@ -80,7 +83,10 @@
 <header class="header">
   <div class="header-row">
     <h1>TCF Canada — <em>Tâche 3</em></h1>
-    <a class="tips-icon" id="tipsIconBtn" onclick="toggleTips()" title="Conseils">❤️‍🔥</a>
+    <div class="header-icons">
+      <a class="ideas-icon" href="Inspiration/Inspiration_index.html" title="Banque d'idées">💡</a>
+      <a class="tips-icon" id="tipsIconBtn" onclick="toggleTips()" title="Conseils">❤️‍🔥</a>
+    </div>
   </div>
 </header>
 
