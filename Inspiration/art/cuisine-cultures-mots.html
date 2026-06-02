@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — La cuisine comme moyen de d&#233;couvrir d&#39;autres cultures</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour &#224; la Banque d&#39;Id&#233;es</a>
+  <h1>TCF Canada &#8212; <span>T&#226;che 3</span></h1>
+  <div class="question-title">La cuisine comme moyen de d&#233;couvrir d&#39;autres cultures &#8212; Liste de mots</div>
+</header>
+<div class="content"><div class="wl-page">
+
+  <div class="wl-section">
+    <div class="wl-section-title">Noms &#8212; cl&#233;s du sujet</div>
+    <div class="wl-grid">
+      <div class="wl-card">
+        <div class="wl-card-header">Culture et &#233;change &nbsp;&#9733; = exam priority</div>
+        <div class="wl-row"><span class="wl-fr">l&#39;&#233;change culturel <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">cultural exchange</span></div>
+        <div class="wl-row"><span class="wl-fr">les traditions culinaires <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">culinary traditions</span></div>
+        <div class="wl-row"><span class="wl-fr">l&#39;ouverture d&#39;esprit <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">open-mindedness</span></div>
+        <div class="wl-row"><span class="wl-fr">la tol&#233;rance <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">tolerance</span></div>
+        <div class="wl-row"><span class="wl-fr">les diff&#233;rences culinaires <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">culinary differences</span></div>
+        <div class="wl-row"><span class="wl-fr">les saveurs <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">flavours, tastes</span></div>
+        <div class="wl-row"><span class="wl-fr">le plat local <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">local dish</span></div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-header">Comp&#233;tences et apprentissage</div>
+        <div class="wl-row"><span class="wl-fr">les techniques de cuisine <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">cooking techniques</span></div>
+        <div class="wl-row"><span class="wl-fr">les comp&#233;tences culinaires <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">culinary skills</span></div>
+        <div class="wl-row"><span class="wl-fr">les comp&#233;tences linguistiques <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">language skills</span></div>
+        <div class="wl-row"><span class="wl-fr">les termes culinaires <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">culinary vocabulary</span></div>
+        <div class="wl-row"><span class="wl-fr">les recettes <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">recipes</span></div>
+        <div class="wl-row"><span class="wl-fr">les ustensiles sp&#233;cifiques <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">specific utensils</span></div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-header">Limites et risques</div>
+        <div class="wl-row"><span class="wl-fr">les intol&#233;rances alimentaires <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">food intolerances</span></div>
+        <div class="wl-row"><span class="wl-fr">la mauvaise pr&#233;paration <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">poor preparation</span></div>
+        <div class="wl-row"><span class="wl-fr">les aliments contamin&#233;s <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">contaminated food</span></div>
+        <div class="wl-row"><span class="wl-fr">le go&#251;t d&#233;plaisant <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">unpleasant taste</span></div>
+        <div class="wl-row"><span class="wl-fr">les ing&#233;dients sp&#233;cifiques <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">specific ingredients</span></div>
+        <div class="wl-row"><span class="wl-fr">la vision superficielle <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">superficial view</span></div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-header">Voyage et d&#233;couverte</div>
+        <div class="wl-row"><span class="wl-fr">la d&#233;couverte <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">discovery</span></div>
+        <div class="wl-row"><span class="wl-fr">la d&#233;gustation <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">tasting, sampling</span></div>
+        <div class="wl-row"><span class="wl-fr">les fa&#231;ons de pr&#233;parer <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">ways of preparing food</span></div>
+        <div class="wl-row"><span class="wl-fr">l&#39;appropriation culturelle <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">cultural appropriation</span></div>
+        <div class="wl-row"><span class="wl-fr">le patrimoine culinaire <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">culinary heritage</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Verbes + pr&#233;positions</div>
+    <div class="wl-card">
+      <table class="verb-table">
+        <tr><th>Verbe</th><th>Pr&#233;p.</th><th>Pronom rel.</th><th>Sens</th></tr>
+        <tr><td class="vfr">d&#233;couvrir</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to discover</td></tr>
+        <tr><td class="vfr">partager</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to share with</td></tr>
+        <tr><td class="vfr">appr&#233;cier</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to appreciate</td></tr>
+        <tr><td class="vfr">ma&#238;triser</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to master</td></tr>
+        <tr><td class="vfr">se familiariser</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to familiarise oneself with</td></tr>
+        <tr><td class="vfr">r&#233;duire</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to reduce to</td></tr>
+        <tr><td class="vfr">&#234;tre allergique</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to be allergic to</td></tr>
+        <tr><td class="vfr">consacrer</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to devote to</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Adjectifs utiles</div>
+    <div class="wl-card">
+      <div class="adj-grid">
+        <div class="adj-row"><span class="adj-fr">culinaire</span><span class="adj-en">culinary</span></div>
+        <div class="adj-row"><span class="adj-fr">interculturel(le)</span><span class="adj-en">intercultural</span></div>
+        <div class="adj-row"><span class="adj-fr">local(e)</span><span class="adj-en">local</span></div>
+        <div class="adj-row"><span class="adj-fr">superficiel(le)</span><span class="adj-en">superficial</span></div>
+        <div class="adj-row"><span class="adj-fr">contamin&#233;(e)</span><span class="adj-en">contaminated</span></div>
+        <div class="adj-row"><span class="adj-fr">d&#233;plaisant(e)</span><span class="adj-en">unpleasant</span></div>
+        <div class="adj-row"><span class="adj-fr">enrichissant(e)</span><span class="adj-en">enriching</span></div>
+        <div class="adj-row"><span class="adj-fr">authentique</span><span class="adj-en">authentic</span></div>
+        <div class="adj-row"><span class="adj-fr">potentiellement</span><span class="adj-en">potentially</span></div>
+        <div class="adj-row"><span class="adj-fr">dénatur&#233;(e)</span><span class="adj-en">altered, stripped of authenticity</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Paires de contraste</div>
+    <div class="contrast-grid">
+      <div class="contrast-card">
+        <div class="contrast-header contrast-header-a">Pour &#8212; La cuisine comme vecteur culturel</div>
+        <div class="contrast-item">explorer de nouvelles fa&#231;ons de pr&#233;parer les aliments et d&#233;couvrir de nouvelles saveurs</div>
+        <div class="contrast-item">partager des plats et apprendre sur les traditions culinaires d&#39;autres cultures</div>
+        <div class="contrast-item">apprendre les termes culinaires dans d&#39;autres langues</div>
+        <div class="contrast-item">d&#233;guster des plats locaux en voyageant dans d&#39;autres pays</div>
+        <div class="contrast-item">accepter et appr&#233;cier les diff&#233;rences culinaires entre les cultures</div>
+      </div>
+      <div class="contrast-card">
+        <div class="contrast-header contrast-header-b">Limites &#8212; Une vision r&#233;ductrice</div>
+        <div class="contrast-item">r&#233;duire une culture &#224; ses seuls plats sans comprendre le contexte</div>
+        <div class="contrast-item">ne pas ma&#238;triser les techniques et avoir du mal &#224; reproduire les recettes</div>
+        <div class="contrast-item">consacrer beaucoup de temps et d&#39;&#233;nergie &#224; la pr&#233;paration</div>
+        <div class="contrast-item">&#234;tre expos&#233; aux aliments potentiellement contamin&#233;s ou aux allergies</div>
+        <div class="contrast-item">proposer des adaptations locales qui d&#233;naturent les recettes originales</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Expressions C1 &#224; retenir</div>
+    <div class="chunk-list">
+      <div class="chunk-card">
+        <div class="chunk-fr">partager des plats et se familiariser avec les traditions culinaires d&#39;autres cultures favorise l&#39;ouverture d&#39;esprit et la tol&#233;rance</div>
+        <div class="chunk-en">sharing dishes and familiarising oneself with the culinary traditions of other cultures fosters open-mindedness and tolerance</div>
+        <div class="chunk-note">se familiariser avec = C1 reflexive verb &#183; favoriser + nom = elegant causal verb &#183; r&#233;utilisable pour tout sujet d&#39;&#233;change culturel</div>
+      </div>
+      <div class="chunk-card">
+        <div class="chunk-fr">r&#233;duire une culture &#224; ses seuls plats offre une vision superficielle qui ne tient pas compte de la profondeur de ses traditions</div>
+        <div class="chunk-en">reducing a culture to just its food offers a superficial view that does not account for the depth of its traditions</div>
+        <div class="chunk-note">r&#233;duire &#224; = C1 verb of reduction &#183; ne pas tenir compte de = to fail to take into account (C1) &#183; excellent pour la nuance</div>
+      </div>
+      <div class="chunk-card">
+        <div class="chunk-fr">d&#233;guster des plats locaux en voyageant dans d&#39;autres pays est l&#39;une des fa&#231;ons les plus directes de comprendre une autre culture</div>
+        <div class="chunk-en">tasting local dishes while travelling in other countries is one of the most direct ways to understand another culture</div>
+        <div class="chunk-note">l&#39;une des fa&#231;ons les plus + adj. = C1 superlative partitive &#183; en + g&#233;rondif for simultaneous action &#183; structure d&#39;ouverture tr&#232;s efficace</div>
+      </div>
+    </div>
+  </div>
+
+</div></div>
+</body>
+</html>

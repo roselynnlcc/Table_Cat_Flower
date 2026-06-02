@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — L&#39;art en tant que profession</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour &#224; la Banque d&#39;Id&#233;es</a>
+  <h1>TCF Canada &#8212; <span>T&#226;che 3</span></h1>
+  <div class="question-title">L&#39;art en tant que profession &#8212; Liste de mots</div>
+</header>
+<div class="content"><div class="wl-page">
+
+  <div class="wl-section">
+    <div class="wl-section-title">Noms &#8212; cl&#233;s du sujet</div>
+    <div class="wl-grid">
+      <div class="wl-card">
+        <div class="wl-card-header">Carri&#232;re artistique &nbsp;&#9733; = exam priority</div>
+        <div class="wl-row"><span class="wl-fr">l&#39;instabilit&#233; de l&#39;emploi <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">job instability</span></div>
+        <div class="wl-row"><span class="wl-fr">l&#39;incertitude financi&#232;re <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">financial uncertainty</span></div>
+        <div class="wl-row"><span class="wl-fr">le salaire r&#233;gulier <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">regular salary</span></div>
+        <div class="wl-row"><span class="wl-fr">la concurrence accrue <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">increased competition</span></div>
+        <div class="wl-row"><span class="wl-fr">les commanditaires <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">patrons, sponsors</span></div>
+        <div class="wl-row"><span class="wl-fr">la reconnaissance <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">recognition</span></div>
+        <div class="wl-row"><span class="wl-fr">le march&#233; de l&#39;art <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">the art market</span></div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-header">Libert&#233; et cr&#233;ation</div>
+        <div class="wl-row"><span class="wl-fr">la passion <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">passion</span></div>
+        <div class="wl-row"><span class="wl-fr">la libert&#233; d&#39;expression <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">freedom of expression</span></div>
+        <div class="wl-row"><span class="wl-fr">les &#339;uvres <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">works (of art)</span></div>
+        <div class="wl-row"><span class="wl-fr">l&#39;impact sur le public <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">impact on the public</span></div>
+        <div class="wl-row"><span class="wl-fr">l&#39;ind&#233;pendance <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">independence</span></div>
+        <div class="wl-row"><span class="wl-fr">les domaines artistiques <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">artistic fields</span></div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-header">Pressions et sant&#233;</div>
+        <div class="wl-row"><span class="wl-fr">les pressions <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">pressures</span></div>
+        <div class="wl-row"><span class="wl-fr">les exigences <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">demands, requirements</span></div>
+        <div class="wl-row"><span class="wl-fr">les contraintes physiques <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">physical constraints</span></div>
+        <div class="wl-row"><span class="wl-fr">les contraintes mentales <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">mental strain</span></div>
+        <div class="wl-row"><span class="wl-fr">les substances dangereuses <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">hazardous substances</span></div>
+        <div class="wl-row"><span class="wl-fr">les risques pour la sant&#233; <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">health risks</span></div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-header">Travail ind&#233;pendant vs salari&#233;</div>
+        <div class="wl-row"><span class="wl-fr">le travail ind&#233;pendant <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">freelance, self-employed work</span></div>
+        <div class="wl-row"><span class="wl-fr">le travail salari&#233; <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">salaried employment</span></div>
+        <div class="wl-row"><span class="wl-fr">percer dans un domaine <em>(v)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to break through in a field</span></div>
+        <div class="wl-row"><span class="wl-fr">les opportunit&#233;s de carri&#232;re <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">career opportunities</span></div>
+        <div class="wl-row"><span class="wl-fr">la valorisation de l&#39;art <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">recognition and valuation of art</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Verbes + pr&#233;positions</div>
+    <div class="wl-card">
+      <table class="verb-table">
+        <tr><th>Verbe</th><th>Pr&#233;p.</th><th>Pronom rel.</th><th>Sens</th></tr>
+        <tr><td class="vfr">compter</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to count on, to rely on</td></tr>
+        <tr><td class="vfr">faire face</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to face, to deal with</td></tr>
+        <tr><td class="vfr">percer</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to break through in</td></tr>
+        <tr><td class="vfr">s&#39;inspirer</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to draw inspiration from</td></tr>
+        <tr><td class="vfr">partager</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to share with</td></tr>
+        <tr><td class="vfr">&#234;tre soumis</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to be subject to</td></tr>
+        <tr><td class="vfr">r&#233;pondre</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to respond to, to meet</td></tr>
+        <tr><td class="vfr">se consacrer</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to dedicate oneself to</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Adjectifs utiles</div>
+    <div class="wl-card">
+      <div class="adj-grid">
+        <div class="adj-row"><span class="adj-fr">ind&#233;pendant(e)</span><span class="adj-en">independent, freelance</span></div>
+        <div class="adj-row"><span class="adj-fr">instable</span><span class="adj-en">unstable</span></div>
+        <div class="adj-row"><span class="adj-fr">exigeant(e)</span><span class="adj-en">demanding</span></div>
+        <div class="adj-row"><span class="adj-fr">accru(e)</span><span class="adj-en">increased, heightened</span></div>
+        <div class="adj-row"><span class="adj-fr">dangereux(se)</span><span class="adj-en">dangerous, hazardous</span></div>
+        <div class="adj-row"><span class="adj-fr">ad&#233;quat(e)</span><span class="adj-en">adequate, appropriate</span></div>
+        <div class="adj-row"><span class="adj-fr">physique</span><span class="adj-en">physical</span></div>
+        <div class="adj-row"><span class="adj-fr">mental(e)</span><span class="adj-en">mental</span></div>
+        <div class="adj-row"><span class="adj-fr">reconnu(e)</span><span class="adj-en">recognised</span></div>
+        <div class="adj-row"><span class="adj-fr">r&#233;gulier(&#232;re)</span><span class="adj-en">regular, steady</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Paires de contraste</div>
+    <div class="contrast-grid">
+      <div class="contrast-card">
+        <div class="contrast-header contrast-header-a">Pour &#8212; L&#39;art comme profession</div>
+        <div class="contrast-item">suivre sa passion et s&#39;exprimer sans contraintes ext&#233;rieures</div>
+        <div class="contrast-item">travailler dans des domaines vari&#233;s : peinture, cin&#233;ma, musique, photographie</div>
+        <div class="contrast-item">choisir de travailler pour soi-m&#234;me ou pour une organisation</div>
+        <div class="contrast-item">cr&#233;er des &#339;uvres qui ont un impact sur le public</div>
+        <div class="contrast-item">s&#39;inspirer de voyages et de nouvelles destinations</div>
+      </div>
+      <div class="contrast-card">
+        <div class="contrast-header contrast-header-b">Contre &#8212; L&#39;art comme profession</div>
+        <div class="contrast-item">ne pas toujours pouvoir compter sur un salaire r&#233;gulier</div>
+        <div class="contrast-item">faire face &#224; une concurrence accrue pour percer dans le m&#234;me domaine</div>
+        <div class="contrast-item">&#234;tre soumis &#224; des contraintes physiques ou mentales &#233;lev&#233;es</div>
+        <div class="contrast-item">ne pas toujours recevoir une reconnaissance ad&#233;quate pour son travail</div>
+        <div class="contrast-item">avoir du mal &#224; trouver un public ou un march&#233; pour ses &#339;uvres</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Expressions C1 &#224; retenir</div>
+    <div class="chunk-list">
+      <div class="chunk-card">
+        <div class="chunk-fr">exercer l&#39;art en tant que profession permet de se consacrer pleinement &#224; sa passion, mais ne garantit pas toujours un salaire r&#233;gulier</div>
+        <div class="chunk-en">practising art as a profession allows one to fully dedicate oneself to one&#39;s passion, but does not always guarantee a regular salary</div>
+        <div class="chunk-note">exercer en tant que = C1 professional register &#183; ne pas toujours garantir = nuance structure &#183; mais = simple oral connector, keep it direct</div>
+      </div>
+      <div class="chunk-card">
+        <div class="chunk-fr">faire face &#224; une concurrence accrue et ne pas pouvoir compter sur un revenu stable sont les deux principaux risques du m&#233;tier artistique</div>
+        <div class="chunk-en">dealing with increased competition and being unable to rely on a stable income are the two main risks of an artistic career</div>
+        <div class="chunk-note">faire face &#224; = C1 verb &#183; compter sur = verb + sur, pronom relatif sur lequel &#183; les deux principaux = useful ranking structure for oral exams</div>
+      </div>
+      <div class="chunk-card">
+        <div class="chunk-fr">bien que l&#39;art permette de partager des id&#233;es et d&#39;inspirer les gens, les artistes sont souvent soumis &#224; des pressions importantes pour r&#233;pondre aux attentes du public</div>
+        <div class="chunk-en">although art allows one to share ideas and inspire people, artists are often subject to significant pressure to meet public expectations</div>
+        <div class="chunk-note">bien que + subjonctif = C1 concession &#183; &#234;tre soumis &#224; = C1 passive &#183; r&#233;pondre aux attentes = to meet expectations, key professional phrase</div>
+      </div>
+    </div>
+  </div>
+
+</div></div>
+</body>
+</html>

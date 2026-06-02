@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — La collocation durant la p&#233;riode d&#39;&#233;tude</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour &#224; la Banque d&#39;Id&#233;es</a>
+  <h1>TCF Canada &#8212; <span>T&#226;che 3</span></h1>
+  <div class="question-title">La collocation durant la p&#233;riode d&#39;&#233;tude &#8212; Liste de mots</div>
+</header>
+<div class="content"><div class="wl-page">
+
+  <div class="wl-section">
+    <div class="wl-section-title">Noms &#8212; cl&#233;s du sujet</div>
+    <div class="wl-grid">
+      <div class="wl-card">
+        <div class="wl-card-header">Vie en colocation &nbsp;&#9733; = exam priority</div>
+        <div class="wl-row"><span class="wl-fr">la colocation <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">flat-sharing, house-sharing</span></div>
+        <div class="wl-row"><span class="wl-fr">les colocataires <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">flatmates, housemates</span></div>
+        <div class="wl-row"><span class="wl-fr">les frais de loyer <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">rent costs</span></div>
+        <div class="wl-row"><span class="wl-fr">les factures <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">bills, invoices</span></div>
+        <div class="wl-row"><span class="wl-fr">les liens sociaux <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">social bonds, ties</span></div>
+        <div class="wl-row"><span class="wl-fr">l&#39;entraide <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">mutual support, helping each other</span></div>
+        <div class="wl-row"><span class="wl-fr">le coup de main <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">helping hand</span></div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-header">Conflits et contraintes</div>
+        <div class="wl-row"><span class="wl-fr">le manque d&#39;intimit&#233; <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">lack of privacy</span></div>
+        <div class="wl-row"><span class="wl-fr">les divergences d&#39;opinions <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">differences of opinion</span></div>
+        <div class="wl-row"><span class="wl-fr">les modes de vie <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">lifestyles</span></div>
+        <div class="wl-row"><span class="wl-fr">les tensions <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">tensions</span></div>
+        <div class="wl-row"><span class="wl-fr">les conflits <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">conflicts</span></div>
+        <div class="wl-row"><span class="wl-fr">les horaires compatibles <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">compatible schedules</span></div>
+        <div class="wl-row"><span class="wl-fr">les t&#226;ches m&#233;nag&#232;res <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">household chores</span></div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-header">&#201;changes et d&#233;couverte</div>
+        <div class="wl-row"><span class="wl-fr">les nationalit&#233;s diff&#233;rentes <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">different nationalities</span></div>
+        <div class="wl-row"><span class="wl-fr">les exp&#233;riences partag&#233;es <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">shared experiences</span></div>
+        <div class="wl-row"><span class="wl-fr">la d&#233;couverte de nouvelles cultures <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">discovery of new cultures</span></div>
+        <div class="wl-row"><span class="wl-fr">les activit&#233;s ensemble <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">shared activities</span></div>
+        <div class="wl-row"><span class="wl-fr">les conseils <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">advice, tips</span></div>
+      </div>
+      <div class="wl-card">
+        <div class="wl-card-header">Organisation et logement</div>
+        <div class="wl-row"><span class="wl-fr">le m&#233;nage <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">housework, cleaning</span></div>
+        <div class="wl-row"><span class="wl-fr">la vaisselle <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">washing up, dishes</span></div>
+        <div class="wl-row"><span class="wl-fr">la cuisine &#233;quip&#233;e <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">fully equipped kitchen</span></div>
+        <div class="wl-row"><span class="wl-fr">l&#39;appartement mieux &#233;quip&#233; <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">better-equipped apartment</span></div>
+        <div class="wl-row"><span class="wl-fr">les affinit&#233;s <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">affinities, shared interests</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Verbes + pr&#233;positions</div>
+    <div class="wl-card">
+      <table class="verb-table">
+        <tr><th>Verbe</th><th>Pr&#233;p.</th><th>Pronom rel.</th><th>Sens</th></tr>
+        <tr><td class="vfr">partager</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to share with</td></tr>
+        <tr><td class="vfr">s&#39;entraider</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to support each other</td></tr>
+        <tr><td class="vfr">se soutenir</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to support one another</td></tr>
+        <tr><td class="vfr">avoir des affinit&#233;s</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to have things in common with</td></tr>
+        <tr><td class="vfr">g&#233;rer</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to manage, to handle</td></tr>
+        <tr><td class="vfr">respecter</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to respect</td></tr>
+        <tr><td class="vfr">&#234;tre en contact</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to be in contact with</td></tr>
+        <tr><td class="vfr">s&#39;occuper</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to take care of</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Adjectifs utiles</div>
+    <div class="wl-card">
+      <div class="adj-grid">
+        <div class="adj-row"><span class="adj-fr">compatible</span><span class="adj-en">compatible</span></div>
+        <div class="adj-row"><span class="adj-fr">constant(e)</span><span class="adj-en">constant</span></div>
+        <div class="adj-row"><span class="adj-fr">partag&#233;(e)</span><span class="adj-en">shared</span></div>
+        <div class="adj-row"><span class="adj-fr">attentif(ve)</span><span class="adj-en">attentive, considerate</span></div>
+        <div class="adj-row"><span class="adj-fr">&#233;quip&#233;(e)</span><span class="adj-en">equipped</span></div>
+        <div class="adj-row"><span class="adj-fr">social(e)</span><span class="adj-en">social</span></div>
+        <div class="adj-row"><span class="adj-fr">divergent(e)</span><span class="adj-en">divergent, differing</span></div>
+        <div class="adj-row"><span class="adj-fr">strict(e)</span><span class="adj-en">strict</span></div>
+        <div class="adj-row"><span class="adj-fr">mutuellement</span><span class="adj-en">mutually (adverb)</span></div>
+        <div class="adj-row"><span class="adj-fr">contraignant(e)</span><span class="adj-en">constraining, restrictive</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Paires de contraste</div>
+    <div class="contrast-grid">
+      <div class="contrast-card">
+        <div class="contrast-header contrast-header-a">Pour &#8212; La collocation</div>
+        <div class="contrast-item">partager les frais de loyer, de nourriture et de factures</div>
+        <div class="contrast-item">vivre avec d&#39;autres &#233;tudiants et partager des activit&#233;s ensemble</div>
+        <div class="contrast-item">&#233;changer des conseils et se donner un coup de main pour les devoirs</div>
+        <div class="contrast-item">vivre avec des personnes de diff&#233;rentes nationalit&#233;s et d&#233;couvrir leurs coutumes</div>
+        <div class="contrast-item">louer un appartement avec une cuisine &#233;quip&#233;e et une salle de bain</div>
+      </div>
+      <div class="contrast-card">
+        <div class="contrast-header contrast-header-b">Contre &#8212; La collocation</div>
+        <div class="contrast-item">&#234;tre constamment entour&#233; et ne pas pouvoir avoir son propre espace</div>
+        <div class="contrast-item">trouver des personnes avec lesquelles on a des affinit&#233;s et des horaires compatibles</div>
+        <div class="contrast-item">&#234;tre attentif aux besoins et aux pr&#233;f&#233;rences des autres colocataires</div>
+        <div class="contrast-item">avoir des divergences d&#39;opinions ou de modes de vie</div>
+        <div class="contrast-item">s&#39;occuper du m&#233;nage, de la vaisselle et des t&#226;ches m&#233;nag&#232;res</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wl-section">
+    <div class="wl-section-title">Expressions C1 &#224; retenir</div>
+    <div class="chunk-list">
+      <div class="chunk-card">
+        <div class="chunk-fr">vivre en colocation permet de partager les frais de loyer et de nourriture, ce qui r&#233;duit consid&#233;rablement le co&#251;t de la vie &#233;tudiante</div>
+        <div class="chunk-en">flat-sharing allows you to split rent and food costs, which considerably reduces the cost of student life</div>
+        <div class="chunk-note">partager les frais = memorisable oral chunk &#183; ce qui r&#233;duit = C1 relative clause for consequence &#183; consid&#233;rablement = C1 adverb of degree</div>
+      </div>
+      <div class="chunk-card">
+        <div class="chunk-fr">trouver des colocataires avec lesquels on a des affinit&#233;s et des horaires compatibles reste l&#39;un des d&#233;fis principaux de la vie en colocation</div>
+        <div class="chunk-en">finding flatmates with whom you have things in common and compatible schedules remains one of the main challenges of shared living</div>
+        <div class="chunk-note">avec lesquels = relative pronoun after prep + people (C1) &#183; rester l&#39;un des d&#233;fis = strong nuance opener &#183; r&#233;utilisable pour tout sujet de vie partag&#233;e</div>
+      </div>
+      <div class="chunk-card">
+        <div class="chunk-fr">&#234;tre constamment en contact avec les m&#234;mes personnes peut engendrer des tensions, surtout lorsqu&#39;il y a des divergences de modes de vie</div>
+        <div class="chunk-en">being constantly in contact with the same people can generate tensions, especially when there are differences in lifestyles</div>
+        <div class="chunk-note">engendrer des tensions = C1 verb for conflict &#183; surtout lorsque = oral nuance marker &#183; divergences de modes de vie = C1 noun phrase for incompatibility</div>
+      </div>
+    </div>
+  </div>
+
+</div></div>
+</body>
+</html>
