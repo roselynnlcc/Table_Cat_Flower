@@ -54,12 +54,14 @@
   @media(max-width:600px){.contrast-grid{grid-template-columns:1fr;}}
   .contrast-card{border-radius:var(--radius-sm);border:1px solid var(--border);overflow:hidden;}
   .card-pos-a{background-color:#f4faf7;}
-  .card-pos-b{background-color:#fff8f0;}
+  .card-pos-b{background-color:#f0f6ff;}
   .contrast-header{padding:6px 10px;font-size:10px;font-weight:700;text-transform:uppercase;border-bottom:1px solid var(--border);}
   .contrast-header.pos-a{background:#eaf4ef;color:#2d6a4f;}
-  .contrast-header.pos-b{background:#fdeede;color:#9a3412;}
-  .contrast-item{padding:8px 10px;font-size:14px;border-bottom:1px solid rgba(0,0,0,0.03);line-height:1.4;display:flex;gap:8px;color:var(--text);}
+  .contrast-header.pos-b{background:#ddeeff;color:#185fa5;}
+  .contrast-item{padding:7px 10px;font-size:14px;border-bottom:1px solid rgba(0,0,0,0.03);line-height:1.4;display:flex;align-items:center;gap:8px;color:var(--text);}
   .contrast-item:last-child{border-bottom:none;}
+  .speak-btn{margin-left:auto;flex-shrink:0;background:none;border:none;cursor:pointer;font-size:13px;opacity:0.4;padding:2px 4px;border-radius:4px;line-height:1;transition:opacity .15s;}
+  .speak-btn:hover,.speak-btn.speaking{opacity:1;}
   .contrast-item::before{content:"•";color:var(--accent);font-weight:bold;flex-shrink:0;}
 
 
@@ -707,11 +709,11 @@ function renderCards(list){
           : `<div class="contrast-grid">
           <div class="contrast-card card-pos-a">
             <div class="contrast-header pos-a">✓ Avantages</div>
-            ${t.avantages.map(a=>`<div class="contrast-item">${a}</div>`).join('')}
+            ${t.avantages.map(a=>`<div class="contrast-item">${a}<button class="speak-btn" onclick="speakFr(event,this)" title="Écouter">🔊</button></div>`).join('')}
           </div>
           <div class="contrast-card card-pos-b">
             <div class="contrast-header pos-b">✗ Inconvénients</div>
-            ${t.inconvenients.map(i=>`<div class="contrast-item">${i}</div>`).join('')}
+            ${t.inconvenients.map(i=>`<div class="contrast-item">${i}<button class="speak-btn" onclick="speakFr(event,this)" title="Écouter">🔊</button></div>`).join('')}
           </div>
         </div>`}
       </div>
@@ -752,7 +754,7 @@ async function toggleCard(id){
           const buildCard = (card, bgClass, hdrClass) => {
             const hdr   = card.querySelector('.contrast-header');
             const items = Array.from(card.querySelectorAll('.contrast-item'))
-                              .map(i => `<div class="contrast-item">${i.textContent}</div>`).join('');
+                              .map(i => `<div class="contrast-item">${i.textContent}<button class="speak-btn" onclick="speakFr(event,this)" title="\u00c9couter">\uD83D\uDD0A</button></div>`).join('');
             return `<div class="contrast-card ${bgClass}">
               <div class="contrast-header pos-${hdrClass}">${hdr ? hdr.textContent : ''}</div>
               ${items}
@@ -1032,6 +1034,25 @@ function buildListe(d){
 
 // init
 renderCards(TOPICS);
+
+// ── TTS speak button ──
+function speakFr(e, btn){
+  e.stopPropagation();
+  if(!window.speechSynthesis) return;
+  const text = btn.parentElement.childNodes[0].textContent.trim();
+  if(window.speechSynthesis.speaking){
+    window.speechSynthesis.cancel();
+    document.querySelectorAll('.speak-btn.speaking').forEach(b=>b.classList.remove('speaking'));
+    if(btn.classList.contains('speaking')){ btn.classList.remove('speaking'); return; }
+  }
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'fr-FR';
+  utt.rate = 0.9;
+  btn.classList.add('speaking');
+  utt.onend = () => btn.classList.remove('speaking');
+  utt.onerror = () => btn.classList.remove('speaking');
+  window.speechSynthesis.speak(utt);
+}
 </script>
 </body>
 </html>
