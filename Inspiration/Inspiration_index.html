@@ -1052,7 +1052,7 @@ function speakFr(e, btn){
   
   const utt = new SpeechSynthesisUtterance(text);
   utt.lang = 'fr-FR';
-  utt.rate = 0.9;
+  utt.rate = 1;
 
   // Explicitly find and set a French voice
   const voices = window.speechSynthesis.getVoices();
