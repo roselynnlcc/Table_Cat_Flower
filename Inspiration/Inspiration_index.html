@@ -1036,43 +1036,22 @@ function buildListe(d){
 renderCards(TOPICS);
 
 // ── TTS speak button ──
-// Force voices to load into the browser as soon as possible (fixes a known iOS bug)
-if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
-  speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
-}
-
 function speakFr(e, btn){
-  e.stopPropagation();[cite: 1]
-  if(!window.speechSynthesis) return;[cite: 1]
-  
-  const text = btn.parentElement.childNodes[0].textContent.trim();[cite: 1]
-  
-  if(window.speechSynthesis.speaking){[cite: 1]
-    window.speechSynthesis.cancel();[cite: 1]
-    document.querySelectorAll('.speak-btn.speaking').forEach(b=>b.classList.remove('speaking'));[cite: 1]
-    if(btn.classList.contains('speaking')){ btn.classList.remove('speaking'); return; }[cite: 1]
+  e.stopPropagation();
+  if(!window.speechSynthesis) return;
+  const text = btn.parentElement.childNodes[0].textContent.trim();
+  if(window.speechSynthesis.speaking){
+    window.speechSynthesis.cancel();
+    document.querySelectorAll('.speak-btn.speaking').forEach(b=>b.classList.remove('speaking'));
+    if(btn.classList.contains('speaking')){ btn.classList.remove('speaking'); return; }
   }
-  
-  const utt = new SpeechSynthesisUtterance(text);[cite: 1]
-  utt.lang = 'fr-FR';[cite: 1]
-  utt.rate = 0.9;[cite: 1]
-
-  // --- NEW: Explicitly find and set a French voice ---
-  const voices = window.speechSynthesis.getVoices();
-  // Look for Canadian French first, then fall back to any French voice
-  const frenchVoice = voices.find(voice => voice.lang === 'fr-CA') || 
-                      voices.find(voice => voice.lang.startsWith('fr'));
-                      
-  if (frenchVoice) {
-      utt.voice = frenchVoice;
-  }
-  // ---------------------------------------------------
-
-  btn.classList.add('speaking');[cite: 1]
-  utt.onend = () => btn.classList.remove('speaking');[cite: 1]
-  utt.onerror = () => btn.classList.remove('speaking');[cite: 1]
-  
-  window.speechSynthesis.speak(utt);[cite: 1]
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'fr-FR';
+  utt.rate = 0.9;
+  btn.classList.add('speaking');
+  utt.onend = () => btn.classList.remove('speaking');
+  utt.onerror = () => btn.classList.remove('speaking');
+  window.speechSynthesis.speak(utt);
 }
 </script>
 </body>
