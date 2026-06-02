@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Banque d'Idées</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+  /* HEADER */
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .subtitle{font-size:13px;color:#aaa;margin-top:4px;}
+
+  /* CATEGORY FILTER BAR */
+  .filter-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;flex-wrap:wrap;gap:8px;position:sticky;top:65px;z-index:90;}
+  .filter-btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--text-soft);cursor:pointer;transition:all 0.15s;}
+  .filter-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .filter-btn.active{background:var(--text);color:#fff;border-color:var(--text);}
+
+  /* MAIN */
+  main{max-width:800px;margin:0 auto;padding:24px 20px 60px;}
+
+  /* SECTION HEADING */
+  .section-label{font-family:'Fraunces',serif;font-size:22px;font-weight:400;color:var(--text);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+  .section-label:first-of-type{margin-top:8px;}
+
+  /* TOPIC CARD */
+  .topic-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;}
+  .topic-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;user-select:none;gap:12px;}
+  .topic-header:hover{background:var(--surface2);}
+  .topic-title{font-size:15px;font-weight:500;color:var(--text);flex:1;}
+  .topic-meta{display:flex;align-items:center;gap:8px;}
+  .script-badge{font-size:11px;font-weight:500;padding:3px 8px;border-radius:10px;background:var(--green-bg);color:var(--green);white-space:nowrap;}
+  .script-badge.pending{background:#f5f2ee;color:var(--text-muted);}
+  .chevron{color:var(--text-muted);font-size:14px;transition:transform 0.2s;flex-shrink:0;}
+  .topic-card.open .chevron{transform:rotate(180deg);}
+
+  /* TOPIC BODY */
+  .topic-body{display:none;padding:0 18px 18px;}
+  .topic-card.open .topic-body{display:block;}
+
+  .columns{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px;}
+  @media(max-width:560px){.columns{grid-template-columns:1fr;}}
+
+  .col-avantages,.col-inconvenients{border-radius:8px;padding:14px 16px;}
+  .col-avantages{background:var(--green-bg);}
+  .col-inconvenients{background:var(--pink-bg);}
+
+  .col-label{font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:10px;}
+  .col-avantages .col-label{color:var(--green);}
+  .col-inconvenients .col-label{color:var(--pink-text);}
+
+  .col-avantages ul,.col-inconvenients ul{list-style:none;padding:0;}
+  .col-avantages li,.col-inconvenients li{font-size:13.5px;line-height:1.55;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.06);color:var(--text);}
+  .col-avantages li:last-child,.col-inconvenients li:last-child{border-bottom:none;}
+  .col-avantages li::before{content:"✓ ";color:var(--green);font-weight:600;}
+  .col-inconvenients li::before{content:"✗ ";color:var(--pink-text);font-weight:600;}
+
+  .script-link{display:inline-block;margin-top:12px;font-size:13px;font-weight:500;color:var(--accent);text-decoration:none;border:1.5px solid var(--accent);border-radius:6px;padding:5px 12px;}
+  .script-link:hover{background:var(--accent);color:#fff;}
+
+  /* HIDDEN */
+  .section-group{display:block;}
+  .section-group.hidden{display:none;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>TCF Canada — <span>Banque d'Idées</span></h1>
+  <div class="subtitle">Avantages &amp; Inconvénients · Tous les thèmes</div>
+</header>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-cat="all">Toutes</button>
+  <button class="filter-btn" data-cat="agriculture">Agriculture &amp; Env.</button>
+  <button class="filter-btn" data-cat="animaux">Animaux</button>
+  <button class="filter-btn" data-cat="art">Art &amp; Culture</button>
+  <button class="filter-btn" data-cat="villes">Villes &amp; Logements</button>
+  <button class="filter-btn" data-cat="discrimination">Discrimination</button>
+  <button class="filter-btn" data-cat="education">Éducation</button>
+  <button class="filter-btn" data-cat="famille">Famille &amp; Parentalité</button>
+  <button class="filter-btn" data-cat="sante">Santé &amp; Mode de vie</button>
+  <button class="filter-btn" data-cat="immigration">Immigration</button>
+  <button class="filter-btn" data-cat="medias">Médias &amp; Publicités</button>
+  <button class="filter-btn" data-cat="consommation">Consommation</button>
+  <button class="filter-btn" data-cat="sport">Sport</button>
+  <button class="filter-btn" data-cat="techno">Technologie</button>
+  <button class="filter-btn" data-cat="transports">Transports</button>
+  <button class="filter-btn" data-cat="tourisme">Tourisme &amp; Voyage</button>
+  <button class="filter-btn" data-cat="travail">Monde du Travail</button>
+</div>
+
+<main>
+
+<!-- ═══════════════════════════════════════════
+     AGRICULTURE & ENVIRONNEMENT
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="agriculture">
+  <div class="section-label">Agriculture &amp; Environnement</div>
+
+  <div class="topic-card" id="alimentation-bio">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">L'Alimentation biologique</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Moins de pollution de l'air, de l'eau et du sol</li>
+          <li>Contribution à la biodiversité (rotation des cultures)</li>
+          <li>Amélioration de la qualité des aliments (goût et nutriments)</li>
+          <li>Soutien à l'économie locale et aux petites exploitations</li>
+          <li>Lutte contre le changement climatique (captation du carbone)</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Coûts de production plus élevés (main-d'œuvre, temps)</li>
+          <li>Faibles rendements et risques de pertes de récolte</li>
+          <li>Difficulté de concurrence avec les prix conventionnels</li>
+          <li>Barrières réglementaires (normes et certifications)</li>
+          <li>Disponibilité limitée de certains produits biologiques</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card" id="energies-renouvelables">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Les Énergies renouvelables</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Réduction de la dépendance aux énergies fossiles</li>
+          <li>Diminution de la pollution de l'air et de l'eau</li>
+          <li>Contribution à la lutte contre le changement climatique</li>
+          <li>Création d'emplois locaux (construction, entretien)</li>
+          <li>Disponibilité illimitée (soleil, vent, eau)</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Coûts de mise en place élevés (panneaux, éoliennes)</li>
+          <li>Nécessité de technologies de stockage spécifiques</li>
+          <li>Dépendance aux conditions météorologiques</li>
+          <li>Nécessité de surfaces importantes</li>
+          <li>Risques pour la faune (oiseaux, écosystèmes aquatiques)</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card" id="tri-dechets">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Tri des déchets</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Réduction des déchets envoyés en décharge</li>
+          <li>Économie de ressources (réutilisation des matières)</li>
+          <li>Lutte contre le changement climatique (moins d'émissions)</li>
+          <li>Création d'emplois verts (recyclage)</li>
+          <li>Amélioration de la qualité de l'environnement</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Coûts de mise en place et d'entretien élevés</li>
+          <li>Nécessité de sensibilisation et d'éducation du public</li>
+          <li>Risque de contamination des matières recyclables</li>
+          <li>Limitation de la variété des matières acceptées</li>
+          <li>Nécessité de transports supplémentaires vers les centres</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ANIMAUX
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="animaux">
+  <div class="section-label">Les Animaux</div>
+
+  <div class="topic-card" id="zoos">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Les Zoos</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Conservation des espèces menacées d'extinction</li>
+          <li>Sensibilisation du public à la protection de la nature</li>
+          <li>Recherche scientifique sur les comportements animaux</li>
+          <li>Maintien de la biodiversité</li>
+          <li>Contribution économique (emplois, revenus)</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Confinement des animaux, loin de leur habitat naturel</li>
+          <li>Manque de soins adaptés aux besoins spécifiques</li>
+          <li>Risques de maladies et de stress pour les animaux</li>
+          <li>Image peu représentative de la vie sauvage</li>
+          <li>Coûts élevés de maintenance et d'entretien</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card" id="animal-domestique">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Avoir un animal domestique chez soi</span>
+      <div class="topic-meta"><span class="script-badge" onclick="goScript(event,'animal_personne_agee.html')">→ Script</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Compagnie et affection constante</li>
+          <li>Bien-être mental et physique (réduction du stress)</li>
+          <li>Activité physique (promenades)</li>
+          <li>Protection et sécurité (alarme naturelle)</li>
+          <li>Opportunités de socialisation</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Coûts financiers (achat, nourriture, vétérinaire)</li>
+          <li>Temps et responsabilités importants</li>
+          <li>Restrictions de voyage et de logement</li>
+          <li>Contraintes d'horaires (promenades, nourrissage)</li>
+          <li>Risques de maladies et de blessures</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card" id="animal-travail">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Avoir un animal de compagnie au travail</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Réduction du stress et de l'anxiété au bureau</li>
+          <li>Amélioration de l'ambiance de travail et de la cohésion</li>
+          <li>Encouragement des pauses et de l'activité physique</li>
+          <li>Attraction de talents pour l'entreprise</li>
+          <li>Réduction des coûts de garde pour les employés</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Allergies et peurs chez certains collègues</li>
+          <li>Distractions et perte de productivité</li>
+          <li>Risques d'accidents ou de blessures</li>
+          <li>Difficultés dans les espaces partagés ou ouverts</li>
+          <li>Problèmes d'hygiène et de propreté</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ART & CULTURE
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="art">
+  <div class="section-label">L'Art et La Culture</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">La cuisine comme moyen de découvrir d'autres cultures</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Découverte des traditions et valeurs d'autres peuples</li>
+          <li>Favorise l'ouverture d'esprit et la tolérance</li>
+          <li>Accessible à tous, sans besoin de voyager</li>
+          <li>Crée des liens sociaux autour du repas partagé</li>
+          <li>Stimule la curiosité pour apprendre d'autres langues</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Risque de réduction d'une culture à ses seuls plats</li>
+          <li>Adaptations locales qui dénaturent les plats originaux</li>
+          <li>Appropriation culturelle sans compréhension profonde</li>
+          <li>Vision superficielle sans connaissance du contexte</li>
+          <li>Accès inégal selon le revenu et la région</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">La gratuité des musées</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Accès à la culture pour tous, sans barrière financière</li>
+          <li>Augmentation du nombre de visiteurs</li>
+          <li>Éducation et sensibilisation culturelle élargie</li>
+          <li>Cohésion sociale renforcée</li>
+          <li>Attractivité touristique accrue</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Perte de revenus pour le financement des collections</li>
+          <li>Surcharge et dégradation des œuvres exposées</li>
+          <li>Qualité des expositions potentiellement réduite</li>
+          <li>Dépendance accrue aux subventions publiques</li>
+          <li>Moins de motivation à entretenir et innover</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">L'art en tant que profession</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Épanouissement personnel et créatif</li>
+          <li>Contribution à l'enrichissement culturel de la société</li>
+          <li>Liberté et indépendance dans son travail</li>
+          <li>Possibilité de reconnaissance et de succès international</li>
+          <li>Diversité des débouchés (enseignement, industrie, etc.)</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Revenus souvent instables et insuffisants</li>
+          <li>Manque de reconnaissance sociale et professionnelle</li>
+          <li>Difficultés à se démarquer dans un secteur concurrentiel</li>
+          <li>Absence de protections sociales adéquates</li>
+          <li>Risque d'épuisement et de perte de créativité</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VILLES & LOGEMENTS
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="villes">
+  <div class="section-label">Les Villes et Les Logements</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Vivre en ville ou à la campagne</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Vivre en ville</div><ul>
+          <li>Accès facilité aux services (santé, transports, commerces)</li>
+          <li>Opportunités professionnelles et culturelles nombreuses</li>
+          <li>Vie sociale et communautaire dynamique</li>
+          <li>Infrastructure développée (internet, routes)</li>
+          <li>Diversité et ouverture sur le monde</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Vivre à la campagne</div><ul>
+          <li>Environnement calme, naturel et moins pollué</li>
+          <li>Coût de la vie généralement plus bas</li>
+          <li>Liens sociaux plus forts et solidarité de proximité</li>
+          <li>Espace et qualité de vie supérieurs</li>
+          <li>Moins de stress et rythme de vie plus sain</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">La collocation durant la période d'étude</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Réduction significative des coûts de logement</li>
+          <li>Partage des tâches ménagères</li>
+          <li>Lutte contre l'isolement et la solitude</li>
+          <li>Développement des compétences sociales</li>
+          <li>Entraide et soutien mutuel pour les études</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Conflits liés aux habitudes de vie différentes</li>
+          <li>Manque d'intimité et d'espace personnel</li>
+          <li>Difficultés de concentration pour les études</li>
+          <li>Risque de désaccords sur les règles communes</li>
+          <li>Instabilité (départs imprévus de colocataires)</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     DISCRIMINATION
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="discrimination">
+  <div class="section-label">La Discrimination</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">L'égalité des sexes au travail</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour l'égalité</div><ul>
+          <li>Justice et équité pour toutes et tous</li>
+          <li>Meilleure performance collective des entreprises</li>
+          <li>Réduction des inégalités salariales</li>
+          <li>Modèle inspirant pour les générations futures</li>
+          <li>Conformité aux valeurs démocratiques</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Obstacles / Limites</div><ul>
+          <li>Stéréotypes et préjugés persistants</li>
+          <li>Plafond de verre difficile à briser</li>
+          <li>Inégalité dans la répartition des congés parentaux</li>
+          <li>Résistance culturelle dans certains secteurs</li>
+          <li>Manque de politiques d'entreprise adaptées</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">L'uniforme des étudiants</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Réduction des inégalités sociales visibles</li>
+          <li>Sentiment d'appartenance et de cohésion scolaire</li>
+          <li>Moins de pression liée à la mode et aux marques</li>
+          <li>Simplicité au quotidien (moins de choix à faire)</li>
+          <li>Amélioration de la discipline en milieu scolaire</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Atteinte à la liberté d'expression individuelle</li>
+          <li>Coût supplémentaire pour les familles</li>
+          <li>Inconfort et non-adaptation à tous les morphotypes</li>
+          <li>Peut masquer sans résoudre les inégalités profondes</li>
+          <li>Résistance des élèves et des parents</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ÉDUCATION
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="education">
+  <div class="section-label">L'Éducation</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">L'utilisation des téléphones portables à l'école</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Accès immédiat à l'information et aux ressources</li>
+          <li>Outils pédagogiques innovants (applications, recherche)</li>
+          <li>Préparation des élèves au monde numérique</li>
+          <li>Communication facilitée avec les parents</li>
+          <li>Autonomie et responsabilisation des élèves</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Source majeure de distraction et de perte d'attention</li>
+          <li>Facilitation de la triche lors des examens</li>
+          <li>Risques de cyberharcèlement entre élèves</li>
+          <li>Dépendance aux écrans nuisible au développement</li>
+          <li>Inégalités entre élèves selon les modèles possédés</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">La scolarisation à domicile</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Enseignement personnalisé adapté au rythme de l'enfant</li>
+          <li>Environnement sécurisé loin du harcèlement scolaire</li>
+          <li>Flexibilité des horaires et du programme</li>
+          <li>Renforcement des liens familiaux</li>
+          <li>Résultats académiques parfois supérieurs</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Manque de socialisation avec les pairs</li>
+          <li>Charge importante pour les parents (temps, compétences)</li>
+          <li>Risque d'isolement social de l'enfant</li>
+          <li>Accès limité aux équipements scolaires spécialisés</li>
+          <li>Difficultés de contrôle de la qualité de l'enseignement</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Les cours en ligne</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Accessibilité depuis n'importe où dans le monde</li>
+          <li>Flexibilité des horaires pour concilier travail et études</li>
+          <li>Coûts souvent inférieurs aux formations traditionnelles</li>
+          <li>Grande variété de cours et de disciplines disponibles</li>
+          <li>Apprentissage à son propre rythme</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Manque d'interaction directe avec enseignants et pairs</li>
+          <li>Risque élevé de procrastination et d'abandon</li>
+          <li>Nécessite une grande autodiscipline</li>
+          <li>Qualité inégale selon les plateformes</li>
+          <li>Pas de reconnaissance officielle pour tous les cours</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Les devoirs à la maison</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Renforcement et consolidation des apprentissages</li>
+          <li>Développement de l'autonomie et de la discipline</li>
+          <li>Implication des parents dans la scolarité</li>
+          <li>Préparation aux examens et évaluations</li>
+          <li>Développement des habitudes de travail régulier</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Surcharge de travail nuisible à l'équilibre de vie</li>
+          <li>Creuse les inégalités (aide parentale inégale)</li>
+          <li>Source de stress et d'anxiété pour les élèves</li>
+          <li>Empiète sur le temps de loisirs et de repos</li>
+          <li>Efficacité pédagogique remise en question</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Faire de longues études</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Meilleures perspectives d'emploi et salaires plus élevés</li>
+          <li>Développement de la pensée critique et analytique</li>
+          <li>Réseau professionnel et social enrichi</li>
+          <li>Épanouissement intellectuel et personnel</li>
+          <li>Plus grande mobilité professionnelle</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Coût financier élevé (frais de scolarité, vie étudiante)</li>
+          <li>Entrée tardive sur le marché du travail</li>
+          <li>Pression et stress importants</li>
+          <li>Diplôme ne garantit pas toujours l'emploi</li>
+          <li>Risque de surqualification dans certains secteurs</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FAMILLE & PARENTALITÉ
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="famille">
+  <div class="section-label">La Famille et La Parentalité</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">L'Internet pour les enfants</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Accès à de nombreuses ressources éducatives</li>
+          <li>Développement de compétences numériques dès le jeune âge</li>
+          <li>Possibilité de rester en contact avec famille et amis</li>
+          <li>Stimulation de la créativité (jeux, vidéos, arts)</li>
+          <li>Préparation au monde numérique professionnel</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Exposition à des contenus inappropriés ou dangereux</li>
+          <li>Risques de cyberharcèlement et de manipulation</li>
+          <li>Dépendance aux écrans et sédentarité accrue</li>
+          <li>Réduction des interactions sociales en face à face</li>
+          <li>Difficultés pour les parents de contrôler l'usage</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">L'éducation autoritaire (parents sévères)</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Développe la discipline et le respect des règles</li>
+          <li>Prépare à la rigueur du monde du travail</li>
+          <li>Résultats scolaires souvent plus élevés</li>
+          <li>Cadre clair qui rassure certains enfants</li>
+          <li>Transmission de valeurs morales fortes</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Risque d'anxiété, de faible estime de soi</li>
+          <li>Manque de créativité et d'autonomie</li>
+          <li>Relation parent-enfant fragilisée</li>
+          <li>Rébellion à l'adolescence plus prononcée</li>
+          <li>Difficulté à exprimer ses émotions à l'âge adulte</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Vivre avec ses parents après l'âge de 25 ans</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Économies importantes sur le logement</li>
+          <li>Soutien familial et entraide au quotidien</li>
+          <li>Possibilité d'épargner pour un futur projet</li>
+          <li>Moins de stress financier durant les études ou débuts de carrière</li>
+          <li>Liens familiaux renforcés</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Manque d'indépendance et d'autonomie</li>
+          <li>Tensions possibles liées à la cohabitation</li>
+          <li>Stigmatisation sociale dans certaines cultures</li>
+          <li>Développement ralenti de compétences de vie adulte</li>
+          <li>Difficulté à construire sa propre vie de couple</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SANTÉ & MODE DE VIE
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="sante">
+  <div class="section-label">La Santé et La Mode de vie</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Alimentation végétarienne</span>
+      <div class="topic-meta"><span class="script-badge" onclick="goScript(event,'vegetarisme.html')">→ Script</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Réduction de l'empreinte carbone et de la pollution</li>
+          <li>Bénéfices pour la santé (maladies cardiovasculaires, obésité)</li>
+          <li>Bien-être animal respecté</li>
+          <li>Économies sur le budget alimentaire</li>
+          <li>Diversification culinaire enrichissante</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Risques de carences (fer, B12, protéines)</li>
+          <li>Difficultés sociales (repas en famille, restaurants)</li>
+          <li>Coût parfois élevé des produits de substitution</li>
+          <li>Nécessite une planification alimentaire rigoureuse</li>
+          <li>Impact sur les éleveurs et l'économie rurale</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">La Chirurgie esthétique</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Amélioration de la confiance en soi et du bien-être</li>
+          <li>Liberté de disposer de son corps</li>
+          <li>Correction de complexes invalidants au quotidien</li>
+          <li>Progrès médicaux qui réduisent les risques</li>
+          <li>Utilité reconstructrice après accidents ou maladies</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Risques médicaux sérieux (infections, complications)</li>
+          <li>Coûts très élevés et non remboursés</li>
+          <li>Pression sociale et normes de beauté irréalistes</li>
+          <li>Résultats parfois décevants ou irréversibles</li>
+          <li>Risque de dépendance à l'amélioration corporelle</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">La consommation de la viande</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Source importante de protéines et nutriments essentiels</li>
+          <li>Patrimoine culturel et gastronomique</li>
+          <li>Soutien aux éleveurs et à l'économie agricole</li>
+          <li>Tradition et plaisir gustatif</li>
+          <li>Accessibilité nutritionnelle dans de nombreuses régions</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Impact environnemental majeur (gaz à effet de serre)</li>
+          <li>Conditions d'élevage souvent problématiques</li>
+          <li>Risques pour la santé en cas de consommation excessive</li>
+          <li>Consommation de ressources en eau et en terres élevée</li>
+          <li>Questions éthiques sur le bien-être animal</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     IMMIGRATION
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="immigration">
+  <div class="section-label">L'Immigration</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">L'immigration et l'intégration dans un pays étranger</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour l'immigrant</div><ul>
+          <li>Nouvelles opportunités professionnelles et économiques</li>
+          <li>Meilleure qualité de vie et sécurité</li>
+          <li>Enrichissement culturel et linguistique</li>
+          <li>Liberté et nouvelles perspectives de vie</li>
+          <li>Accès à de meilleurs systèmes éducatifs et sociaux</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Défis</div><ul>
+          <li>Barrière de la langue et difficultés de communication</li>
+          <li>Isolement social et nostalgie culturelle</li>
+          <li>Non-reconnaissance des diplômes étrangers</li>
+          <li>Discrimination et préjugés dans le pays d'accueil</li>
+          <li>Difficulté à maintenir son identité culturelle d'origine</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Importance de parler la langue du pays d'immigration</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Clé principale de l'intégration sociale et professionnelle</li>
+          <li>Facilite l'accès aux services et aux droits</li>
+          <li>Renforce la confiance en soi dans le pays d'accueil</li>
+          <li>Favorise les liens avec les citoyens locaux</li>
+          <li>Améliore les perspectives d'emploi</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Limites</div><ul>
+          <li>Apprentissage long et difficile pour les adultes</li>
+          <li>Risque de perdre ou négliger sa langue maternelle</li>
+          <li>Accent et erreurs source de discrimination</li>
+          <li>Pression excessive peut nuire à l'estime de soi</li>
+          <li>Ne suffit pas seul à garantir l'intégration complète</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MÉDIAS & PUBLICITÉS
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="medias">
+  <div class="section-label">Les Médias et Les Publicités</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">La télévision</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Source d'information et de culture accessible à tous</li>
+          <li>Divertissement pour tous les âges</li>
+          <li>Lien social (programmes partagés en famille)</li>
+          <li>Plateforme d'éducation (documentaires, émissions)</li>
+          <li>Vecteur de diversité culturelle</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Sédentarité et dépendance aux écrans</li>
+          <li>Contenu parfois de mauvaise qualité ou violent</li>
+          <li>Publicités intrusives influençant les comportements</li>
+          <li>Risque de manipulation de l'opinion publique</li>
+          <li>Perte de temps sur des activités plus productives</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Les publicités alimentaires pour les enfants</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour (les entreprises)</div><ul>
+          <li>Liberté du commerce et du marché</li>
+          <li>Financement des contenus télévisés pour enfants</li>
+          <li>Information sur les produits disponibles</li>
+          <li>Stimulation économique du secteur alimentaire</li>
+          <li>Responsabilité partagée avec les parents</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Promotion de produits sucrés et peu nutritifs</li>
+          <li>Influence néfaste sur les habitudes alimentaires</li>
+          <li>Manipulation d'un public vulnérable</li>
+          <li>Contribution à l'obésité infantile</li>
+          <li>Création de pression sur les parents</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CONSOMMATION & ACHATS
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="consommation">
+  <div class="section-label">La Consommation et Les Achats</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Faire ses achats en ligne</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Commodité et disponibilité 24h/24, 7j/7</li>
+          <li>Large choix de produits à prix compétitifs</li>
+          <li>Gain de temps (pas de déplacement)</li>
+          <li>Comparaison facile entre produits et vendeurs</li>
+          <li>Livraison à domicile pratique</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Impossibilité de voir ou toucher le produit avant l'achat</li>
+          <li>Risques de fraude et vol de données personnelles</li>
+          <li>Impact négatif sur le commerce local</li>
+          <li>Délais de livraison et frais de retour</li>
+          <li>Surconsommation encouragée par les algorithmes</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Remplacement fréquent de téléphone portable</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Accès aux dernières innovations technologiques</li>
+          <li>Meilleures performances et sécurité</li>
+          <li>Stimulation de l'économie et de l'emploi</li>
+          <li>Satisfaction du désir de nouveauté</li>
+          <li>Revente ou don de l'ancien appareil possible</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Impact environnemental majeur (déchets électroniques)</li>
+          <li>Coût financier élevé et inutile</li>
+          <li>Encourage l'obsolescence programmée</li>
+          <li>Extraction de ressources naturelles rares</li>
+          <li>Culture du jetable néfaste pour la société</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SPORT
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="sport">
+  <div class="section-label">Le Sport</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Les salaires de sportifs de haut niveau</span>
+      <div class="topic-meta"><span class="script-badge" onclick="goScript(event,'salaires-sportifs.html')">→ Script</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Reflet de la valeur marchande générée (droits TV, sponsors)</li>
+          <li>Rémunération juste pour des carrières courtes et exigeantes</li>
+          <li>Motivation et modèles pour les jeunes sportifs</li>
+          <li>Contribution à l'économie (impôts, emplois)</li>
+          <li>Loi de l'offre et de la demande dans un marché libre</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Inégalités criantes comparées à d'autres professions essentielles</li>
+          <li>Déconnexion de la réalité économique de la majorité</li>
+          <li>Mauvais modèle de valeurs pour la jeunesse</li>
+          <li>Fossé croissant entre clubs riches et pauvres</li>
+          <li>Pression financière sur les clubs et les supporters</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Le sport pour les enfants</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Développement physique et moteur dès le jeune âge</li>
+          <li>Apprentissage du travail d'équipe et de la solidarité</li>
+          <li>Renforcement de la confiance en soi</li>
+          <li>Lutte contre la sédentarité et l'obésité infantile</li>
+          <li>Socialisation et amitié hors cadre scolaire</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Risques de blessures selon le sport pratiqué</li>
+          <li>Pression excessive des parents sur les résultats</li>
+          <li>Coûts financiers (équipement, cours, déplacements)</li>
+          <li>Peut empiéter sur les devoirs et le temps libre</li>
+          <li>Risque de découragement en cas de défaites répétées</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TECHNOLOGIE
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="techno">
+  <div class="section-label">La Technologie</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Les réseaux sociaux</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Maintien des liens sociaux à distance</li>
+          <li>Plateforme d'expression et de créativité</li>
+          <li>Source d'information en temps réel</li>
+          <li>Outil de mobilisation sociale et politique</li>
+          <li>Opportunités professionnelles (réseautage, visibilité)</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Dépendance et addiction aux plateformes</li>
+          <li>Diffusion de fausses informations (fake news)</li>
+          <li>Atteinte à la vie privée et collecte de données</li>
+          <li>Cyberharcèlement et impact sur la santé mentale</li>
+          <li>Comparaison sociale néfaste et image idéalisée</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Le télétravail</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Meilleur équilibre vie professionnelle / vie personnelle</li>
+          <li>Économies de temps et d'argent (transports)</li>
+          <li>Productivité accrue dans un environnement choisi</li>
+          <li>Réduction de l'empreinte carbone</li>
+          <li>Accès à des emplois sans contrainte géographique</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Isolement social et perte du lien avec les collègues</li>
+          <li>Difficultés à séparer travail et vie personnelle</li>
+          <li>Risque de surmenage et d'hyperconnexion</li>
+          <li>Manque de supervision pour certains profils</li>
+          <li>Inégalités selon les conditions de logement</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Les nouvelles technologies</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Avantages</div><ul>
+          <li>Amélioration de la productivité et de l'efficacité</li>
+          <li>Accès facilité à l'information et au savoir</li>
+          <li>Progrès médicaux et scientifiques accélérés</li>
+          <li>Réduction des tâches pénibles et dangereuses</li>
+          <li>Connexion mondiale et partage culturel</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Inconvénients</div><ul>
+          <li>Risque de chômage technologique (automatisation)</li>
+          <li>Dépendance accrue aux outils numériques</li>
+          <li>Fracture numérique entre générations et régions</li>
+          <li>Atteintes à la vie privée et cybersécurité</li>
+          <li>Impact environnemental (consommation d'énergie)</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TRANSPORTS
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="transports">
+  <div class="section-label">Les Transports</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Vivre sans voiture</span>
+      <div class="topic-meta"><span class="script-badge" onclick="goScript(event,'vivre_sans_voiture.html')">→ Script</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Réduction de l'empreinte carbone personnelle</li>
+          <li>Économies substantielles (assurance, carburant, entretien)</li>
+          <li>Activité physique accrue (marche, vélo)</li>
+          <li>Moins de stress lié à la conduite et au stationnement</li>
+          <li>Contribution à la réduction des embouteillages</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Dépendance aux transports en commun (horaires, grèves)</li>
+          <li>Difficultés en zones rurales ou mal desservies</li>
+          <li>Contraintes pour les achats volumineux ou les déménagements</li>
+          <li>Temps de trajet souvent plus long</li>
+          <li>Moins de liberté et de flexibilité dans les déplacements</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">La gratuité des transports en commun</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Accessibilité pour tous, y compris les plus démunis</li>
+          <li>Réduction de l'usage des voitures en ville</li>
+          <li>Diminution de la pollution et des embouteillages</li>
+          <li>Simplification de l'usage (pas de billets)</li>
+          <li>Attractivité accrue des villes pour les citoyens</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Coût très élevé pour les finances publiques</li>
+          <li>Risque de surcharge et de détérioration des réseaux</li>
+          <li>Financement difficile à long terme</li>
+          <li>Moins d'incitation à entretenir et améliorer le service</li>
+          <li>Moins pertinent dans les zones peu denses</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Le vélo comme moyen de transport</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Zéro émission, respectueux de l'environnement</li>
+          <li>Bon pour la santé (exercice régulier)</li>
+          <li>Économique (pas de carburant ni d'assurance)</li>
+          <li>Rapide en milieu urbain dense</li>
+          <li>Facile à stationner</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Dangereux sans infrastructure adaptée (pistes cyclables)</li>
+          <li>Difficultés par mauvais temps ou reliefs importants</li>
+          <li>Limité pour les longues distances</li>
+          <li>Vol fréquent si pas de stationnement sécurisé</li>
+          <li>Peu pratique pour transporter des charges lourdes</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TOURISME & VOYAGE
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="tourisme">
+  <div class="section-label">Le Tourisme et Le Voyage</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">L'impact du tourisme sur l'environnement</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour (tourisme)</div><ul>
+          <li>Développement économique des régions visitées</li>
+          <li>Sensibilisation des touristes à la beauté naturelle</li>
+          <li>Financement de la conservation via les taxes</li>
+          <li>Création d'emplois dans les zones rurales</li>
+          <li>Échanges culturels enrichissants</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Impact négatif</div><ul>
+          <li>Pollution (transports aériens, déchets)</li>
+          <li>Surpopulation touristique dégradant les sites naturels</li>
+          <li>Destruction d'écosystèmes fragiles</li>
+          <li>Surconsommation d'eau et d'énergie</li>
+          <li>Pression sur la faune et la flore locales</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Voyager seul vs voyager accompagné</span>
+      <div class="topic-meta"><span class="script-badge" onclick="goScript(event,'voyage_solo.html')">→ Script</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Voyager seul</div><ul>
+          <li>Liberté totale dans les choix d'itinéraire</li>
+          <li>Développement de l'autonomie et de la confiance</li>
+          <li>Rencontres plus authentiques avec les locaux</li>
+          <li>Introspection et connaissance de soi</li>
+          <li>Adaptation et débrouillardise renforcées</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Voyager accompagné</div><ul>
+          <li>Partage des émotions et souvenirs partagés</li>
+          <li>Sécurité accrue, surtout dans des zones inconnues</li>
+          <li>Coûts partagés (hébergement, transport)</li>
+          <li>Compagnie rassurante en cas de difficulté</li>
+          <li>Découverte enrichie par un autre regard</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MONDE DU TRAVAIL
+═══════════════════════════════════════════ -->
+<div class="section-group" data-cat="travail">
+  <div class="section-label">Le Monde de Travail</div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Le changement de carrière</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Renouveau personnel et épanouissement professionnel</li>
+          <li>Adaptation aux évolutions du marché du travail</li>
+          <li>Découverte de nouvelles compétences et passions</li>
+          <li>Meilleur équilibre et satisfaction au travail</li>
+          <li>Augmentation potentielle de salaire dans un nouveau secteur</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Perte d'expertise et d'ancienneté accumulées</li>
+          <li>Incertitude financière durant la transition</li>
+          <li>Nécessité de se reformer (temps et coûts)</li>
+          <li>Risque d'échec dans le nouveau domaine</li>
+          <li>Perception négative de certains recruteurs</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Le salaire égal pour tous les employés</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Réduction des inégalités économiques dans l'entreprise</li>
+          <li>Meilleure cohésion et climat social</li>
+          <li>Valorisation égale de toutes les fonctions</li>
+          <li>Réduction des tensions liées aux jalousies salariales</li>
+          <li>Modèle plus juste et solidaire</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Manque de motivation pour les meilleurs performeurs</li>
+          <li>Ne tient pas compte de l'expérience et des compétences</li>
+          <li>Perte de compétitivité de l'entreprise</li>
+          <li>Démotivation des talents qui chercheront ailleurs</li>
+          <li>Difficultés d'application dans les grandes structures</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Cuisiner : amateur vs professionnel</span>
+      <div class="topic-meta"><span class="script-badge" onclick="goScript(event,'cuisiner_regulierement.html')">→ Script</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Cuisinier amateur</div><ul>
+          <li>Plaisir personnel et créativité sans pression</li>
+          <li>Alimentation saine et économique pour sa famille</li>
+          <li>Transmission d'un patrimoine culinaire familial</li>
+          <li>Activité relaxante et épanouissante</li>
+          <li>Liberté totale dans les choix et les recettes</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Cuisinier professionnel</div><ul>
+          <li>Technique et précision à un niveau supérieur</li>
+          <li>Créativité poussée par les exigences du métier</li>
+          <li>Source de revenus et de reconnaissance sociale</li>
+          <li>Conditions de travail difficiles (horaires, stress)</li>
+          <li>Risque de perdre la passion dans un cadre commercial</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <div class="topic-header" onclick="toggle(this)">
+      <span class="topic-title">Travailler jusqu'à un âge avancé</span>
+      <div class="topic-meta"><span class="script-badge pending">Script à faire</span><span class="chevron">▾</span></div>
+    </div>
+    <div class="topic-body">
+      <div class="columns">
+        <div class="col-avantages"><div class="col-label">Pour</div><ul>
+          <li>Maintien de la stimulation intellectuelle et sociale</li>
+          <li>Transmission d'expérience aux jeunes générations</li>
+          <li>Contribution au financement des retraites</li>
+          <li>Sentiment d'utilité et d'appartenance</li>
+          <li>Meilleure santé mentale liée à l'activité</li>
+        </ul></div>
+        <div class="col-inconvenients"><div class="col-label">Contre</div><ul>
+          <li>Fatigue physique et risques pour la santé</li>
+          <li>Blocage des postes pour les jeunes travailleurs</li>
+          <li>Difficultés d'adaptation aux nouvelles technologies</li>
+          <li>Moins de temps pour profiter de la retraite</li>
+          <li>Risque de discrimination liée à l'âge</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+function toggle(header) {
+  const card = header.closest('.topic-card');
+  card.classList.toggle('open');
+}
+
+function goScript(e, url) {
+  e.stopPropagation();
+  window.open(url, '_blank');
+}
+
+// Filter logic
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('.section-group').forEach(group => {
+      if (cat === 'all' || group.dataset.cat === cat) {
+        group.classList.remove('hidden');
+      } else {
+        group.classList.add('hidden');
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
