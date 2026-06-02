@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — Tri des déchets</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour &#224; la Banque d&#39;Id&#233;es</a>
+  <h1>TCF Canada &#8212; <span>T&#226;che 3</span></h1>
+  <div class="question-title">Tri des d&#233;chets &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; cl&#233;s du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">D&#233;chets et recyclage &nbsp;&#9733; = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les d&#233;chets <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">waste, rubbish</span></div>
+          <div class="wl-row"><span class="wl-fr">la d&#233;charge <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">landfill, dump</span></div>
+          <div class="wl-row"><span class="wl-fr">les mati&#232;res recyclables <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">recyclable materials</span></div>
+          <div class="wl-row"><span class="wl-fr">les mati&#232;res premi&#232;res <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">raw materials</span></div>
+          <div class="wl-row"><span class="wl-fr">le centre de tri <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">sorting centre</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;usine de recyclage <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">recycling plant</span></div>
+          <div class="wl-row"><span class="wl-fr">le conteneur de tri <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">sorting bin, recycling container</span></div>
+          <div class="wl-row"><span class="wl-fr">la contamination <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">contamination</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Ressources et &#233;conomie</div>
+          <div class="wl-row"><span class="wl-fr">l&#39;&#233;conomie de ressources <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">resource saving</span></div>
+          <div class="wl-row"><span class="wl-fr">la r&#233;utilisation <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">reuse, reutilisation</span></div>
+          <div class="wl-row"><span class="wl-fr">les emplois verts <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">green jobs</span></div>
+          <div class="wl-row"><span class="wl-fr">les co&#251;ts de mise en place <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">implementation costs</span></div>
+          <div class="wl-row"><span class="wl-fr">la consommation d&#39;&#233;nergie <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">energy consumption</span></div>
+          <div class="wl-row"><span class="wl-fr">les transports suppl&#233;mentaires <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">additional transport trips</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Environnement et sensibilisation</div>
+          <div class="wl-row"><span class="wl-fr">les gaz &#224; effet de serre <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">greenhouse gases</span></div>
+          <div class="wl-row"><span class="wl-fr">la qualit&#233; de l&#39;environnement <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">environmental quality</span></div>
+          <div class="wl-row"><span class="wl-fr">les nuisances <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">nuisances, negative impacts</span></div>
+          <div class="wl-row"><span class="wl-fr">la sensibilisation <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">awareness-raising, public education</span></div>
+          <div class="wl-row"><span class="wl-fr">les odeurs de d&#233;charge <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">landfill odours</span></div>
+          <div class="wl-row"><span class="wl-fr">le d&#233;veloppement durable <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">sustainable development</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Limites et contraintes</div>
+          <div class="wl-row"><span class="wl-fr">les d&#233;chets non recyclables <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">non-recyclable waste</span></div>
+          <div class="wl-row"><span class="wl-fr">la limitation de la vari&#233;t&#233; <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">limitation in variety (of accepted materials)</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;entretien des conteneurs <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">container maintenance</span></div>
+          <div class="wl-row"><span class="wl-fr">le personnel de tri <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">sorting staff</span></div>
+          <div class="wl-row"><span class="wl-fr">les habitudes des citoyens <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">citizens&#39; habits</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + pr&#233;positions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Pr&#233;p.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">s&#233;parer</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to separate, to sort</td></tr>
+          <tr><td class="vfr">r&#233;utiliser</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to reuse</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">investir</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to invest in</td></tr>
+          <tr><td class="vfr">informer</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to inform about</td></tr>
+          <tr><td class="vfr">acheminer</td><td class="vprep">vers</td><td class="vrel">vers lequel</td><td class="ven">to route, to convey toward</td></tr>
+          <tr><td class="vfr">se passer</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to do without</td></tr>
+          <tr><td class="vfr">r&#233;duire</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to reduce</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; d&#233;chets et environnement</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">recyclable</span><span class="adj-en">recyclable</span></div>
+          <div class="adj-row"><span class="adj-fr">non recyclable</span><span class="adj-en">non-recyclable</span></div>
+          <div class="adj-row"><span class="adj-fr">vierge</span><span class="adj-en">virgin (raw, unused)</span></div>
+          <div class="adj-row"><span class="adj-fr">contamin&#233;(e)</span><span class="adj-en">contaminated</span></div>
+          <div class="adj-row"><span class="adj-fr">suppl&#233;mentaire</span><span class="adj-en">additional, extra</span></div>
+          <div class="adj-row"><span class="adj-fr">urbain(e)</span><span class="adj-en">urban</span></div>
+          <div class="adj-row"><span class="adj-fr">durable</span><span class="adj-en">sustainable</span></div>
+          <div class="adj-row"><span class="adj-fr">li&#233;(e) &#224;</span><span class="adj-en">linked to, related to</span></div>
+          <div class="adj-row"><span class="adj-fr">correct(e)</span><span class="adj-en">correct, proper</span></div>
+          <div class="adj-row"><span class="adj-fr">r&#233;duit(e)</span><span class="adj-en">reduced</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Le Tri des D&#233;chets</div>
+          <div class="contrast-item">s&#233;parer les mati&#232;res recyclables des d&#233;chets non recyclables</div>
+          <div class="contrast-item">r&#233;utiliser les mati&#232;res pour produire de nouveaux produits</div>
+          <div class="contrast-item">r&#233;duire les gaz &#224; effet de serre li&#233;s &#224; la production</div>
+          <div class="contrast-item">d&#233;velopper des entreprises de recyclage et des emplois verts</div>
+          <div class="contrast-item">am&#233;liorer la qualit&#233; de l&#39;environnement urbain</div>
+          <div class="contrast-item">r&#233;duire la consommation de mati&#232;res premi&#232;res vierges</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Le Tri des D&#233;chets</div>
+          <div class="contrast-item">investir dans des conteneurs de tri et du personnel</div>
+          <div class="contrast-item">informer les gens sur la mani&#232;re de trier correctement</div>
+          <div class="contrast-item">mettre des d&#233;chets non recyclables dans les conteneurs de recyclage</div>
+          <div class="contrast-item">ne prendre en charge que certaines mati&#232;res recyclables</div>
+          <div class="contrast-item">acheminer les mati&#232;res vers des centres de tri &#233;loign&#233;s</div>
+          <div class="contrast-item">les habitudes des citoyens restent difficiles &#224; changer</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 &#224; retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">r&#233;utiliser les mati&#232;res recyclables permet de r&#233;duire la consommation d&#39;&#233;nergie et de mati&#232;res premi&#232;res vierges</div>
+          <div class="chunk-en">reusing recyclable materials makes it possible to reduce energy consumption and the use of virgin raw materials</div>
+          <div class="chunk-note">permettre de + infinitif = C1 structure for expressing an outcome &#183; mati&#232;res premi&#232;res vierges = strong technical term &#183; r&#233;utilisable pour tout sujet d&#39;environnement</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">le tri des d&#233;chets contribue &#224; la lutte contre le changement climatique en r&#233;duisant les &#233;missions de gaz &#224; effet de serre</div>
+          <div class="chunk-en">waste sorting contributes to the fight against climate change by reducing greenhouse gas emissions</div>
+          <div class="chunk-note">en + participe pr&#233;sent = elegant causal structure &#183; contribuer &#224; la lutte contre = chunk m&#233;morisable &#183; tr&#232;s efficace pour relier action et cons&#233;quence</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">sans sensibilisation du public, le risque de contamination des conteneurs de recyclage reste tr&#232;s &#233;lev&#233;</div>
+          <div class="chunk-en">without public awareness, the risk of recycling bin contamination remains very high</div>
+          <div class="chunk-note">sans + nom = concessive structure (C1) &#183; le risque de + nom = pattern de nuance &#183; id&#233;al pour introduire une limite dans un argument</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">acheminer les mati&#232;res recyclables vers les centres de tri engendre des transports suppl&#233;mentaires, ce qui nuit &#224; l&#39;objectif environnemental</div>
+          <div class="chunk-en">routing recyclable materials to sorting centres generates additional transport, which undermines the environmental goal</div>
+          <div class="chunk-note">acheminer vers = verb C1 for transport and logistics &#183; ce qui nuit &#224; = C1 relative clause showing negative impact &#183; nuire &#224; = to undermine, harm</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
