@@ -145,12 +145,10 @@
   <div class="header-row">
     <h1>TCF Canada — <em>Banque d'Idées</em></h1>
     <a class="back-icon" href="../index.html" title="Retour">🏠</a>
-    <!-- back link correct: ../index.html points to root index.html -->
-  </div>
+    </div>
 </header>
 <div class="motivation-bar">💡 Parcourez les idées, mémorisez les mots-clés, puis construisez votre script.</div>
 
-<!-- FILTER DROPDOWN -->
 <div class="filter-bar">
   <span class="filter-label">Thème :</span>
   <div class="filter-select-wrap">
@@ -180,7 +178,6 @@
 
 <div class="cards-wrap" id="cardsWrap"></div>
 
-<!-- MODAL DRAWER -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal-drawer" id="modalDrawer">
     <div class="modal-header">
@@ -232,7 +229,7 @@ const TOPICS = [
     ],
     inconvenients:[
       "Coûts d'installation élevés (panneaux, éoliennes)",
-      "Nécessité de technologies de stockage spécifiques",
+      "Nécessite de technologies de stockage spécifiques",
       "Dépendance aux conditions météorologiques",
       "Emprise au sol importante",
       "Risques pour la faune (oiseaux, écosystèmes aquatiques)"
@@ -521,7 +518,7 @@ const TOPICS = [
     title:"La télévision",
     avantages:[
       "Source d'information et de culture accessible à tous",
-      "Divertissement pour tous les âges",
+      "Divertissement pour tous les ages",
       "Lien social (programmes regardés en famille)",
       "Éducation via documentaires et émissions spécialisées",
       "Vecteur de diversité culturelle"
@@ -1036,21 +1033,40 @@ function buildListe(d){
 renderCards(TOPICS);
 
 // ── TTS speak button ──
+// Force voices to load into the browser as soon as possible (fixes a known iOS bug)
+if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+
 function speakFr(e, btn){
   e.stopPropagation();
   if(!window.speechSynthesis) return;
+  
   const text = btn.parentElement.childNodes[0].textContent.trim();
+  
   if(window.speechSynthesis.speaking){
     window.speechSynthesis.cancel();
     document.querySelectorAll('.speak-btn.speaking').forEach(b=>b.classList.remove('speaking'));
     if(btn.classList.contains('speaking')){ btn.classList.remove('speaking'); return; }
   }
+  
   const utt = new SpeechSynthesisUtterance(text);
   utt.lang = 'fr-FR';
   utt.rate = 0.9;
+
+  // Explicitly find and set a French voice
+  const voices = window.speechSynthesis.getVoices();
+  const frenchVoice = voices.find(voice => voice.lang === 'fr-CA') || 
+                      voices.find(voice => voice.lang.startsWith('fr'));
+                      
+  if (frenchVoice) {
+      utt.voice = frenchVoice;
+  }
+
   btn.classList.add('speaking');
   utt.onend = () => btn.classList.remove('speaking');
   utt.onerror = () => btn.classList.remove('speaking');
+  
   window.speechSynthesis.speak(utt);
 }
 </script>
