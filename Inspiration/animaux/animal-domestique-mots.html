@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — Avoir un animal domestique chez soi</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour &#224; la Banque d&#39;Id&#233;es</a>
+  <h1>TCF Canada &#8212; <span>T&#226;che 3</span></h1>
+  <div class="question-title">Avoir un animal domestique chez soi &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; cl&#233;s du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Bien-&#234;tre et lien affectif &nbsp;&#9733; = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la compagnie <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">companionship, company</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;affection <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">affection</span></div>
+          <div class="wl-row"><span class="wl-fr">le bien-&#234;tre mental <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">mental well-being</span></div>
+          <div class="wl-row"><span class="wl-fr">le stress <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">stress</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;anxi&#233;t&#233; <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">anxiety</span></div>
+          <div class="wl-row"><span class="wl-fr">la pr&#233;sence rassurante <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">reassuring presence</span></div>
+          <div class="wl-row"><span class="wl-fr">la socialisation <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">socialisation</span></div>
+          <div class="wl-row"><span class="wl-fr">la s&#233;curit&#233; <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">security</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Responsabilit&#233;s et co&#251;ts</div>
+          <div class="wl-row"><span class="wl-fr">les frais v&#233;t&#233;rinaires <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">veterinary fees</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;entretien <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">upkeep, care</span></div>
+          <div class="wl-row"><span class="wl-fr">la nourriture <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">food</span></div>
+          <div class="wl-row"><span class="wl-fr">les contraintes d&#39;horaires <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">schedule constraints</span></div>
+          <div class="wl-row"><span class="wl-fr">les promenades quotidiennes <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">daily walks</span></div>
+          <div class="wl-row"><span class="wl-fr">les soins <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">care, medical care</span></div>
+          <div class="wl-row"><span class="wl-fr">les restrictions de logement <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">housing restrictions</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Sant&#233; et risques</div>
+          <div class="wl-row"><span class="wl-fr">les maladies transmissibles <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">communicable diseases</span></div>
+          <div class="wl-row"><span class="wl-fr">les morsures <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">bites</span></div>
+          <div class="wl-row"><span class="wl-fr">les griffures <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">scratches</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;activit&#233; physique <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">physical activity</span></div>
+          <div class="wl-row"><span class="wl-fr">les propri&#233;taires d&#39;animaux <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">pet owners</span></div>
+          <div class="wl-row"><span class="wl-fr">la blessure accidentelle <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">accidental injury</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Mode de vie et contraintes</div>
+          <div class="wl-row"><span class="wl-fr">les h&#233;bergements <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">accommodation, housing</span></div>
+          <div class="wl-row"><span class="wl-fr">les transports acceptant les animaux <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">pet-friendly transport</span></div>
+          <div class="wl-row"><span class="wl-fr">les &#233;v&#233;nements organis&#233;s <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">organised events (pet meetups)</span></div>
+          <div class="wl-row"><span class="wl-fr">les voyages <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">travel, trips</span></div>
+          <div class="wl-row"><span class="wl-fr">la libert&#233; de d&#233;placement <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">freedom of movement</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + pr&#233;positions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Pr&#233;p.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">consacrer</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to devote to</td></tr>
+          <tr><td class="vfr">obliger</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to force to, to oblige to</td></tr>
+          <tr><td class="vfr">souffrir</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to suffer from</td></tr>
+          <tr><td class="vfr">expos&#233;</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to be exposed to</td></tr>
+          <tr><td class="vfr">b&#233;n&#233;ficier</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to benefit from</td></tr>
+          <tr><td class="vfr">se limiter</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to be limited to</td></tr>
+          <tr><td class="vfr">rencontrer</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to meet</td></tr>
+          <tr><td class="vfr">s&#39;occuper</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to take care of, to look after</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; animaux et quotidien</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">rassurant(e)</span><span class="adj-en">reassuring</span></div>
+          <div class="adj-row"><span class="adj-fr">r&#233;confortant(e)</span><span class="adj-en">comforting</span></div>
+          <div class="adj-row"><span class="adj-fr">quotidien(ne)</span><span class="adj-en">daily</span></div>
+          <div class="adj-row"><span class="adj-fr">contraignant(e)</span><span class="adj-en">constraining, restrictive</span></div>
+          <div class="adj-row"><span class="adj-fr">accidentel(le)</span><span class="adj-en">accidental</span></div>
+          <div class="adj-row"><span class="adj-fr">transmissible</span><span class="adj-en">transmissible, communicable</span></div>
+          <div class="adj-row"><span class="adj-fr">financier(&#232;re)</span><span class="adj-en">financial</span></div>
+          <div class="adj-row"><span class="adj-fr">physique</span><span class="adj-en">physical</span></div>
+          <div class="adj-row"><span class="adj-fr">limit&#233;(e)</span><span class="adj-en">limited, restricted</span></div>
+          <div class="adj-row"><span class="adj-fr">accru(e)</span><span class="adj-en">increased, heightened</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Avoir un animal domestique</div>
+          <div class="contrast-item">offrir une pr&#233;sence constante et r&#233;confortante aux propri&#233;taires</div>
+          <div class="contrast-item">r&#233;duire le stress et l&#39;anxi&#233;t&#233; gr&#226;ce &#224; la pr&#233;sence de l&#39;animal</div>
+          <div class="contrast-item">obliger les propri&#233;taires &#224; sortir et &#224; faire de l&#39;exercice</div>
+          <div class="contrast-item">offrir une pr&#233;sence rassurante et une alarme naturelle contre les intrus</div>
+          <div class="contrast-item">rencontrer d&#39;autres propri&#233;taires lors de promenades ou d&#39;&#233;v&#233;nements</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Avoir un animal domestique</div>
+          <div class="contrast-item">investir dans l&#39;achat, la nourriture, l&#39;entretien et les frais v&#233;t&#233;rinaires</div>
+          <div class="contrast-item">consacrer du temps et de l&#39;&#233;nergie &#224; l&#39;entretien et aux soins quotidiens</div>
+          <div class="contrast-item">&#234;tre limit&#233; dans les h&#233;bergements et les transports acceptant les animaux</div>
+          <div class="contrast-item">respecter les horaires stricts de promenade et de nourrissage</div>
+          <div class="contrast-item">&#234;tre expos&#233; aux maladies transmissibles et aux blessures accidentelles</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 &#224; retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">avoir un animal domestique oblige les propri&#233;taires &#224; sortir quotidiennement, ce qui contribue &#224; leur bien-&#234;tre physique et mental</div>
+          <div class="chunk-en">having a pet obliges owners to go outside daily, which contributes to their physical and mental well-being</div>
+          <div class="chunk-note">obliger &#224; + infinitif = C1 verb of obligation &#183; ce qui contribue &#224; = result clause &#183; tr&#232;s r&#233;utilisable pour tout sujet de bien-&#234;tre ou activit&#233; physique</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">la pr&#233;sence d&#39;un animal r&#233;confortant peut r&#233;duire consid&#233;rablement le stress et l&#39;anxi&#233;t&#233; des propri&#233;taires</div>
+          <div class="chunk-en">the presence of a comforting animal can considerably reduce stress and anxiety in owners</div>
+          <div class="chunk-note">consid&#233;rablement = considerably (C1 adverb of degree) &#183; r&#233;duire + adverbe = strong exam structure &#183; r&#233;utilisable pour sant&#233;, bien-&#234;tre, technologie</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">&#234;tre expos&#233; aux maladies transmissibles par les animaux repr&#233;sente un risque r&#233;el, surtout pour les enfants et les personnes &#226;g&#233;es</div>
+          <div class="chunk-en">being exposed to diseases transmitted by animals represents a real risk, especially for children and elderly people</div>
+          <div class="chunk-note">repr&#233;senter un risque r&#233;el = C1 phrase for dangers &#183; surtout pour = especially for (adds precision) &#183; structure directement transf&#233;rable au sujet des animaux au travail</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">consacrer du temps et de l&#39;&#233;nergie &#224; un animal au quotidien peut devenir contraignant pour les gens dont le mode de vie est tr&#232;s actif</div>
+          <div class="chunk-en">devoting time and energy to a pet on a daily basis can become constraining for people whose lifestyle is very active</div>
+          <div class="chunk-note">au quotidien = on a daily basis (C1 adverbial) &#183; dont le mode de vie = relative clause with dont &#183; devenir contraignant = strong conclusion phrase</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

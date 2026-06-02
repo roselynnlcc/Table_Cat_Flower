@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — Les Zoos</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour &#224; la Banque d&#39;Id&#233;es</a>
+  <h1>TCF Canada &#8212; <span>T&#226;che 3</span></h1>
+  <div class="question-title">Les Zoos &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; cl&#233;s du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Animaux et conservation &nbsp;&#9733; = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les esp&#232;ces menac&#233;es <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">endangered species</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;extinction <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">extinction</span></div>
+          <div class="wl-row"><span class="wl-fr">la reproduction en captivit&#233; <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">captive breeding</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;habitat naturel <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">natural habitat</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie sauvage <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">wildlife</span></div>
+          <div class="wl-row"><span class="wl-fr">la biodiversit&#233; <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">biodiversity</span></div>
+          <div class="wl-row"><span class="wl-fr">la captivit&#233; <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">captivity</span></div>
+          <div class="wl-row"><span class="wl-fr">les &#233;cosyst&#232;mes <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">ecosystems</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Bien-&#234;tre animal et &#233;thique</div>
+          <div class="wl-row"><span class="wl-fr">le bien-&#234;tre animal <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">animal welfare</span></div>
+          <div class="wl-row"><span class="wl-fr">le confinement <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">confinement, restriction of movement</span></div>
+          <div class="wl-row"><span class="wl-fr">les conditions de vie <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">living conditions</span></div>
+          <div class="wl-row"><span class="wl-fr">les soins adapt&#233;s <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">appropriate care</span></div>
+          <div class="wl-row"><span class="wl-fr">les conditions stressantes <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">stressful conditions</span></div>
+          <div class="wl-row"><span class="wl-fr">les germes <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">germs, pathogens</span></div>
+          <div class="wl-row"><span class="wl-fr">les enclos <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">enclosures, pens</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Sensibilisation et science</div>
+          <div class="wl-row"><span class="wl-fr">la sensibilisation du public <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">public awareness</span></div>
+          <div class="wl-row"><span class="wl-fr">la recherche scientifique <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">scientific research</span></div>
+          <div class="wl-row"><span class="wl-fr">les comportements animaux <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">animal behaviour</span></div>
+          <div class="wl-row"><span class="wl-fr">les visiteurs <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">visitors</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;image s&#233;lectionn&#233;e <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">selective image (of wildlife)</span></div>
+          <div class="wl-row"><span class="wl-fr">la protection de la nature <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">nature conservation</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">&#201;conomie et tourisme</div>
+          <div class="wl-row"><span class="wl-fr">la contribution &#233;conomique <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">economic contribution</span></div>
+          <div class="wl-row"><span class="wl-fr">les revenus touristiques <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">tourism revenues</span></div>
+          <div class="wl-row"><span class="wl-fr">les co&#251;ts de maintenance <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">maintenance costs</span></div>
+          <div class="wl-row"><span class="wl-fr">les installations <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">facilities, installations</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;attractivit&#233; touristique <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">tourist appeal</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + pr&#233;positions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Pr&#233;p.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">prot&#233;ger</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to protect</td></tr>
+          <tr><td class="vfr">s&#233;parer</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to separate from</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">exposer</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to expose to</td></tr>
+          <tr><td class="vfr">&#233;tudier</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to study</td></tr>
+          <tr><td class="vfr">nuire</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to harm, to be harmful to</td></tr>
+          <tr><td class="vfr">se priver</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to deprive oneself of</td></tr>
+          <tr><td class="vfr">offrir</td><td class="vprep">&#8212;</td><td class="vrel">&#8212;</td><td class="ven">to offer, to provide</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; animaux et &#233;thique</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">menac&#233;(e)</span><span class="adj-en">endangered, threatened</span></div>
+          <div class="adj-row"><span class="adj-fr">sauvage</span><span class="adj-en">wild</span></div>
+          <div class="adj-row"><span class="adj-fr">captif(ve)</span><span class="adj-en">captive</span></div>
+          <div class="adj-row"><span class="adj-fr">repr&#233;sentatif(ve)</span><span class="adj-en">representative</span></div>
+          <div class="adj-row"><span class="adj-fr">adapt&#233;(e)</span><span class="adj-en">adapted, appropriate</span></div>
+          <div class="adj-row"><span class="adj-fr">s&#233;lectionn&#233;(e)</span><span class="adj-en">selective, curated</span></div>
+          <div class="adj-row"><span class="adj-fr">stressant(e)</span><span class="adj-en">stressful</span></div>
+          <div class="adj-row"><span class="adj-fr">sp&#233;cifique</span><span class="adj-en">specific</span></div>
+          <div class="adj-row"><span class="adj-fr">naturel(le)</span><span class="adj-en">natural</span></div>
+          <div class="adj-row"><span class="adj-fr">artificiel(le)</span><span class="adj-en">artificial</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Les Zoos</div>
+          <div class="contrast-item">prot&#233;ger les esp&#232;ces menac&#233;es d&#39;extinction</div>
+          <div class="contrast-item">permettre aux chercheurs d&#39;&#233;tudier les comportements animaux</div>
+          <div class="contrast-item">contribuer &#224; la pr&#233;servation des diff&#233;rentes esp&#232;ces et de leurs &#233;cosyst&#232;mes</div>
+          <div class="contrast-item">offrir des opportunit&#233;s de d&#233;couverte sur les animaux et leur habitat</div>
+          <div class="contrast-item">g&#233;n&#233;rer des revenus et des emplois gr&#226;ce aux visiteurs</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Les Zoos</div>
+          <div class="contrast-item">limiter les mouvements et l&#39;espace des animaux</div>
+          <div class="contrast-item">ne pas fournir les conditions de vie adapt&#233;es aux esp&#232;ces</div>
+          <div class="contrast-item">exposer les animaux &#224; des germes et des conditions stressantes</div>
+          <div class="contrast-item">offrir une image s&#233;lectionn&#233;e et peu repr&#233;sentative de la vie sauvage</div>
+          <div class="contrast-item">investir dans des enclos et installations tr&#232;s co&#251;teux</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 &#224; retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">les zoos contribuent &#224; la pr&#233;servation des esp&#232;ces menac&#233;es en assurant leur reproduction en captivit&#233;</div>
+          <div class="chunk-en">zoos contribute to the preservation of endangered species by ensuring their captive breeding</div>
+          <div class="chunk-note">en assurant + nom = C1 gérondif structure for method &#183; la pr&#233;servation de = C1 noun form &#183; r&#233;utilisable pour tout sujet de conservation</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">les zoos offrent une image s&#233;lectionn&#233;e et peu repr&#233;sentative de la vie sauvage, ce qui nuit &#224; la sensibilisation r&#233;elle du public</div>
+          <div class="chunk-en">zoos offer a selective and unrepresentative image of wildlife, which undermines genuine public awareness</div>
+          <div class="chunk-note">peu repr&#233;sentatif = C1 understatement adjective &#183; ce qui nuit &#224; = relative clause for negative consequence &#183; nuire &#224; = to undermine, to harm</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">exposer des animaux sauvages &#224; des germes et des conditions stressantes ne correspond pas &#224; leurs besoins sp&#233;cifiques</div>
+          <div class="chunk-en">exposing wild animals to germs and stressful conditions does not meet their specific needs</div>
+          <div class="chunk-note">ne pas correspondre &#224; = to not meet, to not match &#183; les besoins sp&#233;cifiques = strong exam phrase &#183; structure directement r&#233;utilisable pour le sujet des animaux de compagnie</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que les zoos permettent des recherches scientifiques importantes, ils privent les animaux de leur libert&#233; naturelle</div>
+          <div class="chunk-en">although zoos enable important scientific research, they deprive animals of their natural freedom</div>
+          <div class="chunk-note">bien que + subjonctif = C1 concession structure &#183; priver de = to deprive of &#183; excellent mod&#232;le de phrase nuanc&#233;e pour la conclusion ou la nuance</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
