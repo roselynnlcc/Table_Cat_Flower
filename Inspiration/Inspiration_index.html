@@ -215,7 +215,8 @@ const TOPICS = [
       "Barrières réglementaires (certifications complexes)",
       "Disponibilité limitée selon les régions et saisons"
     ],
-    scriptUrl: null
+    scriptUrl: null,
+    motsUrl: 'agriculture/alimentation-biologique-mots.html'
   },
 
   { id:2, cat:'agriculture', catLabel:'Agriculture & Env.', catColor:'#16a34a', catBg:'#f0fdf4',
@@ -697,7 +698,9 @@ function renderCards(list){
         <div class="q-text">${t.title}</div>
       </div>
       <div class="q-card-body" id="body-${t.id}">
-        <div class="contrast-grid">
+        ${t.motsUrl
+          ? `<div class="paire-display" id="paire-display-${t.id}"></div>`
+          : `<div class="contrast-grid">
           <div class="contrast-card card-pos-a">
             <div class="contrast-header pos-a">✓ Avantages</div>
             ${t.avantages.map(a=>`<div class="contrast-item">${a}</div>`).join('')}
@@ -706,10 +709,12 @@ function renderCards(list){
             <div class="contrast-header pos-b">✗ Inconvénients</div>
             ${t.inconvenients.map(i=>`<div class="contrast-item">${i}</div>`).join('')}
           </div>
-        </div>
+        </div>`}
       </div>
       <div class="card-actions">
-        <button class="mots-btn" onclick="openMots(event,${t.id})">📖 Liste de mots</button>
+        ${t.motsUrl
+          ? `<a href="${t.motsUrl}" class="mots-btn">📖 Liste de mots</a>`
+          : `<button class="mots-btn" onclick="openMots(event,${t.id})">📖 Liste de mots</button>`}
         ${t.scriptUrl ? `<a href="../${t.scriptUrl}" class="script-link">Voir le script →</a>` : '<span></span>'}
       </div>
       <button class="expand-btn" onclick="toggleCard(${t.id})">
@@ -722,11 +727,45 @@ function renderCards(list){
   document.getElementById('filterCount').textContent = `${list.length} sujet${list.length>1?'s':''}`;
 }
 
-function toggleCard(id){
+async function toggleCard(id){
   const body = document.getElementById(`body-${id}`);
   const btn  = document.getElementById(`arr-${id}`);
   const isOpen = body.classList.toggle('open');
   btn.textContent = isOpen ? '▲ Réduire' : '▼ Développer';
+
+  // If this card has a standalone mots page, fetch its contrast pairs on first open
+  if(isOpen){
+    const t = TOPICS.find(x => x.id === id);
+    const container = document.getElementById(`paire-display-${id}`);
+    if(t && t.motsUrl && container && container.innerHTML === ''){
+      container.innerHTML = `<small style="color:var(--text-muted);padding:8px 0;display:block;">Chargement...</small>`;
+      try{
+        const res  = await fetch(t.motsUrl);
+        const html = await res.text();
+        const doc  = new DOMParser().parseFromString(html, 'text/html');
+        const cards = doc.querySelectorAll('.contrast-card');
+        if(cards.length >= 2){
+          const buildCard = (card, bgClass, hdrClass) => {
+            const hdr   = card.querySelector('.contrast-header');
+            const items = Array.from(card.querySelectorAll('.contrast-item'))
+                              .map(i => `<div class="contrast-item">${i.textContent}</div>`).join('');
+            return `<div class="contrast-card ${bgClass}">
+              <div class="contrast-header pos-${hdrClass}">${hdr ? hdr.textContent : ''}</div>
+              ${items}
+            </div>`;
+          };
+          container.innerHTML = `<div class="contrast-grid" style="margin-top:12px;">
+            ${buildCard(cards[0], 'card-pos-a', 'a')}
+            ${buildCard(cards[1], 'card-pos-b', 'b')}
+          </div>`;
+        } else {
+          container.innerHTML = '';
+        }
+      } catch(e){
+        container.innerHTML = '';
+      }
+    }
+  }
 }
 
 // ══════════════════════════════════════════
