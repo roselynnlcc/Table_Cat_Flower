@@ -5,8 +5,8 @@ const TCF_QUESTIONS = [
     question: 'Selon certains, la vie rurale est plus bénéfique pour la santé que la vie urbaine. Quel est votre avis ?',
     scriptUrl: 'sante/urban_rural.html',
     date: '2025-05-05',
-    stars: 0,          // Gérez vos étoiles ici (0 à 3)
-    status: "À faire"     // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
+    stars: 0,
+    status: "À faire"
   },
   {
     id: 2,
@@ -14,8 +14,8 @@ const TCF_QUESTIONS = [
     question: 'Partir vivre à l\'étranger est plus facile quand on est jeune. Qu\'en pensez-vous ?',
     scriptUrl: 'culture/vivre_etranger_jeune.html',
     date: '2025-05-06',
-    stars: 0,          // Gérez vos étoiles ici (0 à 3)
-    status: "À faire"     // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
+    stars: 0,
+    status: "À faire"
   },
   {
     id: 3,
@@ -23,8 +23,8 @@ const TCF_QUESTIONS = [
     question: 'Pensez-vous que l\'on puisse être épanoui en vivant seul ? Pourquoi ?',
     scriptUrl: 'famille/epanoui_seul.html',
     date: '2025-05-06',
-    stars: 0,          // Gérez vos étoiles ici (0 à 3)
-    status: "À faire"     // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
+    stars: 0,
+    status: "À faire"
   },
   {
     id: 4,
@@ -32,8 +32,8 @@ const TCF_QUESTIONS = [
     question: 'Selon vous, doit-on protéger tous les animaux en voie de disparition ? Pourquoi ?',
     scriptUrl: 'environnement/animaux_disparition.html',
     date: '2025-05-06',
-    stars: 0,          // Gérez vos étoiles ici (0 à 3)
-    status: "À faire"     // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
+    stars: 0,
+    status: "À faire"
   },
   {
     id: 5,
@@ -41,8 +41,8 @@ const TCF_QUESTIONS = [
     question: 'Les universités doivent accepter tous les étudiants sans processus de sélection. Partagez-vous cette opinion ?',
     scriptUrl: 'education/selection_universitaire.html',
     date: '2025-05-07',
-    stars: 0,          // Gérez vos étoiles ici (0 à 3)
-    status: "À faire"     // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
+    stars: 0,
+    status: "À faire"
   },
   {
     id: 6,
@@ -50,8 +50,8 @@ const TCF_QUESTIONS = [
     question: 'La présence de caméras dans les lieux publics améliore la sécurité des personnes. Êtes-vous d\'accord ?',
     scriptUrl: 'technologie/cameras_securite.html',
     date: '2025-05-07',
-    stars: 0,          // Gérez vos étoiles ici (0 à 3)
-    status: "À faire"  // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
+    stars: 0,
+    status: "À faire"
   },
   {
     id: 7,
@@ -59,8 +59,8 @@ const TCF_QUESTIONS = [
     question: 'Il y a des parents qui décident de s\'occuper eux-mêmes de l\'éducation de leurs enfants à la maison. Quel est votre avis ?',
     scriptUrl: 'education/homeschool.html',
     date: '2025-05-08',
-    stars: 0,          // Gérez vos étoiles ici (0 à 3)
-    status: "À faire"  // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
+    stars: 0,
+    status: "À faire"
   },
   {
     id: 8,
@@ -68,127 +68,127 @@ const TCF_QUESTIONS = [
     question: 'De nombreuses personnes n\'apprécient pas de voyager seuls. Partagez-vous cette opinion ? Pourquoi ?',
     scriptUrl: 'culture/voyage_solo.html',
     date: '2026-05-09',
-    stars: 0,          // Gérez vos étoiles ici (0 à 3)
-    status: "À faire"  // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
+    stars: 0,
+    status: "À faire"
   },
   {
-  id: 9,
-  cat: 'economique',
-  question: 'Les ONG et les associations sont-elles les seules capables d\'aider les personnes pauvres ? Qu\'en pensez-vous ?',
-  scriptUrl: 'economique/ong_pauvrete.html',
-  date: '2026-05-10',
-  stars: 0,          // Gérez vos étoiles ici (0 à 3)
-  status: "À faire"  // Valeurs : "À faire", "En cours", "Prêt", "Maîtrisé"
+    id: 9,
+    cat: 'economique',
+    question: 'Les ONG et les associations sont-elles les seules capables d\'aider les personnes pauvres ? Qu\'en pensez-vous ?',
+    scriptUrl: 'economique/ong_pauvrete.html',
+    date: '2026-05-10',
+    stars: 0,
+    status: "À faire"
   },
   {
-  id: 10,
-  cat: 'economique',
-  question: 'Les employés sont-ils surtout motivés par leur salaire ? Pourquoi ?',
-  scriptUrl: 'economique/salaire_motivation.html',
-  date: '2026-05-10',
-  stars: 2,
-  status: "À faire"
+    id: 10,
+    cat: 'economique',
+    question: 'Les employés sont-ils surtout motivés par leur salaire ? Pourquoi ?',
+    scriptUrl: 'economique/salaire_motivation.html',
+    date: '2026-05-10',
+    stars: 2,
+    status: "À faire"
   },
   {
-  id: 11,
-  cat: 'famille',
-  question: 'Pensez-vous que l\'autorité soit indispensable pour bien éduquer les enfants ? Justifiez votre point de vue.',
-  scriptUrl: 'famille/autorite_education.html',
-  date: '2026-05-11',
-  stars: 2,
-  status: "Prêt"
+    id: 11,
+    cat: 'famille',
+    question: 'Pensez-vous que l\'autorité soit indispensable pour bien éduquer les enfants ? Justifiez votre point de vue.',
+    scriptUrl: 'famille/autorite_education.html',
+    date: '2026-05-11',
+    stars: 2,
+    status: "Prêt"
   },
   {
-  id: 12,
-  cat: 'famille',
-  question: 'À votre avis, est-ce que posséder un animal de compagnie est une bonne idée pour une personne âgée ?',
-  scriptUrl: 'famille/animal_personne_agee.html',
-  date: '2026-05-13',
-  stars: 1,
-  status: "À faire"
+    id: 12,
+    cat: 'famille',
+    question: 'À votre avis, est-ce que posséder un animal de compagnie est une bonne idée pour une personne âgée ?',
+    scriptUrl: 'famille/animal_personne_agee.html',
+    date: '2026-05-13',
+    stars: 1,
+    status: "À faire"
   },
   {
-  id: 13,
-  cat: 'technologie',
-  question: 'Certaines personnes préfèrent vivre sans technologie (Internet, ordinateur, téléphone). Qu\'en pensez-vous ?',
-  scriptUrl: 'technologie/sans_technologie.html',
-  date: '2026-05-13',
-  stars: 1,
-  status: "À faire"
+    id: 13,
+    cat: 'technologie',
+    question: 'Certaines personnes préfèrent vivre sans technologie (Internet, ordinateur, téléphone). Qu\'en pensez-vous ?',
+    scriptUrl: 'technologie/sans_technologie.html',
+    date: '2026-05-13',
+    stars: 1,
+    status: "À faire"
   },
   {
-  id: 14,
-  cat: 'technologie',
-  question: 'Le télétravail permet-il réellement de mieux concilier la vie professionnelle et la vie personnelle ? Qu\'en pensez-vous ?',
-  scriptUrl: 'technologie/teletravail_equilibre.html',
-  date: '2026-05-13',
-  stars: 1,
-  status: "À faire"
+    id: 14,
+    cat: 'technologie',
+    question: 'Le télétravail permet-il réellement de mieux concilier la vie professionnelle et la vie personnelle ? Qu\'en pensez-vous ?',
+    scriptUrl: 'technologie/teletravail_equilibre.html',
+    date: '2026-05-13',
+    stars: 1,
+    status: "À faire"
   },
   {
-  id: 15,
-  cat: 'famille',
-  question: 'Faut-il forcer les enfants à faire du sport ? Qu\'en pensez-vous ? Pourquoi ?',
-  scriptUrl: 'famille/forcer_sport_enfants.html',
-  date: '2026-05-13',
-  stars: 1,
-  status: "À faire"
+    id: 15,
+    cat: 'famille',
+    question: 'Faut-il forcer les enfants à faire du sport ? Qu\'en pensez-vous ? Pourquoi ?',
+    scriptUrl: 'famille/forcer_sport_enfants.html',
+    date: '2026-05-13',
+    stars: 1,
+    status: "À faire"
   },
   {
-  id: 16,
-  cat: 'environnement',
-  question: 'De nos jours, il est possible de vivre sans voiture. Qu\'en pensez-vous ?',
-  scriptUrl: 'environnement/vivre_sans_voiture.html',
-  date: '2026-05-15',
-  stars: 0,
-  status: "À faire"
-},
-{
-  id: 17,
-  cat: 'sante',
-  question: 'De plus en plus de gens choisissent de devenir végétariens. Que pensez-vous de ce régime alimentaire ?',
-  scriptUrl: 'sante/vegetarisme.html',
-  date: '2026-05-18',
-  stars: 0,
-  status: "À faire"
-},
-{
-  id: 18,
-  cat: 'economique',
-  question: 'Certains pensent que les salaires des sportifs professionnels sont excessifs. Êtes-vous d\'accord ?',
-  scriptUrl: 'economique/salaires-sportifs.html',
-  date: '2026-05-21',
-  stars: 0,
-  status: "À faire"
-},
-{
-  id: 19,
-  cat: 'environnement',
-  question: 'Quel est votre avis sur les actions prises dans votre pays pour diminuer la pollution ?',
-  scriptUrl: 'environnement/pollution-canada.html',
-  date: '2026-05-23',
-  stars: 0,
-  status: "À faire"
-},
-{
-  id: 20,
-  cat: 'culture',
-  question: 'Pourquoi, selon vous, certaines personnes ne montrent-elles pas d\'intérêt pour la politique ?',
-  scriptUrl: 'culture/desinteret-politique.html',
-  date: '2026-05-28',
-  stars: 3,
-  status: "À faire"
-},
-{
-  id: 21,
-  cat: 'sante',
-  question: 'Croyez-vous que les personnes continuent à cuisiner régulièrement aujourd\'hui ? Pourquoi ?',
-  scriptUrl: 'sante/cuisiner_regulierement.html',
-  date: '2026-05-28',
-  stars: 1,
-  status: "À faire"
-},
-{
+    id: 16,
+    cat: 'environnement',
+    question: 'De nos jours, il est possible de vivre sans voiture. Qu\'en pensez-vous ?',
+    scriptUrl: 'environnement/vivre_sans_voiture.html',
+    date: '2026-05-15',
+    stars: 0,
+    status: "À faire"
+  },
+  {
+    id: 17,
+    cat: 'sante',
+    question: 'De plus en plus de gens choisissent de devenir végétariens. Que pensez-vous de ce régime alimentaire ?',
+    scriptUrl: 'sante/vegetarisme.html',
+    date: '2026-05-18',
+    stars: 0,
+    status: "À faire"
+  },
+  {
+    id: 18,
+    cat: 'economique',
+    question: 'Certains pensent que les salaires des sportifs professionnels sont excessifs. Êtes-vous d\'accord ?',
+    scriptUrl: 'economique/salaires-sportifs.html',
+    date: '2026-05-21',
+    stars: 0,
+    status: "À faire"
+  },
+  {
+    id: 19,
+    cat: 'environnement',
+    question: 'Quel est votre avis sur les actions prises dans votre pays pour diminuer la pollution ?',
+    scriptUrl: 'environnement/pollution-canada.html',
+    date: '2026-05-23',
+    stars: 0,
+    status: "À faire"
+  },
+  {
+    id: 20,
+    cat: 'culture',
+    question: 'Pourquoi, selon vous, certaines personnes ne montrent-elles pas d\'intérêt pour la politique ?',
+    scriptUrl: 'culture/desinteret-politique.html',
+    date: '2026-05-28',
+    stars: 3,
+    status: "À faire"
+  },
+  {
+    id: 21,
+    cat: 'sante',
+    question: 'Croyez-vous que les personnes continuent à cuisiner régulièrement aujourd\'hui ? Pourquoi ?',
+    scriptUrl: 'sante/cuisiner_regulierement.html',
+    date: '2026-05-28',
+    stars: 1,
+    status: "À faire"
+  },
+  {
     id: 22,
     cat: 'culture',
     question: 'Les musées devraient être gratuits pour tout le monde. Qu\'en pensez-vous ?',
@@ -196,5 +196,14 @@ const TCF_QUESTIONS = [
     date: '2026-06-01',
     stars: 1,
     status: "En cours"
-}
+  },
+  {
+    id: 23,
+    cat: 'culture',
+    question: 'Est-ce plus facile de s\'adapter à un nouveau pays quand on est jeune ? Pourquoi ?',
+    scriptUrl: 'culture/adapter_jeune.html',
+    date: '2026-06-03',
+    stars: 0,
+    status: "En cours"
+  }
 ];
