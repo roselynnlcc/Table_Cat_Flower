@@ -145,10 +145,12 @@
   <div class="header-row">
     <h1>TCF Canada — <em>Banque d'Idées</em></h1>
     <a class="back-icon" href="../index.html" title="Retour">🏠</a>
-    </div>
+    <!-- back link correct: ../index.html points to root index.html -->
+  </div>
 </header>
 <div class="motivation-bar">💡 Parcourez les idées, mémorisez les mots-clés, puis construisez votre script.</div>
 
+<!-- FILTER DROPDOWN -->
 <div class="filter-bar">
   <span class="filter-label">Thème :</span>
   <div class="filter-select-wrap">
@@ -178,6 +180,7 @@
 
 <div class="cards-wrap" id="cardsWrap"></div>
 
+<!-- MODAL DRAWER -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal-drawer" id="modalDrawer">
     <div class="modal-header">
@@ -200,60 +203,18 @@ const TOPICS = [
   // ── AGRICULTURE & ENVIRONNEMENT ──────────
   { id:1, cat:'agriculture', catLabel:'Agriculture & Env.', catColor:'#16a34a', catBg:'#f0fdf4',
     title:"L'Alimentation biologique",
-    avantages:[
-      "Moins de pollution (air, eau, sol) grâce à l'absence de produits chimiques",
-      "Contribution à la biodiversité par la rotation des cultures",
-      "Meilleure qualité gustative et nutritive des aliments",
-      "Soutien à l'économie locale et aux petits producteurs",
-      "Réduction de l'empreinte carbone (captation du carbone dans le sol)"
-    ],
-    inconvenients:[
-      "Coûts de production élevés (main-d'œuvre intensive)",
-      "Rendements plus faibles, risques de pertes de récolte",
-      "Prix plus élevés, difficile de concurrencer le conventionnel",
-      "Barrières réglementaires (certifications complexes)",
-      "Disponibilité limitée selon les régions et saisons"
-    ],
     scriptUrl: null,
     motsUrl: 'agriculture/alimentation-biologique-mots.html'
   },
 
   { id:2, cat:'agriculture', catLabel:'Agriculture & Env.', catColor:'#16a34a', catBg:'#f0fdf4',
     title:"Les Énergies renouvelables",
-    avantages:[
-      "Réduction de la dépendance aux énergies fossiles",
-      "Diminution de la pollution de l'air et de l'eau",
-      "Lutte contre le changement climatique",
-      "Création d'emplois locaux (construction, entretien)",
-      "Ressource illimitée (soleil, vent, eau)"
-    ],
-    inconvenients:[
-      "Coûts d'installation élevés (panneaux, éoliennes)",
-      "Nécessite de technologies de stockage spécifiques",
-      "Dépendance aux conditions météorologiques",
-      "Emprise au sol importante",
-      "Risques pour la faune (oiseaux, écosystèmes aquatiques)"
-    ],
     scriptUrl: null,
     motsUrl: 'agriculture/energies-renouvelables-mots.html'
   },
 
   { id:3, cat:'agriculture', catLabel:'Agriculture & Env.', catColor:'#16a34a', catBg:'#f0fdf4',
     title:"Tri des déchets",
-    avantages:[
-      "Réduction des déchets envoyés en décharge",
-      "Économie de ressources (réutilisation des matières)",
-      "Lutte contre le changement climatique (moins de gaz à effet de serre)",
-      "Création d'emplois verts dans le recyclage",
-      "Amélioration de la qualité de l'environnement urbain"
-    ],
-    inconvenients:[
-      "Coûts de mise en place et d'entretien élevés",
-      "Nécessite sensibilisation et éducation du public",
-      "Risque de contamination des matières recyclables",
-      "Limitation de la variété des matières acceptées",
-      "Transports supplémentaires vers les centres de tri"
-    ],
     scriptUrl: null,
     motsUrl: 'agriculture/tri-dechets-mots.html'
   },
@@ -261,414 +222,139 @@ const TOPICS = [
   // ── ANIMAUX ──────────────────────────────
   { id:4, cat:'animaux', catLabel:'Animaux', catColor:'#d97706', catBg:'#fffbeb',
     title:"Les Zoos",
-    avantages:[
-      "Conservation des espèces menacées d'extinction",
-      "Sensibilisation du public à la biodiversité",
-      "Recherche scientifique sur les comportements animaux",
-      "Maintien de la biodiversité (programmes de reproduction)",
-      "Contribution économique (emplois, tourisme)"
-    ],
-    inconvenients:[
-      "Confinement des animaux loin de leur habitat naturel",
-      "Soins inadaptés aux besoins des espèces spécifiques",
-      "Risques de maladies et de stress en captivité",
-      "Image réductrice et peu représentative de la vie sauvage",
-      "Coûts élevés d'entretien et de construction des enclos"
-    ],
     scriptUrl: null,
     motsUrl: 'animaux/les-zoos-mots.html'
   },
 
   { id:5, cat:'animaux', catLabel:'Animaux', catColor:'#d97706', catBg:'#fffbeb',
     title:"Avoir un animal domestique chez soi",
-    avantages:[
-      "Compagnie et affection constante pour les propriétaires",
-      "Bien-être mental (réduction du stress et de l'anxiété)",
-      "Activité physique accrue (promenades quotidiennes)",
-      "Sentiment de sécurité (présence rassurante)",
-      "Opportunités de socialisation avec d'autres propriétaires"
-    ],
-    inconvenients:[
-      "Coûts financiers importants (soins, nourriture, vétérinaire)",
-      "Temps et responsabilités au quotidien",
-      "Restrictions dans certains logements et transports",
-      "Contraintes d'horaires (promenades, nourrissage)",
-      "Risques de maladies transmissibles et blessures accidentelles"
-    ],
     scriptUrl: "animal_personne_agee.html",
     motsUrl: 'animaux/animal-domestique-mots.html'
   },
 
   { id:6, cat:'animaux', catLabel:'Animaux', catColor:'#d97706', catBg:'#fffbeb',
     title:"Avoir un animal de compagnie au travail",
-    avantages:[
-      "Réduction du stress et amélioration de l'ambiance",
-      "Renforcement de la cohésion entre collègues",
-      "Encourage les pauses et l'activité physique",
-      "Argument d'attraction pour les talents",
-      "Réduction des coûts de garde pour les employés"
-    ],
-    inconvenients:[
-      "Allergies et phobies chez certains collègues",
-      "Source de distraction et perte de productivité",
-      "Risques d'accidents ou de morsures",
-      "Problèmes d'hygiène dans les espaces partagés",
-      "Difficultés dans les open spaces et salles de réunion"
-    ],
     scriptUrl: null
+    motsUrl: \'animaux/animal-compagnie-travail-mots.html\'
   },
 
   // ── ART & CULTURE ─────────────────────────
   { id:7, cat:'art', catLabel:'Art & Culture', catColor:'#7c3aed', catBg:'#f5f0ff',
     title:"La cuisine comme moyen de découvrir d'autres cultures",
-    avantages:[
-      "Découverte des traditions et valeurs d'autres peuples",
-      "Favorise l'ouverture d'esprit et la tolérance",
-      "Accessible sans avoir besoin de voyager",
-      "Crée des liens sociaux autour du repas partagé",
-      "Stimule la curiosité pour apprendre d'autres langues"
-    ],
-    inconvenients:[
-      "Risque de réduire une culture à ses seuls plats",
-      "Adaptations locales qui dénaturent les recettes originales",
-      "Appropriation culturelle sans compréhension profonde",
-      "Vision superficielle sans connaissance du contexte",
-      "Accès inégal selon les revenus et les régions"
-    ],
     scriptUrl: null
+    motsUrl: \'art/cuisine-cultures-mots.html\'
   },
 
   { id:8, cat:'art', catLabel:'Art & Culture', catColor:'#7c3aed', catBg:'#f5f0ff',
     title:"La gratuité des musées",
-    avantages:[
-      "Accès à la culture pour tous, sans barrière financière",
-      "Hausse du nombre de visiteurs et de la diversité du public",
-      "Éducation et sensibilisation culturelle élargie",
-      "Renforcement de la cohésion sociale",
-      "Attractivité touristique accrue de la ville"
-    ],
-    inconvenients:[
-      "Perte de revenus nécessaires à l'entretien des collections",
-      "Surcharge et risque de dégradation des œuvres",
-      "Qualité des expositions potentiellement réduite",
-      "Dépendance accrue aux subventions publiques",
-      "Moins d'incitation à innover et à renouveler les expositions"
-    ],
     scriptUrl: null
+    motsUrl: \'art/gratuite-musees-mots.html\'
   },
 
   // ── ÉDUCATION ─────────────────────────────
   { id:9, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
     title:"L'utilisation des téléphones portables à l'école",
-    avantages:[
-      "Accès immédiat à l'information et aux ressources pédagogiques",
-      "Outils innovants (applications éducatives, recherche)",
-      "Préparation des élèves au monde numérique",
-      "Communication facilitée avec les parents en cas d'urgence",
-      "Autonomie et responsabilisation des élèves"
-    ],
-    inconvenients:[
-      "Source majeure de distraction pendant les cours",
-      "Facilite la triche lors des évaluations",
-      "Risques de cyberharcèlement entre élèves",
-      "Dépendance aux écrans nuisible au développement",
-      "Inégalités entre élèves selon les modèles possédés"
-    ],
     scriptUrl: null
+    motsUrl: \'education/telephones-ecole-mots.html\'
   },
 
   { id:10, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
     title:"Les cours en ligne",
-    avantages:[
-      "Accessibilité depuis n'importe où dans le monde",
-      "Flexibilité des horaires pour concilier travail et études",
-      "Coûts souvent inférieurs aux formations en présentiel",
-      "Grande variété de disciplines disponibles",
-      "Apprentissage à son propre rythme"
-    ],
-    inconvenients:[
-      "Manque d'interaction directe avec enseignants et pairs",
-      "Risque élevé de procrastination et d'abandon",
-      "Nécessite une grande autodiscipline",
-      "Qualité très variable selon les plateformes",
-      "Diplômes pas toujours reconnus par les employeurs"
-    ],
     scriptUrl: null
+    motsUrl: \'education/cours-en-ligne-mots.html\'
   },
 
   { id:11, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
     title:"La scolarisation à domicile",
-    avantages:[
-      "Enseignement personnalisé adapté au rythme de l'enfant",
-      "Environnement sécurisé loin du harcèlement scolaire",
-      "Flexibilité des horaires et du programme",
-      "Renforcement des liens familiaux",
-      "Résultats académiques parfois supérieurs"
-    ],
-    inconvenients:[
-      "Manque de socialisation avec les camarades",
-      "Charge importante pour les parents (temps, compétences)",
-      "Risque d'isolement social de l'enfant",
-      "Accès limité aux équipements scolaires spécialisés",
-      "Difficultés de contrôle de la qualité de l'enseignement"
-    ],
     scriptUrl: null
+    motsUrl: \'education/scolarisation-domicile-mots.html\'
   },
 
   // ── FAMILLE & PARENTALITÉ ─────────────────
   { id:12, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
     title:"L'Internet pour les enfants",
-    avantages:[
-      "Accès à de nombreuses ressources éducatives",
-      "Développement de compétences numériques dès le jeune âge",
-      "Maintien du lien avec famille et amis à distance",
-      "Stimulation de la créativité (jeux, vidéos, arts)",
-      "Préparation au monde numérique professionnel"
-    ],
-    inconvenients:[
-      "Exposition à des contenus inappropriés ou dangereux",
-      "Risques de cyberharcèlement et de manipulation en ligne",
-      "Dépendance aux écrans et sédentarité accrue",
-      "Réduction des interactions sociales en face à face",
-      "Difficultés pour les parents de contrôler l'usage"
-    ],
     scriptUrl: null
+    motsUrl: \'famille/internet-enfants-mots.html\'
   },
 
   { id:13, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
     title:"L'éducation autoritaire (parents sévères)",
-    avantages:[
-      "Développe la discipline et le respect des règles",
-      "Prépare à la rigueur du monde professionnel",
-      "Résultats scolaires souvent plus élevés",
-      "Cadre clair qui rassure certains enfants",
-      "Transmission de valeurs morales fortes"
-    ],
-    inconvenients:[
-      "Risque d'anxiété, de faible estime de soi",
-      "Manque de créativité et d'autonomie chez l'enfant",
-      "Relation parent-enfant fragilisée",
-      "Rébellion plus prononcée à l'adolescence",
-      "Difficulté à exprimer ses émotions à l'âge adulte"
-    ],
     scriptUrl: null
+    motsUrl: \'famille/education-autoritaire-mots.html\'
   },
 
   // ── SANTÉ & MODE DE VIE ───────────────────
   { id:14, cat:'sante', catLabel:'Santé', catColor:'#0891b2', catBg:'#f0fafe',
     title:"Alimentation végétarienne",
-    avantages:[
-      "Réduction de l'empreinte carbone et de la pollution",
-      "Bénéfices pour la santé (maladies cardiovasculaires, obésité)",
-      "Bien-être animal respecté",
-      "Économies possibles sur le budget alimentaire",
-      "Diversification culinaire enrichissante"
-    ],
-    inconvenients:[
-      "Risques de carences (fer, vitamine B12, protéines)",
-      "Difficultés sociales (repas en famille, restaurants)",
-      "Coût élevé des produits de substitution",
-      "Planification alimentaire rigoureuse nécessaire",
-      "Impact économique sur les éleveurs et l'agriculture"
-    ],
     scriptUrl: "vegetarisme.html"
+    motsUrl: \'sante/vegetarisme-mots.html\'
   },
 
   { id:15, cat:'sante', catLabel:'Santé', catColor:'#0891b2', catBg:'#f0fafe',
     title:"La Chirurgie esthétique",
-    avantages:[
-      "Amélioration de la confiance en soi et du bien-être",
-      "Liberté de disposer de son corps comme on le souhaite",
-      "Correction de complexes invalidants au quotidien",
-      "Progrès médicaux qui ont réduit les risques opératoires",
-      "Utilité reconstructrice après accidents ou maladies"
-    ],
-    inconvenients:[
-      "Risques médicaux sérieux (infections, complications)",
-      "Coûts très élevés non remboursés",
-      "Pression sociale et normes de beauté irréalistes",
-      "Résultats parfois décevants ou irréversibles",
-      "Risque de dépendance à l'amélioration corporelle"
-    ],
     scriptUrl: null
+    motsUrl: \'sante/chirurgie-esthetique-mots.html\'
   },
 
   // ── IMMIGRATION ───────────────────────────
   { id:16, cat:'immigration', catLabel:'Immigration', catColor:'#be185d', catBg:'#fdf2f8',
     title:"L'immigration et l'intégration",
-    avantages:[
-      "Nouvelles opportunités professionnelles et économiques",
-      "Meilleure qualité de vie et sécurité",
-      "Enrichissement culturel et linguistique",
-      "Liberté et nouvelles perspectives de vie",
-      "Accès à de meilleurs systèmes éducatifs et sociaux"
-    ],
-    inconvenients:[
-      "Barrière de la langue et difficultés de communication",
-      "Isolement social et nostalgie de la culture d'origine",
-      "Non-reconnaissance des diplômes étrangers",
-      "Discrimination et préjugés dans le pays d'accueil",
-      "Difficulté à maintenir son identité culturelle"
-    ],
     scriptUrl: null
+    motsUrl: \'immigration/immigration-integration-mots.html\'
   },
 
   // ── MÉDIAS ────────────────────────────────
   { id:17, cat:'medias', catLabel:'Médias', catColor:'#0891b2', catBg:'#f0fafe',
     title:"La télévision",
-    avantages:[
-      "Source d'information et de culture accessible à tous",
-      "Divertissement pour tous les ages",
-      "Lien social (programmes regardés en famille)",
-      "Éducation via documentaires et émissions spécialisées",
-      "Vecteur de diversité culturelle"
-    ],
-    inconvenients:[
-      "Sédentarité et dépendance aux écrans",
-      "Contenu parfois de mauvaise qualité ou violent",
-      "Publicités intrusives influençant les comportements",
-      "Risque de manipulation de l'opinion publique",
-      "Perte de temps sur des activités plus productives"
-    ],
     scriptUrl: null
+    motsUrl: \'medias/television-mots.html\'
   },
 
   // ── SPORT ─────────────────────────────────
   { id:18, cat:'sport', catLabel:'Sport', catColor:'#16a34a', catBg:'#f0fdf4',
     title:"Les salaires de sportifs de haut niveau",
-    avantages:[
-      "Reflet de la valeur marchande générée (droits TV, sponsors)",
-      "Rémunération juste pour des carrières courtes et exigeantes",
-      "Motivation et modèles inspirants pour les jeunes",
-      "Contribution à l'économie (impôts, emplois induits)",
-      "Loi de l'offre et de la demande dans un marché libre"
-    ],
-    inconvenients:[
-      "Inégalités criantes comparées aux professions essentielles",
-      "Déconnexion de la réalité économique du citoyen ordinaire",
-      "Mauvais signal de valeurs pour la jeunesse",
-      "Fossé croissant entre clubs riches et clubs pauvres",
-      "Pression financière sur les supporters et les clubs"
-    ],
     scriptUrl: "salaires-sportifs.html"
+    motsUrl: \'sport/salaires-sportifs-mots.html\'
   },
 
   // ── TECHNOLOGIE ───────────────────────────
   { id:19, cat:'techno', catLabel:'Technologie', catColor:'#d97706', catBg:'#fffbeb',
     title:"Les réseaux sociaux",
-    avantages:[
-      "Maintien des liens sociaux à distance",
-      "Plateforme d'expression et de créativité",
-      "Source d'information en temps réel",
-      "Outil de mobilisation sociale et politique",
-      "Opportunités professionnelles (réseautage, visibilité)"
-    ],
-    inconvenients:[
-      "Dépendance et addiction aux plateformes",
-      "Diffusion rapide de fausses informations",
-      "Atteinte à la vie privée et collecte de données",
-      "Cyberharcèlement et impact sur la santé mentale",
-      "Comparaison sociale néfaste et image idéalisée"
-    ],
     scriptUrl: null
+    motsUrl: \'techno/reseaux-sociaux-mots.html\'
   },
 
   { id:20, cat:'techno', catLabel:'Technologie', catColor:'#d97706', catBg:'#fffbeb',
     title:"Le télétravail",
-    avantages:[
-      "Meilleur équilibre vie professionnelle / vie personnelle",
-      "Économies de temps et d'argent (moins de transports)",
-      "Productivité accrue dans un environnement choisi",
-      "Réduction de l'empreinte carbone des déplacements",
-      "Accès à des emplois sans contrainte géographique"
-    ],
-    inconvenients:[
-      "Isolement social et perte du lien avec les collègues",
-      "Difficultés à séparer espace de travail et vie personnelle",
-      "Risque de surmenage et d'hyperconnexion",
-      "Manque de supervision pour certains profils",
-      "Inégalités selon les conditions de logement"
-    ],
     scriptUrl: null
+    motsUrl: \'techno/teletravail-mots.html\'
   },
 
   // ── TRANSPORTS ────────────────────────────
   { id:21, cat:'transports', catLabel:'Transports', catColor:'#16a34a', catBg:'#f0fdf4',
     title:"Vivre sans voiture",
-    avantages:[
-      "Réduction de l'empreinte carbone personnelle",
-      "Économies importantes (assurance, carburant, entretien)",
-      "Activité physique accrue (marche, vélo)",
-      "Moins de stress lié à la conduite et au stationnement",
-      "Contribution à la réduction des embouteillages urbains"
-    ],
-    inconvenients:[
-      "Dépendance aux transports en commun (horaires, grèves)",
-      "Difficultés en zones rurales ou mal desservies",
-      "Contraintes pour les achats volumineux",
-      "Temps de trajet souvent plus long",
-      "Moins de liberté et de flexibilité dans les déplacements"
-    ],
     scriptUrl: "vivre_sans_voiture.html"
+    motsUrl: \'transports/vivre-sans-voiture-mots.html\'
   },
 
   // ── TOURISME & VOYAGE ─────────────────────
   { id:22, cat:'tourisme', catLabel:'Tourisme', catColor:'#7c3aed', catBg:'#f5f0ff',
     title:"Voyager seul vs voyager accompagné",
-    avantages:[
-      "Liberté totale dans les choix d'itinéraire (solo)",
-      "Développement de l'autonomie et de la confiance en soi",
-      "Rencontres plus authentiques avec les habitants locaux",
-      "Introspection et meilleure connaissance de soi",
-      "Adaptation et débrouillardise renforcées"
-    ],
-    inconvenients:[
-      "Partage des émotions et souvenirs partagés (accompagné)",
-      "Sécurité accrue, surtout dans des zones peu connues",
-      "Coûts partagés (hébergement, transport)",
-      "Compagnie rassurante face aux imprévus",
-      "Découverte enrichie par un autre regard"
-    ],
     scriptUrl: "voyage_solo.html"
+    motsUrl: \'tourisme/voyager-seul-mots.html\'
   },
 
   // ── MONDE DU TRAVAIL ──────────────────────
   { id:23, cat:'travail', catLabel:'Monde du Travail', catColor:'#be185d', catBg:'#fdf2f8',
     title:"Le salaire égal pour tous les employés",
-    avantages:[
-      "Réduction des inégalités économiques dans l'entreprise",
-      "Meilleure cohésion et climat social",
-      "Valorisation égale de toutes les fonctions",
-      "Réduction des tensions liées aux jalousies salariales",
-      "Modèle plus juste et solidaire"
-    ],
-    inconvenients:[
-      "Manque de motivation pour les meilleurs performeurs",
-      "Ne tient pas compte de l'expérience et des compétences",
-      "Risque de fuite des talents vers d'autres entreprises",
-      "Difficultés d'application dans les grandes structures",
-      "Contraire aux principes de la méritocratie"
-    ],
     scriptUrl: null
+    motsUrl: \'travail/salaire-egal-mots.html\'
   },
 
   { id:24, cat:'travail', catLabel:'Monde du Travail', catColor:'#be185d', catBg:'#fdf2f8',
     title:"Cuisiner : amateur vs professionnel",
-    avantages:[
-      "Plaisir personnel et créativité sans pression (amateur)",
-      "Alimentation saine et économique pour sa famille",
-      "Transmission d'un patrimoine culinaire familial",
-      "Activité relaxante et épanouissante",
-      "Liberté totale dans les choix et les recettes"
-    ],
-    inconvenients:[
-      "Technique et précision au niveau professionnel supérieur",
-      "Conditions de travail difficiles (horaires, stress, chaleur)",
-      "Risque de perdre la passion dans un cadre commercial",
-      "Pression des clients et des critiques gastronomiques",
-      "Carrière physiquement et mentalement exigeante"
-    ],
     scriptUrl: "cuisiner_regulierement.html"
+    motsUrl: \'travail/cuisiner-amateur-pro-mots.html\'
   }
 ];
 
@@ -701,18 +387,7 @@ function renderCards(list){
         <div class="q-text">${t.title}</div>
       </div>
       <div class="q-card-body" id="body-${t.id}">
-        ${t.motsUrl
-          ? `<div class="paire-display" id="paire-display-${t.id}"></div>`
-          : `<div class="contrast-grid">
-          <div class="contrast-card card-pos-a">
-            <div class="contrast-header pos-a">✓ Avantages</div>
-            ${t.avantages.map(a=>`<div class="contrast-item">${a}<button class="speak-btn" onclick="speakFr(event,this)" title="Écouter">🔊</button></div>`).join('')}
-          </div>
-          <div class="contrast-card card-pos-b">
-            <div class="contrast-header pos-b">✗ Inconvénients</div>
-            ${t.inconvenients.map(i=>`<div class="contrast-item">${i}<button class="speak-btn" onclick="speakFr(event,this)" title="Écouter">🔊</button></div>`).join('')}
-          </div>
-        </div>`}
+        <div class="paire-display" id="paire-display-${t.id}"></div>
       </div>
       <div class="card-actions">
         ${t.motsUrl
@@ -748,18 +423,16 @@ async function toggleCard(id){
         const doc  = new DOMParser().parseFromString(html, 'text/html');
         const cards = doc.querySelectorAll('.contrast-card');
         if(cards.length >= 2){
-          const buildCard = (card, bgClass, hdrClass) => {
+          const build = (card, hdrClass, bgClass) => {
             const hdr   = card.querySelector('.contrast-header');
+            const title = hdr ? hdr.innerText || hdr.textContent : '';
             const items = Array.from(card.querySelectorAll('.contrast-item'))
-                              .map(i => `<div class="contrast-item">${i.textContent}<button class="speak-btn" onclick="speakFr(event,this)" title="\u00c9couter">\uD83D\uDD0A</button></div>`).join('');
-            return `<div class="contrast-card ${bgClass}">
-              <div class="contrast-header pos-${hdrClass}">${hdr ? hdr.textContent : ''}</div>
-              ${items}
-            </div>`;
+                              .map(i => `<div class="contrast-item">${i.innerText || i.textContent}<button class="speak-btn" onclick="speakFr(event,this)" title="Écouter">🔊</button></div>`).join('');
+            return `<div class="contrast-card ${bgClass}"><div class="contrast-header ${hdrClass}">${title}</div>${items}</div>`;
           };
           container.innerHTML = `<div class="contrast-grid" style="margin-top:12px;">
-            ${buildCard(cards[0], 'card-pos-a', 'a')}
-            ${buildCard(cards[1], 'card-pos-b', 'b')}
+            ${build(cards[0], 'pos-a', 'card-pos-a')}
+            ${build(cards[1], 'pos-b', 'card-pos-b')}
           </div>`;
         } else {
           container.innerHTML = '';
@@ -1033,40 +706,21 @@ function buildListe(d){
 renderCards(TOPICS);
 
 // ── TTS speak button ──
-// Force voices to load into the browser as soon as possible (fixes a known iOS bug)
-if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
-  speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
-}
-
 function speakFr(e, btn){
   e.stopPropagation();
   if(!window.speechSynthesis) return;
-  
   const text = btn.parentElement.childNodes[0].textContent.trim();
-  
   if(window.speechSynthesis.speaking){
     window.speechSynthesis.cancel();
     document.querySelectorAll('.speak-btn.speaking').forEach(b=>b.classList.remove('speaking'));
     if(btn.classList.contains('speaking')){ btn.classList.remove('speaking'); return; }
   }
-  
   const utt = new SpeechSynthesisUtterance(text);
   utt.lang = 'fr-FR';
-  utt.rate = 1;
-
-  // Explicitly find and set a French voice
-  const voices = window.speechSynthesis.getVoices();
-  const frenchVoice = voices.find(voice => voice.lang === 'fr-CA') || 
-                      voices.find(voice => voice.lang.startsWith('fr'));
-                      
-  if (frenchVoice) {
-      utt.voice = frenchVoice;
-  }
-
+  utt.rate = 0.9;
   btn.classList.add('speaking');
   utt.onend = () => btn.classList.remove('speaking');
   utt.onerror = () => btn.classList.remove('speaking');
-  
   window.speechSynthesis.speak(utt);
 }
 </script>
