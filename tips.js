@@ -19,5 +19,12 @@ const TCF_TIPS = [
     subtitle: "Arbre de décision · exemples par catégorie · chunks TCF",
     url: "tips/ceux-qui-ce-qui.html",
     date: "2026-05-11"
+  },
+  {
+    id: 4,
+    title: "Kit connecteurs oral B2/C1",
+    subtitle: "Lancer · Ajouter · Conséquence · Nuancer · Contraster · Chunks",
+    url: "tips/connecteurs.html",
+    date: "2026-06-03"
   }
 ];
