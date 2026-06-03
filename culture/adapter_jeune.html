@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — S'adapter à un nouveau pays quand on est jeune</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --amber-bg:#fff7e0;--amber-text:#7a4f00;--amber-border:#f0c040;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .single-view{max-width:620px;margin:0 auto;}
+
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+
+  .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
+  .stage-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:3px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);cursor:pointer;transition:all .15s;}
+  .stage-btn:hover{border-color:var(--accent);color:var(--text);}
+  .stage-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500;}
+
+  .stage-content{display:none;}
+  .stage-content.active{display:block;}
+
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fffdf9;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+
+  /* TOPIC SENTENCE STRIP */
+  .topic-sentence{background:var(--amber-bg);border-left:3px solid var(--amber-border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:7px 11px;margin-bottom:10px;font-size:12.5px;font-weight:500;color:var(--amber-text);line-height:1.6;}
+  .topic-label{font-size:9px;text-transform:uppercase;letter-spacing:.09em;font-weight:700;color:var(--accent);margin-bottom:3px;}
+
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;}
+  .script-text p:last-child{margin-bottom:0;}
+  .para-wrap{position:relative;margin-bottom:10px;}
+  .para-wrap:last-child{margin-bottom:0;}
+  .para-wrap p{margin-bottom:0;}
+
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+
+  /* WORD COUNT */
+  .wc-bar{margin-top:9px;display:flex;align-items:center;gap:8px;}
+  .wc-count{font-size:11px;font-weight:600;color:var(--green);}
+  .wc-target{font-size:10.5px;color:var(--text-muted);}
+  .wc-pip{width:80px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+  .wc-fill{height:100%;background:var(--green);border-radius:2px;transition:width .3s;}
+  .wc-fill.over{background:#c8450a;}
+
+  /* Hidden word mechanic */
+  .h{color:#fff;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;text-decoration-thickness:1px;}
+  .hl-pink .h{color:var(--pink-bg);text-decoration-color:#e8b4c4;}
+  .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
+  .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
+
+  /* WORD LIST */
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+
+  /* CONNECTOR KIT */
+  .kit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.kit-grid{grid-template-columns:1fr;}}
+  .kit-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .kit-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .kit-row{display:flex;flex-direction:column;gap:3px;padding:8px 13px;border-bottom:0.5px solid var(--border);}
+  .kit-row:last-child{border-bottom:none;}
+  .kit-avoid{font-size:11.5px;color:#9d9590;text-decoration:line-through;}
+  .kit-use{font-size:13px;font-weight:500;color:var(--text);}
+  .kit-en{font-size:11px;color:var(--text-soft);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>TCF Canada &mdash; <span>T&acirc;che 3</span></h1>
+  <div class="question-title">Est-ce plus facile de s&rsquo;adapter &agrave; un nouveau pays quand on est jeune&nbsp;? Pourquoi&nbsp;?</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">C&ocirc;te &agrave; c&ocirc;te</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">&#127919; Position A &#127919;</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+  <button class="tab-btn" onclick="showTab('kit',this)">Kit connecteurs</button>
+</nav>
+
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+
+<!-- POSITION A with stage toggle -->
+<div id="posA" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-green">
+        <div class="card-title card-title-green">&#10003; Position A &mdash; OUI, c&rsquo;est plus facile quand on est jeune</div>
+        <span class="stance-badge badge-easy">Plus facile &agrave; d&eacute;fendre</span>
+      </div>
+      <div class="stage-toggle">
+        <button class="stage-btn active" onclick="showStage('sa0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('sa1',this)">&Eacute;tape 1</button>
+        <button class="stage-btn" onclick="showStage('sa2',this)">&Eacute;tape 2</button>
+        <button class="stage-btn" onclick="showStage('sa3',this)">&Eacute;tape 3</button>
+      </div>
+
+      <!-- COMPLET -->
+      <div id="sa0" class="stage-content active">
+
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question&nbsp;! C&rsquo;est un sujet qui touche beaucoup de familles &agrave; travers le monde, car il est l&eacute;gitime de se demander <span class="hl-pink">si l&rsquo;&acirc;ge change vraiment l&rsquo;exp&eacute;rience de l&rsquo;int&eacute;gration</span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que <span class="hl-pink">les jeunes ont un avantage r&eacute;el dans ce processus.</span> Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+          <div id="wc-intro-a0" class="wc-bar"></div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Point 1 &mdash; Plasticit&eacute; culturelle <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Les jeunes absorbent naturellement de nouveaux codes culturels, sans les r&eacute;sistances que l&rsquo;&acirc;ge adulte installe.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d&rsquo;abord, ce qui est frappant chez les jeunes, c&rsquo;est <span class="hl-pink">leur capacit&eacute; naturelle &agrave; absorber de nouveaux codes culturels.</span> Un enfant ou un adolescent qui arrive dans un nouveau pays ne per&ccedil;oit pas les diff&eacute;rences comme des obstacles &mdash; il les int&egrave;gre, tout simplement, par le biais de l&rsquo;&eacute;cole, des amis, du quartier.</p></div>
+            <div class="para-wrap"><p>C&rsquo;est un peu comme apprendre une langue&nbsp;: plus on est jeune, plus le cerveau est plastique, et moins l&rsquo;accent &eacute;tranger r&eacute;siste. La culture fonctionne de la m&ecirc;me fa&ccedil;on.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">un jeune immigrant construit une identit&eacute; bilingue au sens large &mdash; il appartient &agrave; deux mondes &agrave; la fois,</span> ce qui est une richesse extraordinaire plut&ocirc;t qu&rsquo;une source de confusion.</p></div>
+          </div>
+          <div class="en-note">&#128172; <em>ce qui est frappant</em> = what is striking &middot; <em>par le biais de</em> = through, by way of &middot; <em>plastique</em> = malleable, adaptable &middot; <em>au sens large</em> = in the broad sense (C1)</div>
+          <div id="wc-p1-a0" class="wc-bar"></div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Point 2 &mdash; Libert&eacute; structurelle <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Les jeunes arrivent sans les contraintes que les adultes ont d&eacute;j&agrave; construites, ce qui lib&egrave;re une &eacute;nergie consid&eacute;rable pour s&rsquo;int&eacute;grer.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p>&Agrave; cela s&rsquo;ajoute le fait que <span class="hl-pink">les jeunes arrivent dans un nouveau pays sans le poids des structures que les adultes ont d&eacute;j&agrave; b&acirc;ties.</span> Un adulte de quarante ans qui immigre doit tout reconstruire en parall&egrave;le&nbsp;: faire reconna&icirc;tre ses dipl&ocirc;mes, retrouver un poste &eacute;quivalent, subvenir aux besoins de sa famille.</p></div>
+            <div class="para-wrap"><p>Un jeune, lui, n&rsquo;a pas encore ces ancres. Il entre dans le syst&egrave;me scolaire du pays d&rsquo;accueil, s&rsquo;y fait des amis, apprend la langue par immersion.</p></div>
+            <div class="para-wrap"><p>Au Canada d&rsquo;ailleurs, le syst&egrave;me de points favorise explicitement les jeunes immigrants &mdash; ce qui refl&egrave;te bien cette r&eacute;alit&eacute;&nbsp;: <span class="hl-pink">c&rsquo;est pr&eacute;cis&eacute;ment cette l&eacute;g&egrave;ret&eacute; qui leur permet de s&rsquo;int&eacute;grer bien plus rapidement.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>à cela s&rsquo;ajoute le fait que</em> = on top of that (genuinely spoken C1 — évite <em>de surcroît</em> à l&rsquo;oral) &middot; <em>subvenir aux besoins</em> = to provide for the needs &middot; <em>les ancres</em> = anchors, ties &middot; <em>le pays d&rsquo;accueil</em> = the host country</div>
+          <div id="wc-p2-a0" class="wc-bar"></div>
+        </div>
+
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Cette adaptation pr&eacute;coce n&rsquo;est pas sans douleur&nbsp;: un adolescent peut se retrouver tiraill&eacute; entre deux cultures sans appartenir pleinement &agrave; aucune.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que <span class="hl-blue">cette adaptation n&rsquo;est pas sans douleur.</span> Un enfant qui quitte son pays perd ses rep&egrave;res affectifs &agrave; un &acirc;ge o&ugrave; les liens sont encore en train de se construire &mdash; les amis d&rsquo;enfance, la langue maternelle, les rituels familiaux.</p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Contrairement &agrave; un adulte qui a eu le temps de forger une identit&eacute; stable, un adolescent peut se retrouver tiraill&eacute; entre deux cultures sans vraiment appartenir &agrave; aucune.</span> Ce sentiment d&rsquo;entre-deux peut &ecirc;tre d&eacute;stabilisant, voire douloureux &agrave; long terme.</p></div>
+          </div>
+          <div class="en-note">&#128172; <em>les rep&egrave;res affectifs</em> = emotional reference points &middot; <em>forger une identit&eacute;</em> = to forge an identity &middot; <em>tiraill&eacute; entre</em> = torn between &middot; <em>le sentiment d&rsquo;entre-deux</em> = the feeling of being in-between</div>
+          <div id="wc-nu-a0" class="wc-bar"></div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">l&rsquo;adaptation pr&eacute;coce</span> pr&eacute;sente certains inconv&eacute;nients, notamment <span class="hl-blue">ce risque de perte d&rsquo;identit&eacute; et d&rsquo;appartenance fragile,</span> il n&rsquo;en demeure pas moins que les avantages sont ind&eacute;niables, comme <span class="hl-pink">la plasticit&eacute; culturelle et la libert&eacute; structurelle dont b&eacute;n&eacute;ficient les jeunes.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&eacute;r&eacute;, il serait souhaitable que <span class="hl-p1">les pays d&rsquo;accueil accompagnent davantage ces jeunes immigrants, afin qu&rsquo;ils puissent s&rsquo;int&eacute;grer pleinement sans avoir &agrave; renoncer &agrave; ce qu&rsquo;ils sont.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+          <div id="wc-cl-a0" class="wc-bar"></div>
+        </div>
+
+      </div><!-- /sa0 -->
+
+      <!-- ETAPE 1: key vocab hidden -->
+      <div id="sa1" class="stage-content">
+
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question&nbsp;! C&rsquo;est un sujet qui touche beaucoup de familles &agrave; travers le monde, car il est l&eacute;gitime de se demander <span class="hl-pink">si l&rsquo;&acirc;ge change vraiment l&rsquo;exp&eacute;rience de l&rsquo;<span class="h">int&eacute;gration</span></span>, et les avis sont <span class="h">divergents</span>.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que <span class="hl-pink">les jeunes ont un <span class="h">avantage r&eacute;el</span> dans ce processus.</span> Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Point 1 &mdash; Plasticit&eacute; culturelle <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Les jeunes absorbent naturellement de nouveaux codes culturels, sans les r&eacute;sistances que l&rsquo;&acirc;ge adulte installe.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d&rsquo;abord, ce qui est <span class="h">frappant</span> chez les jeunes, c&rsquo;est <span class="hl-pink">leur capacit&eacute; naturelle &agrave; <span class="h">absorber</span> de nouveaux <span class="h">codes culturels</span>.</span> Un enfant ou un adolescent qui arrive dans un nouveau pays ne per&ccedil;oit pas les diff&eacute;rences comme des obstacles &mdash; il les int&egrave;gre, tout simplement, par le <span class="h">biais</span> de l&rsquo;&eacute;cole, des amis, du quartier.</p></div>
+            <div class="para-wrap"><p>C&rsquo;est un peu comme apprendre une langue&nbsp;: plus on est jeune, plus le cerveau est <span class="h">plastique</span>, et moins l&rsquo;accent &eacute;tranger <span class="h">r&eacute;siste</span>. La culture fonctionne de la m&ecirc;me fa&ccedil;on.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink">un jeune immigrant construit une identit&eacute; <span class="h">bilingue</span> au sens large</span> &mdash; il appartient &agrave; deux mondes &agrave; la fois, ce qui est une <span class="h">richesse extraordinaire</span> plut&ocirc;t qu&rsquo;une source de confusion.</p></div>
+          </div>
+          <div class="en-note">&#128172; <em>ce qui est frappant</em> = what is striking &middot; <em>par le biais de</em> = through, by way of &middot; <em>plastique</em> = malleable &middot; <em>au sens large</em> = in the broad sense</div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Point 2 &mdash; Libert&eacute; structurelle <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Les jeunes arrivent sans les contraintes que les adultes ont d&eacute;j&agrave; construites, ce qui lib&egrave;re une &eacute;nergie consid&eacute;rable pour s&rsquo;int&eacute;grer.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p>&Agrave; cela s&rsquo;ajoute le fait que <span class="hl-pink">les jeunes arrivent dans un nouveau pays sans le poids des <span class="h">structures</span> que les adultes ont d&eacute;j&agrave; b&acirc;ties.</span> Un adulte de quarante ans qui immigre doit tout reconstruire en parall&egrave;le&nbsp;: faire <span class="h">reconna&icirc;tre</span> ses dipl&ocirc;mes, retrouver un poste &eacute;quivalent, <span class="h">subvenir aux besoins</span> de sa famille.</p></div>
+            <div class="para-wrap"><p>Un jeune, lui, n&rsquo;a pas encore ces <span class="h">ancres</span>. Il entre dans le <span class="h">syst&egrave;me scolaire</span> du <span class="h">pays d&rsquo;accueil</span>, s&rsquo;y fait des amis, apprend la langue par <span class="h">immersion</span>.</p></div>
+            <div class="para-wrap"><p>Au Canada d&rsquo;ailleurs, le <span class="h">syst&egrave;me de points</span> favorise explicitement les jeunes immigrants &mdash; ce qui refl&egrave;te bien cette r&eacute;alit&eacute;&nbsp;: <span class="hl-pink">c&rsquo;est pr&eacute;cis&eacute;ment cette <span class="h">l&eacute;g&egrave;ret&eacute;</span> qui leur permet de s&rsquo;int&eacute;grer bien plus rapidement.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>à cela s&rsquo;ajoute le fait que</em> = on top of that (spoken C1) &middot; <em>subvenir aux besoins</em> = to provide for &middot; <em>les ancres</em> = anchors &middot; <em>le pays d&rsquo;accueil</em> = host country</div>
+        </div>
+
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Cette adaptation pr&eacute;coce n&rsquo;est pas sans douleur&nbsp;: un adolescent peut se retrouver tiraill&eacute; entre deux cultures sans appartenir pleinement &agrave; aucune.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que <span class="hl-blue">cette adaptation n&rsquo;est pas sans <span class="h">douleur</span>.</span> Un enfant qui quitte son pays perd ses <span class="h">rep&egrave;res affectifs</span> &agrave; un &acirc;ge o&ugrave; les liens sont encore en train de se construire &mdash; les amis d&rsquo;enfance, la langue maternelle, les <span class="h">rituels familiaux</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Contrairement &agrave; un adulte qui a eu le temps de <span class="h">forger</span> une identit&eacute; stable, un adolescent peut se retrouver <span class="h">tiraill&eacute;</span> entre deux cultures sans vraiment appartenir &agrave; aucune.</span> Ce sentiment d&rsquo;<span class="h">entre-deux</span> peut &ecirc;tre <span class="h">d&eacute;stabilisant</span>, voire douloureux &agrave; long terme.</p></div>
+          </div>
+          <div class="en-note">&#128172; <em>les rep&egrave;res affectifs</em> = emotional anchors &middot; <em>forger une identit&eacute;</em> = to forge an identity &middot; <em>tiraill&eacute; entre</em> = torn between &middot; <em>d&eacute;stabilisant</em> = destabilizing</div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">l&rsquo;adaptation pr&eacute;coce</span> pr&eacute;sente certains <span class="h">inconv&eacute;nients</span>, notamment <span class="hl-blue">ce risque de perte d&rsquo;<span class="h">identit&eacute;</span> et d&rsquo;appartenance <span class="h">fragile</span>,</span> il n&rsquo;en <span class="h">demeure</span> pas moins que les avantages sont <span class="h">ind&eacute;niables</span>, comme <span class="hl-pink">la <span class="h">plasticit&eacute; culturelle</span> et la <span class="h">libert&eacute; structurelle</span> dont b&eacute;n&eacute;ficient les jeunes.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&eacute;r&eacute;, il serait souhaitable que <span class="hl-p1">les pays d&rsquo;accueil <span class="h">accompagnent</span> davantage ces jeunes immigrants, afin qu&rsquo;ils puissent s&rsquo;int&eacute;grer pleinement sans avoir &agrave; <span class="h">renoncer</span> &agrave; ce qu&rsquo;ils sont.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+
+      </div><!-- /sa1 -->
+
+      <!-- ETAPE 2: sentences hidden -->
+      <div id="sa2" class="stage-content">
+
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question&nbsp;! <span class="h">C&rsquo;est un sujet qui touche beaucoup de familles &agrave; travers le monde, car il est l&eacute;gitime de se demander si l&rsquo;&acirc;ge change vraiment l&rsquo;exp&eacute;rience de l&rsquo;int&eacute;gration, et les avis sont divergents.</span></p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, <span class="h">je crois que les jeunes ont un avantage r&eacute;el dans ce processus.</span> Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Point 1 &mdash; Plasticit&eacute; culturelle <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Les jeunes absorbent naturellement de nouveaux codes culturels, sans les r&eacute;sistances que l&rsquo;&acirc;ge adulte installe.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d&rsquo;abord, <span class="hl-pink"><span class="h">ce qui est frappant chez les jeunes, c&rsquo;est leur capacit&eacute; naturelle &agrave; absorber de nouveaux codes culturels.</span></span> <span class="h">Un enfant ou un adolescent qui arrive dans un nouveau pays ne per&ccedil;oit pas les diff&eacute;rences comme des obstacles &mdash; il les int&egrave;gre, tout simplement, par le biais de l&rsquo;&eacute;cole, des amis, du quartier.</span></p></div>
+            <div class="para-wrap"><p><span class="h">C&rsquo;est un peu comme apprendre une langue&nbsp;: plus on est jeune, plus le cerveau est plastique, et moins l&rsquo;accent &eacute;tranger r&eacute;siste.</span> La culture fonctionne de la m&ecirc;me fa&ccedil;on.</p></div>
+            <div class="para-wrap"><p>De ce fait, <span class="hl-pink"><span class="h">un jeune immigrant construit une identit&eacute; bilingue au sens large &mdash; il appartient &agrave; deux mondes &agrave; la fois,</span></span> <span class="h">ce qui est une richesse extraordinaire plut&ocirc;t qu&rsquo;une source de confusion.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>ce qui est frappant</em> = what is striking &middot; <em>par le biais de</em> = through &middot; <em>plastique</em> = malleable &middot; <em>au sens large</em> = in the broad sense</div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Point 2 &mdash; Libert&eacute; structurelle <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Les jeunes arrivent sans les contraintes que les adultes ont d&eacute;j&agrave; construites, ce qui lib&egrave;re une &eacute;nergie consid&eacute;rable pour s&rsquo;int&eacute;grer.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p>&Agrave; cela s&rsquo;ajoute le fait que <span class="hl-pink"><span class="h">les jeunes arrivent dans un nouveau pays sans le poids des structures que les adultes ont d&eacute;j&agrave; b&acirc;ties.</span></span> <span class="h">Un adulte de quarante ans qui immigre doit tout reconstruire en parall&egrave;le&nbsp;: faire reconna&icirc;tre ses dipl&ocirc;mes, retrouver un poste &eacute;quivalent, subvenir aux besoins de sa famille.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Un jeune, lui, n&rsquo;a pas encore ces ancres. Il entre dans le syst&egrave;me scolaire du pays d&rsquo;accueil, s&rsquo;y fait des amis, apprend la langue par immersion.</span></p></div>
+            <div class="para-wrap"><p><span class="h">Au Canada d&rsquo;ailleurs, le syst&egrave;me de points favorise explicitement les jeunes immigrants &mdash; ce qui refl&egrave;te bien cette r&eacute;alit&eacute;&nbsp;:</span> <span class="hl-pink"><span class="h">c&rsquo;est pr&eacute;cis&eacute;ment cette l&eacute;g&egrave;ret&eacute; qui leur permet de s&rsquo;int&eacute;grer bien plus rapidement.</span></span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>à cela s&rsquo;ajoute le fait que</em> = on top of that (spoken C1) &middot; <em>subvenir aux besoins</em> = to provide for &middot; <em>les ancres</em> = anchors &middot; <em>le pays d&rsquo;accueil</em> = host country</div>
+        </div>
+
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Cette adaptation pr&eacute;coce n&rsquo;est pas sans douleur&nbsp;: un adolescent peut se retrouver tiraill&eacute; entre deux cultures sans appartenir pleinement &agrave; aucune.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En revanche, il est certes vrai que <span class="hl-blue"><span class="h">cette adaptation n&rsquo;est pas sans douleur.</span></span> <span class="h">Un enfant qui quitte son pays perd ses rep&egrave;res affectifs &agrave; un &acirc;ge o&ugrave; les liens sont encore en train de se construire &mdash; les amis d&rsquo;enfance, la langue maternelle, les rituels familiaux.</span></p></div>
+            <div class="para-wrap"><p><span class="hl-blue"><span class="h">Contrairement &agrave; un adulte qui a eu le temps de forger une identit&eacute; stable, un adolescent peut se retrouver tiraill&eacute; entre deux cultures sans vraiment appartenir &agrave; aucune.</span></span> <span class="h">Ce sentiment d&rsquo;entre-deux peut &ecirc;tre d&eacute;stabilisant, voire douloureux &agrave; long terme.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>les rep&egrave;res affectifs</em> = emotional anchors &middot; <em>forger</em> = to forge &middot; <em>tiraill&eacute; entre</em> = torn between &middot; <em>d&eacute;stabilisant</em> = destabilizing</div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">l&rsquo;adaptation pr&eacute;coce</span> pr&eacute;sente certains inconv&eacute;nients, notamment <span class="hl-blue">ce risque de perte d&rsquo;identit&eacute; et d&rsquo;appartenance fragile,</span> <span class="h">il n&rsquo;en demeure pas moins que les avantages sont ind&eacute;niables,</span> comme <span class="hl-pink"><span class="h">la plasticit&eacute; culturelle et la libert&eacute; structurelle dont b&eacute;n&eacute;ficient les jeunes.</span></span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&eacute;r&eacute;, il serait souhaitable que <span class="hl-p1"><span class="h">les pays d&rsquo;accueil accompagnent davantage ces jeunes immigrants, afin qu&rsquo;ils puissent s&rsquo;int&eacute;grer pleinement sans avoir &agrave; renoncer &agrave; ce qu&rsquo;ils sont.</span></span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+
+      </div><!-- /sa2 -->
+
+      <!-- ETAPE 3: everything hidden -->
+      <div id="sa3" class="stage-content">
+
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question&nbsp;! <span class="h">C&rsquo;est un sujet qui touche beaucoup de familles &agrave; travers le monde, car il est l&eacute;gitime de se demander si l&rsquo;&acirc;ge change vraiment l&rsquo;exp&eacute;rience de l&rsquo;int&eacute;gration, et les avis sont divergents. Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que les jeunes ont un avantage r&eacute;el dans ce processus. Alors, je vais expliquer mes raisons.</span></p></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Point 1 &mdash; Plasticit&eacute; culturelle <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Les jeunes absorbent naturellement de nouveaux codes culturels, sans les r&eacute;sistances que l&rsquo;&acirc;ge adulte installe.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p><span class="h">Tout d&rsquo;abord, ce qui est frappant chez les jeunes, c&rsquo;est leur capacit&eacute; naturelle &agrave; absorber de nouveaux codes culturels. Un enfant ou un adolescent qui arrive dans un nouveau pays ne per&ccedil;oit pas les diff&eacute;rences comme des obstacles &mdash; il les int&egrave;gre, tout simplement, par le biais de l&rsquo;&eacute;cole, des amis, du quartier. C&rsquo;est un peu comme apprendre une langue&nbsp;: plus on est jeune, plus le cerveau est plastique, et moins l&rsquo;accent &eacute;tranger r&eacute;siste. La culture fonctionne de la m&ecirc;me fa&ccedil;on. De ce fait, un jeune immigrant construit une identit&eacute; bilingue au sens large &mdash; il appartient &agrave; deux mondes &agrave; la fois, ce qui est une richesse extraordinaire plut&ocirc;t qu&rsquo;une source de confusion.</span></p></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Point 2 &mdash; Libert&eacute; structurelle <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Les jeunes arrivent sans les contraintes que les adultes ont d&eacute;j&agrave; construites, ce qui lib&egrave;re une &eacute;nergie consid&eacute;rable pour s&rsquo;int&eacute;grer.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p><span class="h">&Agrave; cela s&rsquo;ajoute le fait que les jeunes arrivent dans un nouveau pays sans le poids des structures que les adultes ont d&eacute;j&agrave; b&acirc;ties. Un adulte de quarante ans qui immigre doit tout reconstruire en parall&egrave;le&nbsp;: faire reconna&icirc;tre ses dipl&ocirc;mes, retrouver un poste &eacute;quivalent, subvenir aux besoins de sa famille. Un jeune, lui, n&rsquo;a pas encore ces ancres. Il entre dans le syst&egrave;me scolaire du pays d&rsquo;accueil, s&rsquo;y fait des amis, apprend la langue par immersion. Au Canada d&rsquo;ailleurs, le syst&egrave;me de points favorise explicitement les jeunes immigrants &mdash; c&rsquo;est pr&eacute;cis&eacute;ment cette l&eacute;g&egrave;ret&eacute; qui leur permet de s&rsquo;int&eacute;grer bien plus rapidement.</span></p></div>
+          </div>
+        </div>
+
+        <div class="block block-nuance">
+          <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+          <div class="topic-sentence"><div class="topic-label">Point principal</div>Cette adaptation pr&eacute;coce n&rsquo;est pas sans douleur&nbsp;: un adolescent peut se retrouver tiraill&eacute; entre deux cultures sans appartenir pleinement &agrave; aucune.</div>
+          <div class="script-text">
+            <div class="para-wrap"><p><span class="h">En revanche, il est certes vrai que cette adaptation n&rsquo;est pas sans douleur. Un enfant qui quitte son pays perd ses rep&egrave;res affectifs &agrave; un &acirc;ge o&ugrave; les liens sont encore en train de se construire &mdash; les amis d&rsquo;enfance, la langue maternelle, les rituels familiaux. Contrairement &agrave; un adulte qui a eu le temps de forger une identit&eacute; stable, un adolescent peut se retrouver tiraill&eacute; entre deux cultures sans vraiment appartenir &agrave; aucune. Ce sentiment d&rsquo;entre-deux peut &ecirc;tre d&eacute;stabilisant, voire douloureux &agrave; long terme.</span></p></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p><span class="h">En conclusion, bien que l&rsquo;adaptation pr&eacute;coce pr&eacute;sente certains inconv&eacute;nients, notamment ce risque de perte d&rsquo;identit&eacute; et d&rsquo;appartenance fragile, il n&rsquo;en demeure pas moins que les avantages sont ind&eacute;niables, comme la plasticit&eacute; culturelle et la libert&eacute; structurelle dont b&eacute;n&eacute;ficient les jeunes. Tout bien consid&eacute;r&eacute;, il serait souhaitable que les pays d&rsquo;accueil accompagnent davantage ces jeunes immigrants, afin qu&rsquo;ils puissent s&rsquo;int&eacute;grer pleinement sans avoir &agrave; renoncer &agrave; ce qu&rsquo;ils sont. Merci pour votre attention.</span></p></div>
+          </div>
+        </div>
+
+      </div><!-- /sa3 -->
+
+    </div><!-- /script-card -->
+  </div><!-- /single-view -->
+</div><!-- /posA -->
+
+<!-- POSITION B summary only -->
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
+<!-- WORD LIST -->
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &mdash; cl&eacute;s du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Int&eacute;gration &amp; immigration &#9733; = priorit&eacute; examen</div>
+          <div class="wl-row"><span class="wl-fr">l&rsquo;int&eacute;gration <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">integration</span></div>
+          <div class="wl-row"><span class="wl-fr">le pays d&rsquo;accueil <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">host country</span></div>
+          <div class="wl-row"><span class="wl-fr">le pays d&rsquo;origine <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">country of origin</span></div>
+          <div class="wl-row"><span class="wl-fr">le syst&egrave;me de points <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">points-based system</span></div>
+          <div class="wl-row"><span class="wl-fr">l&rsquo;immersion <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">immersion</span></div>
+          <div class="wl-row"><span class="wl-fr">les rep&egrave;res affectifs <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">emotional reference points</span></div>
+          <div class="wl-row"><span class="wl-fr">le sentiment d&rsquo;entre-deux <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">feeling of being in-between</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Identit&eacute; &amp; culture</div>
+          <div class="wl-row"><span class="wl-fr">les codes culturels <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">cultural codes, norms</span></div>
+          <div class="wl-row"><span class="wl-fr">la plasticit&eacute; culturelle <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">cultural adaptability</span></div>
+          <div class="wl-row"><span class="wl-fr">l&rsquo;identit&eacute; bilingue <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">bilingual / bicultural identity</span></div>
+          <div class="wl-row"><span class="wl-fr">les rituels familiaux <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">family rituals</span></div>
+          <div class="wl-row"><span class="wl-fr">la langue maternelle <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">mother tongue</span></div>
+          <div class="wl-row"><span class="wl-fr">une richesse <em>(f)</em></span><span class="wl-en">an asset, a richness</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Structure &amp; contraintes</div>
+          <div class="wl-row"><span class="wl-fr">les ancres <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">anchors, ties</span></div>
+          <div class="wl-row"><span class="wl-fr">la l&eacute;g&egrave;ret&eacute; <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">lightness, freedom from ties</span></div>
+          <div class="wl-row"><span class="wl-fr">la libert&eacute; structurelle <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">structural freedom</span></div>
+          <div class="wl-row"><span class="wl-fr">subvenir aux besoins</span><span class="wl-en">to provide for one&rsquo;s needs</span></div>
+          <div class="wl-row"><span class="wl-fr">faire reconna&icirc;tre ses dipl&ocirc;mes</span><span class="wl-en">to have one&rsquo;s qualifications recognized</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Difficult&eacute;s &amp; risques</div>
+          <div class="wl-row"><span class="wl-fr">tiraill&eacute;(e) entre <em>(adj)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">torn between</span></div>
+          <div class="wl-row"><span class="wl-fr">d&eacute;stabilisant(e) <em>(adj)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">destabilizing</span></div>
+          <div class="wl-row"><span class="wl-fr">pr&eacute;coce <em>(adj)</em></span><span class="wl-en">early, precocious</span></div>
+          <div class="wl-row"><span class="wl-fr">forger une identit&eacute;</span><span class="wl-en">to forge / build an identity</span></div>
+          <div class="wl-row"><span class="wl-fr">renoncer &agrave;</span><span class="wl-en">to give up, to renounce</span></div>
+          <div class="wl-row"><span class="wl-fr">accompagner <em>(v)</em></span><span class="wl-en">to support, to accompany</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + pr&eacute;positions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &mdash; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Pr&eacute;p.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">s&rsquo;adapter</td><td class="vprep">&agrave;</td><td class="vrel">auquel</td><td class="ven">to adapt to</td></tr>
+          <tr><td class="vfr">s&rsquo;int&eacute;grer</td><td class="vprep">&agrave; / dans</td><td class="vrel">auquel / dans lequel</td><td class="ven">to integrate into</td></tr>
+          <tr><td class="vfr">appartenir</td><td class="vprep">&agrave;</td><td class="vrel">auquel</td><td class="ven">to belong to</td></tr>
+          <tr><td class="vfr">b&eacute;n&eacute;ficier</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to benefit from</td></tr>
+          <tr><td class="vfr">renoncer</td><td class="vprep">&agrave;</td><td class="vrel">auquel</td><td class="ven">to give up</td></tr>
+          <tr><td class="vfr">se retrouver tiraill&eacute;</td><td class="vprep">entre</td><td class="vrel">entre lesquels</td><td class="ven">to find oneself torn between</td></tr>
+          <tr><td class="vfr">absorber</td><td class="vprep">&mdash;</td><td class="vrel">que</td><td class="ven">to absorb</td></tr>
+          <tr><td class="vfr">favoriser</td><td class="vprep">&mdash;</td><td class="vrel">que</td><td class="ven">to favour, to benefit</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">OUI &mdash; plus facile quand on est jeune</div>
+          <div class="contrast-item">plasticit&eacute; culturelle naturelle</div>
+          <div class="contrast-item">le cerveau plastique r&eacute;siste moins</div>
+          <div class="contrast-item">int&eacute;gration par immersion scolaire</div>
+          <div class="contrast-item">sans les ancres structurelles des adultes</div>
+          <div class="contrast-item">identit&eacute; bilingue = richesse extraordinaire</div>
+          <div class="contrast-item">le syst&egrave;me de points favorise les jeunes</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">NON &mdash; ce n&rsquo;est pas sans difficult&eacute;</div>
+          <div class="contrast-item">perte des rep&egrave;res affectifs</div>
+          <div class="contrast-item">identit&eacute; en construction = fragile</div>
+          <div class="contrast-item">sentiment d&rsquo;entre-deux cultures</div>
+          <div class="contrast-item">langue maternelle et rituels perdus</div>
+          <div class="contrast-item">appartenance fragile &agrave; long terme</div>
+          <div class="contrast-item">d&eacute;stabilisant pour l&rsquo;adolescent</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases fig&eacute;es C1 &mdash; m&eacute;moriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">C&rsquo;est un peu comme apprendre une langue&nbsp;: plus on est jeune, plus le cerveau est plastique.</div>
+          <div class="chunk-en">It&rsquo;s a bit like learning a language: the younger you are, the more malleable the brain.</div>
+          <div class="chunk-note">Structure analogie C1 &middot; <em>plus&hellip; plus&hellip;</em> = proportional comparison &middot; r&eacute;utilisable pour tout argument sur l&rsquo;&acirc;ge et l&rsquo;apprentissage</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il appartient &agrave; deux mondes &agrave; la fois, ce qui est une richesse extraordinaire plut&ocirc;t qu&rsquo;une source de confusion</div>
+          <div class="chunk-en">he belongs to two worlds at once, which is an extraordinary asset rather than a source of confusion</div>
+          <div class="chunk-note">Structure de renversement C1 &middot; <em>plut&ocirc;t que</em> = rather than &middot; tr&egrave;s efficace pour conclure un point positivement</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">c&rsquo;est pr&eacute;cis&eacute;ment cette l&eacute;g&egrave;ret&eacute; qui leur permet de s&rsquo;int&eacute;grer bien plus rapidement</div>
+          <div class="chunk-en">it is precisely this freedom from ties that allows them to integrate far more quickly</div>
+          <div class="chunk-note"><em>c&rsquo;est X qui</em> = emphatic structure (C1) &middot; <em>pr&eacute;cis&eacute;ment</em> = precisely (adds conviction) &middot; pattern r&eacute;utilisable</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">un adolescent peut se retrouver tiraill&eacute; entre deux cultures sans vraiment appartenir &agrave; aucune</div>
+          <div class="chunk-en">a teenager can find themselves torn between two cultures without truly belonging to either</div>
+          <div class="chunk-note"><em>tiraill&eacute; entre</em> = torn between (C1) &middot; <em>sans vraiment</em> = without truly &middot; puissant pour la nuance</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONNECTOR KIT -->
+<div id="kit" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Remplacer &laquo;&nbsp;en g&eacute;n&eacute;ral&nbsp;&raquo;</div>
+      <div class="kit-grid">
+        <div class="kit-card">
+          <div class="kit-header">Pour lancer une observation</div>
+          <div class="kit-row"><div class="kit-avoid">En g&eacute;n&eacute;ral, les jeunes s&rsquo;adaptent mieux.</div><div class="kit-use">Ce qui est frappant, c&rsquo;est que les jeunes s&rsquo;adaptent bien mieux.</div><div class="kit-en">What is striking is that&hellip;</div></div>
+          <div class="kit-row"><div class="kit-avoid">En g&eacute;n&eacute;ral, l&rsquo;int&eacute;gration est plus rapide.</div><div class="kit-use">Force est de constater que l&rsquo;int&eacute;gration est bien plus rapide.</div><div class="kit-en">One must acknowledge that&hellip;</div></div>
+          <div class="kit-row"><div class="kit-avoid">En g&eacute;n&eacute;ral, c&rsquo;est vrai.</div><div class="kit-use">Il est indéniable que les jeunes ont cet avantage.</div><div class="kit-en">It is undeniable that&hellip;</div></div>
+        </div>
+        <div class="kit-card">
+          <div class="kit-header">Pour introduire un fait ou une r&eacute;alit&eacute;</div>
+          <div class="kit-row"><div class="kit-avoid">En g&eacute;n&eacute;ral, il y a des avantages.</div><div class="kit-use">Dans les faits, les avantages sont consid&eacute;rables.</div><div class="kit-en">In reality, in practice&hellip;</div></div>
+          <div class="kit-row"><div class="kit-avoid">En g&eacute;n&eacute;ral, cela pose des probl&egrave;mes.</div><div class="kit-use">Il serait difficile de nier que cela pose des probl&egrave;mes r&eacute;els.</div><div class="kit-en">It would be hard to deny that&hellip;</div></div>
+          <div class="kit-row"><div class="kit-avoid">En g&eacute;n&eacute;ral, les jeunes profitent du syst&egrave;me.</div><div class="kit-use">Ce qui saute aux yeux, c&rsquo;est que les jeunes profitent du syst&egrave;me.</div><div class="kit-en">What stands out immediately is that&hellip;</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Remplacer les contrastes &laquo;&nbsp;plus de&hellip; moins de&hellip;&nbsp;&raquo;</div>
+      <div class="kit-grid">
+        <div class="kit-card">
+          <div class="kit-header">Expliquer le m&eacute;canisme (pas juste nommer les p&ocirc;les)</div>
+          <div class="kit-row"><div class="kit-avoid">Les jeunes ont plus de flexibilit&eacute; et moins de responsabilit&eacute;s.</div><div class="kit-use">Les jeunes arrivent sans les ancres que l&rsquo;&acirc;ge adulte installe &mdash; sans hypothèque &agrave; gérer, sans carri&egrave;re &agrave; reconstruire. Ce qui lib&egrave;re une &eacute;nergie consid&eacute;rable.</div><div class="kit-en">Causal chain: name the absence → explain what it frees up</div></div>
+          <div class="kit-row"><div class="kit-avoid">Plus d&rsquo;opportunit&eacute;s, moins d&rsquo;obstacles.</div><div class="kit-use">Un horizon qui s&rsquo;ouvre naturellement, affranchi des contraintes qui p&egrave;sent sur les adultes.</div><div class="kit-en"><em>affranchi de</em> = freed from (C1)</div></div>
+        </div>
+        <div class="kit-card">
+          <div class="kit-header">Varier les connecteurs d&rsquo;addition</div>
+          <div class="kit-row"><div class="kit-avoid">Aussi, de plus, et aussi&hellip;</div><div class="kit-use">À cela s&rsquo;ajoute le fait que&nbsp;&mdash;</div><div class="kit-en">On top of that — genuinely spoken C1</div></div>
+          <div class="kit-row"><div class="kit-avoid">Et encore, et puis&hellip;</div><div class="kit-use">Qui plus est,&nbsp;&mdash;</div><div class="kit-en">What&rsquo;s more (C1, strong addition)</div></div>
+          <div class="kit-row"><div class="kit-avoid">En plus, il y a aussi&hellip;</div><div class="kit-use">Il convient &eacute;galement de souligner que&nbsp;&mdash;</div><div class="kit-en">It is also worth noting that (C1)</div></div>
+          <div class="kit-row"><div class="kit-avoid">Cela montre que / donc&hellip;</div><div class="kit-use">De ce fait,&nbsp;&mdash; &nbsp;&nbsp;/&nbsp;&nbsp; C&rsquo;est pourquoi,&nbsp;&mdash;</div><div class="kit-en">Therefore (spoken C1 alternatives)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Structures d&rsquo;analogie &mdash; rendre l&rsquo;argument concret</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">C&rsquo;est un peu comme [situation familière]&nbsp;: plus on est [condition], plus [r&eacute;sultat].</div>
+          <div class="chunk-en">It&rsquo;s a bit like [familiar situation]: the more [condition], the more [result].</div>
+          <div class="chunk-note">Mod&egrave;le r&eacute;utilisable &middot; ex: &laquo;&nbsp;C&rsquo;est un peu comme cuisiner&nbsp;: plus on pratique jeune, plus les gestes deviennent naturels.&nbsp;&raquo;</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">Pensons &agrave; [exemple concret], o&ugrave; [observation]&nbsp;: cela illustre bien que [conclusion].</div>
+          <div class="chunk-en">Consider [concrete example], where [observation]: this illustrates that [conclusion].</div>
+          <div class="chunk-note">Structure d&rsquo;exemple C1 &middot; ancre l&rsquo;argument dans la r&eacute;alit&eacute; &middot; &eacute;vite l&rsquo;abstraction</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── WORD COUNT ────────────────────────────────────────────────
+function countWords(el){
+  if(!el) return 0;
+  const txt = el.innerText || el.textContent || '';
+  return txt.trim().split(/\s+/).filter(w=>w.length>0).length;
+}
+function renderWC(id, elId, min, max){
+  const bar = document.getElementById(id);
+  if(!bar) return;
+  const block = bar.closest('.block');
+  const scriptEl = block ? block.querySelector('.script-text') : null;
+  const wc = scriptEl ? countWords(scriptEl) : 0;
+  const pct = Math.min(100, Math.round((wc / max) * 100));
+  const over = wc > max + 5;
+  bar.innerHTML = `
+    <div class="wc-pip"><div class="wc-fill${over?' over':''}" style="width:${pct}%"></div></div>
+    <span class="wc-count">${wc} mots</span>
+    <span class="wc-target">cible&nbsp;: ${min}&ndash;${max}</span>`;
+}
+function initWordCounts(){
+  renderWC('wc-intro-a0','',35,55);
+  renderWC('wc-p1-a0','',70,90);
+  renderWC('wc-p2-a0','',70,90);
+  renderWC('wc-nu-a0','',60,80);
+  renderWC('wc-cl-a0','',55,75);
+}
+document.addEventListener('DOMContentLoaded', initWordCounts);
+
+// ── POSITION B ────────────────────────────────────────────────
+const scriptB = {
+  header: '&#10007; Position B &mdash; NON, ce n&rsquo;est pas plus facile quand on est jeune',
+  headerClass:'card-header-blue', titleClass:'card-title-blue',
+  badge:'Plus ardu', badgeClass:'badge-hard',
+  blocks:[
+    { label:'Introduction', timing:'~40s', nuance:false, topic:null,
+      text:`<p>Pour commencer, merci pour votre question&nbsp;! C&rsquo;est un sujet qui touche beaucoup de familles &agrave; travers le monde, car il est l&eacute;gitime de se demander <span class="hl-pink">si l&rsquo;&acirc;ge change vraiment l&rsquo;exp&eacute;rience de l&rsquo;int&eacute;gration</span>, et les avis sont divergents. Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que <span class="hl-pink">ce n&rsquo;est pas n&eacute;cessairement plus facile pour les jeunes, loin de l&agrave;.</span> Alors, je vais expliquer mes raisons.</p>`,
+      note:'' },
+    { label:'Point 1 &mdash; Fragilit&eacute; identitaire', timing:'~1 min', nuance:false,
+      topic:'Un adolescent qui immigre construit son identit&eacute; dans deux langues &agrave; la fois &mdash; ce qui est &eacute;puisant et peut laisser des traces profondes.',
+      text:`<p>Tout d&rsquo;abord, force est de constater que <span class="hl-pink">l&rsquo;adolescence est d&eacute;j&agrave; une p&eacute;riode de construction identitaire intense.</span> Y ajouter la rupture d&rsquo;un d&eacute;m&eacute;nagement international, c&rsquo;est exposer un jeune &agrave; une double instabilit&eacute; au moment o&ugrave; il en a le moins besoin. Un adolescent qui immigre doit construire qui il est dans deux langues, deux cultures, deux cercles sociaux &agrave; la fois. <span class="hl-pink">Ce double effort peut &ecirc;tre &eacute;puisant et laisser des traces durables sur l&rsquo;estime de soi.</span></p>`,
+      note:'&#128172; <em>force est de constater</em> = one must acknowledge (C1) &middot; <em>une rupture</em> = a break, disruption &middot; <em>une double instabilit&eacute;</em> = double instability &middot; <em>l&rsquo;estime de soi</em> = self-esteem', wc:'~82 mots ✓' },
+    { label:'Point 2 &mdash; Isolement social', timing:'~1 min', nuance:false,
+      topic:'Sans ma&icirc;trise de la langue, un enfant risque l&rsquo;exclusion sociale &mdash; une exp&eacute;rience bien plus blessante &agrave; l&rsquo;&acirc;ge scolaire.',
+      text:`<p>De plus, <span class="hl-pink">sans ma&icirc;trise imm&eacute;diate de la langue, un enfant est vuln&eacute;rable &agrave; l&rsquo;exclusion sociale dans le milieu scolaire.</span> &Agrave; cet &acirc;ge, l&rsquo;appartenance au groupe est centrale &mdash; et les enfants peuvent &ecirc;tre cruels face &agrave; la diff&eacute;rence. Contrairement &agrave; un adulte qui trouve ses liens sociaux au travail ou dans des activit&eacute;s choisies, un enfant d&eacute;pend enti&egrave;rement de la cour de r&eacute;cr&eacute;ation. <span class="hl-pink">L&rsquo;isolement &agrave; cet &acirc;ge peut &ecirc;tre particuli&egrave;rement blessant et difficile &agrave; surmonter.</span></p>`,
+      note:'&#128172; <em>vuln&eacute;rable &agrave;</em> = vulnerable to &middot; <em>le milieu scolaire</em> = the school environment &middot; <em>l&rsquo;appartenance au groupe</em> = group belonging &middot; <em>la cour de r&eacute;cr&eacute;ation</em> = the schoolyard', wc:'~82 mots ✓' },
+    { label:'Nuance', timing:'~1 min', nuance:true,
+      topic:'Il est vrai que certains jeunes s&rsquo;en sortent remarquablement bien &mdash; mais ce sont souvent ceux qui b&eacute;n&eacute;ficient d&rsquo;un environnement familial stable.',
+      text:`<p>En revanche, il est certes vrai que <span class="hl-blue">certains jeunes s&rsquo;adaptent remarquablement bien, et finissent par s&rsquo;int&eacute;grer mieux que leurs parents.</span> Leur capacit&eacute; d&rsquo;apprentissage linguistique est r&eacute;elle, et leur r&eacute;silience peut &ecirc;tre admirable. <span class="hl-blue">Mais il serait honnête de reconna&icirc;tre que ce succ&egrave;s d&eacute;pend souvent moins de l&rsquo;&acirc;ge que de la stabilit&eacute; familiale, du soutien scolaire et du contexte d&rsquo;accueil &mdash; des facteurs qui ne sont pas garantis pour tous.</span></p>`,
+      note:'&#128172; <em>remarquablement bien</em> = remarkably well &middot; <em>la r&eacute;silience</em> = resilience &middot; <em>il serait honn&ecirc;te de reconna&icirc;tre</em> = it would be honest to acknowledge (C1) &middot; <em>le contexte d&rsquo;accueil</em> = the reception context', wc:'~75 mots ✓' },
+    { label:'Conclusion', timing:'~50s', nuance:false, topic:null,
+      text:`<p>En conclusion, bien que <span class="hl-blue">certains jeunes immigrants</span> pr&eacute;sentent une <span class="hl-blue">adaptabilit&eacute; remarquable,</span> il n&rsquo;en demeure pas moins que les risques sont r&eacute;els, comme <span class="hl-pink">la fragilit&eacute; identitaire et l&rsquo;isolement social en milieu scolaire.</span></p>
+<p>Tout bien consid&eacute;r&eacute;, il serait souhaitable que <span class="hl-p1">les &eacute;tablissements scolaires des pays d&rsquo;accueil offrent un accompagnement sp&eacute;cifique aux jeunes immigrants, afin qu&rsquo;ils puissent traverser cette transition sans sacrifier leur &eacute;quilibre &eacute;motionnel.</span></p>
+<p>Merci pour votre attention.</p>`, note:'' }
+  ]
+};
+
+function buildCard(s){
+  const blocks = s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      ${b.topic ? `<div class="topic-sentence"><div class="topic-label">Point principal</div>${b.topic}</div>` : ''}
+      <div class="script-text">${b.text}</div>
+      ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
+      ${b.wc ? `<div class="wc-bar"><div class="wc-count" style="font-size:10.5px;color:var(--green)">${b.wc}</div></div>` : ''}
+    </div>`).join('');
+  return `<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;
+}
+
+// Build summary card for Position A (no stages in côte à côte)
+const scriptASummary = `<div class="script-card">
+  <div class="card-header card-header-green">
+    <div class="card-title card-title-green">&#10003; Position A &mdash; OUI, c&rsquo;est plus facile quand on est jeune</div>
+    <span class="stance-badge badge-easy">Plus facile &agrave; d&eacute;fendre</span>
+  </div>
+  <div class="block">
+    <div class="block-label">Introduction <span class="timing">~40s</span></div>
+    <div class="script-text"><p>Pour commencer, merci pour votre question&nbsp;! C&rsquo;est un sujet qui touche beaucoup de familles &agrave; travers le monde, car il est l&eacute;gitime de se demander <span class="hl-pink">si l&rsquo;&acirc;ge change vraiment l&rsquo;exp&eacute;rience de l&rsquo;int&eacute;gration</span>, et les avis sont divergents. Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que <span class="hl-pink">les jeunes ont un avantage r&eacute;el dans ce processus.</span> Alors, je vais expliquer mes raisons.</p></div>
+  </div>
+  <div class="block">
+    <div class="block-label">Point 1 &mdash; Plasticit&eacute; culturelle <span class="timing">~1 min</span></div>
+    <div class="topic-sentence"><div class="topic-label">Point principal</div>Les jeunes absorbent naturellement de nouveaux codes culturels, sans les r&eacute;sistances que l&rsquo;&acirc;ge adulte installe.</div>
+    <div class="script-text"><p>Tout d&rsquo;abord, ce qui est frappant chez les jeunes, c&rsquo;est <span class="hl-pink">leur capacit&eacute; naturelle &agrave; absorber de nouveaux codes culturels.</span> Un enfant ou un adolescent qui arrive dans un nouveau pays ne per&ccedil;oit pas les diff&eacute;rences comme des obstacles &mdash; il les int&egrave;gre, tout simplement, par le biais de l&rsquo;&eacute;cole, des amis, du quartier. C&rsquo;est un peu comme apprendre une langue&nbsp;: plus on est jeune, plus le cerveau est plastique, et moins l&rsquo;accent &eacute;tranger r&eacute;siste. De ce fait, <span class="hl-pink">un jeune immigrant construit une identit&eacute; bilingue au sens large &mdash; il appartient &agrave; deux mondes &agrave; la fois,</span> ce qui est une richesse extraordinaire plut&ocirc;t qu&rsquo;une source de confusion.</p></div>
+    <div class="wc-bar"><div class="wc-count" style="font-size:10.5px;color:var(--green)">~82 mots ✓</div></div>
+  </div>
+  <div class="block">
+    <div class="block-label">Point 2 &mdash; Libert&eacute; structurelle <span class="timing">~1 min</span></div>
+    <div class="topic-sentence"><div class="topic-label">Point principal</div>Les jeunes arrivent sans les contraintes que les adultes ont d&eacute;j&agrave; construites, ce qui lib&egrave;re une &eacute;nergie consid&eacute;rable pour s&rsquo;int&eacute;grer.</div>
+    <div class="script-text"><p>&Agrave; cela s&rsquo;ajoute le fait que <span class="hl-pink">les jeunes arrivent dans un nouveau pays sans le poids des structures que les adultes ont d&eacute;j&agrave; b&acirc;ties.</span> Un adulte de quarante ans qui immigre doit tout reconstruire en parall&egrave;le&nbsp;: faire reconna&icirc;tre ses dipl&ocirc;mes, retrouver un poste &eacute;quivalent, subvenir aux besoins de sa famille. Un jeune, lui, n&rsquo;a pas encore ces ancres. Il entre dans le syst&egrave;me scolaire du pays d&rsquo;accueil, s&rsquo;y fait des amis, apprend la langue par immersion. <span class="hl-pink">C&rsquo;est pr&eacute;cis&eacute;ment cette l&eacute;g&egrave;ret&eacute; qui leur permet de s&rsquo;int&eacute;grer bien plus rapidement.</span></p></div>
+    <div class="wc-bar"><div class="wc-count" style="font-size:10.5px;color:var(--green)">~83 mots ✓</div></div>
+  </div>
+  <div class="block block-nuance">
+    <div class="block-label">Nuance <span class="timing">~1 min</span></div>
+    <div class="topic-sentence"><div class="topic-label">Point principal</div>Cette adaptation pr&eacute;coce n&rsquo;est pas sans douleur&nbsp;: un adolescent peut se retrouver tiraill&eacute; entre deux cultures sans appartenir pleinement &agrave; aucune.</div>
+    <div class="script-text"><p>En revanche, il est certes vrai que <span class="hl-blue">cette adaptation n&rsquo;est pas sans douleur.</span> Un enfant qui quitte son pays perd ses rep&egrave;res affectifs &agrave; un &acirc;ge o&ugrave; les liens sont encore en train de se construire &mdash; les amis d&rsquo;enfance, la langue maternelle, les rituels familiaux. <span class="hl-blue">Contrairement &agrave; un adulte qui a eu le temps de forger une identit&eacute; stable, un adolescent peut se retrouver tiraill&eacute; entre deux cultures sans vraiment appartenir &agrave; aucune.</span> Ce sentiment d&rsquo;entre-deux peut &ecirc;tre d&eacute;stabilisant, voire douloureux &agrave; long terme.</p></div>
+    <div class="wc-bar"><div class="wc-count" style="font-size:10.5px;color:var(--green)">~74 mots ✓</div></div>
+  </div>
+  <div class="block">
+    <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+    <div class="script-text"><p>En conclusion, bien que <span class="hl-blue">l&rsquo;adaptation pr&eacute;coce</span> pr&eacute;sente certains inconv&eacute;nients, notamment <span class="hl-blue">ce risque de perte d&rsquo;identit&eacute; et d&rsquo;appartenance fragile,</span> il n&rsquo;en demeure pas moins que les avantages sont ind&eacute;niables, comme <span class="hl-pink">la plasticit&eacute; culturelle et la libert&eacute; structurelle dont b&eacute;n&eacute;ficient les jeunes.</span></p>
+<p>Tout bien consid&eacute;r&eacute;, il serait souhaitable que <span class="hl-p1">les pays d&rsquo;accueil accompagnent davantage ces jeunes immigrants, afin qu&rsquo;ils puissent s&rsquo;int&eacute;grer pleinement sans avoir &agrave; renoncer &agrave; ce qu&rsquo;ils sont.</span></p>
+<p>Merci pour votre attention.</p></div>
+  </div>
+</div>`;
+
+document.getElementById('bothGrid').innerHTML = scriptASummary + buildCard(scriptB);
+document.getElementById('posBGrid').innerHTML = buildCard(scriptB);
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function showStage(id,btn){
+  document.querySelectorAll('.stage-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.stage-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  // Re-run word counts when switching to Complet
+  if(id === 'sa0') initWordCounts();
+}
+</script>
+</body>
+</html>
