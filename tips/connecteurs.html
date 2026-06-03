@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF — Connecteurs oral B2/C1</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee; --surface:#fff; --surface2:#f9f7f4; --border:#e5e0d8;
+    --text:#1a1714; --text-soft:#6b6460; --text-muted:#9d9590;
+    --accent:#c8955a; --radius:12px; --radius-sm:6px;
+
+    --amber-bg:#fff7e0;  --amber-text:#7a4f00;  --amber-border:#f0c040;  --amber-stripe:#e8a800;
+    --green-bg:#eaf4ef;  --green-text:#2d6a4f;  --green-border:#c3e6d4;  --green-stripe:#3a8f65;
+    --blue-bg:#dbeeff;   --blue-text:#1a3d7a;   --blue-border:#b3d4f5;   --blue-stripe:#2a6db5;
+    --teal-bg:#e0f5f5;   --teal-text:#0e5f5f;   --teal-border:#a8e0e0;   --teal-stripe:#1a9090;
+    --purple-bg:#ede0ff; --purple-text:#4a1a80;  --purple-border:#d4b8f5; --purple-stripe:#6b2fb5;
+    --slate-bg:#e8eef5;  --slate-text:#1a2d4a;   --slate-border:#b8cde0;  --slate-stripe:#2a4a6b;
+    --red-bg:#ffeef2;    --red-text:#8b1a35;     --red-border:#f5c0cc;    --red-stripe:#c0253a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+  /* HEADER */
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .page-title{font-size:15px;font-weight:500;color:#fff;margin-top:6px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+
+  /* PAGE LAYOUT */
+  .page{max-width:700px;margin:0 auto;padding:24px 16px 64px;}
+
+  /* GROUP BLOCK */
+  .group{margin-bottom:28px;}
+  .group-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .group-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .group-title{font-family:'Fraunces',serif;font-size:15px;font-weight:400;}
+  .group-desc{font-size:12px;color:var(--text-muted);margin-left:20px;margin-bottom:10px;line-height:1.6;}
+
+  /* CONNECTOR CARD */
+  .conn-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:8px;}
+  .conn-row{display:grid;grid-template-columns:1fr auto;align-items:start;gap:8px;padding:11px 14px 11px 18px;border-left:3px solid transparent;position:relative;}
+  .conn-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
+
+  /* stripe colours by group */
+  .stripe-amber::before{background:var(--amber-stripe);}
+  .stripe-green::before{background:var(--green-stripe);}
+  .stripe-blue::before{background:var(--blue-stripe);}
+  .stripe-teal::before{background:var(--teal-stripe);}
+  .stripe-purple::before{background:var(--purple-stripe);}
+  .stripe-slate::before{background:var(--slate-stripe);}
+  .stripe-red::before{background:var(--red-stripe);}
+
+  .conn-row + .conn-row{border-top:0.5px solid var(--border);}
+
+  .conn-main{flex:1;}
+  .conn-fr{font-size:14px;font-weight:500;color:var(--text);line-height:1.5;margin-bottom:2px;}
+  .conn-en{font-size:12px;font-weight:300;color:var(--text-muted);margin-bottom:5px;}
+  .conn-ex{font-size:12.5px;color:var(--text-soft);line-height:1.6;font-style:italic;}
+  .conn-ex em{font-style:normal;font-weight:400;color:var(--text);}
+
+  .lvl{font-size:10px;font-weight:600;padding:2px 7px;border-radius:8px;white-space:nowrap;flex-shrink:0;align-self:start;margin-top:2px;}
+  .lvl-b2{background:var(--green-bg);color:var(--green-text);border:1px solid var(--green-border);}
+  .lvl-c1{background:var(--blue-bg);color:var(--blue-text);border:1px solid var(--blue-border);}
+
+  /* GROUP dot colours */
+  .dot-amber{background:var(--amber-stripe);}
+  .dot-green{background:var(--green-stripe);}
+  .dot-blue{background:var(--blue-stripe);}
+  .dot-teal{background:var(--teal-stripe);}
+  .dot-purple{background:var(--purple-stripe);}
+  .dot-slate{background:var(--slate-stripe);}
+  .dot-red{background:var(--red-stripe);}
+
+  .title-amber{color:var(--amber-text);}
+  .title-green{color:var(--green-text);}
+  .title-blue{color:var(--blue-text);}
+  .title-teal{color:var(--teal-text);}
+  .title-purple{color:var(--purple-text);}
+  .title-slate{color:var(--slate-text);}
+  .title-red{color:var(--red-text);}
+
+  /* COMPARISON CALLOUT */
+  .compare-callout{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:8px;}
+  .compare-callout-header{padding:8px 14px;font-size:11px;font-weight:400;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .compare-pair{display:grid;grid-template-columns:1fr 1fr;border-bottom:0.5px solid var(--border);}
+  .compare-pair:last-child{border-bottom:none;}
+  .cmp-col{padding:11px 13px;}
+  .cmp-col-avoid{background:#fff8f9;border-right:1px solid #f0dde2;}
+  .cmp-col-use{background:#f5fbf7;}
+  .cmp-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;margin-bottom:5px;}
+  .cmp-label.avoid{color:#b04060;}
+  .cmp-label.use{color:#3a7a58;}
+  .cmp-text{font-size:13px;line-height:1.65;color:#3a3330;font-weight:300;}
+  .cmp-note{font-size:11px;color:var(--text-muted);margin-top:4px;line-height:1.5;}
+
+  /* WARN / TIP notes */
+  .warn-note{background:var(--red-bg);border:1px solid var(--red-border);border-radius:6px;padding:10px 13px;font-size:13px;color:var(--red-text);line-height:1.65;margin-bottom:8px;}
+  .tip-note{background:var(--green-bg);border:1px solid var(--green-border);border-radius:6px;padding:10px 13px;font-size:13px;color:var(--green-text);line-height:1.65;margin-bottom:8px;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="../index.html">&#8592; Retour</a>
+  <h1>TCF Canada &mdash; <span>Conseils</span></h1>
+  <div class="page-title">Connecteurs oral B2/C1</div>
+</header>
+
+<div class="page">
+
+<!-- ═══════════════════════════════════════════
+     1. LANCER UN POINT
+════════════════════════════════════════════ -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-dot dot-amber"></div>
+    <div class="group-title title-amber">1 &mdash; Lancer un point</div>
+  </div>
+  <div class="group-desc">Remplacent <em>En g&eacute;n&eacute;ral,&hellip;</em> et <em>Tout d&rsquo;abord,&hellip;</em> quand vous voulez que l&rsquo;argument commence avec force.</div>
+
+  <div class="conn-card">
+    <div class="conn-row stripe-amber">
+      <div class="conn-main">
+        <div class="conn-fr">Tout d&rsquo;abord,&hellip;</div>
+        <div class="conn-en">First of all… — standard TCF Point 1 opener</div>
+        <div class="conn-ex"><em>Tout d&rsquo;abord,</em> l&rsquo;acc&egrave;s &agrave; l&rsquo;&eacute;ducation reste in&eacute;gal.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-amber">
+      <div class="conn-main">
+        <div class="conn-fr">Ce qui est frappant, c&rsquo;est que&hellip;</div>
+        <div class="conn-en">What is striking is that…</div>
+        <div class="conn-ex"><em>Ce qui est frappant,</em> c&rsquo;est que les jeunes absorbent les codes culturels presque naturellement.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-amber">
+      <div class="conn-main">
+        <div class="conn-fr">Force est de constater que&hellip;</div>
+        <div class="conn-en">One cannot deny that… / The fact is that…</div>
+        <div class="conn-ex"><em>Force est de constater que</em> le syst&egrave;me de points favorise les jeunes immigrants.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-amber">
+      <div class="conn-main">
+        <div class="conn-fr">Il est indéniable que&hellip;</div>
+        <div class="conn-en">It is undeniable that…</div>
+        <div class="conn-ex"><em>Il est ind&eacute;niable que</em> l&rsquo;&acirc;ge joue un r&ocirc;le d&eacute;cisif dans ce processus.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-amber">
+      <div class="conn-main">
+        <div class="conn-fr">Dans les faits,&hellip;</div>
+        <div class="conn-en">In practice / In reality…</div>
+        <div class="conn-ex"><em>Dans les faits,</em> tr&egrave;s peu d&rsquo;enfants immigrants ne r&eacute;ussissent pas &agrave; s&rsquo;int&eacute;grer &agrave; l&rsquo;&eacute;cole.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-amber">
+      <div class="conn-main">
+        <div class="conn-fr">Il serait difficile de nier que&hellip;</div>
+        <div class="conn-en">It would be hard to deny that…</div>
+        <div class="conn-ex"><em>Il serait difficile de nier que</em> la plasticit&eacute; culturelle diminue avec l&rsquo;&acirc;ge.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     2. AJOUTER UN POINT
+════════════════════════════════════════════ -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-dot dot-green"></div>
+    <div class="group-title title-green">2 &mdash; Ajouter un point</div>
+  </div>
+  <div class="group-desc">Point 2 et Point 3. Montez en puissance&nbsp;: <em>De plus</em> → <em>&Agrave; cela s&rsquo;ajoute</em> → <em>Qui plus est</em>.</div>
+
+  <div class="conn-card">
+    <div class="conn-row stripe-green">
+      <div class="conn-main">
+        <div class="conn-fr">De plus,&hellip; &nbsp;/&nbsp; Ensuite,&hellip;</div>
+        <div class="conn-en">Moreover / Furthermore — neutral addition</div>
+        <div class="conn-ex"><em>De plus,</em> l&rsquo;immersion scolaire acc&eacute;l&egrave;re l&rsquo;acquisition de la langue.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-green">
+      <div class="conn-main">
+        <div class="conn-fr">Sans oublier que&hellip;</div>
+        <div class="conn-en">Not to mention that… / And there's also…</div>
+        <div class="conn-ex"><em>Sans oublier que</em> les enfants se font des amis bien plus facilement que les adultes.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-green">
+      <div class="conn-main">
+        <div class="conn-fr">&Agrave; cela s&rsquo;ajoute le fait que&hellip;</div>
+        <div class="conn-en">On top of that… / Add to this the fact that…</div>
+        <div class="conn-ex"><em>&Agrave; cela s&rsquo;ajoute le fait que</em> les jeunes n&rsquo;ont pas encore de carri&egrave;re &agrave; reconstruire.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-green">
+      <div class="conn-main">
+        <div class="conn-fr">Il convient &eacute;galement de souligner que&hellip;</div>
+        <div class="conn-en">It is also worth noting that…</div>
+        <div class="conn-ex"><em>Il convient &eacute;galement de souligner que</em> le pays d&rsquo;accueil joue un r&ocirc;le d&eacute;terminant.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-green">
+      <div class="conn-main">
+        <div class="conn-fr">Qui plus est,&hellip;</div>
+        <div class="conn-en">What&rsquo;s more… — strong escalation, save for Point 3</div>
+        <div class="conn-ex"><em>Qui plus est,</em> le syst&egrave;me de points canadien favorise explicitement les jeunes immigrants.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+  </div>
+
+  <div class="warn-note">&#9888;&nbsp; <strong><em>De surcro&icirc;t</em> &mdash; &agrave; &eacute;viter &agrave; l&rsquo;oral&nbsp;:</strong> correct en fran&ccedil;ais &eacute;crit, mais litt&eacute;raire dans une conversation spontan&eacute;e. Pr&eacute;f&eacute;rez <strong><em>&agrave; cela s&rsquo;ajoute le fait que</em></strong> ou <strong><em>qui plus est</em></strong>.</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     3. EXPRIMER LA CONSÉQUENCE
+════════════════════════════════════════════ -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-dot dot-blue"></div>
+    <div class="group-title title-blue">3 &mdash; Exprimer la cons&eacute;quence</div>
+  </div>
+  <div class="group-desc">Ces connecteurs montrent que vous raisonnez &mdash; ils lient une cause &agrave; un r&eacute;sultat visible.</div>
+
+  <div class="conn-card">
+    <div class="conn-row stripe-blue">
+      <div class="conn-main">
+        <div class="conn-fr">De ce fait,&hellip;</div>
+        <div class="conn-en">As a result… / Therefore… — spoken C1 alternative to <em>donc</em></div>
+        <div class="conn-ex"><em>De ce fait,</em> un jeune immigrant construit une identit&eacute; bilingue au sens large.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-blue">
+      <div class="conn-main">
+        <div class="conn-fr">C&rsquo;est pourquoi&hellip;</div>
+        <div class="conn-en">That is why… — signals a logical step</div>
+        <div class="conn-ex"><em>C&rsquo;est pourquoi</em> les pays d&rsquo;accueil devraient mieux accompagner ces jeunes.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-blue">
+      <div class="conn-main">
+        <div class="conn-fr">&hellip; ce qui [verbe].</div>
+        <div class="conn-en">…which [result] — consequence chained inside the sentence</div>
+        <div class="conn-ex">Les jeunes n&rsquo;ont pas ces ancres, <em>ce qui lib&egrave;re</em> une &eacute;nergie consid&eacute;rable pour s&rsquo;int&eacute;grer.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-blue">
+      <div class="conn-main">
+        <div class="conn-fr">C&rsquo;est pr&eacute;cis&eacute;ment [X] qui [r&eacute;sultat].</div>
+        <div class="conn-en">It is precisely [X] that [result] — emphatic causality</div>
+        <div class="conn-ex"><em>C&rsquo;est pr&eacute;cis&eacute;ment cette l&eacute;g&egrave;ret&eacute;</em> qui leur permet de s&rsquo;int&eacute;grer bien plus rapidement.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-blue">
+      <div class="conn-main">
+        <div class="conn-fr">Ce qui explique que&hellip; / pourquoi&hellip;</div>
+        <div class="conn-en">Which explains why…</div>
+        <div class="conn-ex">Le cerveau est plus plastique jeune, <em>ce qui explique pourquoi</em> l&rsquo;accent s&rsquo;efface presque compl&egrave;tement.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     4. CONTRASTER
+════════════════════════════════════════════ -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-dot dot-teal"></div>
+    <div class="group-title title-teal">4 &mdash; Contraster</div>
+  </div>
+  <div class="group-desc">Pour opposer deux id&eacute;es. &Eacute;vitez la structure m&eacute;canique <em>plus de X, moins de Y</em> &mdash; expliquez le m&eacute;canisme &agrave; la place.</div>
+
+  <div class="conn-card">
+    <div class="conn-row stripe-teal">
+      <div class="conn-main">
+        <div class="conn-fr">En revanche,&hellip;</div>
+        <div class="conn-en">On the other hand… — clean contrast opener</div>
+        <div class="conn-ex"><em>En revanche,</em> les adultes b&eacute;n&eacute;ficient d&rsquo;une identit&eacute; d&eacute;j&agrave; stabilis&eacute;e avant d&rsquo;immigrer.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-teal">
+      <div class="conn-main">
+        <div class="conn-fr">Contrairement &agrave; [X],&hellip;</div>
+        <div class="conn-en">Unlike [X]… / As opposed to [X]…</div>
+        <div class="conn-ex"><em>Contrairement &agrave;</em> un adulte qui a d&eacute;j&agrave; un r&eacute;seau social &eacute;tabli, un enfant repart de z&eacute;ro.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-teal">
+      <div class="conn-main">
+        <div class="conn-fr">&hellip; plut&ocirc;t que de [X].</div>
+        <div class="conn-en">…rather than [X] — reframes as a positive choice</div>
+        <div class="conn-ex">Appartenir &agrave; deux cultures, <em>plut&ocirc;t que</em> de se sentir exclu de toutes les deux.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-teal">
+      <div class="conn-main">
+        <div class="conn-fr">&hellip; sans pour autant [verbe].</div>
+        <div class="conn-en">…without however / without necessarily [doing X]</div>
+        <div class="conn-ex">Un adolescent peut s&rsquo;int&eacute;grer <em>sans pour autant</em> renoncer &agrave; sa langue maternelle.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-teal">
+      <div class="conn-main">
+        <div class="conn-fr">affranchi(e) de&hellip;</div>
+        <div class="conn-en">freed from… / unburdened by…</div>
+        <div class="conn-ex">Les jeunes arrivent <em>affranchis</em> des contraintes structurelles qui p&egrave;sent sur les adultes.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-teal">
+      <div class="conn-main">
+        <div class="conn-fr">non pas [X], mais [Y]</div>
+        <div class="conn-en">not [X], but [Y] — sharp reframing</div>
+        <div class="conn-ex">C&rsquo;est <em>non pas</em> un obstacle, <em>mais</em> une richesse culturelle.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-teal">
+      <div class="conn-main">
+        <div class="conn-fr">loin de [verbe], [X]&hellip;</div>
+        <div class="conn-en">Far from [doing X], [result]… — reversal structure</div>
+        <div class="conn-ex"><em>Loin de</em> nuire &agrave; leur d&eacute;veloppement, l&rsquo;immigration pr&eacute;coce les enrichit.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+  </div>
+
+  <div class="compare-callout">
+    <div class="compare-callout-header">&#9888;&nbsp; &Eacute;viter &laquo;&nbsp;plus de&hellip; moins de&hellip;&nbsp;&raquo; &mdash; expliquer le m&eacute;canisme &agrave; la place</div>
+    <div class="compare-pair">
+      <div class="cmp-col cmp-col-avoid">
+        <div class="cmp-label avoid">&#10008; &Eacute;viter</div>
+        <div class="cmp-text">Les jeunes ont plus de flexibilit&eacute; et moins de responsabilit&eacute;s.</div>
+        <div class="cmp-note">Liste deux p&ocirc;les &mdash; aucune logique visible</div>
+      </div>
+      <div class="cmp-col cmp-col-use">
+        <div class="cmp-label use">&#10003; Pr&eacute;f&eacute;rer</div>
+        <div class="cmp-text">Les jeunes arrivent sans les ancres que l&rsquo;&acirc;ge adulte installe &mdash; pas d&rsquo;hypoth&egrave;que &agrave; g&eacute;rer, pas de carri&egrave;re &agrave; reconstruire. Ce qui lib&egrave;re une &eacute;nergie consid&eacute;rable.</div>
+        <div class="cmp-note">Absence → ce qu&rsquo;elle lib&egrave;re = cha&icirc;ne causale</div>
+      </div>
+    </div>
+    <div class="compare-pair">
+      <div class="cmp-col cmp-col-avoid">
+        <div class="cmp-label avoid">&#10008; &Eacute;viter</div>
+        <div class="cmp-text">Il y a plus de ressources mais moins de s&eacute;curit&eacute;.</div>
+        <div class="cmp-note">Structure m&eacute;canique et r&eacute;p&eacute;titive</div>
+      </div>
+      <div class="cmp-col cmp-col-use">
+        <div class="cmp-label use">&#10003; Pr&eacute;f&eacute;rer</div>
+        <div class="cmp-text">Les ressources sont l&agrave;, certes &mdash; mais sans le filet de s&eacute;curit&eacute; que l&rsquo;on prend pour acquis dans son pays d&rsquo;origine.</div>
+        <div class="cmp-note">Contraste enchaîn&eacute; dans une seule phrase fluide</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     5. NUANCER
+════════════════════════════════════════════ -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-dot dot-purple"></div>
+    <div class="group-title title-purple">5 &mdash; Nuancer</div>
+  </div>
+  <div class="group-desc">Pour la section nuance du TCF. Ouvrez en reconnaissant le point adverse, puis limitez-le.</div>
+
+  <div class="conn-card">
+    <div class="conn-row stripe-purple">
+      <div class="conn-main">
+        <div class="conn-fr">Il est certes vrai que&hellip;</div>
+        <div class="conn-en">It is certainly true that… — standard TCF concession opener</div>
+        <div class="conn-ex"><em>Il est certes vrai que</em> cette adaptation n&rsquo;est pas sans douleur.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-purple">
+      <div class="conn-main">
+        <div class="conn-fr">En revanche, il est certes vrai que&hellip;</div>
+        <div class="conn-en">That said, it is certainly true that… — transition + concession</div>
+        <div class="conn-ex"><em>En revanche, il est certes vrai que</em> certains jeunes se retrouvent tiraill&eacute;s entre deux cultures.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-purple">
+      <div class="conn-main">
+        <div class="conn-fr">Cela &eacute;tant dit,&hellip;</div>
+        <div class="conn-en">That being said… — smooth pivot after the concession</div>
+        <div class="conn-ex"><em>Cela &eacute;tant dit,</em> ce risque concerne surtout les adolescents, moins les jeunes enfants.</div>
+      </div>
+      <span class="lvl lvl-b2">B2</span>
+    </div>
+    <div class="conn-row stripe-purple">
+      <div class="conn-main">
+        <div class="conn-fr">Il serait malhonnête de nier que&hellip;</div>
+        <div class="conn-en">It would be dishonest to deny that… — strong authentic concession</div>
+        <div class="conn-ex"><em>Il serait malhon&ecirc;te de nier que</em> l&rsquo;isolement social &agrave; l&rsquo;&eacute;cole peut &ecirc;tre profond&eacute;ment blessant.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-purple">
+      <div class="conn-main">
+        <div class="conn-fr">On ne peut pas ignorer le fait que&hellip;</div>
+        <div class="conn-en">One cannot ignore the fact that…</div>
+        <div class="conn-ex"><em>On ne peut pas ignorer le fait que</em> la langue maternelle peut s&rsquo;effacer plus vite que pr&eacute;vu.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-purple">
+      <div class="conn-main">
+        <div class="conn-fr">&hellip; dans une certaine mesure.</div>
+        <div class="conn-en">…to a certain extent — qualifies a claim at end of sentence</div>
+        <div class="conn-ex">Cette compensation financi&egrave;re se comprend, <em>dans une certaine mesure.</em></div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-purple">
+      <div class="conn-main">
+        <div class="conn-fr">&hellip; moins de [X] que de [Y].</div>
+        <div class="conn-en">…less a matter of [X] than of [Y] — redefines the key factor</div>
+        <div class="conn-ex">Ce succ&egrave;s d&eacute;pend souvent <em>moins de l&rsquo;&acirc;ge que de</em> la stabilit&eacute; familiale.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     6. CONCLURE
+════════════════════════════════════════════ -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-dot dot-slate"></div>
+    <div class="group-title title-slate">6 &mdash; Conclure</div>
+  </div>
+  <div class="group-desc">Structure fixe TCF Tâche 3. La conclusion a deux temps&nbsp;: bilan des deux positions, puis recommandation.</div>
+
+  <div class="conn-card">
+    <div class="conn-row stripe-slate">
+      <div class="conn-main">
+        <div class="conn-fr">En conclusion, bien que [inconvénient], il n&rsquo;en demeure pas moins que [avantage].</div>
+        <div class="conn-en">In conclusion, although [drawback], it remains that [advantage].</div>
+        <div class="conn-ex"><em>En conclusion, bien que</em> l&rsquo;adaptation pr&eacute;coce pr&eacute;sente certains risques identitaires, <em>il n&rsquo;en demeure pas moins que</em> les avantages sont ind&eacute;niables.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-slate">
+      <div class="conn-main">
+        <div class="conn-fr">Tout bien consid&eacute;r&eacute;, il serait souhaitable que + subjonctif.</div>
+        <div class="conn-en">All things considered, it would be desirable that… — recommendation</div>
+        <div class="conn-ex"><em>Tout bien consid&eacute;r&eacute;, il serait souhaitable que</em> les &eacute;coles accompagnent davantage les jeunes immigrants.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-slate">
+      <div class="conn-main">
+        <div class="conn-fr">il n&rsquo;en demeure pas moins que&hellip;</div>
+        <div class="conn-en">it remains the case that… / that doesn&rsquo;t change the fact that…</div>
+        <div class="conn-ex">Des risques existent, mais <em>il n&rsquo;en demeure pas moins que</em> les avantages sont consid&eacute;rables.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+    <div class="conn-row stripe-slate">
+      <div class="conn-main">
+        <div class="conn-fr">afin que + subjonctif / afin de + infinitif</div>
+        <div class="conn-en">so that / in order to — purpose clause in recommendation</div>
+        <div class="conn-ex">&hellip; <em>afin qu&rsquo;ils puissent</em> s&rsquo;int&eacute;grer sans renoncer &agrave; ce qu&rsquo;ils sont.</div>
+      </div>
+      <span class="lvl lvl-c1">C1</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     7. À ÉVITER À L'ORAL
+════════════════════════════════════════════ -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-dot dot-red"></div>
+    <div class="group-title title-red">7 &mdash; &Agrave; &eacute;viter &agrave; l&rsquo;oral</div>
+  </div>
+  <div class="group-desc">Ces mots ne sont pas incorrects, mais ils signalent un registre &eacute;crit ou une h&eacute;sitation &mdash; &eacute;vitez-les &agrave; l&rsquo;oral TCF.</div>
+
+  <div class="conn-card">
+    <div class="conn-row stripe-red">
+      <div class="conn-main">
+        <div class="conn-fr">En g&eacute;n&eacute;ral,&hellip;</div>
+        <div class="conn-en">In general… — stalls momentum, sounds like you&rsquo;re still thinking</div>
+        <div class="conn-ex">&#8594; Remplacez par&nbsp;: <em>Ce qui est frappant,</em> / <em>Dans les faits,</em> / <em>Force est de constater que</em></div>
+      </div>
+      <span class="lvl lvl-b2">B2 ✗</span>
+    </div>
+    <div class="conn-row stripe-red">
+      <div class="conn-main">
+        <div class="conn-fr">De surcro&icirc;t,&hellip;</div>
+        <div class="conn-en">Furthermore… — literary, sounds like written French in a speech</div>
+        <div class="conn-ex">&#8594; Remplacez par&nbsp;: <em>&Agrave; cela s&rsquo;ajoute le fait que</em> / <em>Qui plus est,</em></div>
+      </div>
+      <span class="lvl lvl-c1">C1 ✗</span>
+    </div>
+    <div class="conn-row stripe-red">
+      <div class="conn-main">
+        <div class="conn-fr">Donc,&hellip; / Et donc&hellip;</div>
+        <div class="conn-en">So… — too conversational, weakens the argument</div>
+        <div class="conn-ex">&#8594; Remplacez par&nbsp;: <em>De ce fait,</em> / <em>C&rsquo;est pourquoi</em></div>
+      </div>
+      <span class="lvl lvl-b2">B2 ✗</span>
+    </div>
+    <div class="conn-row stripe-red">
+      <div class="conn-main">
+        <div class="conn-fr">Plus de [X], moins de [Y].</div>
+        <div class="conn-en">More of [X], less of [Y] — mechanical, lists poles without logic</div>
+        <div class="conn-ex">&#8594; Nommez l&rsquo;absence, puis expliquez ce qu&rsquo;elle lib&egrave;re. Voir groupe 4.</div>
+      </div>
+      <span class="lvl lvl-b2">B2 ✗</span>
+    </div>
+    <div class="conn-row stripe-red">
+      <div class="conn-main">
+        <div class="conn-fr">Et aussi,&hellip; / Et puis,&hellip; / Et encore,&hellip;</div>
+        <div class="conn-en">And also… — spoken filler, not argumentative</div>
+        <div class="conn-ex">&#8594; Remplacez par&nbsp;: <em>Sans oublier que</em> / <em>&Agrave; cela s&rsquo;ajoute</em></div>
+      </div>
+      <span class="lvl lvl-b2">B2 ✗</span>
+    </div>
+  </div>
+
+  <div class="tip-note">&#128161; <strong>R&egrave;gle d&rsquo;or&nbsp;:</strong> Chaque connecteur que vous utilisez doit montrer un lien logique &mdash; addition, cause, contraste &mdash; pas juste remplir le silence. Si vous h&eacute;sitez, une pause courte vaut mieux qu&rsquo;un <em>donc</em> ou un <em>en g&eacute;n&eacute;ral</em>.</div>
+</div>
+
+</div><!-- /page -->
+
+</body>
+</html>
