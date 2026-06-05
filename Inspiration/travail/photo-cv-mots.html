@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — Photo sur un CV</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d'Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">L'utilisation d'une photo sur un CV &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Recrutement et candidature &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">le curriculum vitae / CV <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">résumé, CV</span></div>
+          <div class="wl-row"><span class="wl-fr">le recruteur / la recruteuse <em>(m/f)</em><span class="wl-star">★</span></span><span class="wl-en">recruiter</span></div>
+          <div class="wl-row"><span class="wl-fr">l'entretien d'embauche <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">job interview</span></div>
+          <div class="wl-row"><span class="wl-fr">la sélection de candidats <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">candidate selection</span></div>
+          <div class="wl-row"><span class="wl-fr">les qualifications <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">qualifications</span></div>
+          <div class="wl-row"><span class="wl-fr">la présentation professionnelle <em>(f)</em></span><span class="wl-en">professional presentation</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Discrimination et biais</div>
+          <div class="wl-row"><span class="wl-fr">la discrimination à l'embauche <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">hiring discrimination</span></div>
+          <div class="wl-row"><span class="wl-fr">les biais inconscients <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">unconscious biases</span></div>
+          <div class="wl-row"><span class="wl-fr">l'apparence physique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">physical appearance</span></div>
+          <div class="wl-row"><span class="wl-fr">l'origine ethnique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">ethnic origin</span></div>
+          <div class="wl-row"><span class="wl-fr">la méritocratie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">meritocracy</span></div>
+          <div class="wl-row"><span class="wl-fr">la confidentialité <em>(f)</em></span><span class="wl-en">confidentiality, privacy</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Image et confiance</div>
+          <div class="wl-row"><span class="wl-fr">la confiance en soi <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">self-confidence</span></div>
+          <div class="wl-row"><span class="wl-fr">les traits distinctifs <em>(mpl)</em></span><span class="wl-en">distinctive features</span></div>
+          <div class="wl-row"><span class="wl-fr">l'engagement <em>(m)</em></span><span class="wl-en">commitment, dedication</span></div>
+          <div class="wl-row"><span class="wl-fr">la détermination <em>(f)</em></span><span class="wl-en">determination</span></div>
+          <div class="wl-row"><span class="wl-fr">le dress code <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">dress code</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Compétences et évaluation</div>
+          <div class="wl-row"><span class="wl-fr">les compétences professionnelles <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">professional skills</span></div>
+          <div class="wl-row"><span class="wl-fr">l'expérience professionnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">professional experience</span></div>
+          <div class="wl-row"><span class="wl-fr">les critères de sélection <em>(mpl)</em></span><span class="wl-en">selection criteria</span></div>
+          <div class="wl-row"><span class="wl-fr">la valeur ajoutée <em>(f)</em></span><span class="wl-en">added value</span></div>
+          <div class="wl-row"><span class="wl-fr">la première impression <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">first impression</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">se démarquer</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to stand out from</td></tr>
+          <tr><td class="vfr">associer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to associate with</td></tr>
+          <tr><td class="vfr">distraire</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to distract from</td></tr>
+          <tr><td class="vfr">faire passer</td><td class="vprep">avant</td><td class="vrel">—</td><td class="ven">to put before, to prioritize</td></tr>
+          <tr><td class="vfr">reconnaître</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to recognize, to identify</td></tr>
+          <tr><td class="vfr">tenir compte</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to take into account</td></tr>
+          <tr><td class="vfr">partager</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to share</td></tr>
+          <tr><td class="vfr">juger</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to judge on (criteria)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; recrutement et image</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">professionnel(le)</span><span class="adj-en">professional</span></div>
+          <div class="adj-row"><span class="adj-fr">discriminatoire</span><span class="adj-en">discriminatory</span></div>
+          <div class="adj-row"><span class="adj-fr">objectif(ve)</span><span class="adj-en">objective, unbiased</span></div>
+          <div class="adj-row"><span class="adj-fr">personnel(le)</span><span class="adj-en">personal, private</span></div>
+          <div class="adj-row"><span class="adj-fr">subjectif(ve)</span><span class="adj-en">subjective, biased</span></div>
+          <div class="adj-row"><span class="adj-fr">décontracté(e)</span><span class="adj-en">casual, relaxed</span></div>
+          <div class="adj-row"><span class="adj-fr">pertinent(e)</span><span class="adj-en">relevant, pertinent</span></div>
+          <div class="adj-row"><span class="adj-fr">superficiel(le)</span><span class="adj-en">superficial, shallow</span></div>
+          <div class="adj-row"><span class="adj-fr">sérieux(se)</span><span class="adj-en">serious, motivated</span></div>
+          <div class="adj-row"><span class="adj-fr">motivé(e)</span><span class="adj-en">motivated, driven</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Mettre une photo sur son CV</div>
+          <div class="contrast-item">une photo permet au recruteur d'associer un visage à un nom dès la lecture</div>
+          <div class="contrast-item">afficher sa photo témoigne d'une confiance en soi et d'un sens du professionnalisme</div>
+          <div class="contrast-item">une photo soignée aide à se démarquer dans une pile de candidatures</div>
+          <div class="contrast-item">voir le candidat à l'avance facilite la préparation de l'entretien d'embauche</div>
+          <div class="contrast-item">respecter un dress code visuel montre que le candidat comprend les attentes de l'entreprise</div>
+          <div class="contrast-item">la photo reflète la motivation et le soin apportés à la candidature</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Mettre une photo sur son CV</div>
+          <div class="contrast-item">inclure une photo expose le candidat à des biais inconscients liés à l'apparence</div>
+          <div class="contrast-item">juger sur l'apparence détourne l'attention des compétences réelles du candidat</div>
+          <div class="contrast-item">une photo peut déclencher des discriminations liées à l'âge, l'origine ou le genre</span></div>
+          <div class="contrast-item">partager une image personnelle sur un document professionnel soulève des questions de confidentialité</div>
+          <div class="contrast-item">une mauvaise photo peut nuire à la candidature sans rapport avec les qualifications</div>
+          <div class="contrast-item">une sélection basée sur la méritocratie n'a pas besoin de données visuelles</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">inclure une photo sur un CV risque de faire passer l'apparence physique avant les compétences professionnelles</div>
+          <div class="chunk-en">including a photo on a CV risks putting physical appearance before professional skills</div>
+          <div class="chunk-note">risquer de + infinitif = nuance prudente, très utile à l'oral · faire passer X avant Y = expression C1 pour exprimer une priorité mal placée</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">les biais inconscients des recruteurs peuvent influencer leur jugement sans qu'ils en soient conscients</div>
+          <div class="chunk-en">recruiters' unconscious biases can influence their judgment without them even being aware of it</div>
+          <div class="chunk-note">sans que + subjonctif = structure C1 concessive · les biais inconscients = expression clé du sujet · argument fort pour la position CONTRE</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">une candidature devrait être évaluée sur la base des compétences, non de l'apparence</div>
+          <div class="chunk-en">an application should be assessed on the basis of skills, not appearance</div>
+          <div class="chunk-note">devrait être évaluée = conditionnel normatif · sur la base de = registre soutenu courant · non de = opposition directe sans "mais"</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">une photo professionnelle bien choisie peut renforcer la première impression et témoigner du sérieux du candidat</div>
+          <div class="chunk-en">a well-chosen professional photo can strengthen the first impression and demonstrate the candidate's seriousness</div>
+          <div class="chunk-note">témoigner de = verbe C1 pour montrer une preuve indirecte · bien choisie = participe passé adjectival · argument de Point 1 directement utilisable</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

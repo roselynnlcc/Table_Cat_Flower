@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — Rendre les universités accessibles à tous</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d'Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Rendre les universités accessibles à tous &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Accès et égalité &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">l'accès à l'enseignement supérieur <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">access to higher education</span></div>
+          <div class="wl-row"><span class="wl-fr">l'égalité des chances <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">equal opportunity</span></div>
+          <div class="wl-row"><span class="wl-fr">les inégalités socio-économiques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">socio-economic inequalities</span></div>
+          <div class="wl-row"><span class="wl-fr">les étudiants défavorisés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">disadvantaged students</span></div>
+          <div class="wl-row"><span class="wl-fr">les droits de scolarité <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">tuition fees</span></div>
+          <div class="wl-row"><span class="wl-fr">la bourse d'études <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">scholarship, study grant</span></div>
+          <div class="wl-row"><span class="wl-fr">la cohésion sociale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">social cohesion</span></div>
+          <div class="wl-row"><span class="wl-fr">le financement public <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">public funding</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Enseignement et résultats</div>
+          <div class="wl-row"><span class="wl-fr">la qualité de l'enseignement <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">quality of education</span></div>
+          <div class="wl-row"><span class="wl-fr">la main-d'œuvre qualifiée <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">skilled workforce</span></div>
+          <div class="wl-row"><span class="wl-fr">le développement économique <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">economic development</span></div>
+          <div class="wl-row"><span class="wl-fr">l'innovation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">innovation</span></div>
+          <div class="wl-row"><span class="wl-fr">les places universitaires <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">university places</span></div>
+          <div class="wl-row"><span class="wl-fr">la concurrence <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">competition</span></div>
+          <div class="wl-row"><span class="wl-fr">le niveau d'enseignement <em>(m)</em></span><span class="wl-en">level of teaching</span></div>
+          <div class="wl-row"><span class="wl-fr">le taux de réussite <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">success rate</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Société et politique</div>
+          <div class="wl-row"><span class="wl-fr">la démocratisation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">democratisation</span></div>
+          <div class="wl-row"><span class="wl-fr">l'ascenseur social <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">social mobility (lit. social lift)</span></div>
+          <div class="wl-row"><span class="wl-fr">la mobilité sociale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">social mobility</span></div>
+          <div class="wl-row"><span class="wl-fr">les politiques d'inclusion <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">inclusion policies</span></div>
+          <div class="wl-row"><span class="wl-fr">la pression budgétaire <em>(f)</em></span><span class="wl-en">budgetary pressure</span></div>
+          <div class="wl-row"><span class="wl-fr">le diplôme universitaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">university degree</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Risques et limites</div>
+          <div class="wl-row"><span class="wl-fr">la surcharge des universités <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">overcrowding of universities</span></div>
+          <div class="wl-row"><span class="wl-fr">la pression sur les enseignants <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">pressure on teachers</span></div>
+          <div class="wl-row"><span class="wl-fr">le manque de motivation <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">lack of motivation</span></div>
+          <div class="wl-row"><span class="wl-fr">les étudiants peu qualifiés <em>(mpl)</em></span><span class="wl-en">under-qualified students</span></div>
+          <div class="wl-row"><span class="wl-fr">le décrochage scolaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">dropping out of school/university</span></div>
+          <div class="wl-row"><span class="wl-fr">la dévaluation du diplôme <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">degree devaluation</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">accéder</td><td class="vprep">à</td><td class="vrel">à laquelle</td><td class="ven">to access, to gain access to</td></tr>
+          <tr><td class="vfr">bénéficier</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to benefit from</td></tr>
+          <tr><td class="vfr">lutter</td><td class="vprep">contre</td><td class="vrel">contre lesquelles</td><td class="ven">to fight against</td></tr>
+          <tr><td class="vfr">s'inscrire</td><td class="vprep">à</td><td class="vrel">à laquelle</td><td class="ven">to enrol at</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">à laquelle</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">faire face</td><td class="vprep">à</td><td class="vrel">à laquelle</td><td class="ven">to face, to deal with</td></tr>
+          <tr><td class="vfr">maintenir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to maintain, to keep up</td></tr>
+          <tr><td class="vfr">postuler</td><td class="vprep">à</td><td class="vrel">à laquelle</td><td class="ven">to apply to (a programme)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; université et société</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">accessible</span><span class="adj-en">accessible, affordable</span></div>
+          <div class="adj-row"><span class="adj-fr">défavorisé(e)</span><span class="adj-en">disadvantaged, underprivileged</span></div>
+          <div class="adj-row"><span class="adj-fr">qualifié(e)</span><span class="adj-en">qualified, skilled</span></div>
+          <div class="adj-row"><span class="adj-fr">surchargé(e)</span><span class="adj-en">overcrowded, overloaded</span></div>
+          <div class="adj-row"><span class="adj-fr">motivé(e)</span><span class="adj-en">motivated</span></div>
+          <div class="adj-row"><span class="adj-fr">compétitif(ve)</span><span class="adj-en">competitive</span></div>
+          <div class="adj-row"><span class="adj-fr">universel(le)</span><span class="adj-en">universal</span></div>
+          <div class="adj-row"><span class="adj-fr">socio-économique</span><span class="adj-en">socio-economic</span></div>
+          <div class="adj-row"><span class="adj-fr">exigeant(e)</span><span class="adj-en">demanding, rigorous</span></div>
+          <div class="adj-row"><span class="adj-fr">diplômé(e)</span><span class="adj-en">graduate, degree-holder</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Universités accessibles à tous</div>
+          <div class="contrast-item">Rendre les universités accessibles à tous favorise l'égalité des chances et permet aux étudiants défavorisés de poursuivre des études supérieures.</div>
+          <div class="contrast-item">Une main-d'œuvre plus qualifiée contribue directement au développement économique et à l'innovation.</div>
+          <div class="contrast-item">L'accès universel à l'université renforce la cohésion sociale en rapprochant des personnes de milieux très différents.</div>
+          <div class="contrast-item">Démocratiser l'enseignement supérieur fait fonctionner l'ascenseur social et réduit les inégalités entre générations.</div>
+          <div class="contrast-item">Un accès plus large à la recherche favorise de nouvelles découvertes bénéfiques pour l'ensemble de la société.</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Universités accessibles à tous</div>
+          <div class="contrast-item">Financer l'accès universel à l'université représente un coût considérable pour les États, ce qui crée une pression budgétaire importante.</div>
+          <div class="contrast-item">Une augmentation du nombre d'étudiants risque de surcharger les universités et de faire baisser le niveau d'enseignement.</div>
+          <div class="contrast-item">Accueillir des étudiants peu motivés ou peu préparés augmente le taux de décrochage et dévalorise le diplôme universitaire.</div>
+          <div class="contrast-item">L'afflux de candidats crée une concurrence accrue pour chaque place, ce qui rend le processus de sélection encore plus stressant.</div>
+          <div class="contrast-item">Maintenir un haut niveau d'exigence devient difficile lorsque les ressources pédagogiques et humaines sont insuffisantes.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">rendre l'université accessible à tous, c'est faire fonctionner l'ascenseur social en donnant à chacun la possibilité de se qualifier, peu importe son milieu d'origine</div>
+          <div class="chunk-en">making university accessible to all means activating social mobility by giving everyone the chance to qualify, regardless of their background</div>
+          <div class="chunk-note">faire fonctionner l'ascenseur social = C1 idiom for social mobility · peu importe son milieu = regardless of background · structure argument + justification directe très efficace à l'oral</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">une plus grande accessibilité ne garantit pas une meilleure qualité de formation, dans la mesure où les ressources pédagogiques restent limitées</div>
+          <div class="chunk-en">greater accessibility does not guarantee better quality education, insofar as teaching resources remain limited</div>
+          <div class="chunk-note">dans la mesure où = insofar as (C1 nuance) · ne pas garantir = does not automatically lead to · structure nuance-type très utile pour la section nuance de Tâche 3</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">sans un financement public suffisant, les politiques d'accès universel à l'université risquent de dégrader les conditions d'apprentissage pour tous</div>
+          <div class="chunk-en">without sufficient public funding, universal access policies risk degrading learning conditions for everyone</div>
+          <div class="chunk-note">sans + nom = strong concessive structure · risquer de + infinitif = to risk doing (C1) · dégrader = to degrade, to worsen (stronger than nuire à)</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">l'égalité d'accès à l'enseignement supérieur contribue à réduire les inégalités socio-économiques qui se transmettent d'une génération à l'autre</div>
+          <div class="chunk-en">equal access to higher education helps reduce socio-economic inequalities that pass from one generation to the next</div>
+          <div class="chunk-note">qui se transmettent de génération en génération = relative clause + cycle idea · contribuer à réduire = contribute to reducing (elegant C1 verb chain)</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

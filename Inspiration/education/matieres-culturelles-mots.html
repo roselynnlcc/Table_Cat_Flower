@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — Les matières culturelles à l'école</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d'Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Les matières culturelles à l'école &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Matières et disciplines &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les matières culturelles <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">cultural subjects (arts, music, languages...)</span></div>
+          <div class="wl-row"><span class="wl-fr">les arts plastiques <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">visual arts</span></div>
+          <div class="wl-row"><span class="wl-fr">la musique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">music</span></div>
+          <div class="wl-row"><span class="wl-fr">la littérature <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">literature</span></div>
+          <div class="wl-row"><span class="wl-fr">l'histoire <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">history</span></div>
+          <div class="wl-row"><span class="wl-fr">les langues vivantes <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">modern languages</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Développement et ouverture</div>
+          <div class="wl-row"><span class="wl-fr">l'ouverture d'esprit <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">open-mindedness</span></div>
+          <div class="wl-row"><span class="wl-fr">la tolérance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">tolerance</span></div>
+          <div class="wl-row"><span class="wl-fr">l'esprit critique <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">critical thinking</span></div>
+          <div class="wl-row"><span class="wl-fr">la pensée analytique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">analytical thinking</span></div>
+          <div class="wl-row"><span class="wl-fr">l'épanouissement personnel <em>(m)</em></span><span class="wl-en">personal fulfilment</span></div>
+          <div class="wl-row"><span class="wl-fr">la diversité culturelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">cultural diversity</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Contraintes et limites</div>
+          <div class="wl-row"><span class="wl-fr">la surcharge de travail <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">work overload</span></div>
+          <div class="wl-row"><span class="wl-fr">les biais culturels <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">cultural biases</span></div>
+          <div class="wl-row"><span class="wl-fr">le manque d'intérêt <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">lack of interest</span></div>
+          <div class="wl-row"><span class="wl-fr">les frais d'inscription <em>(mpl)</em></span><span class="wl-en">registration fees</span></div>
+          <div class="wl-row"><span class="wl-fr">les cours habituels <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">standard subjects</span></div>
+          <div class="wl-row"><span class="wl-fr">l'enseignement biaisé <em>(m)</em></span><span class="wl-en">biased teaching</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Communication et société</div>
+          <div class="wl-row"><span class="wl-fr">les compétences en communication <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">communication skills</span></div>
+          <div class="wl-row"><span class="wl-fr">l'expression artistique <em>(f)</em></span><span class="wl-en">artistic expression</span></div>
+          <div class="wl-row"><span class="wl-fr">la cohésion sociale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">social cohesion</span></div>
+          <div class="wl-row"><span class="wl-fr">les œuvres culturelles <em>(fpl)</em></span><span class="wl-en">cultural works</span></div>
+          <div class="wl-row"><span class="wl-fr">le patrimoine culturel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">cultural heritage</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">s'immerger</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to immerse oneself in</td></tr>
+          <tr><td class="vfr">s'ouvrir</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to open up to</td></tr>
+          <tr><td class="vfr">favoriser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to promote, to foster</td></tr>
+          <tr><td class="vfr">se poser des questions</td><td class="vprep">sur</td><td class="vrel">sur lesquelles</td><td class="ven">to question, to reflect on</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">s'épanouir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to flourish, to thrive</td></tr>
+          <tr><td class="vfr">minimiser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to minimise, to downplay</td></tr>
+          <tr><td class="vfr">apprendre</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to learn to</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; culture et éducation</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">culturel(le)</span><span class="adj-en">cultural</span></div>
+          <div class="adj-row"><span class="adj-fr">analytique</span><span class="adj-en">analytical</span></div>
+          <div class="adj-row"><span class="adj-fr">biaisé(e)</span><span class="adj-en">biased</span></div>
+          <div class="adj-row"><span class="adj-fr">inclusif(ve)</span><span class="adj-en">inclusive</span></div>
+          <div class="adj-row"><span class="adj-fr">enrichissant(e)</span><span class="adj-en">enriching</span></div>
+          <div class="adj-row"><span class="adj-fr">superflu(e)</span><span class="adj-en">superfluous, unnecessary</span></div>
+          <div class="adj-row"><span class="adj-fr">surchargé(e)</span><span class="adj-en">overloaded, overwhelmed</span></div>
+          <div class="adj-row"><span class="adj-fr">tolérant(e)</span><span class="adj-en">tolerant</span></div>
+          <div class="adj-row"><span class="adj-fr">dominant(e)</span><span class="adj-en">dominant</span></div>
+          <div class="adj-row"><span class="adj-fr">minoritaire</span><span class="adj-en">minority</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Les matières culturelles à l'école</div>
+          <div class="contrast-item">étudier les arts et les langues favorise l'ouverture d'esprit et la tolérance envers les autres cultures</div>
+          <div class="contrast-item">les matières culturelles développent la pensée analytique et l'esprit critique des élèves</div>
+          <div class="contrast-item">apprendre à jouer d'un instrument ou à parler une langue permet de s'épanouir personnellement</div>
+          <div class="contrast-item">l'histoire et la littérature donnent aux élèves un ancrage dans la société et dans le monde</div>
+          <div class="contrast-item">les compétences en expression développées en cours de culture sont utiles dans tous les métiers</div>
+          <div class="contrast-item">une éducation culturelle contribue à la cohésion sociale et au vivre-ensemble</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Les matières culturelles à l'école</div>
+          <div class="contrast-item">ajouter des matières culturelles au programme scolaire risque de surcharger les élèves</div>
+          <div class="contrast-item">certains élèves n'ont aucun intérêt pour la musique ou les arts, ce qui nuit à leur motivation</div>
+          <div class="contrast-item">un enseignement culturel biaisé peut favoriser certaines cultures tout en ignorant d'autres</div>
+          <div class="contrast-item">les cours culturels exigent des ressources et des frais que tous les établissements ne peuvent pas assumer</div>
+          <div class="contrast-item">du temps dédié aux arts pourrait être utilisé pour renforcer les matières fondamentales</div>
+          <div class="contrast-item">sans enseignants spécialisés, la qualité des cours culturels reste insuffisante</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">les matières culturelles favorisent l'ouverture d'esprit en exposant les élèves à des modes de vie et des valeurs différents des leurs</div>
+          <div class="chunk-en">cultural subjects promote open-mindedness by exposing students to ways of life and values different from their own</div>
+          <div class="chunk-note">favoriser l'ouverture d'esprit = collocation C1 · en exposant à = gérondif de moyen · différents des leurs = comparaison soignée · argument de Point 1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">étudier des œuvres littéraires et artistiques amène les élèves à se poser des questions sur leur sens et leur portée sociale</div>
+          <div class="chunk-en">studying literary and artistic works leads students to reflect on their meaning and social significance</div>
+          <div class="chunk-note">amener à = verbe de causalité C1 · leur portée sociale = expression C1 pour "broader impact" · développement de l'esprit critique</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il est certes vrai que certains élèves s'intéressent peu aux arts, mais cela ne remet pas en cause la valeur de ces matières pour l'ensemble de la société</div>
+          <div class="chunk-en">it is certainly true that some students show little interest in the arts, but this does not undermine the value of these subjects for society as a whole</div>
+          <div class="chunk-note">il est certes vrai que = ouverture de nuance · remettre en cause = expression C1 pour "to question the value of" · bonne structure de nuance complète</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">un enseignement culturel qui privilégie les cultures dominantes au détriment des cultures minoritaires risque de perpétuer des inégalités plutôt que de les corriger</div>
+          <div class="chunk-en">a cultural curriculum that favours dominant cultures to the detriment of minority cultures risks perpetuating inequalities rather than correcting them</div>
+          <div class="chunk-note">au détriment de = expression C1 · perpétuer = verbe fort · plutôt que de + infinitif = opposition C1 · argument nuance ou contre</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

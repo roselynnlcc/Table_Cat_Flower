@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — Les diplômes et le succès au travail</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d'Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Les diplômes et le succès au travail &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Diplômes et formation &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">le diplôme <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">degree, diploma</span></div>
+          <div class="wl-row"><span class="wl-fr">la qualification professionnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">professional qualification</span></div>
+          <div class="wl-row"><span class="wl-fr">la formation en gestion <em>(f)</em></span><span class="wl-en">management training</span></div>
+          <div class="wl-row"><span class="wl-fr">la certification <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">certification</span></div>
+          <div class="wl-row"><span class="wl-fr">le niveau d'études <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">level of education</span></div>
+          <div class="wl-row"><span class="wl-fr">le cursus <em>(m)</em></span><span class="wl-en">curriculum, course of study</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Succès et carrière</div>
+          <div class="wl-row"><span class="wl-fr">le succès professionnel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">professional success</span></div>
+          <div class="wl-row"><span class="wl-fr">la réussite <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">success, achievement</span></div>
+          <div class="wl-row"><span class="wl-fr">les compétences pratiques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">practical skills</span></div>
+          <div class="wl-row"><span class="wl-fr">l'expérience sur le terrain <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">hands-on / field experience</span></div>
+          <div class="wl-row"><span class="wl-fr">la promotion interne <em>(f)</em></span><span class="wl-en">internal promotion</span></div>
+          <div class="wl-row"><span class="wl-fr">la négociation de salaire <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">salary negotiation</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Limites et réalité du marché</div>
+          <div class="wl-row"><span class="wl-fr">la pertinence du diplôme <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">relevance of the degree</span></div>
+          <div class="wl-row"><span class="wl-fr">la garantie d'emploi <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">employment guarantee</span></div>
+          <div class="wl-row"><span class="wl-fr">la réalité du marché <em>(f)</em></span><span class="wl-en">market reality</span></div>
+          <div class="wl-row"><span class="wl-fr">le secteur saturé <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">saturated sector</span></div>
+          <div class="wl-row"><span class="wl-fr">les industries en évolution <em>(fpl)</em></span><span class="wl-en">evolving industries</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Soft skills et personnalité</div>
+          <div class="wl-row"><span class="wl-fr">les qualités humaines <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">interpersonal qualities</span></div>
+          <div class="wl-row"><span class="wl-fr">la détermination <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">determination</span></div>
+          <div class="wl-row"><span class="wl-fr">la créativité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">creativity</span></div>
+          <div class="wl-row"><span class="wl-fr">la résilience <em>(f)</em></span><span class="wl-en">resilience</span></div>
+          <div class="wl-row"><span class="wl-fr">la source de fierté <em>(f)</em></span><span class="wl-en">source of pride</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">garantir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to guarantee</td></tr>
+          <tr><td class="vfr">postuler</td><td class="vprep">à / pour</td><td class="vrel">auquel / pour lequel</td><td class="ven">to apply for</td></tr>
+          <tr><td class="vfr">dépendre</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to depend on</td></tr>
+          <tr><td class="vfr">valoriser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to add value to, to leverage</td></tr>
+          <tr><td class="vfr">concilier</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to balance with</td></tr>
+          <tr><td class="vfr">se heurter</td><td class="vprep">à</td><td class="vrel">à laquelle</td><td class="ven">to come up against</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">s'adapter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to adapt to</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; diplômes et travail</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">requis(e)</span><span class="adj-en">required, necessary</span></div>
+          <div class="adj-row"><span class="adj-fr">valorisé(e)</span><span class="adj-en">valued, leveraged</span></div>
+          <div class="adj-row"><span class="adj-fr">pertinent(e)</span><span class="adj-en">relevant, pertinent</span></div>
+          <div class="adj-row"><span class="adj-fr">insuffisant(e)</span><span class="adj-en">insufficient</span></div>
+          <div class="adj-row"><span class="adj-fr">saturé(e)</span><span class="adj-en">saturated, overcrowded</span></div>
+          <div class="adj-row"><span class="adj-fr">exigeant(e)</span><span class="adj-en">demanding</span></div>
+          <div class="adj-row"><span class="adj-fr">pratique</span><span class="adj-en">practical, hands-on</span></div>
+          <div class="adj-row"><span class="adj-fr">théorique</span><span class="adj-en">theoretical</span></div>
+          <div class="adj-row"><span class="adj-fr">évolutif(ve)</span><span class="adj-en">evolving, changeable</span></div>
+          <div class="adj-row"><span class="adj-fr">incontournable</span><span class="adj-en">unavoidable, essential</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Les diplômes garantissent le succès</div>
+          <div class="contrast-item">un diplôme donne accès à des postes qui requièrent des qualifications spécifiques</div>
+          <div class="contrast-item">obtenir un diplôme prouve une capacité à maîtriser des contenus exigeants sur la durée</div>
+          <div class="contrast-item">valoriser son diplôme lors d'une négociation salariale peut augmenter sa rémunération</div>
+          <div class="contrast-item">des secteurs comme la médecine ou le droit rendent le diplôme incontournable</div>
+          <div class="contrast-item">un diplôme de gestion contribue directement à développer des compétences en planification et organisation</div>
+          <div class="contrast-item">l'obtention d'un diplôme constitue une source de fierté et de réalisation personnelle</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Les diplômes ne suffisent pas</div>
+          <div class="contrast-item">avoir un diplôme ne garantit pas automatiquement l'emploi dans un marché saturé</div>
+          <div class="contrast-item">l'expérience pratique sur le terrain compte souvent autant que les qualifications théoriques</div>
+          <div class="contrast-item">la pertinence d'un diplôme varie selon les secteurs : inutile dans l'ingénierie si en littérature</div>
+          <div class="contrast-item">des compétences comme la créativité et la résilience ne s'apprennent pas dans les manuels</div>
+          <div class="contrast-item">concilier études exigeantes et vie personnelle génère un stress qui peut compromettre la réussite</div>
+          <div class="contrast-item">les industries évoluent si vite qu'un diplôme obtenu il y a dix ans peut être dépassé</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">un diplôme constitue une preuve de compétences et de connaissances utile pour l'embauche, même si cette preuve ne garantit pas le succès à elle seule</div>
+          <div class="chunk-en">a degree serves as proof of skills and knowledge useful for hiring, even if this proof alone does not guarantee success</div>
+          <div class="chunk-note">constituer une preuve de = formule C1 · à elle seule = expression restrictive forte · même si = concession intégrée · bonne phrase de Point 1 nuancée</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">la pertinence d'un diplôme varie selon les secteurs : un diplôme en littérature peut être peu utile dans l'ingénierie</div>
+          <div class="chunk-en">the relevance of a degree varies by sector: a degree in literature may be of little use in engineering</div>
+          <div class="chunk-note">varier selon = structure de relativisation C1 · les deux points = explication directe orale · argument nuance ou contre excellent</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">force est de constater que des qualités comme la créativité et la résilience jouent un rôle déterminant dans le succès professionnel, sans être enseignées dans aucun cursus</div>
+          <div class="chunk-en">one must acknowledge that qualities such as creativity and resilience play a determining role in professional success, without being taught in any curriculum</div>
+          <div class="chunk-note">force est de constater que = expression C1 d'évidence · sans être enseignées = participe présent négatif · argument contre les diplômes très fort</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il serait souhaitable que les entreprises évaluent les candidats sur l'ensemble de leur profil, et non uniquement sur leurs diplômes</div>
+          <div class="chunk-en">it would be desirable for companies to assess candidates on their overall profile, and not solely on their qualifications</div>
+          <div class="chunk-note">il serait souhaitable que + subjonctif = appel à l'action pour la conclusion · non uniquement sur = opposition restrictive · bonne phrase de conclusion</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

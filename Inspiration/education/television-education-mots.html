@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — La télévision dans l'éducation</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d'Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">La télévision dans l'éducation des enfants &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Contenu et apprentissage &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les émissions éducatives <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">educational programmes</span></div>
+          <div class="wl-row"><span class="wl-fr">les documentaires <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">documentaries</span></div>
+          <div class="wl-row"><span class="wl-fr">l'apprentissage visuel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">visual learning</span></div>
+          <div class="wl-row"><span class="wl-fr">l'alphabétisation <em>(f)</em></span><span class="wl-en">literacy</span></div>
+          <div class="wl-row"><span class="wl-fr">les cours à distance <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">distance learning</span></div>
+          <div class="wl-row"><span class="wl-fr">les tutoriels en ligne <em>(mpl)</em></span><span class="wl-en">online tutorials</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Développement de l'enfant</div>
+          <div class="wl-row"><span class="wl-fr">la créativité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">creativity</span></div>
+          <div class="wl-row"><span class="wl-fr">l'imagination <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">imagination</span></div>
+          <div class="wl-row"><span class="wl-fr">l'attention soutenue <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">sustained attention</span></div>
+          <div class="wl-row"><span class="wl-fr">le comportement passif <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">passive behaviour</span></div>
+          <div class="wl-row"><span class="wl-fr">l'ouverture culturelle <em>(f)</em></span><span class="wl-en">cultural openness</span></div>
+          <div class="wl-row"><span class="wl-fr">le développement cognitif <em>(m)</em></span><span class="wl-en">cognitive development</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Risques et santé</div>
+          <div class="wl-row"><span class="wl-fr">les contenus inappropriés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">inappropriate content</span></div>
+          <div class="wl-row"><span class="wl-fr">la dépendance à l'écran <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">screen addiction</span></div>
+          <div class="wl-row"><span class="wl-fr">la lumière bleue <em>(f)</em></span><span class="wl-en">blue light</span></div>
+          <div class="wl-row"><span class="wl-fr">la posture <em>(f)</em></span><span class="wl-en">posture</span></div>
+          <div class="wl-row"><span class="wl-fr">les problèmes de vue <em>(mpl)</em></span><span class="wl-en">eyesight problems</span></div>
+          <div class="wl-row"><span class="wl-fr">le temps d'écran <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">screen time</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Famille et société</div>
+          <div class="wl-row"><span class="wl-fr">la supervision parentale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">parental supervision</span></div>
+          <div class="wl-row"><span class="wl-fr">les activités extérieures <em>(fpl)</em></span><span class="wl-en">outdoor activities</span></div>
+          <div class="wl-row"><span class="wl-fr">l'interaction sociale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">social interaction</span></div>
+          <div class="wl-row"><span class="wl-fr">les émissions violentes <em>(fpl)</em></span><span class="wl-en">violent programmes</span></div>
+          <div class="wl-row"><span class="wl-fr">le contrôle parental <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">parental controls</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">exposer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to expose to</td></tr>
+          <tr><td class="vfr">encourager</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to encourage to</td></tr>
+          <tr><td class="vfr">passer du temps</td><td class="vprep">devant</td><td class="vrel">devant lequel</td><td class="ven">to spend time in front of</td></tr>
+          <tr><td class="vfr">nuire</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to harm</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">s'immerger</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to immerse oneself in</td></tr>
+          <tr><td class="vfr">interagir</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to interact with</td></tr>
+          <tr><td class="vfr">développer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to develop</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; médias et enfance</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">audiovisuel(le)</span><span class="adj-en">audiovisual</span></div>
+          <div class="adj-row"><span class="adj-fr">inapproprié(e)</span><span class="adj-en">inappropriate</span></div>
+          <div class="adj-row"><span class="adj-fr">passif(ve)</span><span class="adj-en">passive</span></div>
+          <div class="adj-row"><span class="adj-fr">actif(ve)</span><span class="adj-en">active</span></div>
+          <div class="adj-row"><span class="adj-fr">supervisé(e)</span><span class="adj-en">supervised</span></div>
+          <div class="adj-row"><span class="adj-fr">éducatif(ve)</span><span class="adj-en">educational</span></div>
+          <div class="adj-row"><span class="adj-fr">excessif(ve)</span><span class="adj-en">excessive</span></div>
+          <div class="adj-row"><span class="adj-fr">nuisible</span><span class="adj-en">harmful, detrimental</span></div>
+          <div class="adj-row"><span class="adj-fr">culturel(le)</span><span class="adj-en">cultural</span></div>
+          <div class="adj-row"><span class="adj-fr">pré-établi(e)</span><span class="adj-en">pre-set, pre-established</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; La télévision dans l'éducation</div>
+          <div class="contrast-item">regarder des documentaires éducatifs expose les enfants à des cultures et idées variées</div>
+          <div class="contrast-item">la télévision permet d'accéder à des cours à distance et des tutoriels pédagogiques</div>
+          <div class="contrast-item">les émissions éducatives développent la compréhension de la lecture et de l'écriture</div>
+          <div class="contrast-item">certains programmes exigent une attention soutenue qui améliore la concentration</div>
+          <div class="contrast-item">la télévision éveille la curiosité intellectuelle et l'ouverture sur le monde</div>
+          <div class="contrast-item">utilisée avec supervision, elle constitue un outil pédagogique accessible à tous</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; La télévision dans l'éducation</div>
+          <div class="contrast-item">une exposition excessive à l'écran freine le développement de la créativité et de l'imagination</div>
+          <div class="contrast-item">regarder la télévision encourage un comportement passif qui nuit à l'apprentissage actif</div>
+          <div class="contrast-item">les contenus inappropriés peuvent perturber le développement émotionnel des enfants</div>
+          <div class="contrast-item">passer trop de temps devant l'écran réduit les interactions sociales et les activités physiques</div>
+          <div class="contrast-item">la lumière bleue des écrans provoque des troubles du sommeil et des problèmes de vue</div>
+          <div class="contrast-item">les activités pré-établies laissent peu de place à l'initiative et à la réflexion personnelle</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">une exposition excessive à la télévision encourage un comportement passif chez l'enfant, au détriment de son développement cognitif</div>
+          <div class="chunk-en">excessive exposure to television encourages passive behaviour in children, to the detriment of their cognitive development</div>
+          <div class="chunk-note">au détriment de = expression C1 pour indiquer une perte · comportement passif = opposition clé avec apprentissage actif · structure argument + conséquence</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">les documentaires permettent aux enfants de s'immerger dans des cultures lointaines, ce qui éveille leur curiosité et leur sens critique</div>
+          <div class="chunk-en">documentaries allow children to immerse themselves in distant cultures, which awakens their curiosity and critical thinking</div>
+          <div class="chunk-note">ce qui éveille = relatif de conséquence · s'immerger dans = verbe expressif C1 · éveiller la curiosité = expression figée mémorisable</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">à mesure que le temps d'écran augmente, les occasions d'interaction sociale directe diminuent proportionnellement</div>
+          <div class="chunk-en">as screen time increases, opportunities for direct social interaction decrease proportionally</div>
+          <div class="chunk-note">à mesure que = connecteur de corrélation C1 · proportionnellement = adverbe fort · structure corrélation directe réutilisable pour d'autres sujets</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il serait souhaitable que les parents encadrent strictement le temps d'écran afin de préserver l'équilibre entre apprentissage numérique et développement social</div>
+          <div class="chunk-en">it would be desirable for parents to strictly supervise screen time in order to preserve the balance between digital learning and social development</div>
+          <div class="chunk-note">il serait souhaitable que + subjonctif = structure de conclusion · afin de + infinitif = finalité soignée · phrase de conclusion prête à l'emploi</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

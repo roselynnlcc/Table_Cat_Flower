@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots — Faire de longues études</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d'Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Faire de longues études &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Formation et diplômes &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les études supérieures <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">higher education</span></div>
+          <div class="wl-row"><span class="wl-fr">le diplôme de maîtrise <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">master's degree</span></div>
+          <div class="wl-row"><span class="wl-fr">le doctorat <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">doctorate, PhD</span></div>
+          <div class="wl-row"><span class="wl-fr">la spécialisation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">specialization</span></div>
+          <div class="wl-row"><span class="wl-fr">les frais de scolarité <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">tuition fees</span></div>
+          <div class="wl-row"><span class="wl-fr">la formation continue <em>(f)</em></span><span class="wl-en">continuing education</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Carrière et emploi</div>
+          <div class="wl-row"><span class="wl-fr">le marché du travail <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">job market</span></div>
+          <div class="wl-row"><span class="wl-fr">les débouchés professionnels <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">career prospects, job openings</span></div>
+          <div class="wl-row"><span class="wl-fr">la promotion <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">promotion, career advancement</span></div>
+          <div class="wl-row"><span class="wl-fr">la rémunération <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">salary, remuneration</span></div>
+          <div class="wl-row"><span class="wl-fr">l'insertion professionnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">entry into the workforce</span></div>
+          <div class="wl-row"><span class="wl-fr">la reconversion professionnelle <em>(f)</em></span><span class="wl-en">career change</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Coûts et sacrifices</div>
+          <div class="wl-row"><span class="wl-fr">les frais de subsistance <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">living expenses</span></div>
+          <div class="wl-row"><span class="wl-fr">la dette étudiante <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">student debt</span></div>
+          <div class="wl-row"><span class="wl-fr">le stress académique <em>(m)</em></span><span class="wl-en">academic stress</span></div>
+          <div class="wl-row"><span class="wl-fr">les responsabilités familiales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">family responsibilities</span></div>
+          <div class="wl-row"><span class="wl-fr">le retard dans la carrière <em>(m)</em></span><span class="wl-en">career delay</span></div>
+          <div class="wl-row"><span class="wl-fr">la pression académique <em>(f)</em></span><span class="wl-en">academic pressure</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Développement personnel</div>
+          <div class="wl-row"><span class="wl-fr">l'épanouissement personnel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">personal fulfilment</span></div>
+          <div class="wl-row"><span class="wl-fr">la réalisation personnelle <em>(f)</em></span><span class="wl-en">personal achievement</span></div>
+          <div class="wl-row"><span class="wl-fr">le réseau professionnel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">professional network</span></div>
+          <div class="wl-row"><span class="wl-fr">les compétences analytiques <em>(fpl)</em></span><span class="wl-en">analytical skills</span></div>
+          <div class="wl-row"><span class="wl-fr">la pensée critique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">critical thinking</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">se spécialiser</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to specialize in</td></tr>
+          <tr><td class="vfr">accéder</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to access, to reach</td></tr>
+          <tr><td class="vfr">bénéficier</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to benefit from</td></tr>
+          <tr><td class="vfr">concilier</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to balance, to reconcile with</td></tr>
+          <tr><td class="vfr">s'endetter</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to go into debt</td></tr>
+          <tr><td class="vfr">déboucher</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to lead to, to result in</td></tr>
+          <tr><td class="vfr">valoriser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to enhance the value of</td></tr>
+          <tr><td class="vfr">retarder</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to delay, to postpone</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; études et carrière</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">qualifié(e)</span><span class="adj-en">qualified, skilled</span></div>
+          <div class="adj-row"><span class="adj-fr">spécialisé(e)</span><span class="adj-en">specialised</span></div>
+          <div class="adj-row"><span class="adj-fr">exigeant(e)</span><span class="adj-en">demanding, rigorous</span></div>
+          <div class="adj-row"><span class="adj-fr">valorisé(e)</span><span class="adj-en">valued, enhanced</span></div>
+          <div class="adj-row"><span class="adj-fr">compétitif(ve)</span><span class="adj-en">competitive</span></div>
+          <div class="adj-row"><span class="adj-fr">rentable</span><span class="adj-en">profitable, worthwhile</span></div>
+          <div class="adj-row"><span class="adj-fr">incertain(e)</span><span class="adj-en">uncertain</span></div>
+          <div class="adj-row"><span class="adj-fr">supérieur(e)</span><span class="adj-en">higher, superior</span></div>
+          <div class="adj-row"><span class="adj-fr">académique</span><span class="adj-en">academic</span></div>
+          <div class="adj-row"><span class="adj-fr">personnel(le)</span><span class="adj-en">personal</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Faire de longues études</div>
+          <div class="contrast-item">se spécialiser dans un domaine ouvre des débouchés professionnels plus variés et mieux rémunérés</div>
+          <div class="contrast-item">des études poussées permettent d'acquérir une pensée critique et des compétences analytiques durables</div>
+          <div class="contrast-item">un diplôme supérieur donne accès à des postes de direction inaccessibles sans qualification</div>
+          <div class="contrast-item">les études supérieures favorisent l'épanouissement personnel et la réalisation de soi</div>
+          <div class="contrast-item">intégrer une communauté universitaire construit un réseau professionnel précieux</div>
+          <div class="contrast-item">investir dans sa formation, c'est investir dans une sécurité professionnelle à long terme</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Faire de longues études</div>
+          <div class="contrast-item">les frais de scolarité et de subsistance s'accumulent et peuvent générer une dette étudiante lourde</div>
+          <div class="contrast-item">passer de nombreuses années en formation retarde l'entrée sur le marché du travail</div>
+          <div class="contrast-item">concilier études à temps plein et responsabilités familiales reste très difficile</div>
+          <div class="contrast-item">un diplôme ne garantit pas l'emploi : le marché du travail évolue plus vite que les cursus</div>
+          <div class="contrast-item">la pression académique intense engendre du stress et des problèmes de santé mentale</div>
+          <div class="contrast-item">certaines compétences pratiques s'acquièrent mieux sur le terrain qu'en salle de cours</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">faire de longues études permet d'acquérir des compétences spécialisées qui sont valorisées par les employeurs dans des secteurs de pointe</div>
+          <div class="chunk-en">pursuing long studies allows one to acquire specialised skills that are valued by employers in cutting-edge sectors</div>
+          <div class="chunk-note">acquérir des compétences = collocation forte · secteurs de pointe = expression C1 · argument de Point 1 directement utilisable</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">avoir un diplôme de niveau supérieur ne garantit pas automatiquement l'obtention d'un emploi, surtout dans des domaines saturés</div>
+          <div class="chunk-en">having a higher-level degree does not automatically guarantee getting a job, especially in saturated fields</div>
+          <div class="chunk-note">ne garantit pas automatiquement = nuance forte · des domaines saturés = expression réaliste C1 · argument idéal pour la nuance ou pour la position CONTRE</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">les études supérieures contribuent non seulement au développement professionnel, mais aussi à l'épanouissement intellectuel et personnel</div>
+          <div class="chunk-en">higher education contributes not only to professional development, but also to intellectual and personal fulfilment</div>
+          <div class="chunk-note">non seulement… mais aussi = double avantage C1 · épanouissement = nom fort · structure Point 1 + Point 2 en une seule phrase</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">à mesure que le coût des études augmente, de plus en plus d'étudiants se retrouvent endettés avant même d'avoir commencé leur carrière</div>
+          <div class="chunk-en">as the cost of education rises, more and more students find themselves in debt before they have even started their career</div>
+          <div class="chunk-note">à mesure que = corrélation C1 · se retrouver + adjectif = construction expressive · avant même de = emphase temporelle · argument fort pour la nuance</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
