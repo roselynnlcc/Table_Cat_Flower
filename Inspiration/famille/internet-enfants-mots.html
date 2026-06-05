@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; L&#39;Internet pour les enfants</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">L&#39;Internet pour les enfants &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Apprentissage et découverte &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les connaissances <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">knowledge</span></div>
+          <div class="wl-row"><span class="wl-fr">les nouvelles cultures <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">new cultures</span></div>
+          <div class="wl-row"><span class="wl-fr">les compétences informatiques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">IT skills</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;autonomie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">autonomy</span></div>
+          <div class="wl-row"><span class="wl-fr">les logiciels <em>(mpl)</em></span><span class="wl-en">software</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;enrichissement intellectuel <em>(m)</em></span><span class="wl-en">intellectual enrichment</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Dangers et risques</div>
+          <div class="wl-row"><span class="wl-fr">la dépendance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">addiction, dependency</span></div>
+          <div class="wl-row"><span class="wl-fr">le cyberharcèlement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">cyberbullying</span></div>
+          <div class="wl-row"><span class="wl-fr">les contenus inappropriés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">inappropriate content</span></div>
+          <div class="wl-row"><span class="wl-fr">les informations personnelles <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">personal information</span></div>
+          <div class="wl-row"><span class="wl-fr">les personnes mal intentionnées <em>(fpl)</em></span><span class="wl-en">ill-intentioned individuals</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie en ligne <em>(f)</em></span><span class="wl-en">online life</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Socialisation</div>
+          <div class="wl-row"><span class="wl-fr">la socialisation en ligne <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">online socialisation</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie réelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">real life</span></div>
+          <div class="wl-row"><span class="wl-fr">la productivité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">productivity</span></div>
+          <div class="wl-row"><span class="wl-fr">les loisirs en dehors de l&#39;écran <em>(mpl)</em></span><span class="wl-en">off-screen leisure</span></div>
+          <div class="wl-row"><span class="wl-fr">le contact humain <em>(m)</em></span><span class="wl-en">human contact</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Contrôle parental</div>
+          <div class="wl-row"><span class="wl-fr">la surveillance parentale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">parental monitoring</span></div>
+          <div class="wl-row"><span class="wl-fr">le contrôle parental <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">parental controls</span></div>
+          <div class="wl-row"><span class="wl-fr">les règles d&#39;utilisation <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">usage rules</span></div>
+          <div class="wl-row"><span class="wl-fr">le temps d&#39;écran <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">screen time</span></div>
+          <div class="wl-row"><span class="wl-fr">la protection des mineurs <em>(f)</em></span><span class="wl-en">protection of minors</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">s&#39;enrichir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to enrich oneself</td></tr>
+          <tr><td class="vfr">se familiariser</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to familiarise oneself with</td></tr>
+          <tr><td class="vfr">s&#39;exposer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to expose oneself to</td></tr>
+          <tr><td class="vfr">tomber sur</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to come across, to stumble upon</td></tr>
+          <tr><td class="vfr">se couper</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to cut oneself off from</td></tr>
+          <tr><td class="vfr">encadrer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to supervise, to guide</td></tr>
+          <tr><td class="vfr">souffrir</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to suffer from</td></tr>
+          <tr><td class="vfr">permettre</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to allow, to enable</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; Internet et enfants</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">numérique</span><span class="adj-en">digital</span></div>
+          <div class="adj-row"><span class="adj-fr">responsable</span><span class="adj-en">responsible</span></div>
+          <div class="adj-row"><span class="adj-fr">inapproprié(e)</span><span class="adj-en">inappropriate</span></div>
+          <div class="adj-row"><span class="adj-fr">encadré(e)</span><span class="adj-en">supervised</span></div>
+          <div class="adj-row"><span class="adj-fr">dépendant(e)</span><span class="adj-en">dependent, addicted</span></div>
+          <div class="adj-row"><span class="adj-fr">autonome</span><span class="adj-en">autonomous</span></div>
+          <div class="adj-row"><span class="adj-fr">distrait(e)</span><span class="adj-en">distracted</span></div>
+          <div class="adj-row"><span class="adj-fr">sensible</span><span class="adj-en">sensitive, vulnerable</span></div>
+          <div class="adj-row"><span class="adj-fr">éducatif(ve)</span><span class="adj-en">educational</span></div>
+          <div class="adj-row"><span class="adj-fr">dangereux(se)</span><span class="adj-en">dangerous</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; L&#39;Internet pour les enfants</div>
+          <div class="contrast-item">se familiariser avec les outils numériques dès l&#39;enfance prépare les enfants au monde professionnel de demain</div>
+          <div class="contrast-item">accéder à de nouvelles connaissances et cultures en ligne enrichit l&#39;horizon intellectuel des enfants</div>
+          <div class="contrast-item">Internet permet aux enfants de s&#39;exprimer, de partager leurs idées et de développer leur autonomie</div>
+          <div class="contrast-item">les plateformes éducatives en ligne offrent des ressources complémentaires à l&#39;école</div>
+          <div class="contrast-item">les interactions en ligne permettent de socialiser et de se faire des amis au-delà du quartier</div>
+          <div class="contrast-item">naviguer en ligne de façon encadrée apprend aux enfants à évaluer les sources et à penser de façon critique</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; L&#39;Internet pour les enfants</div>
+          <div class="contrast-item">la dépendance aux écrans réduit le temps consacré aux activités physiques et aux loisirs en dehors de l&#39;écran</div>
+          <div class="contrast-item">tomber sur des contenus inappropriés peut traumatiser un enfant qui n&#39;est pas encore prêt à les traiter</div>
+          <div class="contrast-item">le cyberharcèlement expose les enfants à des moqueries et des violences en ligne difficiles à détecter</div>
+          <div class="contrast-item">divulguer des informations personnelles en ligne met les enfants en contact avec des personnes mal intentionnées</div>
+          <div class="contrast-item">se couper de la vie réelle au profit de la vie en ligne nuit au développement des compétences sociales</div>
+          <div class="contrast-item">sans règles d&#39;utilisation claires, le temps d&#39;écran excessif entraîne des troubles de concentration et du sommeil</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">se familiariser avec les outils numériques dès le plus jeune âge constitue un avantage indéniable dans un monde de plus en plus connecté</div>
+          <div class="chunk-en">familiarising oneself with digital tools from a very young age is an undeniable advantage in an increasingly connected world</div>
+          <div class="chunk-note">dès le plus jeune âge = expression C1 · constituer un avantage = formule soignée · dans un monde de plus en plus = progression temporelle</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">s&#39;exposer sans encadrement à des contenus inappropriés peut avoir des répercussions durables sur le développement psychologique de l&#39;enfant</div>
+          <div class="chunk-en">being exposed without supervision to inappropriate content can have lasting repercussions on the child&#39;s psychological development</div>
+          <div class="chunk-note">sans encadrement = restriction forte · avoir des répercussions = expression C1 · développement psychologique = précision soutenue</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que l&#39;Internet offre des ressources éducatives précieuses, il serait souhaitable que les parents encadrent rigoureusement le temps d&#39;écran de leurs enfants</div>
+          <div class="chunk-en">although the Internet offers valuable educational resources, it would be desirable for parents to strictly supervise their children&#39;s screen time</div>
+          <div class="chunk-note">bien que + subjonctif = concession C1 · il serait souhaitable que + subjonctif = appel à l&#39;action · bonne structure de conclusion</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">à mesure que l&#39;enfant grandit, lui apprendre à utiliser Internet de façon responsable devient une priorité éducative</div>
+          <div class="chunk-en">as the child grows, teaching them to use the internet responsibly becomes an educational priority</div>
+          <div class="chunk-note">à mesure que = corrélation C1 · de façon responsable = formule C1 · priorité éducative = expression percutante</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

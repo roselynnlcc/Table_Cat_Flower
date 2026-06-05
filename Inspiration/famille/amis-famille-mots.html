@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Être amis avec des membres de sa famille</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Être amis avec des membres de sa famille &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Liens et solidarité &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les liens familiaux <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">family bonds</span></div>
+          <div class="wl-row"><span class="wl-fr">la solidarité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">solidarity</span></div>
+          <div class="wl-row"><span class="wl-fr">la confiance mutuelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mutual trust</span></div>
+          <div class="wl-row"><span class="wl-fr">les souvenirs communs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">shared memories</span></div>
+          <div class="wl-row"><span class="wl-fr">le soutien moral <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">moral support</span></div>
+          <div class="wl-row"><span class="wl-fr">la compréhension <em>(f)</em></span><span class="wl-en">understanding, comprehension</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Risques et tensions</div>
+          <div class="wl-row"><span class="wl-fr">les conflits <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">conflicts</span></div>
+          <div class="wl-row"><span class="wl-fr">les tensions <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">tensions</span></div>
+          <div class="wl-row"><span class="wl-fr">la perte de vie privée <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">loss of privacy</span></div>
+          <div class="wl-row"><span class="wl-fr">la surveillance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">surveillance, monitoring</span></div>
+          <div class="wl-row"><span class="wl-fr">le favoritisme <em>(m)</em></span><span class="wl-en">favouritism</span></div>
+          <div class="wl-row"><span class="wl-fr">la jalousie <em>(f)</em></span><span class="wl-en">jealousy</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Identité et autonomie</div>
+          <div class="wl-row"><span class="wl-fr">l&#39;autonomie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">autonomy</span></div>
+          <div class="wl-row"><span class="wl-fr">la liberté personnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">personal freedom</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;émancipation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">emancipation</span></div>
+          <div class="wl-row"><span class="wl-fr">les propres choix <em>(mpl)</em></span><span class="wl-en">one&#39;s own choices</span></div>
+          <div class="wl-row"><span class="wl-fr">la distance saine <em>(f)</em></span><span class="wl-en">healthy distance</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Expériences et rencontres</div>
+          <div class="wl-row"><span class="wl-fr">les nouvelles rencontres <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">new encounters, new people</span></div>
+          <div class="wl-row"><span class="wl-fr">les nouvelles expériences <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">new experiences</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;estime de soi <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">self-esteem</span></div>
+          <div class="wl-row"><span class="wl-fr">la tolérance <em>(f)</em></span><span class="wl-en">tolerance</span></div>
+          <div class="wl-row"><span class="wl-fr">les valeurs communes <em>(fpl)</em></span><span class="wl-en">shared values</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">se confier</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to confide in</td></tr>
+          <tr><td class="vfr">s&#39;affirmer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to assert oneself</td></tr>
+          <tr><td class="vfr">se sentir</td><td class="vprep">reconnu(e)</td><td class="vrel">—</td><td class="ven">to feel recognised, valued</td></tr>
+          <tr><td class="vfr">se sentir</td><td class="vprep">étouffé(e)</td><td class="vrel">—</td><td class="ven">to feel stifled</td></tr>
+          <tr><td class="vfr">prendre ses propres décisions</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to make one&#39;s own decisions</td></tr>
+          <tr><td class="vfr">s&#39;ouvrir</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to open up to</td></tr>
+          <tr><td class="vfr">renforcer</td><td class="wl-row">—</td><td class="vrel">—</td><td class="ven">to strengthen</td></tr>
+          <tr><td class="vfr">partager</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to share with</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; amitié et famille</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">soudé(e)</span><span class="adj-en">close-knit, united</span></div>
+          <div class="adj-row"><span class="adj-fr">étouffant(e)</span><span class="adj-en">stifling, suffocating</span></div>
+          <div class="adj-row"><span class="adj-fr">autonome</span><span class="adj-en">autonomous</span></div>
+          <div class="adj-row"><span class="adj-fr">complice</span><span class="adj-en">close, in cahoots</span></div>
+          <div class="adj-row"><span class="adj-fr">influencé(e)</span><span class="adj-en">influenced</span></div>
+          <div class="adj-row"><span class="adj-fr">libre</span><span class="adj-en">free</span></div>
+          <div class="adj-row"><span class="adj-fr">tolérant(e)</span><span class="adj-en">tolerant</span></div>
+          <div class="adj-row"><span class="adj-fr">contrôlé(e)</span><span class="adj-en">controlled</span></div>
+          <div class="adj-row"><span class="adj-fr">solidaire</span><span class="adj-en">in solidarity</span></div>
+          <div class="adj-row"><span class="adj-fr">émancipé(e)</span><span class="adj-en">emancipated, free</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Être amis avec des membres de sa famille</div>
+          <div class="contrast-item">partager des souvenirs communs et se soutenir mutuellement renforce les liens familiaux de façon durable</div>
+          <div class="contrast-item">se confier à un membre de sa famille sur qui l&#39;on peut compter réduit la solitude et renforce la confiance mutuelle</div>
+          <div class="contrast-item">apprendre à accepter les différences et les imperfections de ses proches développe la tolérance</div>
+          <div class="contrast-item">se sentir reconnu et apprécié par sa famille renforce l&#39;estime de soi et le sentiment d&#39;appartenance</div>
+          <div class="contrast-item">partager des activités et des valeurs communes avec ses proches construit une complicité unique</div>
+          <div class="contrast-item">la solidarité familiale offre un filet de sécurité émotionnel que les amitiés ordinaires ne garantissent pas toujours</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Être amis avec des membres de sa famille</div>
+          <div class="contrast-item">se sentir surveillé ou contrôlé par ses proches nuit à la liberté personnelle et à l&#39;émancipation</div>
+          <div class="contrast-item">les conflits et les tensions persistent car les liens de sang obligent à cohabiter malgré les désaccords</div>
+          <div class="contrast-item">la difficulté à s&#39;affirmer et à prendre ses propres décisions s&#39;accroît quand la famille est trop influente</div>
+          <div class="contrast-item">le risque de favoritisme et de jalousie entre frères et sœurs crée des blessures difficiles à surmonter</div>
+          <div class="contrast-item">s&#39;ouvrir uniquement à sa famille prive de nouvelles rencontres et de nouvelles expériences enrichissantes</div>
+          <div class="contrast-item">maintenir une distance saine est difficile quand l&#39;amitié familiale tourne à la dépendance affective</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">se confier à un membre de sa famille offre un soutien unique, fondé sur une confiance construite sur des années de vie commune</div>
+          <div class="chunk-en">confiding in a family member offers unique support, built on trust forged over years of shared life</div>
+          <div class="chunk-note">se confier à = verbe + préposition · fondé sur = participe passé adjectif · construit sur des années = argument de durée C1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">se sentir trop contrôlé par ses proches peut freiner l&#39;émancipation et empêcher de forger sa propre identité</div>
+          <div class="chunk-en">feeling too controlled by one&#39;s family can hinder emancipation and prevent one from forging one&#39;s own identity</div>
+          <div class="chunk-note">freiner + empêcher = doublet d&#39;infinitifs · forger sa propre identité = expression C1 · argument de nuance fort</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que les liens familiaux offrent une solidarité précieuse, il serait souhaitable que chacun préserve une sphère d&#39;autonomie personnelle</div>
+          <div class="chunk-en">although family bonds offer precious solidarity, it would be desirable for everyone to preserve a sphere of personal autonomy</div>
+          <div class="chunk-note">bien que + subjonctif = concession C1 · il serait souhaitable que + subjonctif = appel · sphère d&#39;autonomie = expression soutenue</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">à mesure que l&#39;on grandit, la frontière entre famille et amitié se redéfinit et demande à être négociée avec soin</div>
+          <div class="chunk-en">as one grows up, the boundary between family and friendship redefines itself and needs to be negotiated carefully</div>
+          <div class="chunk-note">à mesure que = corrélation C1 · se redéfinir = verbe pronominal fort · demande à être négocié = passif informel soigné</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
