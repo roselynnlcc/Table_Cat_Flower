@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Se faire des amis</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Se faire des amis &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Bien-être et soutien &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">le bien-être <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">well-being</span></div>
+          <div class="wl-row"><span class="wl-fr">la santé mentale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mental health</span></div>
+          <div class="wl-row"><span class="wl-fr">le soutien moral <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">moral support</span></div>
+          <div class="wl-row"><span class="wl-fr">la solitude <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">loneliness, solitude</span></div>
+          <div class="wl-row"><span class="wl-fr">les moments difficiles <em>(mpl)</em></span><span class="wl-en">difficult moments</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;encouragement <em>(m)</em></span><span class="wl-en">encouragement</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Développement personnel</div>
+          <div class="wl-row"><span class="wl-fr">le développement personnel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">personal development</span></div>
+          <div class="wl-row"><span class="wl-fr">les centres d&#39;intérêt <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">interests, hobbies</span></div>
+          <div class="wl-row"><span class="wl-fr">les passions communes <em>(fpl)</em></span><span class="wl-en">shared passions</span></div>
+          <div class="wl-row"><span class="wl-fr">les activités communes <em>(fpl)</em></span><span class="wl-en">shared activities</span></div>
+          <div class="wl-row"><span class="wl-fr">les nouvelles situations <em>(fpl)</em></span><span class="wl-en">new situations</span></div>
+          <div class="wl-row"><span class="wl-fr">les points de vue <em>(mpl)</em></span><span class="wl-en">points of view, perspectives</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Risques et déceptions</div>
+          <div class="wl-row"><span class="wl-fr">la déception <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">disappointment</span></div>
+          <div class="wl-row"><span class="wl-fr">la trahison <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">betrayal</span></div>
+          <div class="wl-row"><span class="wl-fr">les différends <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">disagreements, disputes</span></div>
+          <div class="wl-row"><span class="wl-fr">la perte d&#39;amitié <em>(f)</em></span><span class="wl-en">loss of friendship</span></div>
+          <div class="wl-row"><span class="wl-fr">les situations dangereuses <em>(fpl)</em></span><span class="wl-en">dangerous situations</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Relations et compatibilité</div>
+          <div class="wl-row"><span class="wl-fr">les valeurs communes <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">shared values</span></div>
+          <div class="wl-row"><span class="wl-fr">les convictions <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">convictions, beliefs</span></div>
+          <div class="wl-row"><span class="wl-fr">le manque de temps <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">lack of time</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;entretien de l&#39;amitié <em>(m)</em></span><span class="wl-en">maintaining a friendship</span></div>
+          <div class="wl-row"><span class="wl-fr">la compatibilité <em>(f)</em></span><span class="wl-en">compatibility</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">compter</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to count on, to rely on</td></tr>
+          <tr><td class="vfr">s&#39;appuyer</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to lean on, to rely on</td></tr>
+          <tr><td class="vfr">partager</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to share</td></tr>
+          <tr><td class="vfr">s&#39;éloigner</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to drift away from</td></tr>
+          <tr><td class="vfr">faire confiance</td><td class="vprep">à</td><td class="vrel">à laquelle / auquel</td><td class="ven">to trust</td></tr>
+          <tr><td class="vfr">s&#39;entendre</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to get along with</td></tr>
+          <tr><td class="vfr">se confronter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to face, to be confronted with</td></tr>
+          <tr><td class="vfr">se divertir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to enjoy oneself, to have fun</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; amitié et socialisation</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">fidèle</span><span class="adj-en">loyal, faithful</span></div>
+          <div class="adj-row"><span class="adj-fr">infidèle</span><span class="adj-en">disloyal, unfaithful</span></div>
+          <div class="adj-row"><span class="adj-fr">bienveillant(e)</span><span class="adj-en">supportive, kind</span></div>
+          <div class="adj-row"><span class="adj-fr">compatible</span><span class="adj-en">compatible</span></div>
+          <div class="adj-row"><span class="adj-fr">enrichissant(e)</span><span class="adj-en">enriching</span></div>
+          <div class="adj-row"><span class="adj-fr">solitaire</span><span class="adj-en">solitary, lonely</span></div>
+          <div class="adj-row"><span class="adj-fr">déçu(e)</span><span class="adj-en">disappointed</span></div>
+          <div class="adj-row"><span class="adj-fr">solidaire</span><span class="adj-en">supportive, united</span></div>
+          <div class="adj-row"><span class="adj-fr">exigeant(e)</span><span class="adj-en">demanding</span></div>
+          <div class="adj-row"><span class="adj-fr">authentique</span><span class="adj-en">authentic, genuine</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Se faire des amis</div>
+          <div class="contrast-item">avoir des personnes sur qui compter réduit la solitude et améliore le bien-être et la santé mentale</div>
+          <div class="contrast-item">partager ses centres d&#39;intérêt et ses passions avec des amis enrichit les échanges et la vie quotidienne</div>
+          <div class="contrast-item">se confronter à de nouvelles situations grâce à ses amis favorise le développement personnel</div>
+          <div class="contrast-item">s&#39;appuyer sur ses amis dans les moments difficiles permet de se remonter le moral</div>
+          <div class="contrast-item">organiser des sorties et des moments de détente avec des amis enrichit la vie sociale</div>
+          <div class="contrast-item">entretenir des amitiés fondées sur des valeurs communes renforce la confiance et la fidélité</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Se faire des amis</div>
+          <div class="contrast-item">faire confiance à des personnes qui ne sont pas sincèrement intéressées par l&#39;amitié expose à la déception et à la trahison</div>
+          <div class="contrast-item">trouver des amis qui correspondent à ses valeurs et à ses convictions est souvent difficile</div>
+          <div class="contrast-item">le manque de temps pour entretenir les amitiés entraîne un éloignement progressif</div>
+          <div class="contrast-item">des différends persistants mettent fin à des amitiés pourtant solides</div>
+          <div class="contrast-item">s&#39;éloigner de ses convictions pour suivre ses amis expose à des situations dangereuses</div>
+          <div class="contrast-item">les amitiés superficielles ne correspondent pas aux valeurs ni aux intérêts profonds de la personne</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">avoir des amis sur qui compter contribue directement au bien-être et à la santé mentale, en réduisant le sentiment de solitude</div>
+          <div class="chunk-en">having friends to count on directly contributes to well-being and mental health, by reducing the feeling of loneliness</div>
+          <div class="chunk-note">compter sur = verbe fort + sur · en réduisant = gérondif C1 · argument direct pour Point 1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">trouver des amis qui partagent ses valeurs et ses convictions reste difficile, d&#39;autant plus que les emplois du temps sont souvent chargés</div>
+          <div class="chunk-en">finding friends who share one&#39;s values and beliefs remains difficult, especially since schedules are often busy</div>
+          <div class="chunk-note">d&#39;autant plus que = intensification C1 · emploi du temps chargé = expression C1 · bonne phrase de nuance</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que l&#39;amitié soit une source précieuse de soutien, il serait souhaitable que les individus investissent dans des relations fondées sur des valeurs communes</div>
+          <div class="chunk-en">although friendship is a precious source of support, it would be desirable for individuals to invest in relationships based on shared values</div>
+          <div class="chunk-note">bien que + subjonctif = concession C1 · il serait souhaitable que + subjonctif = appel à l&#39;action · structure de conclusion</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">à mesure que la vie professionnelle s&#39;intensifie, entretenir des amitiés authentiques exige un effort conscient et régulier</div>
+          <div class="chunk-en">as professional life intensifies, maintaining authentic friendships requires a conscious and regular effort</div>
+          <div class="chunk-note">à mesure que = corrélation C1 · authentique = adjectif C1 · effort conscient = formule soignée</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

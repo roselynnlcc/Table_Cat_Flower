@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Travailler en famille</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Travailler en famille &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Liens et cohésion &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les liens familiaux <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">family bonds</span></div>
+          <div class="wl-row"><span class="wl-fr">la cohésion <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">cohesion, unity</span></div>
+          <div class="wl-row"><span class="wl-fr">la collaboration <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">collaboration</span></div>
+          <div class="wl-row"><span class="wl-fr">les projets communs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">shared projects</span></div>
+          <div class="wl-row"><span class="wl-fr">le soutien mutuel <em>(m)</em></span><span class="wl-en">mutual support</span></div>
+          <div class="wl-row"><span class="wl-fr">la communication <em>(f)</em></span><span class="wl-en">communication</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Difficultés professionnelles</div>
+          <div class="wl-row"><span class="wl-fr">les conflits <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">conflicts</span></div>
+          <div class="wl-row"><span class="wl-fr">la dépendance financière <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">financial dependence</span></div>
+          <div class="wl-row"><span class="wl-fr">la reconnaissance professionnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">professional recognition</span></div>
+          <div class="wl-row"><span class="wl-fr">les problèmes de leadership <em>(mpl)</em></span><span class="wl-en">leadership issues</span></div>
+          <div class="wl-row"><span class="wl-fr">le développement professionnel <em>(m)</em></span><span class="wl-en">professional development</span></div>
+          <div class="wl-row"><span class="wl-fr">les avis divergents <em>(mpl)</em></span><span class="wl-en">differing opinions</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Équilibre vie pro / perso</div>
+          <div class="wl-row"><span class="wl-fr">la vie professionnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">professional life</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie personnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">personal life</span></div>
+          <div class="wl-row"><span class="wl-fr">la frontière <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">boundary, line</span></div>
+          <div class="wl-row"><span class="wl-fr">le temps libre <em>(m)</em></span><span class="wl-en">free time</span></div>
+          <div class="wl-row"><span class="wl-fr">la déconnexion <em>(f)</em></span><span class="wl-en">disconnecting, switching off</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Organisation du travail</div>
+          <div class="wl-row"><span class="wl-fr">la gestion du temps <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">time management</span></div>
+          <div class="wl-row"><span class="wl-fr">le partage des responsabilités <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">sharing of responsibilities</span></div>
+          <div class="wl-row"><span class="wl-fr">la conciliation <em>(f)</em></span><span class="wl-en">balancing, reconciling</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;organisation <em>(f)</em></span><span class="wl-en">organisation</span></div>
+          <div class="wl-row"><span class="wl-fr">les rôles de chacun <em>(mpl)</em></span><span class="wl-en">each person&#39;s role</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">renforcer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to strengthen, to reinforce</td></tr>
+          <tr><td class="vfr">concilier</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to reconcile, to balance with</td></tr>
+          <tr><td class="vfr">dépendre</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to depend on</td></tr>
+          <tr><td class="vfr">se soutenir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to support one another</td></tr>
+          <tr><td class="vfr">déconnecter</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to disconnect from</td></tr>
+          <tr><td class="vfr">s&#39;entendre</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to agree on</td></tr>
+          <tr><td class="vfr">nuire</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to harm, to be detrimental to</td></tr>
+          <tr><td class="vfr">définir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to define, to clarify</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; travailler en famille</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">soudé(e)</span><span class="adj-en">united, tight-knit</span></div>
+          <div class="adj-row"><span class="adj-fr">conflictuel(le)</span><span class="adj-en">conflictual, contentious</span></div>
+          <div class="adj-row"><span class="adj-fr">dépendant(e)</span><span class="adj-en">dependent</span></div>
+          <div class="adj-row"><span class="adj-fr">polyvalent(e)</span><span class="adj-en">versatile, multi-skilled</span></div>
+          <div class="adj-row"><span class="adj-fr">efficace</span><span class="adj-en">efficient, effective</span></div>
+          <div class="adj-row"><span class="adj-fr">professionnel(le)</span><span class="adj-en">professional</span></div>
+          <div class="adj-row"><span class="adj-fr">cohérent(e)</span><span class="adj-en">coherent, consistent</span></div>
+          <div class="adj-row"><span class="adj-fr">difficile à concilier</span><span class="adj-en">hard to balance</span></div>
+          <div class="adj-row"><span class="adj-fr">bienveillant(e)</span><span class="adj-en">supportive, kind</span></div>
+          <div class="adj-row"><span class="adj-fr">exigeant(e)</span><span class="adj-en">demanding</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Travailler en famille</div>
+          <div class="contrast-item">renforcer les liens familiaux en partageant des projets communs au quotidien</div>
+          <div class="contrast-item">se soutenir mutuellement au travail favorise une communication efficace et une meilleure gestion du temps</div>
+          <div class="contrast-item">définir clairement les rôles de chacun assure une organisation cohérente et évite les doublons</div>
+          <div class="contrast-item">travailler ensemble offre la satisfaction de construire quelque chose en équipe avec des personnes de confiance</div>
+          <div class="contrast-item">le soutien mutuel entre membres de la famille réduit le stress lié aux défis professionnels</div>
+          <div class="contrast-item">concilier vie professionnelle et personnelle est facilité quand les deux partagent les mêmes objectifs</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Travailler en famille</div>
+          <div class="contrast-item">des avis divergents sur la manière de travailler engendrent des conflits difficiles à gérer</div>
+          <div class="contrast-item">dépendre des autres membres de la famille nuit au développement professionnel individuel</div>
+          <div class="contrast-item">séparer vie professionnelle et personnelle devient difficile, au détriment du temps libre</div>
+          <div class="contrast-item">le manque de reconnaissance professionnelle crée un sentiment d&#39;injustice au sein du groupe familial</div>
+          <div class="contrast-item">les problèmes de leadership et les avis différents peuvent fragiliser à la fois les liens familiaux et l&#39;entreprise</div>
+          <div class="contrast-item">concilier toutes les activités familiales et professionnelles génère une surcharge difficile à gérer</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">travailler en famille renforce les liens entre les membres tout en permettant de construire des projets communs fondés sur la confiance</div>
+          <div class="chunk-en">working as a family strengthens bonds between members while allowing shared projects built on trust to take shape</div>
+          <div class="chunk-note">tout en + participe présent = simultanéité C1 · fondé sur = participe passé soigné · argument direct pour Point 1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">la difficulté à séparer vie professionnelle et personnelle risque de nuire à la fois aux relations familiales et aux résultats de l&#39;entreprise</div>
+          <div class="chunk-en">the difficulty in separating professional and personal life risks harming both family relationships and business outcomes</div>
+          <div class="chunk-note">à la fois... et = corrélation C1 · nuire à = verbe fort · bonne phrase de nuance</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que travailler en famille favorise la cohésion, il serait souhaitable que les membres définissent clairement les rôles de chacun pour éviter les conflits</div>
+          <div class="chunk-en">although working as a family fosters cohesion, it would be desirable for members to clearly define each person&#39;s role to avoid conflicts</div>
+          <div class="chunk-note">bien que + subjonctif = concession C1 · il serait souhaitable que + subjonctif = appel à l&#39;action · structure de conclusion</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">la dépendance financière vis-à-vis des autres membres de la famille peut freiner le développement professionnel individuel</div>
+          <div class="chunk-en">financial dependence on other family members can hinder individual professional development</div>
+          <div class="chunk-note">vis-à-vis de = expression C1 · freiner = verbe d&#39;impact · développement professionnel = formule soignée</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
