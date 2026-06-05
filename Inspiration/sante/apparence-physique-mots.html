@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; L&#39;importance de l&#39;apparence physique</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">L&#39;importance de l&#39;apparence physique &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Image et estime de soi &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la confiance en soi <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">self-confidence</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;estime de soi <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">self-esteem</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;image de soi <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">self-image</span></div>
+          <div class="wl-row"><span class="wl-fr">la première impression <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">first impression</span></div>
+          <div class="wl-row"><span class="wl-fr">le style vestimentaire <em>(m)</em></span><span class="wl-en">clothing style</span></div>
+          <div class="wl-row"><span class="wl-fr">la personnalité <em>(f)</em></span><span class="wl-en">personality</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Pression sociale</div>
+          <div class="wl-row"><span class="wl-fr">la pression sociale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">social pressure</span></div>
+          <div class="wl-row"><span class="wl-fr">les standards de beauté <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">beauty standards</span></div>
+          <div class="wl-row"><span class="wl-fr">les tendances <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">trends</span></div>
+          <div class="wl-row"><span class="wl-fr">la discrimination <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">discrimination</span></div>
+          <div class="wl-row"><span class="wl-fr">les complexes <em>(mpl)</em></span><span class="wl-en">complexes, insecurities</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;obsession <em>(f)</em></span><span class="wl-en">obsession</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Coûts et efforts</div>
+          <div class="wl-row"><span class="wl-fr">les coûts financiers <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">financial costs</span></div>
+          <div class="wl-row"><span class="wl-fr">les produits de beauté <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">beauty products</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;entretien de l&#39;apparence <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">maintaining one&#39;s appearance</span></div>
+          <div class="wl-row"><span class="wl-fr">le temps et l&#39;effort <em>(m)</em></span><span class="wl-en">time and effort</span></div>
+          <div class="wl-row"><span class="wl-fr">les vêtements <em>(mpl)</em></span><span class="wl-en">clothes, clothing</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Santé et caractère</div>
+          <div class="wl-row"><span class="wl-fr">la santé physique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">physical health</span></div>
+          <div class="wl-row"><span class="wl-fr">la condition physique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">physical fitness</span></div>
+          <div class="wl-row"><span class="wl-fr">les compétences <em>(fpl)</em></span><span class="wl-en">skills, competences</span></div>
+          <div class="wl-row"><span class="wl-fr">le caractère <em>(m)</em></span><span class="wl-en">character, personality</span></div>
+          <div class="wl-row"><span class="wl-fr">la valeur intrinsèque <em>(f)</em></span><span class="wl-en">intrinsic value</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">se conformer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to conform to</td></tr>
+          <tr><td class="vfr">se démarquer</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to stand out from</td></tr>
+          <tr><td class="vfr">soigner</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to take care of, to groom</td></tr>
+          <tr><td class="vfr">se comparer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to compare oneself to</td></tr>
+          <tr><td class="vfr">juger</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to judge on/by</td></tr>
+          <tr><td class="vfr">négliger</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to neglect</td></tr>
+          <tr><td class="vfr">s&#39;accepter</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to accept oneself</td></tr>
+          <tr><td class="vfr">s&#39;aimer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to love oneself</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; apparence physique</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">soigné(e)</span><span class="adj-en">well-groomed, neat</span></div>
+          <div class="adj-row"><span class="adj-fr">négligé(e)</span><span class="adj-en">neglected, unkempt</span></div>
+          <div class="adj-row"><span class="adj-fr">superficiel(le)</span><span class="adj-en">superficial, shallow</span></div>
+          <div class="adj-row"><span class="adj-fr">obsédé(e)</span><span class="adj-en">obsessed</span></div>
+          <div class="adj-row"><span class="adj-fr">discriminé(e)</span><span class="adj-en">discriminated against</span></div>
+          <div class="adj-row"><span class="adj-fr">confiant(e)</span><span class="adj-en">confident</span></div>
+          <div class="adj-row"><span class="adj-fr">coûteux(se)</span><span class="adj-en">costly, expensive</span></div>
+          <div class="adj-row"><span class="adj-fr">valorisant(e)</span><span class="adj-en">enhancing, affirming</span></div>
+          <div class="adj-row"><span class="adj-fr">sain(e)</span><span class="adj-en">healthy</span></div>
+          <div class="adj-row"><span class="adj-fr">néfaste</span><span class="adj-en">harmful, detrimental</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; L&#39;importance de l&#39;apparence physique</div>
+          <div class="contrast-item">soigner son apparence améliore la confiance en soi et l&#39;estime de soi dans la vie quotidienne</div>
+          <div class="contrast-item">donner une première impression soignée lors d&#39;un entretien d&#39;embauche renforce les chances professionnelles</div>
+          <div class="contrast-item">choisir un style vestimentaire qui reflète sa personnalité permet de se démarquer et d&#39;exprimer son identité</div>
+          <div class="contrast-item">pratiquer une activité physique régulière améliore à la fois la santé et la condition physique</div>
+          <div class="contrast-item">s&#39;accepter et s&#39;aimer tel que l&#39;on est contribue à une meilleure image de soi et réduit les complexes</div>
+          <div class="contrast-item">l&#39;apparence soignée facilite les relations sociales et professionnelles en donnant une image positive</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; L&#39;importance de l&#39;apparence physique</div>
+          <div class="contrast-item">se conformer aux standards de beauté crée une pression sociale qui nuit à l&#39;estime de soi</div>
+          <div class="contrast-item">les coûts financiers liés aux vêtements et aux produits de beauté représentent une charge importante</div>
+          <div class="contrast-item">consacrer trop de temps à l&#39;entretien de son apparence au quotidien laisse moins de place à l&#39;essentiel</div>
+          <div class="contrast-item">une obsession de l&#39;apparence physique conduit à se comparer constamment aux autres de façon néfaste</div>
+          <div class="contrast-item">être jugé sur son apparence plutôt que sur ses compétences ou son caractère constitue une forme de discrimination</div>
+          <div class="contrast-item">négliger la santé mentale au profit de l&#39;apparence physique crée un déséquilibre préjudiciable</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">soigner son apparence physique contribue à renforcer la confiance en soi, ce qui facilite les interactions sociales et professionnelles</div>
+          <div class="chunk-en">taking care of one&#39;s physical appearance helps strengthen self-confidence, which facilitates social and professional interactions</div>
+          <div class="chunk-note">soigner = verbe fort · ce qui = relative de conséquence C1 · faciliter les interactions = formule soignée · argument direct pour Point 1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">se conformer à des standards de beauté imposés par la société engendre une pression constante, au détriment de la santé mentale</div>
+          <div class="chunk-en">conforming to beauty standards imposed by society creates constant pressure, to the detriment of mental health</div>
+          <div class="chunk-note">se conformer à = verbe fort + préposition · au détriment de = expression C1 · bonne phrase de nuance</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que l&#39;apparence physique joue un rôle dans la première impression, il serait souhaitable que les individus soient jugés sur leurs compétences et leur caractère</div>
+          <div class="chunk-en">although physical appearance plays a role in the first impression, it would be desirable for individuals to be judged on their skills and character</div>
+          <div class="chunk-note">bien que + subjonctif = concession C1 · il serait souhaitable que + subjonctif = appel à l&#39;action · structure de conclusion</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">à mesure que la pression sociale s&#39;intensifie, le risque de développer une obsession néfaste pour l&#39;apparence physique augmente</div>
+          <div class="chunk-en">as social pressure intensifies, the risk of developing a harmful obsession with physical appearance increases</div>
+          <div class="chunk-note">à mesure que = corrélation C1 · néfaste = adjectif C1 · une obsession pour = colocation forte</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
