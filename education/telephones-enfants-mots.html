@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Les téléphones portables pour les enfants</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Les téléphones portables pour les enfants &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Sécurité et communication &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la sécurité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">safety, security</span></div>
+          <div class="wl-row"><span class="wl-fr">la communication <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">communication</span></div>
+          <div class="wl-row"><span class="wl-fr">le contact avec les parents <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">contact with parents</span></div>
+          <div class="wl-row"><span class="wl-fr">le cas d&#39;urgence <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">emergency situation</span></div>
+          <div class="wl-row"><span class="wl-fr">la géolocalisation <em>(f)</em></span><span class="wl-en">geolocation</span></div>
+          <div class="wl-row"><span class="wl-fr">la tranquillité des parents <em>(f)</em></span><span class="wl-en">parents&#39; peace of mind</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Risques numériques</div>
+          <div class="wl-row"><span class="wl-fr">la dépendance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">addiction, dependency</span></div>
+          <div class="wl-row"><span class="wl-fr">le cyberharcèlement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">cyberbullying</span></div>
+          <div class="wl-row"><span class="wl-fr">les contenus inappropriés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">inappropriate content</span></div>
+          <div class="wl-row"><span class="wl-fr">les données personnelles <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">personal data</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie privée <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">privacy, private life</span></div>
+          <div class="wl-row"><span class="wl-fr">les stimuli numériques <em>(mpl)</em></span><span class="wl-en">digital stimuli</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Développement et autonomie</div>
+          <div class="wl-row"><span class="wl-fr">l&#39;autonomie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">autonomy</span></div>
+          <div class="wl-row"><span class="wl-fr">les compétences numériques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">digital skills</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;indépendance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">independence</span></div>
+          <div class="wl-row"><span class="wl-fr">la créativité <em>(f)</em></span><span class="wl-en">creativity</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;expression personnelle <em>(f)</em></span><span class="wl-en">personal expression</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Impact social et scolaire</div>
+          <div class="wl-row"><span class="wl-fr">la distraction <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">distraction</span></div>
+          <div class="wl-row"><span class="wl-fr">la concentration <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">concentration, focus</span></div>
+          <div class="wl-row"><span class="wl-fr">les devoirs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">homework</span></div>
+          <div class="wl-row"><span class="wl-fr">le temps d&#39;écran <em>(m)</em></span><span class="wl-en">screen time</span></div>
+          <div class="wl-row"><span class="wl-fr">la perte de vie sociale <em>(f)</em></span><span class="wl-en">loss of social life</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">rester en contact</td><td class="vprep">avec</td><td class="vrel">avec lequel</td><td class="ven">to stay in contact with</td></tr>
+          <tr><td class="vfr">se sentir</td><td class="vprep">en sécurité</td><td class="vrel">—</td><td class="ven">to feel safe</td></tr>
+          <tr><td class="vfr">se distraire</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to get distracted from</td></tr>
+          <tr><td class="vfr">s&#39;isoler</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to isolate oneself from</td></tr>
+          <tr><td class="vfr">exposer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to expose to</td></tr>
+          <tr><td class="vfr">protéger</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to protect from</td></tr>
+          <tr><td class="vfr">surveiller</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to monitor, to supervise</td></tr>
+          <tr><td class="vfr">nuire</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to harm</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; téléphones et enfants</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">sécurisé(e)</span><span class="adj-en">secure, safe</span></div>
+          <div class="adj-row"><span class="adj-fr">dépendant(e)</span><span class="adj-en">dependent, addicted</span></div>
+          <div class="adj-row"><span class="adj-fr">distrait(e)</span><span class="adj-en">distracted</span></div>
+          <div class="adj-row"><span class="adj-fr">protégé(e)</span><span class="adj-en">protected</span></div>
+          <div class="adj-row"><span class="adj-fr">vulnérable</span><span class="adj-en">vulnerable</span></div>
+          <div class="adj-row"><span class="adj-fr">autonome</span><span class="adj-en">autonomous</span></div>
+          <div class="adj-row"><span class="adj-fr">inapproprié(e)</span><span class="adj-en">inappropriate</span></div>
+          <div class="adj-row"><span class="adj-fr">connecté(e)</span><span class="adj-en">connected</span></div>
+          <div class="adj-row"><span class="adj-fr">responsable</span><span class="adj-en">responsible</span></div>
+          <div class="adj-row"><span class="adj-fr">encadré(e)</span><span class="adj-en">supervised</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Les téléphones portables pour les enfants</div>
+          <div class="contrast-item">un téléphone permet à l&#39;enfant de rester en contact avec ses parents et de se sentir en sécurité en cas d&#39;urgence</div>
+          <div class="contrast-item">se familiariser avec les outils numériques développe des compétences essentielles pour la vie professionnelle future</div>
+          <div class="contrast-item">le téléphone favorise l&#39;autonomie en permettant à l&#39;enfant de s&#39;informer et de s&#39;orienter par lui-même</div>
+          <div class="contrast-item">créer du contenu et exprimer ses idées via le téléphone stimule la créativité et l&#39;expression personnelle</div>
+          <div class="contrast-item">communiquer avec ses amis via le téléphone renforce les liens sociaux en dehors de l&#39;école</div>
+          <div class="contrast-item">la géolocalisation rassure les parents en leur permettant de surveiller les déplacements de leur enfant</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Les téléphones portables pour les enfants</div>
+          <div class="contrast-item">la dépendance au téléphone nuit à la concentration scolaire et réduit le temps consacré aux devoirs</div>
+          <div class="contrast-item">l&#39;exposition aux contenus inappropriés et aux stimuli numériques perturbe le développement psychologique</div>
+          <div class="contrast-item">subir du cyberharcèlement via le téléphone cause stress et dépression que les parents peinent à détecter</div>
+          <div class="contrast-item">divulguer des données personnelles expose l&#39;enfant à des risques pour sa vie privée et sa sécurité</div>
+          <div class="contrast-item">s&#39;isoler derrière l&#39;écran entraîne une perte de vie sociale réelle et fragilise le lien avec les autres</div>
+          <div class="contrast-item">le temps d&#39;écran excessif engendre des troubles du sommeil et de la concentration chez les jeunes</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">posséder un téléphone portable permet à l&#39;enfant de rester en contact avec ses parents et de se sentir en sécurité dans ses déplacements</div>
+          <div class="chunk-en">owning a mobile phone allows a child to stay in contact with their parents and feel safe when getting around</div>
+          <div class="chunk-note">rester en contact avec = collocation forte · se sentir en sécurité = expression naturelle · argument direct pour Point 1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">sans encadrement parental, la dépendance au téléphone nuit à la concentration scolaire et isole progressivement l&#39;enfant de son entourage</div>
+          <div class="chunk-en">without parental supervision, phone addiction harms academic concentration and gradually isolates the child from their environment</div>
+          <div class="chunk-note">sans encadrement parental = restriction forte · isoler progressivement = gradation · argument de nuance ou contra</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que le téléphone améliore la sécurité des enfants, il serait souhaitable que les parents encadrent rigoureusement son utilisation</div>
+          <div class="chunk-en">although mobile phones improve children&#39;s safety, it would be desirable for parents to strictly supervise their use</div>
+          <div class="chunk-note">bien que + subjonctif = concession C1 · il serait souhaitable que + subjonctif = appel à l&#39;action · bonne conclusion</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">à mesure que les enfants grandissent, leur apprendre à utiliser le téléphone de façon responsable devient un enjeu éducatif majeur</div>
+          <div class="chunk-en">as children grow up, teaching them to use their phone responsibly becomes a major educational challenge</div>
+          <div class="chunk-note">à mesure que = corrélation C1 · de façon responsable = formule soignée · enjeu éducatif = expression C1</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
