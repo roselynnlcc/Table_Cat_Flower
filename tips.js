@@ -26,5 +26,12 @@ const TCF_TIPS = [
     subtitle: "Lancer · Ajouter · Conséquence · Nuancer · Contraster · Chunks",
     url: "tips/connecteurs.html",
     date: "2026-06-03"
+  },
+  {
+    id: 5,
+    title: "Nominalisations B2 → C1",
+    subtitle: "Par thème · Suffixes · Irréguliers · Chunks TCF · Pièges",
+    url: "tips/nominalisation.html",
+    date: "2026-06-06"
   }
 ];
