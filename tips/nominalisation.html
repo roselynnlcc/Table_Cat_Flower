@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nominalisations — TCF Canada</title>
+<style>
+  :root {
+    --amber-bg: #FEF3C7;
+    --amber-border: #F59E0B;
+    --amber-text: #92400E;
+    --pink-bg: #FDF2F8;
+    --pink-hl: #F472B6;
+    --blue-bg: #EFF6FF;
+    --blue-hl: #3B82F6;
+    --purple-bg: #F5F3FF;
+    --purple-hl: #7C3AED;
+    --green-bg: #F0FDF4;
+    --green-hl: #16A34A;
+    --teal-bg: #F0FDFA;
+    --teal-hl: #0D9488;
+    --text: #1F2937;
+    --text-muted: #6B7280;
+    --border: #E5E7EB;
+    --surface: #F9FAFB;
+    --card: #FFFFFF;
+    --tag-bg: #F3F4F6;
+    --tag-text: #374151;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --amber-bg: #451A03;
+      --amber-border: #D97706;
+      --amber-text: #FDE68A;
+      --pink-bg: #3B0764;
+      --pink-hl: #F472B6;
+      --blue-bg: #1E3A5F;
+      --blue-hl: #60A5FA;
+      --purple-bg: #2E1065;
+      --purple-hl: #A78BFA;
+      --green-bg: #052e16;
+      --green-hl: #4ADE80;
+      --teal-bg: #042f2e;
+      --teal-hl: #2DD4BF;
+      --text: #F9FAFB;
+      --text-muted: #9CA3AF;
+      --border: #374151;
+      --surface: #111827;
+      --card: #1F2937;
+      --tag-bg: #374151;
+      --tag-text: #D1D5DB;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--surface);
+    padding-bottom: 3rem;
+  }
+
+  /* ── sticky header ── */
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1rem 0;
+  }
+  .header-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── tab bar ── */
+  .tabs {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex-shrink: 0;
+    padding: 0.5rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab.active {
+    color: var(--text);
+    border-bottom-color: var(--amber-border);
+  }
+
+  /* ── panels ── */
+  .panel { display: none; padding: 1rem; }
+  .panel.active { display: block; }
+
+  /* ── amber topic strip ── */
+  .topic-strip {
+    background: var(--amber-bg);
+    border-left: 3px solid var(--amber-border);
+    border-radius: 0 6px 6px 0;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--amber-text);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── section heading ── */
+  .section-heading {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+    margin: 1.5rem 0 0.6rem;
+  }
+
+  /* ── nominalization table ── */
+  .nom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25rem;
+    font-size: 0.88rem;
+  }
+  .nom-table th {
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.35rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nom-table td {
+    padding: 0.45rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .nom-table tr:last-child td { border-bottom: none; }
+
+  /* B2 style — pink tint */
+  .cell-b2 {
+    background: var(--pink-bg);
+  }
+  .cell-b2 em {
+    color: var(--text-muted);
+    font-style: normal;
+    font-size: 0.80rem;
+  }
+  /* C1 style — blue tint */
+  .cell-c1 {
+    background: var(--blue-bg);
+  }
+  .cell-c1 strong {
+    color: var(--blue-hl);
+  }
+  /* noun result (3-col layout) */
+  .cell-noun {
+    background: var(--purple-bg);
+    font-weight: 500;
+  }
+  .cell-noun strong {
+    color: var(--purple-hl);
+  }
+
+  /* ── example sentence ── */
+  .example-sentence {
+    background: var(--teal-bg);
+    border-left: 3px solid var(--teal-hl);
+    border-radius: 0 6px 6px 0;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.88rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    color: var(--text);
+  }
+  .example-sentence strong {
+    color: var(--teal-hl);
+    font-style: normal;
+  }
+  .example-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--teal-hl);
+    font-style: normal;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  /* ── pro-tip card ── */
+  .tip-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .tip-card .tip-num {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: var(--amber-bg);
+    color: var(--amber-text);
+    border: 1px solid var(--amber-border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .tip-card p {
+    font-size: 0.88rem;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+  .tip-card .contrast {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.83rem;
+  }
+  .tip-card .bad {
+    background: var(--pink-bg);
+    border-left: 3px solid var(--pink-hl);
+    border-radius: 0 4px 4px 0;
+    padding: 0.35rem 0.5rem;
+    color: var(--text);
+  }
+  .tip-card .good {
+    background: var(--green-bg);
+    border-left: 3px solid var(--green-hl);
+    border-radius: 0 4px 4px 0;
+    padding: 0.35rem 0.5rem;
+    color: var(--text);
+  }
+  .tip-card .bad::before { content: "✗ "; color: var(--pink-hl); font-weight: 700; }
+  .tip-card .good::before { content: "✓ "; color: var(--green-hl); font-weight: 700; }
+
+  /* ── suffix table ── */
+  .suffix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .suffix-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.83rem;
+  }
+  .suffix-card .suffix-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+  }
+  .suffix-card .verb {
+    color: var(--text-muted);
+    font-size: 0.80rem;
+  }
+  .suffix-card .noun {
+    font-weight: 600;
+    color: var(--blue-hl);
+  }
+
+  /* ── irregular table ── */
+  .irreg-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25rem;
+    font-size: 0.88rem;
+  }
+  .irreg-table th {
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.35rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .irreg-table td {
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .irreg-table tr:last-child td { border-bottom: none; }
+  .irreg-table .v { color: var(--text-muted); }
+  .irreg-table .n { font-weight: 600; color: var(--purple-hl); }
+  .irreg-table .ex { font-style: italic; font-size: 0.82rem; }
+
+  /* ── chunk box ── */
+  .chunk-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 1rem;
+  }
+  .chunk-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 0.55rem;
+  }
+  .chunk-item {
+    font-size: 0.88rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .chunk-item:last-child { border-bottom: none; }
+  .chunk-item .nom { color: var(--blue-hl); font-weight: 500; }
+  .chunk-item .rest { color: var(--text); }
+  .chunk-item .tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+
+  /* ── gender rule strip ── */
+  .gender-strip {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .gender-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.82rem;
+  }
+  .gender-pill .marker {
+    font-weight: 700;
+    font-size: 0.75rem;
+    border-radius: 3px;
+    padding: 1px 5px;
+  }
+  .gender-pill .m { background: var(--blue-bg); color: var(--blue-hl); }
+  .gender-pill .f { background: var(--pink-bg); color: var(--pink-hl); }
+</style>
+</head>
+<body>
+
+<div class="sticky-header">
+  <div class="header-title">TCF Canada — Tâche 3 · Nominalisations</div>
+  <div class="tabs">
+    <div class="tab active" data-panel="thematic">Par thème</div>
+    <div class="tab" data-panel="suffixes">Suffixes</div>
+    <div class="tab" data-panel="irreguliers">Irréguliers</div>
+    <div class="tab" data-panel="chunks">Chunks TCF</div>
+    <div class="tab" data-panel="regles">Règles & Pièges</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PANEL 1 — PAR THÈME
+══════════════════════════════════════ -->
+<div class="panel active" id="panel-thematic">
+
+  <div class="topic-strip">Technologie &amp; Médias</div>
+
+  <table class="nom-table">
+    <thead>
+      <tr>
+        <th style="width:42%">Style B2 (verbe + adverbe)</th>
+        <th style="width:42%">Style C1 (nominalisation)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="cell-b2">utiliser <strong>judicieusement</strong> <em>(to use wisely)</em></td>
+        <td class="cell-c1">l'utilisation <strong>judicieuse</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">évoluer <strong>rapidement</strong> <em>(to evolve rapidly)</em></td>
+        <td class="cell-c1">l'évolution <strong>rapide</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">diffuser <strong>massivement</strong> <em>(to broadcast massively)</em></td>
+        <td class="cell-c1">la diffusion <strong>massive</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">communiquer <strong>instantanément</strong></td>
+        <td class="cell-c1">la communication <strong>instantanée</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">s'isoler <strong>numériquement</strong></td>
+        <td class="cell-c1">l'isolement <strong>numérique</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">surveiller <strong>constamment</strong></td>
+        <td class="cell-c1">la surveillance <strong>constante</strong> de…</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="example-sentence">
+    <span class="example-label">Exemple TCF</span>
+    « L'<strong>évolution rapide</strong> de l'intelligence artificielle exige une réglementation stricte. »
+  </div>
+
+  <div class="topic-strip">Environnement &amp; Écologie</div>
+
+  <table class="nom-table">
+    <thead>
+      <tr>
+        <th style="width:42%">Style B2</th>
+        <th style="width:42%">Style C1</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="cell-b2">consommer <strong>durablement</strong></td>
+        <td class="cell-c1">la consommation <strong>durable</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">se réchauffer <strong>globalement</strong></td>
+        <td class="cell-c1">le réchauffement <strong>global</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">protéger <strong>efficacement</strong></td>
+        <td class="cell-c1">la protection <strong>efficace</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">exploiter <strong>excessivement</strong></td>
+        <td class="cell-c1">l'exploitation <strong>excessive</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">gérer <strong>écologiquement</strong></td>
+        <td class="cell-c1">la gestion <strong>écologique</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">polluer <strong>massivement</strong></td>
+        <td class="cell-c1">la pollution <strong>massive</strong> de…</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="example-sentence">
+    <span class="example-label">Exemple TCF</span>
+    « La <strong>protection efficace</strong> des espaces naturels nécessite l'engagement de tous. »
+  </div>
+
+  <div class="topic-strip">Éducation &amp; Développement personnel</div>
+
+  <table class="nom-table">
+    <thead>
+      <tr>
+        <th style="width:42%">Style B2</th>
+        <th style="width:42%">Style C1</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="cell-b2">apprendre <strong>progressivement</strong></td>
+        <td class="cell-c1">l'apprentissage <strong>progressif</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">s'impliquer <strong>personnellement</strong></td>
+        <td class="cell-c1">l'implication <strong>personnelle</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">évaluer <strong>objectivement</strong></td>
+        <td class="cell-c1">l'évaluation <strong>objective</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">transmettre <strong>culturellement</strong></td>
+        <td class="cell-c1">la transmission <strong>culturelle</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">développer <strong>harmonieusement</strong></td>
+        <td class="cell-c1">le développement <strong>harmonieux</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">former <strong>efficacement</strong></td>
+        <td class="cell-c1">la formation <strong>efficace</strong> de…</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="example-sentence">
+    <span class="example-label">Exemple TCF</span>
+    « L'<strong>implication personnelle</strong> des apprenants favorise la réussite scolaire. »
+  </div>
+
+  <div class="topic-strip">Économie &amp; Société</div>
+
+  <table class="nom-table">
+    <thead>
+      <tr>
+        <th style="width:42%">Style B2</th>
+        <th style="width:42%">Style C1</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="cell-b2">croître <strong>constamment</strong></td>
+        <td class="cell-c1">la croissance <strong>constante</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">s'intégrer <strong>socialement</strong></td>
+        <td class="cell-c1">l'intégration <strong>sociale</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">réduire <strong>significativement</strong></td>
+        <td class="cell-c1">la réduction <strong>significative</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">augmenter <strong>progressivement</strong></td>
+        <td class="cell-c1">l'augmentation <strong>progressive</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">changer <strong>profondément</strong></td>
+        <td class="cell-c1">le changement <strong>profond</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">inégaler <strong>systématiquement</strong></td>
+        <td class="cell-c1">les inégalités <strong>systématiques</strong>…</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="example-sentence">
+    <span class="example-label">Exemple TCF</span>
+    « On observe une <strong>réduction significative</strong> des inégalités grâce à ce système. »
+  </div>
+
+  <div class="topic-strip">Santé &amp; Mode de vie ✦ thème absent des notes Gemini</div>
+
+  <table class="nom-table">
+    <thead>
+      <tr>
+        <th style="width:42%">Style B2</th>
+        <th style="width:42%">Style C1</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="cell-b2">manger <strong>équilibrement</strong></td>
+        <td class="cell-c1">l'alimentation <strong>équilibrée</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">pratiquer <strong>régulièrement</strong></td>
+        <td class="cell-c1">la pratique <strong>régulière</strong> de…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">se soigner <strong>préventivment</strong></td>
+        <td class="cell-c1">la prévention <strong>sanitaire</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">vieillir <strong>activement</strong></td>
+        <td class="cell-c1">le vieillissement <strong>actif</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">se déplacer <strong>physiquement</strong></td>
+        <td class="cell-c1">le déplacement <strong>physique</strong>…</td>
+      </tr>
+      <tr>
+        <td class="cell-b2">cuisiner <strong>sainement</strong></td>
+        <td class="cell-c1">une cuisine <strong>saine</strong> / la préparation <strong>saine</strong>…</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="example-sentence">
+    <span class="example-label">Exemple TCF</span>
+    « La <strong>pratique régulière</strong> d'une activité physique contribue au bien-être collectif. »
+  </div>
+
+</div><!-- /panel-thematic -->
+
+
+<!-- ══════════════════════════════════════
+     PANEL 2 — SUFFIXES
+══════════════════════════════════════ -->
+<div class="panel" id="panel-suffixes">
+
+  <div class="topic-strip">Règle d'or : verbe → nom par suffixe</div>
+  <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.2rem;">
+    Reconnaître le suffixe vous permet de nominaliser <em>n'importe quel verbe</em>, même inconnu.
+  </p>
+
+  <div class="section-heading">-tion / -sion — la famille la plus fréquente</div>
+  <div class="suffix-grid">
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">intégrer →</div>
+      <div class="noun">l'intégration</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">évoluer →</div>
+      <div class="noun">l'évolution</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">protéger →</div>
+      <div class="noun">la protection</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">réduire →</div>
+      <div class="noun">la réduction</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">former →</div>
+      <div class="noun">la formation</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">éduquer →</div>
+      <div class="noun">l'éducation</div>
+    </div>
+  </div>
+
+  <div class="section-heading">-ment — masculin, très courant</div>
+  <div class="suffix-grid">
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">développer →</div>
+      <div class="noun">le développement</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">vieillir →</div>
+      <div class="noun">le vieillissement</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">changer →</div>
+      <div class="noun">le changement</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">renforcer →</div>
+      <div class="noun">le renforcement</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">engager →</div>
+      <div class="noun">l'engagement</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">réchauffer →</div>
+      <div class="noun">le réchauffement</div>
+    </div>
+  </div>
+
+  <div class="section-heading">-age — masculin, souvent concret ou processus</div>
+  <div class="suffix-grid">
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">apprendre →</div>
+      <div class="noun">l'apprentissage</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">utiliser →</div>
+      <div class="noun">l'utilisation / l'usage</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">gérer →</div>
+      <div class="noun">la gestion / le gestion</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">stocker →</div>
+      <div class="noun">le stockage</div>
+    </div>
+  </div>
+
+  <div class="section-heading">-ure / -ance / -ence — moins fréquents mais présents</div>
+  <div class="suffix-grid">
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">surveiller →</div>
+      <div class="noun">la surveillance</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">résister →</div>
+      <div class="noun">la résistance</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">dépendre →</div>
+      <div class="noun">la dépendance</div>
+    </div>
+    <div class="suffix-card">
+      <div class="suffix-label">verbe → nom</div>
+      <div class="verb">exister →</div>
+      <div class="noun">l'existence</div>
+    </div>
+  </div>
+
+  <div class="example-sentence">
+    <span class="example-label">Astuce mémo</span>
+    -tion / -sion → toujours <strong>féminin</strong> · -ment → toujours <strong>masculin</strong> · -age → toujours <strong>masculin</strong>
+  </div>
+
+</div><!-- /panel-suffixes -->
+
+
+<!-- ══════════════════════════════════════
+     PANEL 3 — IRRÉGULIERS
+══════════════════════════════════════ -->
+<div class="panel" id="panel-irreguliers">
+
+  <div class="topic-strip">Nominalisations irrégulières — à mémoriser</div>
+  <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.2rem;">
+    Ces formes ne suivent aucune règle de suffixe. Elles sont <em>très fréquentes</em> dans les sujets TCF.
+  </p>
+
+  <table class="irreg-table">
+    <thead>
+      <tr>
+        <th style="width:25%">Verbe</th>
+        <th style="width:25%">Nom irrégulier</th>
+        <th style="width:50%">Exemple TCF</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="v">vivre</td>
+        <td class="n">la vie</td>
+        <td class="ex">« la <strong>vie</strong> en milieu urbain »</td>
+      </tr>
+      <tr>
+        <td class="v">choisir</td>
+        <td class="n">le choix</td>
+        <td class="ex">« le <strong>choix</strong> alimentaire »</td>
+      </tr>
+      <tr>
+        <td class="v">croître</td>
+        <td class="n">la croissance</td>
+        <td class="ex">« la <strong>croissance</strong> économique »</td>
+      </tr>
+      <tr>
+        <td class="v">savoir</td>
+        <td class="n">le savoir / la connaissance</td>
+        <td class="ex">« le <strong>savoir</strong> collectif »</td>
+      </tr>
+      <tr>
+        <td class="v">pouvoir</td>
+        <td class="n">le pouvoir</td>
+        <td class="ex">« le <strong>pouvoir</strong> décisionnel »</td>
+      </tr>
+      <tr>
+        <td class="v">vouloir</td>
+        <td class="n">la volonté</td>
+        <td class="ex">« la <strong>volonté</strong> politique »</td>
+      </tr>
+      <tr>
+        <td class="v">croire</td>
+        <td class="n">la croyance / la conviction</td>
+        <td class="ex">« une <strong>conviction</strong> profonde »</td>
+      </tr>
+      <tr>
+        <td class="v">perdre</td>
+        <td class="n">la perte</td>
+        <td class="ex">« la <strong>perte</strong> de repères »</td>
+      </tr>
+      <tr>
+        <td class="v">naître</td>
+        <td class="n">la naissance</td>
+        <td class="ex">« la <strong>naissance</strong> d'un phénomène »</td>
+      </tr>
+      <tr>
+        <td class="v">mourir</td>
+        <td class="n">la mort / le décès</td>
+        <td class="ex">« le <strong>décès</strong> prématuré »</td>
+      </tr>
+      <tr>
+        <td class="v">être</td>
+        <td class="n">l'être / l'existence</td>
+        <td class="ex">« l'<strong>existence</strong> d'inégalités »</td>
+      </tr>
+      <tr>
+        <td class="v">faire</td>
+        <td class="n">le fait / l'action</td>
+        <td class="ex">« le <strong>fait</strong> de cuisiner soi-même »</td>
+      </tr>
+      <tr>
+        <td class="v">lire</td>
+        <td class="n">la lecture</td>
+        <td class="ex">« la <strong>lecture</strong> critique »</td>
+      </tr>
+      <tr>
+        <td class="v">voir</td>
+        <td class="n">la vision / le regard</td>
+        <td class="ex">« une <strong>vision</strong> à long terme »</td>
+      </tr>
+      <tr>
+        <td class="v">tenir</td>
+        <td class="n">le maintien</td>
+        <td class="ex">« le <strong>maintien</strong> de l'équilibre »</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div><!-- /panel-irreguliers -->
+
+
+<!-- ══════════════════════════════════════
+     PANEL 4 — CHUNKS TCF
+══════════════════════════════════════ -->
+<div class="panel" id="panel-chunks">
+
+  <div class="topic-strip">Nominalisations toutes prêtes — Tâche 3</div>
+  <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.2rem;">
+    Ces expressions s'insèrent directement dans vos scripts. Mémorisez-les telles quelles.
+  </p>
+
+  <div class="chunk-box">
+    <div class="chunk-label">Introduction de point</div>
+    <div class="chunk-item"><span class="nom">La question de l'accès équitable</span> <span class="rest">à l'éducation se pose…</span><span class="tag">éducation</span></div>
+    <div class="chunk-item"><span class="nom">L'utilisation judicieuse</span> <span class="rest">des nouvelles technologies permet…</span><span class="tag">tech</span></div>
+    <div class="chunk-item"><span class="nom">Le développement harmonieux</span> <span class="rest">de l'enfant repose sur…</span><span class="tag">enfants</span></div>
+    <div class="chunk-item"><span class="nom">La consommation durable</span> <span class="rest">des ressources naturelles exige…</span><span class="tag">environnement</span></div>
+    <div class="chunk-item"><span class="nom">L'intégration sociale</span> <span class="rest">des personnes âgées contribue à…</span><span class="tag">société</span></div>
+    <div class="chunk-item"><span class="nom">La pratique régulière</span> <span class="rest">d'une activité physique favorise…</span><span class="tag">santé</span></div>
+  </div>
+
+  <div class="chunk-box">
+    <div class="chunk-label">Nuance / Concession (Point 3)</div>
+    <div class="chunk-item"><span class="nom">La mise en œuvre concrète</span> <span class="rest">de ces mesures reste complexe.</span><span class="tag">nuance</span></div>
+    <div class="chunk-item"><span class="nom">Le manque de sensibilisation</span> <span class="rest">constitue un obstacle majeur.</span><span class="tag">nuance</span></div>
+    <div class="chunk-item"><span class="nom">L'absence de réglementation</span> <span class="rest">efficace pose problème.</span><span class="tag">nuance</span></div>
+    <div class="chunk-item"><span class="nom">La résistance au changement</span> <span class="rest">s'explique par la peur de l'inconnu.</span><span class="tag">nuance</span></div>
+  </div>
+
+  <div class="chunk-box">
+    <div class="chunk-label">Conclusion (bien que… il n'en demeure pas moins que…)</div>
+    <div class="chunk-item"><span class="rest">Bien que </span><span class="nom">le recours aux technologies</span><span class="rest"> soulève des inquiétudes,</span></div>
+    <div class="chunk-item"><span class="rest">il n'en demeure pas moins que </span><span class="nom">leur intégration progressive</span><span class="rest"> est inévitable.</span></div>
+    <div class="chunk-item" style="margin-top:0.4rem;"><span class="rest">Bien que </span><span class="nom">la pratique sportive obligatoire</span><span class="rest"> divise les opinions,</span></div>
+    <div class="chunk-item"><span class="rest">il n'en demeure pas moins que </span><span class="nom">l'inactivité physique</span><span class="rest"> représente un danger réel.</span></div>
+  </div>
+
+  <div class="chunk-box">
+    <div class="chunk-label">Recommandation finale (il serait souhaitable que…)</div>
+    <div class="chunk-item"><span class="rest">Il serait souhaitable que </span><span class="nom">la mise en place de politiques</span><span class="rest"> mieux adaptées soit envisagée.</span></div>
+    <div class="chunk-item"><span class="rest">Il faudrait que </span><span class="nom">l'encadrement réglementaire</span><span class="rest"> soit renforcé.</span></div>
+    <div class="chunk-item"><span class="rest">Il convient donc de favoriser </span><span class="nom">une approche équilibrée</span><span class="rest"> de la question.</span></div>
+  </div>
+
+</div><!-- /panel-chunks -->
+
+
+<!-- ══════════════════════════════════════
+     PANEL 5 — RÈGLES & PIÈGES
+══════════════════════════════════════ -->
+<div class="panel" id="panel-regles">
+
+  <div class="topic-strip">Règle 1 — L'adverbe devient adjectif (et s'accorde)</div>
+
+  <div class="tip-card">
+    <span class="tip-num">Règle</span>
+    <p>Quand vous nominalisez, l'adverbe qui modifiait le verbe devient un <strong>adjectif qui s'accorde</strong> avec le nouveau nom.</p>
+    <div class="gender-strip">
+      <div class="gender-pill"><span class="marker m">M</span> le changement <strong>profond</strong></div>
+      <div class="gender-pill"><span class="marker f">F</span> la transformation <strong>profonde</strong></div>
+      <div class="gender-pill"><span class="marker m">M</span> un impact <strong>efficace</strong></div>
+      <div class="gender-pill"><span class="marker f">F</span> la gestion <strong>efficace</strong></div>
+    </div>
+  </div>
+
+  <div class="topic-strip">Règle 2 — Le suffixe -ment → adjectif précis</div>
+
+  <div class="tip-card">
+    <span class="tip-num">Mappings fréquents</span>
+    <table class="nom-table" style="margin-bottom:0;">
+      <thead>
+        <tr>
+          <th>Adverbe (-ment)</th>
+          <th>Adjectif masculin</th>
+          <th>Adjectif féminin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>essentiellement</td>
+          <td>essentiel</td>
+          <td>essentielle</td>
+        </tr>
+        <tr>
+          <td>progressivement</td>
+          <td>progressif</td>
+          <td>progressive</td>
+        </tr>
+        <tr>
+          <td>traditionnellement</td>
+          <td>traditionnel</td>
+          <td>traditionnelle</td>
+        </tr>
+        <tr>
+          <td>profondément</td>
+          <td>profond</td>
+          <td>profonde</td>
+        </tr>
+        <tr>
+          <td>harmonieusement</td>
+          <td>harmonieux</td>
+          <td>harmonieuse</td>
+        </tr>
+        <tr>
+          <td>massivement</td>
+          <td>massif</td>
+          <td>massive</td>
+        </tr>
+        <tr>
+          <td>activement</td>
+          <td>actif</td>
+          <td>active</td>
+        </tr>
+        <tr>
+          <td>excessivement</td>
+          <td>excessif</td>
+          <td>excessive</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="topic-strip">Règle 3 — Article défini, pas partitif</div>
+
+  <div class="tip-card">
+    <span class="tip-num">Piège</span>
+    <p>En début de phrase ou en position sujet, utilisez <strong>Le / La / L'</strong>, jamais <em>Des / Du</em>.</p>
+    <div class="contrast">
+      <div class="bad">Des changements profonds sont arrivés…</div>
+      <div class="good">Le changement profond des mentalités a permis…</div>
+    </div>
+    <div class="contrast" style="margin-top:0.5rem;">
+      <div class="bad">De l'utilisation des réseaux sociaux…</div>
+      <div class="good">L'utilisation massive des réseaux sociaux…</div>
+    </div>
+  </div>
+
+  <div class="topic-strip">Règle 4 — Nominaliser ≠ répéter le même verbe</div>
+
+  <div class="tip-card">
+    <span class="tip-num">Piège</span>
+    <p>Évitez d'utiliser la même racine verbale deux fois de suite. Choisissez un synonyme nominal.</p>
+    <div class="contrast">
+      <div class="bad">« Le fait de développer ce développement… »</div>
+      <div class="good">« L'essor / l'expansion / la progression de… »</div>
+    </div>
+  </div>
+
+  <div class="topic-strip">Récapitulatif visuel — adverbe → adjectif</div>
+
+  <div class="tip-card" style="padding:0.7rem 0.9rem;">
+    <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.88rem; flex-wrap:wrap;">
+      <span style="background:var(--pink-bg);color:var(--pink-hl);padding:3px 8px;border-radius:4px;font-weight:600;">Adverbe</span>
+      <span style="color:var(--text-muted);">→</span>
+      <span style="background:var(--blue-bg);color:var(--blue-hl);padding:3px 8px;border-radius:4px;font-weight:600;">Nom (genre)</span>
+      <span style="color:var(--text-muted);">+</span>
+      <span style="background:var(--purple-bg);color:var(--purple-hl);padding:3px 8px;border-radius:4px;font-weight:600;">Adjectif accordé</span>
+      <span style="color:var(--text-muted);">→</span>
+      <span style="background:var(--teal-bg);color:var(--teal-hl);padding:3px 8px;border-radius:4px;font-weight:600;">C1 ✓</span>
+    </div>
+  </div>
+
+</div><!-- /panel-regles -->
+
+
+<script>
+  document.querySelectorAll('.tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var panelId = 'panel-' + tab.dataset.panel;
+      document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+      document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById(panelId).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
