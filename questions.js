@@ -203,7 +203,16 @@ const TCF_QUESTIONS = [
     question: 'Est-ce plus facile de s\'adapter à un nouveau pays quand on est jeune ? Pourquoi ?',
     scriptUrl: 'culture/adapter_jeune.html',
     date: '2026-06-03',
-    stars: 0,
+    stars: 1,
     status: "En cours"
-  }
+  },
+  {
+    id: 24,
+    cat: 'sante',
+    question: 'Peut-on faire confiance aux consultations médicales à distance ? Pourquoi ?',
+    scriptUrl: 'sante/teleconsultation_confiance.html',
+    date: '2026-06-06',
+    stars: 2,
+    status: "En cours"
+  },
 ];
