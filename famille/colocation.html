@@ -20,27 +20,21 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-
   .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
   .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
   .site-header h1 span{color:var(--accent);font-style:italic;}
   .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
   .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
   .back-link:hover{color:var(--accent);}
-
   .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
   .tab-nav::-webkit-scrollbar{display:none;}
-  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn{padding:10px 10px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
   .tab-btn:hover{color:var(--text);background:var(--surface2);}
   .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
-
   .content{display:none;padding:20px 16px 48px;}
   .content.active{display:block;}
-
   .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
   @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
-  .single-view{max-width:620px;margin:0 auto;}
-
   .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
   .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
   .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
@@ -51,50 +45,23 @@
   .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
   .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
   .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
-
   .block{padding:14px 18px;border-bottom:1px solid var(--border);}
   .block:last-child{border-bottom:none;}
   .block-nuance{background:#fff;}
   .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
   .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
   .script-text{font-size:14px;line-height:1.85;color:var(--text);}
-  .script-text p{margin-bottom:10px;}
+  .script-text p{margin-bottom:10px;position:relative;}
   .script-text p:last-child{margin-bottom:0;}
   .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
   .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
   .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
   .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
   .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
-
-  .wl-page{max-width:860px;}
-  .wl-section{margin-bottom:28px;}
-  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
-  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
-  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
-  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
-  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
-  .wl-row:last-child{border-bottom:none;}
-  .wl-row:hover{background:var(--surface2);}
-  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
-  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
-  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
-  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
-
-  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
-  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
-  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
-  .verb-table tr:last-child td{border-bottom:none;}
-  .vfr{font-weight:500;color:var(--text);}
-  .vprep{color:var(--accent);font-weight:600;}
-  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
-  .ven{color:var(--text-soft);}
-
-  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
-  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
-  .adj-row:last-child{border-bottom:none;}
-  .adj-fr{font-weight:500;}
-  .adj-en{color:var(--text-soft);font-size:12px;}
+  .single-view .script-card{max-width:620px;margin:0 auto;}
+  .para-wrap{position:relative;margin-bottom:10px;}
+  .para-wrap:last-child{margin-bottom:0;}
+  .para-wrap p{margin-bottom:0;}
 
   /* ── Stage pill toggle ── */
   .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
@@ -108,26 +75,36 @@
   .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
   .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
 
-  /* ── Stage content visibility ── */
+  /* stage content visibility */
   .stage-content{display:none;}
   .stage-content.active{display:block;}
 
-  /* ── Para wrap ── */
-  .para-wrap{position:relative;margin-bottom:10px;}
-  .para-wrap:last-child{margin-bottom:0;}
-  .para-wrap p{margin-bottom:0;}
-
+  /* ── Word list ── */
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-prep{font-size:11px;color:#7a5230;background:#fef3c7;border-radius:4px;padding:1px 5px;margin-left:4px;}
   .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  @media(max-width:580px){.contrast-grid{grid-template-columns:1fr;}}
   .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
   .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
   .contrast-header-a{background:var(--green-bg);color:var(--green);}
   .contrast-header-b{background:#e8f2ff;color:#185fa5;}
   .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
   .contrast-item:last-child{border-bottom:none;}
-
   .chunk-list{display:flex;flex-direction:column;gap:10px;}
-  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;}
   .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
   .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
   .chunk-note{font-size:11px;color:var(--text-muted);}
@@ -136,454 +113,471 @@
 <body>
 
 <header class="site-header">
-  <a class="back-link" href="../index.html">← Retour</a>
-  <h1>TCF Canada — <span>Tâche 3</span></h1>
-  <div class="question-title">Selon vous, est-ce une bonne idée de partager un appartement à plusieurs ? Pourquoi ?</div>
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour</a>
+  <h1>TCF Canada &#8212; <span>T&#226;che 3</span></h1>
+  <div class="question-title">Selon vous, est-ce une bonne id&#233;e de partager un appartement &#224; plusieurs&#160;? Pourquoi&#160;?</div>
 </header>
 
 <nav class="tab-nav">
-  <button class="tab-btn active" onclick="showTab('both',this)">Côte à côte</button>
-  <button class="tab-btn" onclick="showTab('posA',this)">Position A</button>
-  <button class="tab-btn" onclick="showTab('posB',this)">🎯Position B🎯</button>
+  <button class="tab-btn active" onclick="showTab('both',this)">C&#244;te &#224; c&#244;te</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">&#127919;Position A&#127919;</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">Position B</button>
   <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
 </nav>
 
 <div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
-<div id="posA" class="content"><div class="single-view" id="posAGrid"></div></div>
 
-<!-- Position B with stage toggle -->
-<div id="posB" class="content">
+<!-- Position A with stage toggle -->
+<div id="posA" class="content">
   <div class="single-view">
     <div class="script-card">
-      <div class="card-header card-header-blue">
-        <div class="card-title card-title-blue">❌ Position B — NON, ce n'est pas une bonne idée de partager un appartement à plusieurs</div>
-        <span class="stance-badge badge-easy">Plus facile à défendre</span>
+      <div class="card-header card-header-green">
+        <div class="card-title card-title-green">&#9989; Position A &#8212; OUI&#160;: partager un appartement est une bonne id&#233;e</div>
+        <span class="stance-badge badge-easy">Plus facile &#224; d&#233;fendre</span>
       </div>
       <div class="stage-toggle">
-        <button class="stage-btn active" onclick="showStage('sb0',this)">Complet</button>
-        <button class="stage-btn" onclick="showStage('sb1',this)">Étape 1</button>
-        <button class="stage-btn" onclick="showStage('sb2',this)">Étape 2</button>
-        <button class="stage-btn" onclick="showStage('sb3',this)">Étape 3</button>
+        <button class="stage-btn active" onclick="showStage('s0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('s1',this)">&#201;tape 1</button>
+        <button class="stage-btn" onclick="showStage('s2',this)">&#201;tape 2</button>
+        <button class="stage-btn" onclick="showStage('s3',this)">&#201;tape 3</button>
       </div>
 
       <!-- COMPLET -->
-      <div id="sb0" class="stage-content active">
+      <div id="s0" class="stage-content active">
         <div class="block">
           <div class="block-label">Introduction <span class="timing">~40s</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si partager un appartement à plusieurs est vraiment une bonne idée</span>, et les avis sont divergents.</p></div>
-            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">vivre seul est plus désirable à un certain point.</span> Alors, je vais expliquer mes raisons.</p></div>
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question&#160;! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander si partager un appartement &#224; plusieurs est vraiment une bonne id&#233;e, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que <span class="hl-pink">partager un appartement est plus avantageux</span>, &#224; un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
           </div>
         </div>
         <div class="block">
-          <div class="block-label">Point 1 — Le temps / L'énergie <span class="timing">~1 min</span></div>
+          <div class="block-label">Point 1 &#8212; La finance <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink">vivre avec des colocataires aux habitudes différentes épuise l'énergie mentale et vole du temps précieux.</span> Prenons le cas d'une amie : pendant ses études universitaires, elle passait beaucoup de temps à négocier les tâches domestiques avec ses colocataires.</p></div>
-            <div class="para-wrap"><p>Au bout de quelques mois, elle était épuisée et avait hâte de déménager. Ainsi, <span class="hl-pink">toute son énergie passait à gérer des conflits du quotidien, plutôt qu'à ses études ou à ses loisirs.</span></p></div>
-            <div class="para-wrap"><p>À long terme, ce type de pression relationnelle finit par nuire au bien-être.</p></div>
+            <div class="para-wrap"><p>Tout d&#8217;abord, <span class="hl-pink">partager un appartement r&#233;duit consid&#233;rablement les d&#233;penses, ce qui lib&#232;re du budget pour d&#8217;autres priorit&#233;s.</span></p></div>
+            <div class="para-wrap"><p>Par exemple, &#224; Calgary, un studio co&#251;te environ 1&#160;500 dollars par mois pour une seule personne. En colocation, chaque colocataire paie environ 800 dollars, soit environ la moiti&#233; du prix d&#8217;un studio seul. De ce fait, cet argent peut &#234;tre consacr&#233; aux &#233;tudes, aux transports ou &#224; une &#233;pargne d&#8217;urgence.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">&#192; long terme, cette r&#233;duction des charges repr&#233;sente un avantage financier r&#233;el et concret.</span></p></div>
           </div>
-          <div class="en-note">💬 <em>épuiser l'énergie mentale</em> = to drain mental energy · <em>voler du temps précieux</em> = to steal precious time · <em>au bout de</em> = after (a period of time) · <em>avoir hâte de</em> = to look forward to · <em>nuire à</em> = to harm</div>
-          <div class="wc">~79 mots ✓</div>
+          <div class="en-note">&#128172; <em>r&#233;duire les d&#233;penses</em> = to reduce expenses &#183; <em>lib&#233;rer du budget</em> = to free up budget &#183; <em>&#234;tre consacr&#233; &#224;</em> = to be devoted to &#183; <em>une &#233;pargne d&#8217;urgence</em> = an emergency fund</div>
+          <div class="wc">~79 mots &#10003;</div>
         </div>
         <div class="block">
-          <div class="block-label">Point 2 — Santé / Sommeil <span class="timing">~1 min</span></div>
+          <div class="block-label">Point 2 &#8212; Comp&#233;tences de vie <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>De plus, <span class="hl-pink">vivre en colocation perturbe souvent la qualité du sommeil, ce qui nuit directement à la santé.</span> Chaque colocataire a ses propres horaires : certains rentrent tard, écoutent de la musique le soir ou reçoivent des amis en semaine.</p></div>
-            <div class="para-wrap"><p>De ce fait, il devient difficile de dormir suffisamment et de récupérer après une longue journée. <span class="hl-pink">Par conséquent, le manque de sommeil affecte la concentration, l'humeur et la productivité au quotidien.</span></p></div>
-            <div class="para-wrap"><p>À mesure que cela se répète, la fatigue s'accumule et finit par peser sur la santé physique et mentale.</p></div>
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">vivre avec des colocataires aux habitudes diff&#233;rentes d&#233;veloppe des comp&#233;tences essentielles comme la communication, le compromis et l&#8217;adaptabilit&#233;.</span></p></div>
+            <div class="para-wrap"><p>Au quotidien, partager un espace oblige &#224; n&#233;gocier les r&#232;gles de vie commune et &#224; exprimer ses besoins clairement. De m&#234;me, la r&#233;partition des t&#226;ches domestiques all&#232;ge la charge de chacun, ce qui laisse plus de temps et d&#8217;&#233;nergie pour d&#8217;autres activit&#233;s.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Par cons&#233;quent, la colocation devient une v&#233;ritable &#233;cole de la vie, bien au-del&#224; du simple partage de loyer.</span></p></div>
           </div>
-          <div class="en-note">💬 <em>perturber</em> = to disrupt · <em>récupérer</em> = to recover, recharge · <em>à mesure que</em> = as (progressive) · <em>peser sur</em> = to weigh on</div>
-          <div class="wc">~80 mots ✓</div>
+          <div class="en-note">&#128172; <em>l&#8217;adaptabilit&#233;</em> = adaptability &#183; <em>n&#233;gocier</em> = to negotiate &#183; <em>la r&#233;partition des t&#226;ches</em> = the sharing of tasks &#183; <em>all&#232;ge la charge</em> = lightens the load &#183; <em>au-del&#224; de</em> = beyond</div>
+          <div class="wc">~78 mots &#10003;</div>
         </div>
         <div class="block block-nuance">
           <div class="block-label">Nuance <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">partager un appartement permet de réduire le loyer d'environ 20 %, ce qui représente une économie non négligeable pour les étudiants ou les jeunes travailleurs aux revenus limités.</span></p></div>
-            <div class="para-wrap"><p><span class="hl-blue">Dans des villes où le coût de la vie est élevé, cette économie peut représenter plusieurs centaines de dollars par mois, libérant ainsi du budget pour d'autres priorités, comme les études, les transports ou les loisirs.</span></p></div>
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">partager un espace oblige &#224; s&#8217;adapter constamment aux autres, ce qui rend difficile d&#8217;avoir un vrai moment d&#8217;intimit&#233; chez soi.</span></p></div>
+            <div class="para-wrap"><p>Chaque d&#233;cision, comme les horaires, le bruit ou les invit&#233;s, doit &#234;tre n&#233;goci&#233;e, et cela peut peser sur l&#8217;esprit &#224; la longue. Pour certaines personnes, ce manque d&#8217;espace personnel finit par engendrer du stress et de la fatigue mentale. En particulier, ceux qui ont besoin de solitude pour se ressourcer apr&#232;s une longue journ&#233;e risquent de trouver la colocation particuli&#232;rement &#233;prouvante.</p></div>
           </div>
-          <div class="en-note">💬 <em>une économie non négligeable</em> = a significant saving · <em>aux revenus limités</em> = with limited income · <em>libérant ainsi</em> = thus freeing up (participle phrase)</div>
-          <div class="wc">~65 mots ✓</div>
+          <div class="en-note">&#128172; <em>rend difficile de</em> = makes it hard to &#183; <em>peser sur l&#8217;esprit</em> = to weigh on the mind &#183; <em>&#224; la longue</em> = in the long run &#183; <em>engendrer</em> = to generate / cause &#183; <em>se ressourcer</em> = to recharge &#183; <em>&#233;prouvant(e)</em> = draining / trying</div>
+          <div class="wc">~75 mots &#10003;</div>
         </div>
         <div class="block">
           <div class="block-label">Conclusion <span class="timing">~50s</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la colocation</span> présente certains avantages, notamment <span class="hl-blue">la réduction du loyer</span>, il n'en demeure pas moins que les inconvénients sont indéniables, comme <span class="hl-pink">l'épuisement mental et le manque de sommeil.</span></p></div>
-            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les individus pèsent le pour et le contre avant de s'engager dans une colocation, afin de choisir le cadre de vie le plus adapté à leur situation.</span></p></div>
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la colocation pr&#233;sente certains inconv&#233;nients, notamment le manque d&#8217;intimit&#233;,</span> il n&#8217;en demeure pas moins que <span class="hl-pink">les avantages sont ind&#233;niables, comme la r&#233;duction des d&#233;penses et le d&#233;veloppement de l&#8217;adaptabilit&#233;.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&#233;r&#233;, il serait souhaitable que <span class="hl-p1">les individus p&#232;sent le pour et le contre avant de s&#8217;engager dans une colocation, afin de choisir le cadre de vie le plus adapt&#233; &#224; leur situation.</span></p></div>
             <div class="para-wrap"><p>Merci pour votre attention.</p></div>
           </div>
-          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les individus pèsent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>s'engager dans</em> = to commit to</div>
+          <div class="en-note">&#128172; Subjonctif&#160;: <em>il serait souhaitable que les individus p&#232;sent</em> &#10003; (3&#232;me pers. pluriel) &#183; <em>il n&#8217;en demeure pas moins que</em> = the fact remains that</div>
         </div>
-      </div><!-- /sb0 -->
+      </div><!-- /s0 -->
 
-      <!-- ÉTAPE 1 — key single words and expressions hidden -->
-      <div id="sb1" class="stage-content">
+      <!-- &#201;TAPE 1 -->
+      <div id="s1" class="stage-content">
         <div class="block">
           <div class="block-label">Introduction <span class="timing">~40s</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si partager un appartement à plusieurs est vraiment une bonne idée</span>, et les avis sont divergents.</p></div>
-            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">vivre <span class="h">seul</span> est plus <span class="h">désirable</span> à un certain point.</span> Alors, je vais expliquer mes raisons.</p></div>
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question&#160;! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander si partager un appartement &#224; plusieurs est vraiment une bonne id&#233;e, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que <span class="hl-pink">partager un appartement est plus <span class="h">avantageux</span></span>, &#224; un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
           </div>
         </div>
         <div class="block">
-          <div class="block-label">Point 1 — Le temps / L'énergie <span class="timing">~1 min</span></div>
+          <div class="block-label">Point 1 &#8212; La finance <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink">vivre avec des colocataires aux habitudes différentes <span class="h">épuise</span> l'énergie mentale et <span class="h">vole</span> du temps précieux.</span> Prenons le cas d'une amie : pendant ses études universitaires, elle passait beaucoup de temps à <span class="h">négocier</span> les tâches domestiques avec ses colocataires.</p></div>
-            <div class="para-wrap"><p>Au bout de quelques mois, elle était <span class="h">épuisée</span> et avait hâte de déménager. Ainsi, <span class="hl-pink">toute son énergie passait à <span class="h">gérer</span> des conflits du quotidien, plutôt qu'à ses études ou à ses loisirs.</span></p></div>
-            <div class="para-wrap"><p>À long terme, ce type de pression <span class="h">relationnelle</span> finit par <span class="h">nuire</span> au bien-être.</p></div>
+            <div class="para-wrap"><p>Tout d&#8217;abord, <span class="hl-pink">partager un appartement r&#233;duit consid&#233;rablement les <span class="h">d&#233;penses</span>, ce qui lib&#232;re du budget pour d&#8217;autres <span class="h">priorit&#233;s</span>.</span></p></div>
+            <div class="para-wrap"><p>Par exemple, &#224; Calgary, un studio co&#251;te environ 1&#160;500 dollars par mois pour une seule personne. En <span class="h">colocation</span>, chaque colocataire paie environ 800 dollars, soit environ la <span class="h">moiti&#233;</span> du prix d&#8217;un studio seul. De ce fait, cet argent peut &#234;tre <span class="h">consacr&#233;</span> aux &#233;tudes, aux transports ou &#224; une &#233;pargne d&#8217;urgence.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">&#192; long terme, cette r&#233;duction des charges repr&#233;sente un avantage financier r&#233;el et concret.</span></p></div>
           </div>
-          <div class="en-note">💬 <em>épuiser l'énergie mentale</em> = to drain mental energy · <em>voler du temps précieux</em> = to steal precious time · <em>au bout de</em> = after (a period of time) · <em>avoir hâte de</em> = to look forward to · <em>nuire à</em> = to harm</div>
-          <div class="wc">~79 mots ✓</div>
+          <div class="en-note">&#128172; <em>r&#233;duire les d&#233;penses</em> = to reduce expenses &#183; <em>lib&#233;rer du budget</em> = to free up budget &#183; <em>&#234;tre consacr&#233; &#224;</em> = to be devoted to &#183; <em>une &#233;pargne d&#8217;urgence</em> = an emergency fund</div>
+          <div class="wc">~79 mots &#10003;</div>
         </div>
         <div class="block">
-          <div class="block-label">Point 2 — Santé / Sommeil <span class="timing">~1 min</span></div>
+          <div class="block-label">Point 2 &#8212; Comp&#233;tences de vie <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>De plus, <span class="hl-pink">vivre en colocation <span class="h">perturbe</span> souvent la qualité du sommeil, ce qui <span class="h">nuit</span> directement à la santé.</span> Chaque colocataire a ses propres <span class="h">horaires</span> : certains rentrent tard, écoutent de la musique le soir ou reçoivent des amis en semaine.</p></div>
-            <div class="para-wrap"><p>De ce fait, il devient difficile de dormir suffisamment et de <span class="h">récupérer</span> après une longue journée. <span class="hl-pink">Par conséquent, le manque de sommeil affecte la <span class="h">concentration</span>, l'<span class="h">humeur</span> et la <span class="h">productivité</span> au quotidien.</span></p></div>
-            <div class="para-wrap"><p>À mesure que cela se répète, la fatigue <span class="h">s'accumule</span> et finit par <span class="h">peser sur</span> la santé physique et mentale.</p></div>
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">vivre avec des colocataires aux habitudes diff&#233;rentes d&#233;veloppe des <span class="h">comp&#233;tences</span> essentielles comme la communication, le compromis et l&#8217;adaptabilit&#233;.</span></p></div>
+            <div class="para-wrap"><p>Au quotidien, partager un <span class="h">espace</span> oblige &#224; <span class="h">n&#233;gocier</span> les r&#232;gles de vie commune et &#224; exprimer ses besoins <span class="h">clairement</span>. De m&#234;me, la r&#233;partition des t&#226;ches domestiques all&#232;ge la charge de chacun, ce qui laisse plus de temps et d&#8217;&#233;nergie pour d&#8217;autres activit&#233;s.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Par cons&#233;quent, la colocation devient une v&#233;ritable <span class="h">&#233;cole de la vie</span>, bien au-del&#224; du simple <span class="h">partage</span> de loyer.</span></p></div>
           </div>
-          <div class="en-note">💬 <em>perturber</em> = to disrupt · <em>récupérer</em> = to recover, recharge · <em>à mesure que</em> = as (progressive) · <em>peser sur</em> = to weigh on</div>
-          <div class="wc">~80 mots ✓</div>
+          <div class="en-note">&#128172; <em>l&#8217;adaptabilit&#233;</em> = adaptability &#183; <em>n&#233;gocier</em> = to negotiate &#183; <em>la r&#233;partition des t&#226;ches</em> = the sharing of tasks &#183; <em>all&#232;ge la charge</em> = lightens the load &#183; <em>au-del&#224; de</em> = beyond</div>
+          <div class="wc">~78 mots &#10003;</div>
         </div>
         <div class="block block-nuance">
           <div class="block-label">Nuance <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">partager un appartement permet de réduire le loyer d'environ 20 %, ce qui représente une <span class="h">économie non négligeable</span> pour les étudiants ou les jeunes travailleurs aux <span class="h">revenus limités</span>.</span></p></div>
-            <div class="para-wrap"><p><span class="hl-blue">Dans des villes où le <span class="h">coût de la vie</span> est élevé, cette économie peut représenter plusieurs centaines de dollars par mois, <span class="h">libérant</span> ainsi du budget pour d'autres priorités, comme les études, les transports ou les loisirs.</span></p></div>
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">partager un espace oblige &#224; s&#8217;adapter constamment aux autres, ce qui <span class="h">rend difficile</span> d&#8217;avoir un vrai moment d&#8217;intimit&#233; chez soi.</span></p></div>
+            <div class="para-wrap"><p>Chaque d&#233;cision, comme les <span class="h">horaires</span>, le <span class="h">bruit</span> ou les <span class="h">invit&#233;s</span>, doit &#234;tre n&#233;goci&#233;e, et cela peut <span class="h">peser sur</span> l&#8217;esprit &#224; la <span class="h">longue</span>. Pour certaines personnes, ce manque d&#8217;espace personnel finit par <span class="h">engendrer</span> du stress et de la <span class="h">fatigue</span> mentale. En particulier, ceux qui ont besoin de <span class="h">solitude</span> pour se <span class="h">ressourcer</span> apr&#232;s une longue journ&#233;e risquent de trouver la colocation particuli&#232;rement &#233;prouvante.</p></div>
           </div>
-          <div class="en-note">💬 <em>une économie non négligeable</em> = a significant saving · <em>aux revenus limités</em> = with limited income · <em>libérant ainsi</em> = thus freeing up (participle phrase)</div>
-          <div class="wc">~65 mots ✓</div>
+          <div class="en-note">&#128172; <em>rend difficile de</em> = makes it hard to &#183; <em>peser sur l&#8217;esprit</em> = to weigh on the mind &#183; <em>&#224; la longue</em> = in the long run &#183; <em>engendrer</em> = to generate / cause &#183; <em>se ressourcer</em> = to recharge &#183; <em>&#233;prouvant(e)</em> = draining / trying</div>
+          <div class="wc">~75 mots &#10003;</div>
         </div>
         <div class="block">
           <div class="block-label">Conclusion <span class="timing">~50s</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la colocation</span> présente certains avantages, notamment <span class="hl-blue">la réduction du <span class="h">loyer</span></span>, il n'en demeure pas moins que les inconvénients sont indéniables, comme <span class="hl-pink">l'<span class="h">épuisement</span> mental et le manque de <span class="h">sommeil</span>.</span></p></div>
-            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les individus <span class="h">pèsent</span> le pour et le contre avant de <span class="h">s'engager dans</span> une colocation, afin de choisir le <span class="h">cadre de vie</span> le plus adapté à leur situation.</span></p></div>
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la colocation pr&#233;sente certains inconv&#233;nients, notamment le manque d&#8217;intimit&#233;,</span> il n&#8217;en demeure pas moins que <span class="hl-pink">les avantages sont ind&#233;niables, comme la r&#233;duction des <span class="h">d&#233;penses</span> et le d&#233;veloppement de <span class="h">l&#8217;adaptabilit&#233;</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&#233;r&#233;, il serait souhaitable que <span class="hl-p1">les individus p&#232;sent le <span class="h">pour</span> et le <span class="h">contre</span> avant de s&#8217;engager dans une colocation, afin de choisir le <span class="h">cadre</span> de vie le plus adapt&#233; &#224; leur situation.</span></p></div>
             <div class="para-wrap"><p>Merci pour votre attention.</p></div>
           </div>
-          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les individus pèsent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>s'engager dans</em> = to commit to</div>
+          <div class="en-note">&#128172; Subjonctif&#160;: <em>il serait souhaitable que les individus p&#232;sent</em> &#10003; (3&#232;me pers. pluriel) &#183; <em>il n&#8217;en demeure pas moins que</em> = the fact remains that</div>
         </div>
-      </div><!-- /sb1 -->
+      </div><!-- /s1 -->
 
-      <!-- ÉTAPE 2 — more words + verbs + full expressions hidden -->
-      <div id="sb2" class="stage-content">
+      <!-- &#201;TAPE 2 -->
+      <div id="s2" class="stage-content">
         <div class="block">
           <div class="block-label">Introduction <span class="timing">~40s</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink"><span class="h">si partager un appartement à plusieurs est vraiment une bonne idée</span></span>, et les avis sont divergents.</p></div>
-            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink"><span class="h">vivre seul est plus désirable à un certain point.</span></span> Alors, je vais expliquer mes raisons.</p></div>
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question&#160;! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander si <span class="h">partager un appartement &#224; plusieurs</span> est vraiment une bonne id&#233;e, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que <span class="hl-pink"><span class="h">partager un appartement</span> est plus <span class="h">avantageux</span></span>, &#224; un certain point.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
           </div>
         </div>
         <div class="block">
-          <div class="block-label">Point 1 — Le temps / L'énergie <span class="timing">~1 min</span></div>
+          <div class="block-label">Point 1 &#8212; La finance <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink"><span class="h">vivre avec des colocataires aux habitudes différentes épuise l'énergie mentale</span> et vole du temps précieux.</span> Prenons le cas d'une amie : pendant ses études universitaires, elle passait beaucoup de temps à <span class="h">négocier les tâches domestiques</span> avec ses colocataires.</p></div>
-            <div class="para-wrap"><p>Au bout de quelques mois, elle était épuisée et <span class="h">avait hâte de déménager</span>. Ainsi, <span class="hl-pink">toute son énergie passait à <span class="h">gérer des conflits du quotidien</span>, plutôt qu'à ses études ou à ses loisirs.</span></p></div>
-            <div class="para-wrap"><p>À long terme, ce type de pression relationnelle finit par nuire au bien-être.</p></div>
+            <div class="para-wrap"><p>Tout d&#8217;abord, <span class="hl-pink">partager un appartement r&#233;duit consid&#233;rablement les <span class="h">d&#233;penses</span>, ce qui <span class="h">lib&#232;re</span> du budget pour d&#8217;autres <span class="h">priorit&#233;s</span>.</span></p></div>
+            <div class="para-wrap"><p>Par exemple, &#224; Calgary, un studio co&#251;te environ 1&#160;500 dollars par mois pour <span class="h">une seule personne</span>. En colocation, chaque <span class="h">colocataire</span> paie environ 800 dollars, <span class="h">soit</span> environ la <span class="h">moiti&#233; du prix</span> d&#8217;un studio seul. De ce fait, cet argent peut <span class="h">&#234;tre consacr&#233;</span> aux &#233;tudes, aux transports ou &#224; une <span class="h">&#233;pargne d&#8217;urgence</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">&#192; long terme, cette r&#233;duction des charges repr&#233;sente un avantage financier r&#233;el et concret.</span></p></div>
           </div>
-          <div class="en-note">💬 <em>épuiser l'énergie mentale</em> = to drain mental energy · <em>voler du temps précieux</em> = to steal precious time · <em>au bout de</em> = after (a period of time) · <em>avoir hâte de</em> = to look forward to · <em>nuire à</em> = to harm</div>
-          <div class="wc">~79 mots ✓</div>
+          <div class="en-note">&#128172; <em>r&#233;duire les d&#233;penses</em> = to reduce expenses &#183; <em>lib&#233;rer du budget</em> = to free up budget &#183; <em>&#234;tre consacr&#233; &#224;</em> = to be devoted to &#183; <em>une &#233;pargne d&#8217;urgence</em> = an emergency fund</div>
+          <div class="wc">~79 mots &#10003;</div>
         </div>
         <div class="block">
-          <div class="block-label">Point 2 — Santé / Sommeil <span class="timing">~1 min</span></div>
+          <div class="block-label">Point 2 &#8212; Comp&#233;tences de vie <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>De plus, <span class="hl-pink">vivre en colocation <span class="h">perturbe souvent la qualité du sommeil</span>, ce qui nuit directement à la santé.</span> Chaque colocataire a ses propres horaires : certains rentrent tard, <span class="h">écoutent de la musique le soir</span> ou <span class="h">reçoivent des amis en semaine</span>.</p></div>
-            <div class="para-wrap"><p>De ce fait, <span class="h">il devient difficile de dormir suffisamment</span> et de récupérer après une longue journée. <span class="hl-pink">Par conséquent, <span class="h">le manque de sommeil affecte la concentration, l'humeur et la productivité</span> au quotidien.</span></p></div>
-            <div class="para-wrap"><p>À mesure que cela se répète, <span class="h">la fatigue s'accumule</span> et finit par peser sur la santé physique et mentale.</p></div>
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">vivre avec des colocataires aux habitudes diff&#233;rentes d&#233;veloppe des <span class="h">comp&#233;tences</span> essentielles comme la <span class="h">communication</span>, le <span class="h">compromis</span> et <span class="h">l&#8217;adaptabilit&#233;</span>.</span></p></div>
+            <div class="para-wrap"><p>Au quotidien, partager un <span class="h">espace</span> oblige &#224; <span class="h">n&#233;gocier les r&#232;gles</span> de vie commune et &#224; <span class="h">exprimer</span> ses besoins clairement. De m&#234;me, la <span class="h">r&#233;partition</span> des t&#226;ches domestiques all&#232;ge la <span class="h">charge</span> de chacun, ce qui <span class="h">laisse</span> plus de temps et d&#8217;&#233;nergie <span class="h">pour</span> d&#8217;autres activit&#233;s.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Par cons&#233;quent, la colocation devient une v&#233;ritable <span class="h">&#233;cole de la vie</span>, bien <span class="h">au-del&#224; du</span> simple <span class="h">partage</span> de loyer.</span></p></div>
           </div>
-          <div class="en-note">💬 <em>perturber</em> = to disrupt · <em>récupérer</em> = to recover, recharge · <em>à mesure que</em> = as (progressive) · <em>peser sur</em> = to weigh on</div>
-          <div class="wc">~80 mots ✓</div>
+          <div class="en-note">&#128172; <em>l&#8217;adaptabilit&#233;</em> = adaptability &#183; <em>n&#233;gocier</em> = to negotiate &#183; <em>la r&#233;partition des t&#226;ches</em> = the sharing of tasks &#183; <em>all&#232;ge la charge</em> = lightens the load &#183; <em>au-del&#224; de</em> = beyond</div>
+          <div class="wc">~78 mots &#10003;</div>
         </div>
         <div class="block block-nuance">
           <div class="block-label">Nuance <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue"><span class="h">partager un appartement permet de réduire le loyer d'environ 20 %</span>, ce qui représente une économie non négligeable pour les étudiants ou les jeunes travailleurs aux revenus limités.</span></p></div>
-            <div class="para-wrap"><p><span class="hl-blue">Dans des villes où le coût de la vie est élevé, <span class="h">cette économie peut représenter plusieurs centaines de dollars par mois</span>, libérant ainsi du budget pour d'autres priorités, comme les études, les transports ou les loisirs.</span></p></div>
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">partager un espace oblige &#224; s&#8217;adapter constamment aux autres, ce qui rend difficile d&#8217;avoir un vrai moment <span class="h">d&#8217;intimit&#233;</span> chez soi.</span></p></div>
+            <div class="para-wrap"><p>Chaque d&#233;cision, comme les <span class="h">horaires</span>, le <span class="h">bruit</span> ou les <span class="h">invit&#233;s</span>, doit &#234;tre <span class="h">n&#233;goci&#233;e</span>, et cela peut peser sur <span class="h">l&#8217;esprit</span> &#224; la <span class="h">longue</span>. Pour certaines personnes, ce manque d&#8217;espace personnel finit par <span class="h">engendrer</span> du <span class="h">stress</span> et de la <span class="h">fatigue mentale</span>. En particulier, ceux qui ont besoin de <span class="h">solitude</span> pour <span class="h">se ressourcer</span> apr&#232;s une longue journ&#233;e risquent de trouver la colocation particuli&#232;rement <span class="h">&#233;prouvante</span>.</p></div>
           </div>
-          <div class="en-note">💬 <em>une économie non négligeable</em> = a significant saving · <em>aux revenus limités</em> = with limited income · <em>libérant ainsi</em> = thus freeing up (participle phrase)</div>
-          <div class="wc">~65 mots ✓</div>
+          <div class="en-note">&#128172; <em>rend difficile de</em> = makes it hard to &#183; <em>peser sur l&#8217;esprit</em> = to weigh on the mind &#183; <em>&#224; la longue</em> = in the long run &#183; <em>engendrer</em> = to generate / cause &#183; <em>se ressourcer</em> = to recharge &#183; <em>&#233;prouvant(e)</em> = draining / trying</div>
+          <div class="wc">~75 mots &#10003;</div>
         </div>
         <div class="block">
           <div class="block-label">Conclusion <span class="timing">~50s</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la colocation</span> présente certains avantages, notamment <span class="hl-blue"><span class="h">la réduction du loyer</span></span>, il n'en demeure pas moins que les inconvénients sont indéniables, comme <span class="hl-pink"><span class="h">l'épuisement mental et le manque de sommeil</span>.</span></p></div>
-            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1"><span class="h">les individus pèsent le pour et le contre avant de s'engager dans une colocation</span>, afin de <span class="h">choisir le cadre de vie le plus adapté à leur situation</span>.</span></p></div>
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la colocation pr&#233;sente certains inconv&#233;nients, notamment <span class="h">le manque d&#8217;intimit&#233;</span>,</span> il n&#8217;en demeure pas moins que <span class="hl-pink">les avantages sont ind&#233;niables, comme la r&#233;duction des <span class="h">d&#233;penses</span> et le d&#233;veloppement de <span class="h">l&#8217;adaptabilit&#233;</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&#233;r&#233;, il serait souhaitable que <span class="hl-p1">les individus p&#232;sent le <span class="h">pour</span> et le <span class="h">contre</span> avant de s&#8217;engager dans une colocation, afin de choisir le <span class="h">cadre</span> de vie le plus adapt&#233; &#224; leur situation.</span></p></div>
             <div class="para-wrap"><p>Merci pour votre attention.</p></div>
           </div>
-          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les individus pèsent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>s'engager dans</em> = to commit to</div>
+          <div class="en-note">&#128172; Subjonctif&#160;: <em>il serait souhaitable que les individus p&#232;sent</em> &#10003; (3&#232;me pers. pluriel) &#183; <em>il n&#8217;en demeure pas moins que</em> = the fact remains that</div>
         </div>
-      </div><!-- /sb2 -->
+      </div><!-- /s2 -->
 
-      <!-- ÉTAPE 3 — whole phrases and clauses hidden; highlighted anchors visible -->
-      <div id="sb3" class="stage-content">
+      <!-- &#201;TAPE 3 -->
+      <div id="s3" class="stage-content">
         <div class="block">
           <div class="block-label">Introduction <span class="timing">~40s</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink"><span class="h">si partager un appartement à plusieurs est vraiment une bonne idée</span></span>, et les avis sont divergents.</p></div>
-            <div class="para-wrap"><p>Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink"><span class="h">vivre seul est plus désirable à un certain point.</span></span> Alors, je vais expliquer mes raisons.</p></div>
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question&#160;! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander si <span class="h">partager un appartement &#224; plusieurs est vraiment une bonne id&#233;e</span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que <span class="hl-pink"><span class="h">partager un appartement est plus avantageux &#224; un certain point</span></span>.</p></div>
+            <div class="para-wrap"><p>Alors, je vais expliquer mes raisons.</p></div>
           </div>
         </div>
         <div class="block">
-          <div class="block-label">Point 1 — Le temps / L'énergie <span class="timing">~1 min</span></div>
+          <div class="block-label">Point 1 &#8212; La finance <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Tout d'abord, <span class="hl-pink">vivre avec des colocataires aux habitudes différentes épuise l'énergie mentale et vole du temps précieux.</span></p></div>
-            <div class="para-wrap"><p><span class="h">Prenons le cas d'une amie : pendant ses études universitaires, elle passait beaucoup de temps à négocier les tâches domestiques avec ses colocataires. Au bout de quelques mois, elle était épuisée et avait hâte de déménager.</span></p></div>
-            <div class="para-wrap"><p>Ainsi, <span class="hl-pink">toute son énergie passait à gérer des conflits du quotidien, plutôt qu'à ses études ou à ses loisirs.</span></p></div>
-            <div class="para-wrap"><p><span class="h">À long terme, ce type de pression relationnelle finit par nuire au bien-être.</span></p></div>
+            <div class="para-wrap"><p>Tout d&#8217;abord, <span class="hl-pink">partager un appartement r&#233;duit consid&#233;rablement les d&#233;penses, ce qui lib&#232;re du budget pour d&#8217;autres priorit&#233;s.</span></p></div>
+            <div class="para-wrap"><p>Par exemple, &#224; Calgary, un studio co&#251;te environ <span class="h">1&#160;500 dollars par mois</span> pour une seule personne. En colocation, chaque colocataire paie <span class="h">environ 800 dollars</span>, soit <span class="h">environ la moiti&#233; du prix d&#8217;un studio seul</span>. De ce fait, cet argent peut &#234;tre consacr&#233; <span class="h">aux &#233;tudes</span>, <span class="h">aux transports</span> ou <span class="h">&#224; une &#233;pargne d&#8217;urgence</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">&#192; long terme, cette r&#233;duction des charges repr&#233;sente un avantage financier r&#233;el et concret.</span></p></div>
           </div>
-          <div class="en-note">💬 <em>épuiser l'énergie mentale</em> = to drain mental energy · <em>voler du temps précieux</em> = to steal precious time · <em>au bout de</em> = after (a period of time) · <em>avoir hâte de</em> = to look forward to · <em>nuire à</em> = to harm</div>
-          <div class="wc">~79 mots ✓</div>
+          <div class="en-note">&#128172; <em>r&#233;duire les d&#233;penses</em> = to reduce expenses &#183; <em>lib&#233;rer du budget</em> = to free up budget &#183; <em>&#234;tre consacr&#233; &#224;</em> = to be devoted to &#183; <em>une &#233;pargne d&#8217;urgence</em> = an emergency fund</div>
+          <div class="wc">~79 mots &#10003;</div>
         </div>
         <div class="block">
-          <div class="block-label">Point 2 — Santé / Sommeil <span class="timing">~1 min</span></div>
+          <div class="block-label">Point 2 &#8212; Comp&#233;tences de vie <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>De plus, <span class="hl-pink">vivre en colocation perturbe souvent la qualité du sommeil, ce qui nuit directement à la santé.</span></p></div>
-            <div class="para-wrap"><p><span class="h">Chaque colocataire a ses propres horaires : certains rentrent tard, écoutent de la musique le soir ou reçoivent des amis en semaine. De ce fait, il devient difficile de dormir suffisamment et de récupérer après une longue journée.</span></p></div>
-            <div class="para-wrap"><p><span class="hl-pink">Par conséquent, le manque de sommeil affecte la concentration, l'humeur et la productivité au quotidien.</span></p></div>
-            <div class="para-wrap"><p><span class="h">À mesure que cela se répète, la fatigue s'accumule et finit par peser sur la santé physique et mentale.</span></p></div>
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">vivre avec des colocataires aux habitudes diff&#233;rentes d&#233;veloppe des comp&#233;tences essentielles comme la communication, le compromis et l&#8217;adaptabilit&#233;.</span></p></div>
+            <div class="para-wrap"><p>Au quotidien, partager un espace oblige &#224; <span class="h">n&#233;gocier les r&#232;gles de vie commune</span> et &#224; <span class="h">exprimer ses besoins clairement</span>. De m&#234;me, la r&#233;partition des t&#226;ches domestiques all&#232;ge <span class="h">la charge de chacun</span>, ce qui laisse plus de <span class="h">temps et d&#8217;&#233;nergie</span> pour <span class="h">d&#8217;autres activit&#233;s</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Par cons&#233;quent, la colocation devient une v&#233;ritable &#233;cole de la vie, bien au-del&#224; du <span class="h">simple partage de loyer</span>.</span></p></div>
           </div>
-          <div class="en-note">💬 <em>perturber</em> = to disrupt · <em>récupérer</em> = to recover, recharge · <em>à mesure que</em> = as (progressive) · <em>peser sur</em> = to weigh on</div>
-          <div class="wc">~80 mots ✓</div>
+          <div class="en-note">&#128172; <em>l&#8217;adaptabilit&#233;</em> = adaptability &#183; <em>n&#233;gocier</em> = to negotiate &#183; <em>la r&#233;partition des t&#226;ches</em> = the sharing of tasks &#183; <em>all&#232;ge la charge</em> = lightens the load &#183; <em>au-del&#224; de</em> = beyond</div>
+          <div class="wc">~78 mots &#10003;</div>
         </div>
         <div class="block block-nuance">
           <div class="block-label">Nuance <span class="timing">~1 min</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">partager un appartement permet de réduire le loyer d'environ 20 %, ce qui représente une économie non négligeable pour les étudiants ou les jeunes travailleurs aux revenus limités.</span></p></div>
-            <div class="para-wrap"><p><span class="hl-blue"><span class="h">Dans des villes où le coût de la vie est élevé, cette économie peut représenter plusieurs centaines de dollars par mois, libérant ainsi du budget pour d'autres priorités, comme les études, les transports ou les loisirs.</span></span></p></div>
+            <div class="para-wrap"><p>Il est certes vrai que <span class="hl-blue">partager un espace oblige &#224; s&#8217;adapter constamment aux autres, ce qui rend difficile d&#8217;avoir un vrai moment d&#8217;intimit&#233; chez soi.</span></p></div>
+            <div class="para-wrap"><p>Chaque d&#233;cision, comme <span class="h">les horaires</span>, <span class="h">le bruit</span> ou <span class="h">les invit&#233;s</span>, doit &#234;tre n&#233;goci&#233;e, et cela peut peser sur l&#8217;esprit &#224; la longue. Pour certaines personnes, ce manque d&#8217;espace personnel finit par <span class="h">engendrer du stress et de la fatigue mentale</span>. En particulier, ceux qui ont besoin de <span class="h">solitude</span> pour <span class="h">se ressourcer</span> apr&#232;s une longue journ&#233;e risquent de <span class="h">trouver la colocation particuli&#232;rement &#233;prouvante</span>.</p></div>
           </div>
-          <div class="en-note">💬 <em>une économie non négligeable</em> = a significant saving · <em>aux revenus limités</em> = with limited income · <em>libérant ainsi</em> = thus freeing up (participle phrase)</div>
-          <div class="wc">~65 mots ✓</div>
+          <div class="en-note">&#128172; <em>rend difficile de</em> = makes it hard to &#183; <em>peser sur l&#8217;esprit</em> = to weigh on the mind &#183; <em>&#224; la longue</em> = in the long run &#183; <em>engendrer</em> = to generate / cause &#183; <em>se ressourcer</em> = to recharge &#183; <em>&#233;prouvant(e)</em> = draining / trying</div>
+          <div class="wc">~75 mots &#10003;</div>
         </div>
         <div class="block">
           <div class="block-label">Conclusion <span class="timing">~50s</span></div>
           <div class="script-text">
-            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue">la colocation</span> présente certains avantages, notamment <span class="hl-blue">la réduction du loyer</span>, il n'en demeure pas moins que les inconvénients sont indéniables, comme <span class="hl-pink">l'épuisement mental et le manque de sommeil.</span></p></div>
-            <div class="para-wrap"><p>Tout bien considéré, il serait souhaitable que <span class="hl-p1"><span class="h">les individus pèsent le pour et le contre avant de s'engager dans une colocation, afin de choisir le cadre de vie le plus adapté à leur situation.</span></span></p></div>
+            <div class="para-wrap"><p>En conclusion, bien que <span class="hl-blue"><span class="h">la colocation</span> pr&#233;sente certains inconv&#233;nients, notamment <span class="h">le manque d&#8217;intimit&#233;</span>,</span> il n&#8217;en demeure pas moins que les avantages sont ind&#233;niables, comme <span class="hl-pink"><span class="h">la r&#233;duction des d&#233;penses</span> et <span class="h">le d&#233;veloppement de l&#8217;adaptabilit&#233;</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&#233;r&#233;, il serait souhaitable que <span class="hl-p1">les individus <span class="h">p&#232;sent le pour et le contre</span> avant de <span class="h">s&#8217;engager dans une colocation</span>, afin de <span class="h">choisir le cadre de vie</span> le plus <span class="h">adapt&#233; &#224; leur situation</span>.</span></p></div>
             <div class="para-wrap"><p>Merci pour votre attention.</p></div>
           </div>
-          <div class="en-note">💬 Subjonctif : <em>il serait souhaitable que les individus pèsent</em> ✓ · <em>il n'en demeure pas moins que</em> = the fact remains that · <em>s'engager dans</em> = to commit to</div>
+          <div class="en-note">&#128172; Subjonctif&#160;: <em>il serait souhaitable que les individus p&#232;sent</em> &#10003; (3&#232;me pers. pluriel) &#183; <em>il n&#8217;en demeure pas moins que</em> = the fact remains that</div>
         </div>
-      </div><!-- /sb3 -->
+      </div><!-- /s3 -->
 
     </div><!-- /script-card -->
   </div><!-- /single-view -->
-</div><!-- /posB -->
+</div><!-- /posA -->
 
-<!-- WORD LIST -->
+<div id="posB" class="content"><div class="single-view" id="posBGrid"></div></div>
+
 <div id="words" class="content">
   <div class="wl-page">
-
     <div class="wl-section">
-      <div class="wl-section-title">Noms — clés du sujet</div>
+      <div class="wl-section-title">Noms &#8212; cl&#233;s du sujet</div>
       <div class="wl-grid">
         <div class="wl-card">
-          <div class="wl-card-header">Logement et colocation ★ = exam priority</div>
-          <div class="wl-row"><span class="wl-fr">la colocation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">house/flat sharing, co-tenancy</span></div>
-          <div class="wl-row"><span class="wl-fr">le colocataire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">flatmate, housemate</span></div>
-          <div class="wl-row"><span class="wl-fr">le loyer <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">rent</span></div>
-          <div class="wl-row"><span class="wl-fr">l'appartement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">apartment, flat</span></div>
-          <div class="wl-row"><span class="wl-fr">les dépenses <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">expenses, spending</span></div>
-          <div class="wl-row"><span class="wl-fr">l'épargne d'urgence <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">emergency savings</span></div>
-          <div class="wl-row"><span class="wl-fr">le cadre de vie <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">living environment / lifestyle framework</span></div>
-          <div class="wl-row"><span class="wl-fr">les charges <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">utility costs, bills</span></div>
+          <div class="wl-card-header">Logement &amp; finances &#9733; = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la colocation <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">shared housing / flatsharing</span></div>
+          <div class="wl-row"><span class="wl-fr">le colocataire <em>(m/f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">roommate / flatmate</span></div>
+          <div class="wl-row"><span class="wl-fr">le loyer <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">rent</span></div>
+          <div class="wl-row"><span class="wl-fr">les d&#233;penses <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">expenses</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#8217;&#233;pargne <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">savings</span></div>
+          <div class="wl-row"><span class="wl-fr">les charges <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">living costs / bills</span></div>
+          <div class="wl-row"><span class="wl-fr">le budget <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">budget</span></div>
+          <div class="wl-row"><span class="wl-fr">la priorit&#233; <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">priority</span></div>
         </div>
         <div class="wl-card">
-          <div class="wl-card-header">Bien-être et relations</div>
-          <div class="wl-row"><span class="wl-fr">l'intimité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">privacy, intimacy</span></div>
-          <div class="wl-row"><span class="wl-fr">la solitude <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">solitude, being alone</span></div>
-          <div class="wl-row"><span class="wl-fr">le bien-être <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">well-being</span></div>
-          <div class="wl-row"><span class="wl-fr">la fatigue mentale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mental fatigue</span></div>
-          <div class="wl-row"><span class="wl-fr">le conflit <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">conflict</span></div>
-          <div class="wl-row"><span class="wl-fr">le compromis <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">compromise</span></div>
-          <div class="wl-row"><span class="wl-fr">l'adaptabilité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">adaptability</span></div>
-          <div class="wl-row"><span class="wl-fr">la répartition des tâches <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">division of chores/tasks</span></div>
-        </div>
-        <div class="wl-card">
-          <div class="wl-card-header">Compétences et quotidien</div>
-          <div class="wl-row"><span class="wl-fr">les compétences <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">skills</span></div>
-          <div class="wl-row"><span class="wl-fr">la communication <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">communication</span></div>
-          <div class="wl-row"><span class="wl-fr">les tâches domestiques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">household chores</span></div>
-          <div class="wl-row"><span class="wl-fr">les horaires <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">schedules, timetables</span></div>
-          <div class="wl-row"><span class="wl-fr">la productivité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">productivity</span></div>
-          <div class="wl-row"><span class="wl-fr">la concentration <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">concentration, focus</span></div>
-        </div>
-        <div class="wl-card">
-          <div class="wl-card-header">Santé et sommeil</div>
-          <div class="wl-row"><span class="wl-fr">le sommeil <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">sleep</span></div>
-          <div class="wl-row"><span class="wl-fr">le manque de sommeil <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">sleep deprivation / lack of sleep</span></div>
-          <div class="wl-row"><span class="wl-fr">l'épuisement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">exhaustion</span></div>
-          <div class="wl-row"><span class="wl-fr">le stress <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">stress</span></div>
-          <div class="wl-row"><span class="wl-fr">se ressourcer <em>(v)</em><span class="wl-star">★</span></span><span class="wl-en">to recharge, refresh oneself</span></div>
-          <div class="wl-row"><span class="wl-fr">récupérer <em>(v)</em><span class="wl-star">★</span></span><span class="wl-en">to recover, get one's strength back</span></div>
+          <div class="wl-card-header">Vie commune &amp; bien-&#234;tre</div>
+          <div class="wl-row"><span class="wl-fr">les comp&#233;tences <em>(fpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">skills</span></div>
+          <div class="wl-row"><span class="wl-fr">le compromis <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">compromise</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#8217;adaptabilit&#233; <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">adaptability</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#8217;intimit&#233; <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">privacy / intimacy</span></div>
+          <div class="wl-row"><span class="wl-fr">la solitude <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">solitude / loneliness</span></div>
+          <div class="wl-row"><span class="wl-fr">la fatigue mentale <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">mental fatigue</span></div>
+          <div class="wl-row"><span class="wl-fr">la r&#233;partition des t&#226;ches <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">sharing of tasks / chores</span></div>
+          <div class="wl-row"><span class="wl-fr">le cadre de vie <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">living environment / lifestyle framework</span></div>
         </div>
       </div>
     </div>
-
     <div class="wl-section">
-      <div class="wl-section-title">Verbes + prépositions</div>
-      <div class="wl-card">
-        <div class="wl-card-header">Verbs + prepositions — relative pronoun in brackets</div>
-        <table class="verb-table">
-          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
-          <tr><td class="vfr">partager</td><td class="vprep">—</td><td class="vrel">que</td><td class="ven">to share</td></tr>
-          <tr><td class="vfr">nuire</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to harm, to be detrimental to</td></tr>
-          <tr><td class="vfr">s'adapter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to adapt to</td></tr>
-          <tr><td class="vfr">négocier</td><td class="vprep">—</td><td class="vrel">que</td><td class="ven">to negotiate</td></tr>
-          <tr><td class="vfr">consacrer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to devote to</td></tr>
-          <tr><td class="vfr">peser sur</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to weigh on</td></tr>
-          <tr><td class="vfr">se ressourcer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to recharge oneself</td></tr>
-          <tr><td class="vfr">s'engager dans</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to commit to, to enter into</td></tr>
-          <tr><td class="vfr">libérer</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to free from</td></tr>
-          <tr><td class="vfr">perturber</td><td class="vprep">—</td><td class="vrel">que</td><td class="ven">to disrupt</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="wl-section">
-      <div class="wl-section-title">Adjectifs utiles</div>
-      <div class="wl-card">
-        <div class="adj-grid">
-          <div class="adj-row"><span class="adj-fr">avantageux(se)</span><span class="adj-en">advantageous, beneficial</span></div>
-          <div class="adj-row"><span class="adj-fr">éprouvant(e)</span><span class="adj-en">gruelling, taxing</span></div>
-          <div class="adj-row"><span class="adj-fr">indéniable</span><span class="adj-en">undeniable</span></div>
-          <div class="adj-row"><span class="adj-fr">non négligeable</span><span class="adj-en">not insignificant, considerable</span></div>
-          <div class="adj-row"><span class="adj-fr">précieux(se)</span><span class="adj-en">precious, valuable</span></div>
-          <div class="adj-row"><span class="adj-fr">essentiel(le)</span><span class="adj-en">essential</span></div>
-          <div class="adj-row"><span class="adj-fr">épuisant(e)</span><span class="adj-en">exhausting</span></div>
-          <div class="adj-row"><span class="adj-fr">désirable</span><span class="adj-en">desirable, preferable</span></div>
-          <div class="adj-row"><span class="adj-fr">adapté(e)</span><span class="adj-en">suited, appropriate</span></div>
-          <div class="adj-row"><span class="adj-fr">limité(e)</span><span class="adj-en">limited</span></div>
+      <div class="wl-section-title">Verbes + pr&#233;positions</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Verbes &#8212; pronom relatif en jaune</div>
+          <div class="wl-row"><span class="wl-fr">partager <em>(qqch)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to share &#8212; no prep<span class="wl-prep">que</span></span></div>
+          <div class="wl-row"><span class="wl-fr">r&#233;duire <em>(qqch)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to reduce &#8212; no prep<span class="wl-prep">que</span></span></div>
+          <div class="wl-row"><span class="wl-fr">consacrer <em>&#224;</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to devote to<span class="wl-prep">auquel</span></span></div>
+          <div class="wl-row"><span class="wl-fr">obliger <em>&#224;</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to force / oblige to<span class="wl-prep">auquel</span></span></div>
+          <div class="wl-row"><span class="wl-fr">n&#233;gocier <em>(qqch)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to negotiate &#8212; no prep<span class="wl-prep">que</span></span></div>
+          <div class="wl-row"><span class="wl-fr">all&#233;ger <em>(qqch)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to lighten / ease &#8212; no prep<span class="wl-prep">que</span></span></div>
+          <div class="wl-row"><span class="wl-fr">d&#233;velopper <em>(qqch)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to develop &#8212; no prep<span class="wl-prep">que</span></span></div>
+          <div class="wl-row"><span class="wl-fr">s&#8217;adapter <em>&#224;</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to adapt to<span class="wl-prep">auquel</span></span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Verbes &#8212; suite</div>
+          <div class="wl-row"><span class="wl-fr">peser <em>sur</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to weigh on<span class="wl-prep">sur lequel</span></span></div>
+          <div class="wl-row"><span class="wl-fr">engendrer <em>(qqch)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to cause / generate &#8212; no prep<span class="wl-prep">que</span></span></div>
+          <div class="wl-row"><span class="wl-fr">se ressourcer <em>(-)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to recharge / recover &#8212; no prep</span></div>
+          <div class="wl-row"><span class="wl-fr">nuire <em>&#224;</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to harm<span class="wl-prep">auquel</span></span></div>
+          <div class="wl-row"><span class="wl-fr">perturber <em>(qqch)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to disturb / disrupt &#8212; no prep<span class="wl-prep">que</span></span></div>
+          <div class="wl-row"><span class="wl-fr">s&#8217;engager <em>dans</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to commit to / embark on<span class="wl-prep">dans lequel</span></span></div>
+          <div class="wl-row"><span class="wl-fr">exprimer <em>(qqch)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to express &#8212; no prep<span class="wl-prep">que</span></span></div>
+          <div class="wl-row"><span class="wl-fr">peser <em>le pour et le contre</em><span class="wl-star">&#9733;</span></span><span class="wl-en">to weigh the pros and cons</span></div>
         </div>
       </div>
     </div>
-
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Qualificatifs positifs</div>
+          <div class="wl-row"><span class="wl-fr">avantageux / avantageuse<span class="wl-star">&#9733;</span></span><span class="wl-en">advantageous / beneficial</span></div>
+          <div class="wl-row"><span class="wl-fr">essentiel(le)<span class="wl-star">&#9733;</span></span><span class="wl-en">essential</span></div>
+          <div class="wl-row"><span class="wl-fr">concret / concr&#232;te<span class="wl-star">&#9733;</span></span><span class="wl-en">concrete / tangible</span></div>
+          <div class="wl-row"><span class="wl-fr">adapt&#233;(e)<span class="wl-star">&#9733;</span></span><span class="wl-en">suited / adapted</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Qualificatifs n&#233;gatifs / nuanc&#233;s</div>
+          <div class="wl-row"><span class="wl-fr">&#233;prouvant(e)<span class="wl-star">&#9733;</span></span><span class="wl-en">draining / trying</span></div>
+          <div class="wl-row"><span class="wl-fr">perturbateur / perturbatrice<span class="wl-star">&#9733;</span></span><span class="wl-en">disruptive</span></div>
+          <div class="wl-row"><span class="wl-fr">limit&#233;(e)<span class="wl-star">&#9733;</span></span><span class="wl-en">limited</span></div>
+          <div class="wl-row"><span class="wl-fr">non n&#233;gligeable<span class="wl-star">&#9733;</span></span><span class="wl-en">significant / not to be overlooked</span></div>
+        </div>
+      </div>
+    </div>
     <div class="wl-section">
       <div class="wl-section-title">Paires de contraste</div>
       <div class="contrast-grid">
         <div class="contrast-card">
-          <div class="contrast-header contrast-header-a">OUI — c'est une bonne idée</div>
-          <div class="contrast-item">réduit considérablement les dépenses</div>
-          <div class="contrast-item">libère du budget pour les études et l'épargne</div>
-          <div class="contrast-item">développe la communication et le compromis</div>
-          <div class="contrast-item">allège les tâches domestiques</div>
-          <div class="contrast-item">école de la vie et de l'adaptabilité</div>
-          <div class="contrast-item">crée des liens sociaux enrichissants</div>
+          <div class="contrast-header contrast-header-a">OUI &#8212; partager est une bonne id&#233;e</div>
+          <div class="contrast-item">Partager un appartement r&#233;duit consid&#233;rablement les d&#233;penses et lib&#232;re du budget pour d&#8217;autres priorit&#233;s.</div>
+          <div class="contrast-item">Vivre en colocation d&#233;veloppe des comp&#233;tences essentielles comme le compromis et l&#8217;adaptabilit&#233;.</div>
+          <div class="contrast-item">La r&#233;partition des t&#226;ches all&#232;ge la charge de chacun et laisse plus de temps pour soi.</div>
+          <div class="contrast-item">La colocation devient une v&#233;ritable &#233;cole de la vie, bien au-del&#224; du simple partage de loyer.</div>
         </div>
         <div class="contrast-card">
-          <div class="contrast-header contrast-header-b">NON — ce n'est pas une bonne idée</div>
-          <div class="contrast-item">épuise l'énergie mentale et vole du temps</div>
-          <div class="contrast-item">perturbe la qualité du sommeil</div>
-          <div class="contrast-item">conflits constants sur les règles de vie</div>
-          <div class="contrast-item">manque d'intimité et d'espace personnel</div>
-          <div class="contrast-item">pression relationnelle nuit au bien-être</div>
-          <div class="contrast-item">manque de solitude pour se ressourcer</div>
+          <div class="contrast-header contrast-header-b">NON &#8212; partager n&#8217;est pas une bonne id&#233;e</div>
+          <div class="contrast-item">Vivre avec des colocataires aux habitudes diff&#233;rentes &#233;puise l&#8217;&#233;nergie mentale et vole du temps pr&#233;cieux.</div>
+          <div class="contrast-item">Chaque colocataire a ses propres horaires, ce qui perturbe souvent la qualit&#233; du sommeil.</div>
+          <div class="contrast-item">Le manque d&#8217;intimit&#233; finit par engendrer du stress et de la fatigue mentale &#224; la longue.</div>
+          <div class="contrast-item">Partager un espace oblige &#224; s&#8217;adapter constamment aux autres, au d&#233;triment de son &#233;quilibre personnel.</div>
         </div>
       </div>
     </div>
-
     <div class="wl-section">
-      <div class="wl-section-title">Phrases figées C1 — mémoriser en bloc</div>
+      <div class="wl-section-title">Expressions C1 &#8212; &#224; r&#233;utiliser</div>
       <div class="chunk-list">
         <div class="chunk-card">
-          <div class="chunk-fr">partager un appartement réduit considérablement les dépenses, ce qui libère du budget pour d'autres priorités</div>
-          <div class="chunk-en">sharing an apartment considerably reduces expenses, which frees up budget for other priorities</div>
-          <div class="chunk-note">réduit considérablement = strong adverb · ce qui libère = relative clause chaining cause → effect</div>
+          <div class="chunk-fr">La colocation devient une v&#233;ritable &#233;cole de la vie, bien au-del&#224; du simple partage de loyer.</div>
+          <div class="chunk-en">Sharing a flat becomes a real school of life, well beyond simply splitting the rent.</div>
+          <div class="chunk-note">&#10022; <em>au-del&#224; de</em> &#8212; contraste C1 &#233;l&#233;gant &#183; parfait pour conclure un point</div>
         </div>
         <div class="chunk-card">
-          <div class="chunk-fr">toute son énergie passait à gérer des conflits du quotidien, plutôt qu'à ses études ou à ses loisirs</div>
-          <div class="chunk-en">all her energy went into managing everyday conflicts, rather than into her studies or leisure</div>
-          <div class="chunk-note">plutôt que à = elegant contrast · passer à + infinitif = to spend time doing</div>
+          <div class="chunk-fr">Cet argent peut &#234;tre consacr&#233; aux &#233;tudes, aux transports ou &#224; une &#233;pargne d&#8217;urgence.</div>
+          <div class="chunk-en">This money can be devoted to studies, transport, or an emergency fund.</div>
+          <div class="chunk-note">&#10022; <em>&#234;tre consacr&#233; &#224;</em> &#8212; passif &#233;l&#233;gant &#183; r&#233;utilisable pour tout sujet budg&#233;taire</div>
         </div>
         <div class="chunk-card">
-          <div class="chunk-fr">à mesure que cela se répète, la fatigue s'accumule et finit par peser sur la santé physique et mentale</div>
-          <div class="chunk-en">as this repeats itself, fatigue builds up and eventually weighs on physical and mental health</div>
-          <div class="chunk-note">à mesure que = progressive C1 connector · finir par = to end up doing · peser sur = weigh on (metaphor)</div>
+          <div class="chunk-fr">Ce manque d&#8217;espace personnel finit par engendrer du stress et de la fatigue mentale.</div>
+          <div class="chunk-en">This lack of personal space ends up causing stress and mental fatigue.</div>
+          <div class="chunk-note">&#10022; <em>finir par + infinitif</em> &#8212; marque une cons&#233;quence progressive &#183; naturel &#224; l&#8217;oral</div>
         </div>
         <div class="chunk-card">
-          <div class="chunk-fr">il serait souhaitable que les individus pèsent le pour et le contre avant de s'engager dans une colocation</div>
-          <div class="chunk-en">it would be advisable for individuals to weigh the pros and cons before committing to a shared flat</div>
-          <div class="chunk-note">il serait souhaitable que + subjonctif ✓ · peser le pour et le contre = set idiom · s'engager dans = to commit to</div>
+          <div class="chunk-fr">Ceux qui ont besoin de solitude pour se ressourcer risquent de trouver la colocation particuli&#232;rement &#233;prouvante.</div>
+          <div class="chunk-en">Those who need solitude to recharge risk finding shared living particularly draining.</div>
+          <div class="chunk-note">&#10022; <em>risquer de + infinitif</em> &#8212; nuance prudente C1 &#183; id&#233;al pour la nuance ou la conclusion</div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
 <script>
-const scriptA = {
-  header: '✅ Position A — OUI, c\'est une bonne idée de partager un appartement à plusieurs',
-  headerClass:'card-header-green', titleClass:'card-title-green',
-  badge:'Plus ardu', badgeClass:'badge-hard',
+const scriptB = {
+  header: "&#10060; Position B &#8212; NON&#160;: ce n&#8217;est pas une bonne id&#233;e de partager un appartement &#224; plusieurs",
+  headerClass:"card-header-blue", titleClass:"card-title-blue",
+  badge:"Plus ardu", badgeClass:"badge-hard",
   blocks:[
-    { label:'Introduction', timing:'~40s', nuance:false,
-      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si partager un appartement à plusieurs est vraiment une bonne idée</span>, et les avis sont divergents. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">partager un appartement est plus avantageux à un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:'' },
-    { label:'Point 1 — Finance', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
-      text:`<p>Tout d'abord, partager un appartement <span class="hl-pink">réduit considérablement les dépenses</span>, ce qui libère du budget pour d'autres priorités. Par exemple, à Calgary, un studio coûte environ <span class="hl-pink">1 500 dollars par mois</span> pour une seule personne. En colocation, chaque colocataire paie environ <span class="hl-pink">800 dollars, soit environ la moitié du prix</span> d'un studio seul. De ce fait, cet argent peut être consacré aux études, aux transports ou à une épargne d'urgence. À long terme, cette réduction des charges représente un avantage financier réel et concret.</p>`,
-      note:'💬 <em>réduit considérablement</em> = reduces considerably · <em>soit environ</em> = that is roughly (useful filler) · <em>être consacré à</em> = to be devoted to · <em>épargne d\'urgence</em> = emergency savings' },
-    { label:'Point 2 — Compétences / Adaptabilité', timing:'~1 min', nuance:false, wc:'~78 mots ✓',
-      text:`<p>De plus, vivre avec des colocataires aux habitudes différentes développe des <span class="hl-pink">compétences essentielles</span> comme la communication, le compromis et l'adaptabilité. Au quotidien, partager un espace oblige à <span class="hl-pink">négocier les règles de vie commune</span> et à exprimer ses besoins clairement. De même, la répartition des tâches domestiques allège la charge de chacun, ce qui laisse plus de temps et d'énergie pour d'autres activités. Par conséquent, la colocation devient une véritable <span class="hl-pink">école de la vie</span>, bien au-delà du simple partage de loyer.</p>`,
-      note:'💬 <em>négocier les règles de vie commune</em> = to negotiate the house rules · <em>allège la charge de chacun</em> = lightens everyone\'s load · <em>école de la vie</em> = school of life (set expression)' },
-    { label:'Nuance — Liberté / Santé', timing:'~1 min', nuance:true, wc:'~75 mots ✓',
-      text:`<p>Il est certes vrai que partager un espace oblige à s'adapter constamment aux autres, ce qui <span class="hl-blue">rend difficile d'avoir un vrai moment d'intimité</span> chez soi. Chaque décision, comme les horaires, le bruit ou les invités, doit être négociée, et cela peut <span class="hl-blue">peser sur l'esprit à la longue.</span> Pour certaines personnes, ce manque d'espace personnel finit par engendrer du stress et de la <span class="hl-blue">fatigue mentale</span>. En particulier, ceux qui ont besoin de solitude pour se ressourcer après une longue journée risquent de trouver la colocation particulièrement <span class="hl-blue">éprouvante.</span></p>`,
-      note:'💬 <em>peser sur l\'esprit à la longue</em> = to weigh on the mind over time · <em>engendrer</em> = to give rise to (C1) · <em>se ressourcer</em> = to recharge oneself · <em>éprouvant(e)</em> = taxing, gruelling' },
-    { label:'Conclusion', timing:'~50s', nuance:false,
-      text:`<p>En conclusion, bien que <span class="hl-blue">la colocation</span> présente certains inconvénients, notamment <span class="hl-blue">le manque d'intimité</span>, il n'en demeure pas moins que les avantages sont indéniables, comme <span class="hl-pink">la réduction des dépenses</span> et <span class="hl-pink">le développement de l'adaptabilité.</span></p>
-<p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les individus pèsent le pour et le contre avant de s'engager dans une colocation, afin de choisir le cadre de vie le plus adapté à leur situation.</span></p>
-<p>Merci pour votre attention.</p>`, note:'💬 Subjonctif : <em>il serait souhaitable que les individus pèsent</em> ✓ · <em>il n\'en demeure pas moins que</em> = the fact remains that · <em>cadre de vie</em> = living environment' }
+    { label:"Introduction", timing:"~40s", nuance:false,
+      textHtml:[
+        `Pour commencer, merci pour votre question&#160;! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander si partager un appartement &#224; plusieurs est vraiment une bonne id&#233;e, et les avis sont divergents.`,
+        `Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que <span class="hl-pink">vivre seul est plus d&#233;sirable</span>, &#224; un certain point.`,
+        `Alors, je vais expliquer mes raisons.`
+      ], note:"" },
+    { label:"Point 1 &#8212; Le temps / L&#8217;&#233;nergie", timing:"~1 min", nuance:false, wc:"~79 mots &#10003;",
+      textHtml:[
+        `Tout d&#8217;abord, <span class="hl-pink">vivre avec des colocataires aux habitudes diff&#233;rentes &#233;puise l&#8217;&#233;nergie mentale et vole du temps pr&#233;cieux.</span>`,
+        `Prenons le cas d&#8217;une amie&#160;: pendant ses &#233;tudes universitaires, elle passait beaucoup de temps &#224; n&#233;gocier les t&#226;ches domestiques avec ses colocataires. Au bout de quelques mois, elle &#233;tait &#233;puis&#233;e et avait h&#226;te de d&#233;m&#233;nager. Ainsi, toute son &#233;nergie passait &#224; g&#233;rer des conflits du quotidien, plut&#244;t qu&#8217;&#224; ses &#233;tudes ou &#224; ses loisirs.`,
+        `<span class="hl-pink">&#192; long terme, ce type de pression relationnelle finit par nuire au bien-&#234;tre.</span>`
+      ], note:"&#128172; <em>&#233;puiser</em> = to exhaust &#183; <em>avoir h&#226;te de</em> = to look forward to &#183; <em>g&#233;rer des conflits</em> = to manage conflicts &#183; <em>la pression relationnelle</em> = relational pressure" },
+    { label:"Point 2 &#8212; Sant&#233; / Sommeil", timing:"~1 min", nuance:false, wc:"~79 mots &#10003;",
+      textHtml:[
+        `De plus, <span class="hl-pink">vivre en colocation perturbe souvent la qualit&#233; du sommeil, ce qui nuit directement &#224; la sant&#233;.</span>`,
+        `Chaque colocataire a ses propres horaires&#160;: certains rentrent tard, &#233;coutent de la musique le soir ou re&#231;oivent des amis en semaine. De ce fait, il devient difficile de dormir suffisamment et de r&#233;cup&#233;rer apr&#232;s une longue journ&#233;e.`,
+        `<span class="hl-pink">Par cons&#233;quent, le manque de sommeil affecte la concentration, l&#8217;humeur et la productivit&#233; au quotidien. &#192; mesure que les nuits perturb&#233;es s&#8217;accumulent, la fatigue finit par peser sur la sant&#233; physique et mentale.</span>`
+      ], note:"&#128172; <em>perturber</em> = to disrupt &#183; <em>nuire &#224;</em> = to harm &#183; <em>r&#233;cup&#233;rer</em> = to recover &#183; <em>&#224; mesure que</em> = as / the more &#183; <em>s&#8217;accumuler</em> = to accumulate" },
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~65 mots &#10003;",
+      textHtml:[
+        `Il est certes vrai que <span class="hl-blue">partager un appartement permet de r&#233;duire le loyer d&#8217;environ 20%, ce qui repr&#233;sente une &#233;conomie non n&#233;gligeable pour les &#233;tudiants ou les jeunes travailleurs aux revenus limit&#233;s.</span>`,
+        `Dans des villes o&#249; le co&#251;t de la vie est &#233;lev&#233;, cette &#233;conomie peut repr&#233;senter plusieurs centaines de dollars par mois, lib&#233;rant ainsi du budget pour d&#8217;autres priorit&#233;s, comme les &#233;tudes, les transports ou les loisirs.`
+      ], note:"&#128172; <em>non n&#233;gligeable</em> = significant &#183; <em>les revenus limit&#233;s</em> = limited income &#183; <em>lib&#233;rant ainsi</em> = thus freeing up (participe pr&#233;sent)" },
+    { label:"Conclusion", timing:"~50s", nuance:false,
+      textHtml:[
+        `En conclusion, bien que <span class="hl-blue">la colocation pr&#233;sente certains avantages financiers, notamment la r&#233;duction du loyer,</span> il n&#8217;en demeure pas moins que <span class="hl-pink">les inconv&#233;nients sont ind&#233;niables, comme l&#8217;&#233;puisement mental et le manque de sommeil.</span>`,
+        `Tout bien consid&#233;r&#233;, il serait souhaitable que <span class="hl-p1">les individus p&#232;sent le pour et le contre avant de s&#8217;engager dans une colocation, afin de choisir le cadre de vie le plus adapt&#233; &#224; leur situation.</span>`,
+        `Merci pour votre attention.`
+      ], note:"&#128172; Subjonctif&#160;: <em>il serait souhaitable que les individus p&#232;sent</em> &#10003; &#183; <em>l&#8217;&#233;puisement mental</em> = mental exhaustion &#183; <em>il n&#8217;en demeure pas moins que</em> = the fact remains that" }
   ]
 };
 
-const scriptB = {
-  header: '❌ Position B — NON, ce n\'est pas une bonne idée de partager un appartement à plusieurs',
-  headerClass:'card-header-blue', titleClass:'card-title-blue',
-  badge:'Plus facile à défendre', badgeClass:'badge-easy',
+const scriptAFull = {
+  header: "&#9989; Position A &#8212; OUI&#160;: partager un appartement est une bonne id&#233;e",
+  headerClass:"card-header-green", titleClass:"card-title-green",
+  badge:"Plus facile &#224; d&#233;fendre", badgeClass:"badge-easy",
   blocks:[
-    { label:'Introduction', timing:'~40s', nuance:false,
-      text:`<p>Pour commencer, merci pour votre question ! C'est un sujet très intéressant, car il concerne presque tout le monde étant donné qu'il est légitime de se demander <span class="hl-pink">si partager un appartement à plusieurs est vraiment une bonne idée</span>, et les avis sont divergents. Personnellement, cela dépend de la situation. Mais, à mon sens, je crois que <span class="hl-pink">vivre seul est plus désirable à un certain point.</span> Alors, je vais expliquer mes raisons.</p>`, note:'' },
-    { label:'Point 1 — Le temps / L\'énergie', timing:'~1 min', nuance:false, wc:'~79 mots ✓',
-      text:`<p>Tout d'abord, <span class="hl-pink">vivre avec des colocataires aux habitudes différentes épuise l'énergie mentale et vole du temps précieux.</span> Prenons le cas d'une amie : pendant ses études universitaires, elle passait beaucoup de temps à négocier les tâches domestiques avec ses colocataires. Au bout de quelques mois, elle était épuisée et avait hâte de déménager. Ainsi, <span class="hl-pink">toute son énergie passait à gérer des conflits du quotidien, plutôt qu'à ses études ou à ses loisirs.</span> À long terme, ce type de pression relationnelle finit par nuire au bien-être.</p>`,
-      note:'💬 <em>épuiser l\'énergie mentale</em> = to drain mental energy · <em>voler du temps précieux</em> = to steal precious time · <em>au bout de</em> = after (a period of time) · <em>avoir hâte de</em> = to look forward to · <em>nuire à</em> = to harm' },
-    { label:'Point 2 — Santé / Sommeil', timing:'~1 min', nuance:false, wc:'~80 mots ✓',
-      text:`<p>De plus, <span class="hl-pink">vivre en colocation perturbe souvent la qualité du sommeil, ce qui nuit directement à la santé.</span> Chaque colocataire a ses propres horaires : certains rentrent tard, écoutent de la musique le soir ou reçoivent des amis en semaine. De ce fait, il devient difficile de dormir suffisamment et de récupérer après une longue journée. <span class="hl-pink">Par conséquent, le manque de sommeil affecte la concentration, l'humeur et la productivité au quotidien.</span> À mesure que cela se répète, la fatigue s'accumule et finit par peser sur la santé physique et mentale.</p>`,
-      note:'💬 <em>perturber</em> = to disrupt · <em>récupérer</em> = to recover, recharge · <em>à mesure que</em> = as (progressive) · <em>peser sur</em> = to weigh on' },
-    { label:'Nuance — Finance', timing:'~1 min', nuance:true, wc:'~65 mots ✓',
-      text:`<p>Il est certes vrai que <span class="hl-blue">partager un appartement permet de réduire le loyer d'environ 20 %, ce qui représente une économie non négligeable pour les étudiants ou les jeunes travailleurs aux revenus limités.</span> <span class="hl-blue">Dans des villes où le coût de la vie est élevé, cette économie peut représenter plusieurs centaines de dollars par mois, libérant ainsi du budget pour d'autres priorités, comme les études, les transports ou les loisirs.</span></p>`,
-      note:'💬 <em>une économie non négligeable</em> = a significant saving · <em>aux revenus limités</em> = with limited income · <em>libérant ainsi</em> = thus freeing up (participle phrase)' },
-    { label:'Conclusion', timing:'~50s', nuance:false,
-      text:`<p>En conclusion, bien que <span class="hl-blue">la colocation</span> présente certains avantages, notamment <span class="hl-blue">la réduction du loyer</span>, il n'en demeure pas moins que les inconvénients sont indéniables, comme <span class="hl-pink">l'épuisement mental et le manque de sommeil.</span></p>
-<p>Tout bien considéré, il serait souhaitable que <span class="hl-p1">les individus pèsent le pour et le contre avant de s'engager dans une colocation, afin de choisir le cadre de vie le plus adapté à leur situation.</span></p>
-<p>Merci pour votre attention.</p>`, note:'💬 Subjonctif : <em>il serait souhaitable que les individus pèsent</em> ✓ · <em>il n\'en demeure pas moins que</em> = the fact remains that · <em>s\'engager dans</em> = to commit to' }
+    { label:"Introduction", timing:"~40s", nuance:false,
+      textHtml:[
+        `Pour commencer, merci pour votre question&#160;! C&#8217;est un sujet tr&#232;s int&#233;ressant, car il concerne presque tout le monde &#233;tant donn&#233; qu&#8217;il est l&#233;gitime de se demander si partager un appartement &#224; plusieurs est vraiment une bonne id&#233;e, et les avis sont divergents.`,
+        `Personnellement, cela d&#233;pend de la situation. Mais, &#224; mon sens, je crois que <span class="hl-pink">partager un appartement est plus avantageux</span>, &#224; un certain point.`,
+        `Alors, je vais expliquer mes raisons.`
+      ], note:"" },
+    { label:"Point 1 &#8212; La finance", timing:"~1 min", nuance:false, wc:"~79 mots &#10003;",
+      textHtml:[
+        `Tout d&#8217;abord, <span class="hl-pink">partager un appartement r&#233;duit consid&#233;rablement les d&#233;penses, ce qui lib&#232;re du budget pour d&#8217;autres priorit&#233;s.</span>`,
+        `Par exemple, &#224; Calgary, un studio co&#251;te environ 1&#160;500 dollars par mois pour une seule personne. En colocation, chaque colocataire paie environ 800 dollars, soit environ la moiti&#233; du prix d&#8217;un studio seul. De ce fait, cet argent peut &#234;tre consacr&#233; aux &#233;tudes, aux transports ou &#224; une &#233;pargne d&#8217;urgence.`,
+        `<span class="hl-pink">&#192; long terme, cette r&#233;duction des charges repr&#233;sente un avantage financier r&#233;el et concret.</span>`
+      ], note:"&#128172; <em>r&#233;duire les d&#233;penses</em> = to reduce expenses &#183; <em>lib&#233;rer du budget</em> = to free up budget &#183; <em>&#234;tre consacr&#233; &#224;</em> = to be devoted to &#183; <em>une &#233;pargne d&#8217;urgence</em> = an emergency fund" },
+    { label:"Point 2 &#8212; Comp&#233;tences de vie", timing:"~1 min", nuance:false, wc:"~78 mots &#10003;",
+      textHtml:[
+        `De plus, <span class="hl-pink">vivre avec des colocataires aux habitudes diff&#233;rentes d&#233;veloppe des comp&#233;tences essentielles comme la communication, le compromis et l&#8217;adaptabilit&#233;.</span>`,
+        `Au quotidien, partager un espace oblige &#224; n&#233;gocier les r&#232;gles de vie commune et &#224; exprimer ses besoins clairement. De m&#234;me, la r&#233;partition des t&#226;ches domestiques all&#232;ge la charge de chacun, ce qui laisse plus de temps et d&#8217;&#233;nergie pour d&#8217;autres activit&#233;s.`,
+        `<span class="hl-pink">Par cons&#233;quent, la colocation devient une v&#233;ritable &#233;cole de la vie, bien au-del&#224; du simple partage de loyer.</span>`
+      ], note:"&#128172; <em>l&#8217;adaptabilit&#233;</em> = adaptability &#183; <em>n&#233;gocier</em> = to negotiate &#183; <em>la r&#233;partition des t&#226;ches</em> = the sharing of tasks &#183; <em>all&#232;ge la charge</em> = lightens the load &#183; <em>au-del&#224; de</em> = beyond" },
+    { label:"Nuance", timing:"~1 min", nuance:true, wc:"~75 mots &#10003;",
+      textHtml:[
+        `Il est certes vrai que <span class="hl-blue">partager un espace oblige &#224; s&#8217;adapter constamment aux autres, ce qui rend difficile d&#8217;avoir un vrai moment d&#8217;intimit&#233; chez soi.</span>`,
+        `Chaque d&#233;cision, comme les horaires, le bruit ou les invit&#233;s, doit &#234;tre n&#233;goci&#233;e, et cela peut peser sur l&#8217;esprit &#224; la longue. Pour certaines personnes, ce manque d&#8217;espace personnel finit par engendrer du stress et de la fatigue mentale. En particulier, ceux qui ont besoin de solitude pour se ressourcer apr&#232;s une longue journ&#233;e risquent de trouver la colocation particuli&#232;rement &#233;prouvante.`
+      ], note:"&#128172; <em>rend difficile de</em> = makes it hard to &#183; <em>peser sur l&#8217;esprit</em> = to weigh on the mind &#183; <em>&#224; la longue</em> = in the long run &#183; <em>engendrer</em> = to cause &#183; <em>se ressourcer</em> = to recharge" },
+    { label:"Conclusion", timing:"~50s", nuance:false,
+      textHtml:[
+        `En conclusion, bien que <span class="hl-blue">la colocation pr&#233;sente certains inconv&#233;nients, notamment le manque d&#8217;intimit&#233;,</span> il n&#8217;en demeure pas moins que <span class="hl-pink">les avantages sont ind&#233;niables, comme la r&#233;duction des d&#233;penses et le d&#233;veloppement de l&#8217;adaptabilit&#233;.</span>`,
+        `Tout bien consid&#233;r&#233;, il serait souhaitable que <span class="hl-p1">les individus p&#232;sent le pour et le contre avant de s&#8217;engager dans une colocation, afin de choisir le cadre de vie le plus adapt&#233; &#224; leur situation.</span>`,
+        `Merci pour votre attention.`
+      ], note:"&#128172; Subjonctif&#160;: <em>il serait souhaitable que les individus p&#232;sent</em> &#10003; (3&#232;me pers. pluriel) &#183; <em>il n&#8217;en demeure pas moins que</em> = the fact remains that" }
   ]
 };
 
 function buildCard(s){
-  const blocks=s.blocks.map(b=>`
-    <div class="block ${b.nuance?'block-nuance':''}">
+  const blocks = s.blocks.map(b => {
+    const paras = b.textHtml.map(html => `<div class="para-wrap"><p>${html}</p></div>`).join('');
+    return `<div class="block ${b.nuance?'block-nuance':''}">
       <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
-      <div class="script-text">${b.text}</div>
-      ${b.note?`<div class="en-note">${b.note}</div>`:''}
-      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
-    </div>`).join('');
-  return`<div class="script-card">
+      <div class="script-text">${paras}</div>
+      ${b.note ? `<div class="en-note">${b.note}</div>` : ''}
+      ${b.wc   ? `<div class="wc">${b.wc}</div>` : ''}
+    </div>`;
+  }).join('');
+  return `<div class="script-card">
     <div class="card-header ${s.headerClass}">
       <div class="card-title ${s.titleClass}">${s.header}</div>
       <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
-    </div>${blocks}</div>`;}
+    </div>${blocks}</div>`;
+}
 
-document.getElementById('bothGrid').innerHTML=buildCard(scriptA)+buildCard(scriptB);
-document.getElementById('posAGrid').innerHTML=buildCard(scriptA);
+document.getElementById('bothGrid').innerHTML = buildCard(scriptAFull) + buildCard(scriptB);
+document.getElementById('posBGrid').innerHTML = buildCard(scriptB);
 
-function showTab(id,btn){
-  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+function showTab(id, btn){
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  btn.classList.add('active');}
+  btn.classList.add('active');
+}
 
-function showStage(id,btn){
-  document.querySelectorAll('.stage-content').forEach(c=>c.classList.remove('active'));
-  document.querySelectorAll('.stage-btn').forEach(b=>b.classList.remove('active'));
+function showStage(id, btn){
+  document.querySelectorAll('.stage-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  btn.classList.add('active');}
+  btn.classList.add('active');
+}
 </script>
 </body>
 </html>
