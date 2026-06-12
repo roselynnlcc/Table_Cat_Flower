@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Parler la langue du pays d&#39;immigration</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">L&#39;importance de parler la langue du pays d&#39;immigration &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Communication et emploi &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les interactions quotidiennes <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">daily interactions</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;entretien d&#39;embauche <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">job interview</span></div>
+          <div class="wl-row"><span class="wl-fr">les compétences linguistiques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">language skills</span></div>
+          <div class="wl-row"><span class="wl-fr">les relations sociales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">social relationships</span></div>
+          <div class="wl-row"><span class="wl-fr">les locuteurs natifs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">native speakers</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;immersion <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">immersion</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Apprentissage et difficultés</div>
+          <div class="wl-row"><span class="wl-fr">les cours de langue <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">language classes</span></div>
+          <div class="wl-row"><span class="wl-fr">les règles grammaticales <em>(fpl)</em></span><span class="wl-en">grammatical rules</span></div>
+          <div class="wl-row"><span class="wl-fr">les malentendus <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">misunderstandings</span></div>
+          <div class="wl-row"><span class="wl-fr">le stress <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">stress</span></div>
+          <div class="wl-row"><span class="wl-fr">les nuances <em>(fpl)</em></span><span class="wl-en">nuances</span></div>
+          <div class="wl-row"><span class="wl-fr">la pression <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">pressure</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Culture et identité</div>
+          <div class="wl-row"><span class="wl-fr">les traditions locales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">local traditions</span></div>
+          <div class="wl-row"><span class="wl-fr">la langue d&#39;origine <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mother tongue, original language</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;échange linguistique <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">language exchange</span></div>
+          <div class="wl-row"><span class="wl-fr">la pratique régulière <em>(f)</em></span><span class="wl-en">regular practice</span></div>
+          <div class="wl-row"><span class="wl-fr">les coutumes <em>(fpl)</em></span><span class="wl-en">customs</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;identité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">identity</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Coûts et ressources</div>
+          <div class="wl-row"><span class="wl-fr">les cours privés <em>(mpl)</em></span><span class="wl-en">private lessons</span></div>
+          <div class="wl-row"><span class="wl-fr">les applications d&#39;apprentissage <em>(fpl)</em></span><span class="wl-en">learning apps</span></div>
+          <div class="wl-row"><span class="wl-fr">la syntaxe <em>(f)</em></span><span class="wl-en">syntax</span></div>
+          <div class="wl-row"><span class="wl-fr">le vocabulaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">vocabulary</span></div>
+          <div class="wl-row"><span class="wl-fr">la grammaire <em>(f)</em></span><span class="wl-en">grammar</span></div>
+          <div class="wl-row"><span class="wl-fr">la perte de pratique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">loss of practice (of native language)</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">maîtriser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to master, to be proficient in</td></tr>
+          <tr><td class="vfr">pratiquer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to practise</td></tr>
+          <tr><td class="vfr">se faire comprendre</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to make oneself understood</td></tr>
+          <tr><td class="vfr">s&#39;exprimer</td><td class="vprep">dans / en</td><td class="vrel">dans laquelle</td><td class="ven">to express oneself in (a language)</td></tr>
+          <tr><td class="vfr">s&#39;immerger</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to immerse oneself in</td></tr>
+          <tr><td class="vfr">élargir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to broaden, to widen</td></tr>
+          <tr><td class="vfr">faciliter</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to facilitate, to make easier</td></tr>
+          <tr><td class="vfr">oublier</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to forget</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; langue et intégration</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">courant(e)</span><span class="adj-en">fluent, conversational</span></div>
+          <div class="adj-row"><span class="adj-fr">bilingue</span><span class="adj-en">bilingual</span></div>
+          <div class="adj-row"><span class="adj-fr">utile</span><span class="adj-en">useful</span></div>
+          <div class="adj-row"><span class="adj-fr">indispensable</span><span class="adj-en">indispensable, essential</span></div>
+          <div class="adj-row"><span class="adj-fr">mal interprété(e)</span><span class="adj-en">misinterpreted</span></div>
+          <div class="adj-row"><span class="adj-fr">progressif(ve)</span><span class="adj-en">progressive, gradual</span></div>
+          <div class="adj-row"><span class="adj-fr">exigeant(e)</span><span class="adj-en">demanding, challenging</span></div>
+          <div class="adj-row"><span class="adj-fr">natif(ve)</span><span class="adj-en">native</span></div>
+          <div class="adj-row"><span class="adj-fr">professionnel(le)</span><span class="adj-en">professional</span></div>
+          <div class="adj-row"><span class="adj-fr">enrichissant(e)</span><span class="adj-en">enriching</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Parler la langue du pays d&#39;immigration</div>
+          <div class="contrast-item">maîtriser la langue locale facilite les interactions quotidiennes et réduit les malentendus dans la vie courante</div>
+          <div class="contrast-item">s&#39;exprimer couramment dans la langue du pays d&#39;accueil améliore considérablement les chances de trouver un emploi</div>
+          <div class="contrast-item">pratiquer la langue locale régulièrement élargit le réseau social et permet de tisser des liens authentiques avec les habitants</div>
+          <div class="contrast-item">s&#39;immerger dans la langue du pays d&#39;accueil facilite la découverte des traditions et de la culture locale</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Parler la langue du pays d&#39;immigration</div>
+          <div class="contrast-item">se sentir obligé de maîtriser rapidement une nouvelle langue génère un stress et une pression difficiles à gérer</div>
+          <div class="contrast-item">payer pour des cours privés ou des applications d&#39;apprentissage représente un coût supplémentaire pour les nouveaux arrivants</div>
+          <div class="contrast-item">s&#39;exprimer dans une langue étrangère expose aux erreurs et aux malentendus qui peuvent être mal interprétés</div>
+          <div class="contrast-item">pratiquer intensivement la langue du pays d&#39;accueil peut entraîner une perte progressive de la pratique de la langue d&#39;origine</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">maîtriser la langue du pays d&#39;accueil constitue un levier essentiel pour s&#39;intégrer pleinement et accéder au marché du travail</div>
+          <div class="chunk-en">mastering the host country&#39;s language is an essential lever for fully integrating and accessing the job market</div>
+          <div class="chunk-note">constituer un levier = expression imagée C1 · s&#39;intégrer pleinement = formulation soignée · accéder au marché du travail = expression clé</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">la pression d&#39;apprendre une nouvelle langue rapidement peut engendrer un sentiment d&#39;incompétence qui freine l&#39;intégration au lieu de la favoriser</div>
+          <div class="chunk-en">the pressure to learn a new language quickly can generate a feeling of incompetence that hinders integration rather than promoting it</div>
+          <div class="chunk-note">engendrer = verbe C1 · au lieu de = contraste C1 · favoriser vs freiner = paire de contraste réutilisable</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que l&#39;apprentissage d&#39;une nouvelle langue soit exigeant, il serait souhaitable que les gouvernements proposent des cours gratuits accessibles à tous les nouveaux arrivants</div>
+          <div class="chunk-en">although learning a new language is demanding, it would be desirable for governments to offer free courses accessible to all newcomers</div>
+          <div class="chunk-note">bien que + subjonctif = concession C1 · accessibles à tous = formule inclusive · structure de conclusion idéale</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">à mesure que l&#39;immigrant progresse dans la maîtrise de la langue locale, son sentiment d&#39;appartenance au pays d&#39;accueil se renforce naturellement</div>
+          <div class="chunk-en">as the immigrant progresses in mastering the local language, their sense of belonging to the host country strengthens naturally</div>
+          <div class="chunk-note">à mesure que = corrélation C1 · sentiment d&#39;appartenance = expression clé · se renforcer = verbe précis</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
