@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Faire ses achats en ligne</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Faire ses achats en ligne &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Avantages pratiques &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les économies de temps <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">time savings</span></div>
+          <div class="wl-row"><span class="wl-fr">le large choix de produits <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">wide range of products</span></div>
+          <div class="wl-row"><span class="wl-fr">la comparaison des prix <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">price comparison</span></div>
+          <div class="wl-row"><span class="wl-fr">les remises exclusives <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">exclusive discounts</span></div>
+          <div class="wl-row"><span class="wl-fr">le suivi de commande <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">order tracking</span></div>
+          <div class="wl-row"><span class="wl-fr">le magasin physique <em>(m)</em></span><span class="wl-en">physical/brick-and-mortar store</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Risques &amp; fraude</div>
+          <div class="wl-row"><span class="wl-fr">la fraude en ligne <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">online fraud</span></div>
+          <div class="wl-row"><span class="wl-fr">les informations sensibles <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">sensitive information</span></div>
+          <div class="wl-row"><span class="wl-fr">les escrocs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">scammers, fraudsters</span></div>
+          <div class="wl-row"><span class="wl-fr">le produit défectueux <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">defective product</span></div>
+          <div class="wl-row"><span class="wl-fr">les délais de livraison <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">delivery delays</span></div>
+          <div class="wl-row"><span class="wl-fr">les frais d&#39;envoi <em>(mpl)</em></span><span class="wl-en">shipping costs</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Retours &amp; service client</div>
+          <div class="wl-row"><span class="wl-fr">les retours <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">returns</span></div>
+          <div class="wl-row"><span class="wl-fr">les échanges <em>(mpl)</em></span><span class="wl-en">exchanges</span></div>
+          <div class="wl-row"><span class="wl-fr">la description en ligne <em>(f)</em></span><span class="wl-en">online description</span></div>
+          <div class="wl-row"><span class="wl-fr">les délais de retour <em>(mpl)</em></span><span class="wl-en">return deadlines</span></div>
+          <div class="wl-row"><span class="wl-fr">le service client <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">customer service</span></div>
+          <div class="wl-row"><span class="wl-fr">la commande <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">order</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Commerce &amp; numérique</div>
+          <div class="wl-row"><span class="wl-fr">le commerce en ligne <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">e-commerce, online shopping</span></div>
+          <div class="wl-row"><span class="wl-fr">le site de vente <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">sales website</span></div>
+          <div class="wl-row"><span class="wl-fr">les promotions <em>(fpl)</em></span><span class="wl-en">promotions, deals</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie privée <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">privacy</span></div>
+          <div class="wl-row"><span class="wl-fr">la sécurité des données <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">data security</span></div>
+          <div class="wl-row"><span class="wl-fr">la consommation excessive <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">excessive consumption</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">passer commande</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to place an order</td></tr>
+          <tr><td class="vfr">comparer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to compare (prices, products)</td></tr>
+          <tr><td class="vfr">bénéficier</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to benefit from (discounts)</td></tr>
+          <tr><td class="vfr">retourner</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to return (a product)</td></tr>
+          <tr><td class="vfr">se faire escroquer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to get scammed</td></tr>
+          <tr><td class="vfr">accéder</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to access (products, sites)</td></tr>
+          <tr><td class="vfr">suivre</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to track (an order)</td></tr>
+          <tr><td class="vfr">fournir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to provide (information)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; achats en ligne</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">pratique</span><span class="adj-en">convenient, practical</span></div>
+          <div class="adj-row"><span class="adj-fr">défectueux(se)</span><span class="adj-en">defective, faulty</span></div>
+          <div class="adj-row"><span class="adj-fr">endommagé(e)</span><span class="adj-en">damaged</span></div>
+          <div class="adj-row"><span class="adj-fr">exclusif(ve)</span><span class="adj-en">exclusive</span></div>
+          <div class="adj-row"><span class="adj-fr">sensible</span><span class="adj-en">sensitive (data, information)</span></div>
+          <div class="adj-row"><span class="adj-fr">facilité(e)</span><span class="adj-en">facilitated, made easier</span></div>
+          <div class="adj-row"><span class="adj-fr">numérique</span><span class="adj-en">digital</span></div>
+          <div class="adj-row"><span class="adj-fr">prévu(e)</span><span class="adj-en">expected, planned</span></div>
+          <div class="adj-row"><span class="adj-fr">disponible</span><span class="adj-en">available</span></div>
+          <div class="adj-row"><span class="adj-fr">compliqué(e)</span><span class="adj-en">complicated</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Faire ses achats en ligne</div>
+          <div class="contrast-item">passer commande sur internet sans se déplacer permet d&#39;économiser un temps précieux et d&#39;accéder à un large choix de produits indisponibles en magasin physique</div>
+          <div class="contrast-item">comparer facilement les prix et bénéficier de remises exclusives en ligne permet de faire des économies significatives sur ses achats courants</div>
+          <div class="contrast-item">suivre sa commande en temps réel et profiter de retours facilités rend l&#39;expérience d&#39;achat plus transparente et rassurante</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Faire ses achats en ligne</div>
+          <div class="contrast-item">recevoir un produit défectueux ou différent de celui vu en ligne expose l&#39;acheteur à des démarches de retour longues et coûteuses</div>
+          <div class="contrast-item">fournir des informations sensibles sur des sites de vente peu sécurisés expose les consommateurs au risque de fraude et d&#39;escroquerie</div>
+          <div class="contrast-item">ne pas pouvoir voir ni toucher un produit avant de l&#39;acheter augmente le risque de déception et d&#39;achat impulsif non justifié</div>
+          <div class="contrast-item">subir des délais de livraison imprévus ou des problèmes de retour complique l&#39;expérience d&#39;achat et génère de la frustration</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">le commerce en ligne offre un accès facilité à une large gamme de produits à des prix compétitifs, au détriment parfois de la sécurité des données personnelles</div>
+          <div class="chunk-en">e-commerce offers easy access to a wide range of products at competitive prices, sometimes to the detriment of personal data security</div>
+          <div class="chunk-note">une large gamme = expression C1 · à des prix compétitifs = formule commerciale · au détriment de = expression C1 réutilisable</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que les achats en ligne présentent des avantages indéniables en termes de commodité, il serait souhaitable que les gouvernements renforcent la réglementation des sites de vente afin de protéger les consommateurs contre la fraude</div>
+          <div class="chunk-en">although online shopping offers undeniable advantages in terms of convenience, it would be desirable for governments to strengthen the regulation of retail websites in order to protect consumers from fraud</div>
+          <div class="chunk-note">bien que + subjonctif · en termes de = expression C1 · afin de = connecteur de but C1 · structure de conclusion modèle</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

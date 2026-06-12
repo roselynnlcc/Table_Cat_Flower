@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Les téléphones portables</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Les téléphones portables &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Communication &amp; productivité &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la facilité de communication <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">ease of communication</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;accès à l&#39;information <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">access to information</span></div>
+          <div class="wl-row"><span class="wl-fr">la productivité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">productivity</span></div>
+          <div class="wl-row"><span class="wl-fr">les applications <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">apps, applications</span></div>
+          <div class="wl-row"><span class="wl-fr">les urgences <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">emergencies</span></div>
+          <div class="wl-row"><span class="wl-fr">le divertissement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">entertainment</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Dépendance &amp; santé</div>
+          <div class="wl-row"><span class="wl-fr">la dépendance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">dependency, addiction</span></div>
+          <div class="wl-row"><span class="wl-fr">la distraction <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">distraction</span></div>
+          <div class="wl-row"><span class="wl-fr">le temps d&#39;écran <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">screen time</span></div>
+          <div class="wl-row"><span class="wl-fr">la santé mentale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mental health</span></div>
+          <div class="wl-row"><span class="wl-fr">les tâches à accomplir <em>(fpl)</em></span><span class="wl-en">tasks to complete</span></div>
+          <div class="wl-row"><span class="wl-fr">la sédentarité <em>(f)</em></span><span class="wl-en">sedentary lifestyle</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Vie privée &amp; sécurité</div>
+          <div class="wl-row"><span class="wl-fr">la vie privée <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">privacy</span></div>
+          <div class="wl-row"><span class="wl-fr">les informations personnelles <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">personal information</span></div>
+          <div class="wl-row"><span class="wl-fr">les données <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">data</span></div>
+          <div class="wl-row"><span class="wl-fr">la sécurité numérique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">digital security</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;intrusion <em>(f)</em></span><span class="wl-en">intrusion, violation</span></div>
+          <div class="wl-row"><span class="wl-fr">les escroqueries <em>(fpl)</em></span><span class="wl-en">scams, frauds</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Social &amp; interactions</div>
+          <div class="wl-row"><span class="wl-fr">les interactions en face à face <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">face-to-face interactions</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie sociale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">social life</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;isolement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">isolation, withdrawal</span></div>
+          <div class="wl-row"><span class="wl-fr">les secours <em>(mpl)</em></span><span class="wl-en">emergency services</span></div>
+          <div class="wl-row"><span class="wl-fr">les jeux vidéo <em>(mpl)</em></span><span class="wl-en">video games</span></div>
+          <div class="wl-row"><span class="wl-fr">la concentration <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">concentration, focus</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">contacter</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to contact, to get in touch with</td></tr>
+          <tr><td class="vfr">se concentrer</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to concentrate on</td></tr>
+          <tr><td class="vfr">partager</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to share (information)</td></tr>
+          <tr><td class="vfr">dépendre</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to depend on</td></tr>
+          <tr><td class="vfr">remplacer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to replace (face-to-face interaction)</td></tr>
+          <tr><td class="vfr">interrompre</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to interrupt, to disrupt</td></tr>
+          <tr><td class="vfr">s&#39;empêcher</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to stop oneself from (checking phone)</td></tr>
+          <tr><td class="vfr">nuire</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to harm, to damage</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; téléphones portables</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">pratique</span><span class="adj-en">practical, convenient</span></div>
+          <div class="adj-row"><span class="adj-fr">addictif(ve)</span><span class="adj-en">addictive</span></div>
+          <div class="adj-row"><span class="adj-fr">indispensable</span><span class="adj-en">indispensable, essential</span></div>
+          <div class="adj-row"><span class="adj-fr">distrayant(e)</span><span class="adj-en">distracting</span></div>
+          <div class="adj-row"><span class="adj-fr">numérique</span><span class="adj-en">digital</span></div>
+          <div class="adj-row"><span class="adj-fr">connecté(e)</span><span class="adj-en">connected</span></div>
+          <div class="adj-row"><span class="adj-fr">nocif(ve)</span><span class="adj-en">harmful, damaging</span></div>
+          <div class="adj-row"><span class="adj-fr">excessif(ve)</span><span class="adj-en">excessive</span></div>
+          <div class="adj-row"><span class="adj-fr">utile</span><span class="adj-en">useful</span></div>
+          <div class="adj-row"><span class="adj-fr">isolant(e)</span><span class="adj-en">isolating</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Les téléphones portables</div>
+          <div class="contrast-item">faciliter la communication et permettre de contacter les gens à tout moment renforce les liens sociaux et professionnels au quotidien</div>
+          <div class="contrast-item">accéder à l&#39;information et améliorer sa productivité grâce aux applications permet d&#39;organiser efficacement son temps et ses tâches</div>
+          <div class="contrast-item">disposer d&#39;un téléphone portable en cas d&#39;urgence pour appeler les secours peut littéralement sauver des vies</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Les téléphones portables</div>
+          <div class="contrast-item">ne pas pouvoir s&#39;empêcher de vérifier constamment son téléphone génère une distraction permanente qui nuit à la concentration et à la productivité</div>
+          <div class="contrast-item">partager des informations personnelles en ligne expose les utilisateurs à des risques sérieux pour leur vie privée et leur sécurité numérique</div>
+          <div class="contrast-item">remplacer les interactions en face à face par l&#39;usage du téléphone interrompt la vie sociale et favorise un isolement progressif au sein de la société</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que les téléphones portables constituent un outil de communication et d&#39;accès à l&#39;information indispensable, une utilisation excessive nuit à la concentration, à la santé mentale et à la qualité des relations sociales</div>
+          <div class="chunk-en">although mobile phones are an indispensable tool for communication and access to information, excessive use is harmful to concentration, mental health and the quality of social relationships</div>
+          <div class="chunk-note">constituer = verbe C1 · nuire à = verbe précis · liste de trois éléments = structure orale dynamique</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">force est de constater que la dépendance aux téléphones portables remplace progressivement les interactions en face à face, au détriment du lien social et de la communication authentique</div>
+          <div class="chunk-en">it must be acknowledged that mobile phone dependency is progressively replacing face-to-face interactions, to the detriment of social bonds and authentic communication</div>
+          <div class="chunk-note">force est de constater que = formule d&#39;emphase C1 · au détriment de = expression C1 · progressivement = adverbe précis</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il serait souhaitable que les individus apprennent à réguler leur temps d&#39;écran afin de préserver un équilibre entre vie numérique et interactions humaines authentiques</div>
+          <div class="chunk-en">it would be desirable for individuals to learn to regulate their screen time in order to maintain a balance between digital life and authentic human interaction</div>
+          <div class="chunk-note">il serait souhaitable que + subjonctif = appel à l&#39;action · afin de = connecteur de but C1 · équilibre entre = structure de nuance</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

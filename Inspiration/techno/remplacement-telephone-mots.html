@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Le remplacement fréquent de téléphone portable</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Le remplacement fréquent de téléphone portable &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Technologie &amp; performance &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les fonctionnalités <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">features, functionalities</span></div>
+          <div class="wl-row"><span class="wl-fr">la performance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">performance</span></div>
+          <div class="wl-row"><span class="wl-fr">les capteurs <em>(mpl)</em></span><span class="wl-en">sensors (camera, etc.)</span></div>
+          <div class="wl-row"><span class="wl-fr">la connectivité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">connectivity</span></div>
+          <div class="wl-row"><span class="wl-fr">la sécurité des données <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">data security</span></div>
+          <div class="wl-row"><span class="wl-fr">les mises à jour <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">updates</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Environnement &amp; déchets</div>
+          <div class="wl-row"><span class="wl-fr">les déchets électroniques <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">electronic waste, e-waste</span></div>
+          <div class="wl-row"><span class="wl-fr">les décharges <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">landfills, dumpsites</span></div>
+          <div class="wl-row"><span class="wl-fr">les ressources naturelles <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">natural resources</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;impact environnemental <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">environmental impact</span></div>
+          <div class="wl-row"><span class="wl-fr">le recyclage <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">recycling</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;obsolescence programmée <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">planned obsolescence</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Souvenirs &amp; identité</div>
+          <div class="wl-row"><span class="wl-fr">les données enregistrées <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">saved data, stored files</span></div>
+          <div class="wl-row"><span class="wl-fr">les souvenirs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">memories, mementos</span></div>
+          <div class="wl-row"><span class="wl-fr">les contacts <em>(mpl)</em></span><span class="wl-en">contacts</span></div>
+          <div class="wl-row"><span class="wl-fr">la confidentialité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">privacy, confidentiality</span></div>
+          <div class="wl-row"><span class="wl-fr">les pièces détachées <em>(fpl)</em></span><span class="wl-en">spare parts</span></div>
+          <div class="wl-row"><span class="wl-fr">la maintenance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">maintenance, upkeep</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Consommation &amp; tendances</div>
+          <div class="wl-row"><span class="wl-fr">l&#39;addiction à la technologie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">technology addiction</span></div>
+          <div class="wl-row"><span class="wl-fr">le coût élevé <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">high cost</span></div>
+          <div class="wl-row"><span class="wl-fr">le design <em>(m)</em></span><span class="wl-en">design, aesthetics</span></div>
+          <div class="wl-row"><span class="wl-fr">les finitions <em>(fpl)</em></span><span class="wl-en">finish, build quality</span></div>
+          <div class="wl-row"><span class="wl-fr">la mode technologique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">tech fashion, keeping up with trends</span></div>
+          <div class="wl-row"><span class="wl-fr">la batterie <em>(f)</em></span><span class="wl-en">battery</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">remplacer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to replace</td></tr>
+          <tr><td class="vfr">recycler</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to recycle</td></tr>
+          <tr><td class="vfr">perdre</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to lose (data, memories)</td></tr>
+          <tr><td class="vfr">protéger</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to protect (data, privacy)</td></tr>
+          <tr><td class="vfr">réparer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to repair</td></tr>
+          <tr><td class="vfr">finir</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to end up in (landfill)</td></tr>
+          <tr><td class="vfr">céder</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to give in to (fashion, trends)</td></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; technologie et consommation</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">récent(e)</span><span class="adj-en">recent, latest</span></div>
+          <div class="adj-row"><span class="adj-fr">obsolète</span><span class="adj-en">obsolete, outdated</span></div>
+          <div class="adj-row"><span class="adj-fr">performant(e)</span><span class="adj-en">high-performing</span></div>
+          <div class="adj-row"><span class="adj-fr">sécurisé(e)</span><span class="adj-en">secure, protected</span></div>
+          <div class="adj-row"><span class="adj-fr">nuisible</span><span class="adj-en">harmful (to the environment)</span></div>
+          <div class="adj-row"><span class="adj-fr">recyclable</span><span class="adj-en">recyclable</span></div>
+          <div class="adj-row"><span class="adj-fr">coûteux(se)</span><span class="adj-en">costly, expensive</span></div>
+          <div class="adj-row"><span class="adj-fr">addictif(ve)</span><span class="adj-en">addictive</span></div>
+          <div class="adj-row"><span class="adj-fr">durable</span><span class="adj-en">durable, long-lasting</span></div>
+          <div class="adj-row"><span class="adj-fr">esthétique</span><span class="adj-en">aesthetic, visually appealing</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Le remplacement fréquent de téléphone portable</div>
+          <div class="contrast-item">accéder aux dernières fonctionnalités et à une meilleure performance permet de rester connecté de manière efficace dans un monde en constante évolution technologique</div>
+          <div class="contrast-item">bénéficier de systèmes de sécurité et de mises à jour récentes protège davantage les données personnelles et la confidentialité des utilisateurs</div>
+          <div class="contrast-item">profiter d&#39;une meilleure facilité de maintenance grâce à des pièces détachées disponibles réduit le risque de panne prolongée</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Le remplacement fréquent de téléphone portable</div>
+          <div class="contrast-item">contribuer à l&#39;accumulation de déchets électroniques dans les décharges en jetant des appareils encore fonctionnels nuit gravement à l&#39;environnement</div>
+          <div class="contrast-item">céder à la mode technologique et remplacer son téléphone chaque année représente un coût élevé difficilement justifiable sur le plan financier</div>
+          <div class="contrast-item">risquer de perdre des souvenirs et des données enregistrées lors du changement d&#39;appareil crée une rupture dans la continuité numérique personnelle</div>
+          <div class="contrast-item">développer une addiction à la technologie en ressentant une envie constante d&#39;avoir le dernier modèle contribue à une consommation numérique irresponsable</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">le remplacement fréquent de téléphone portable contribue de manière significative à l&#39;accumulation de déchets électroniques qui finissent dans les décharges, au détriment de l&#39;environnement</div>
+          <div class="chunk-en">the frequent replacement of mobile phones contributes significantly to the accumulation of electronic waste that ends up in landfills, to the detriment of the environment</div>
+          <div class="chunk-note">contribuer de manière significative = formulation soignée · au détriment de = expression C1 réutilisable · finir dans = structure directe</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que les nouveaux modèles offrent des fonctionnalités améliorées, il serait souhaitable que les fabricants allongent la durée de vie de leurs appareils afin de réduire l&#39;impact environnemental de l&#39;obsolescence programmée</div>
+          <div class="chunk-en">although new models offer improved features, it would be desirable for manufacturers to extend the lifespan of their devices in order to reduce the environmental impact of planned obsolescence</div>
+          <div class="chunk-note">bien que + subjonctif · obsolescence programmée = expression clé C1 · afin de = connecteur de but C1 · structure de conclusion modèle</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
