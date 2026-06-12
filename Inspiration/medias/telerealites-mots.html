@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Les téléréalités</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Les téléréalités &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Contenu &amp; divertissement &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les participants <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">participants, contestants</span></div>
+          <div class="wl-row"><span class="wl-fr">les talents <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">talents</span></div>
+          <div class="wl-row"><span class="wl-fr">les émissions de Survival <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">survival shows</span></div>
+          <div class="wl-row"><span class="wl-fr">le télé-crochet <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">talent competition show</span></div>
+          <div class="wl-row"><span class="wl-fr">le divertissement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">entertainment</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;évasion <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">escapism</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Manipulation &amp; image</div>
+          <div class="wl-row"><span class="wl-fr">le montage trompeur <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">deceptive editing</span></div>
+          <div class="wl-row"><span class="wl-fr">le stéréotypage <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">stereotyping</span></div>
+          <div class="wl-row"><span class="wl-fr">le narcissisme <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">narcissism</span></div>
+          <div class="wl-row"><span class="wl-fr">le harcèlement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">harassment</span></div>
+          <div class="wl-row"><span class="wl-fr">les paparazzi <em>(mpl)</em></span><span class="wl-en">paparazzi</span></div>
+          <div class="wl-row"><span class="wl-fr">les réseaux sociaux <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">social media</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Comportements &amp; valeurs</div>
+          <div class="wl-row"><span class="wl-fr">la surconsommation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">overconsumption</span></div>
+          <div class="wl-row"><span class="wl-fr">le gaspillage <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">waste, wasteful spending</span></div>
+          <div class="wl-row"><span class="wl-fr">les comportements déplacés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">inappropriate behaviours</span></div>
+          <div class="wl-row"><span class="wl-fr">les attitudes narcissiques <em>(fpl)</em></span><span class="wl-en">narcissistic attitudes</span></div>
+          <div class="wl-row"><span class="wl-fr">la tranche de population <em>(f)</em></span><span class="wl-en">segment of the population</span></div>
+          <div class="wl-row"><span class="wl-fr">les cadeaux coûteux <em>(mpl)</em></span><span class="wl-en">expensive gifts</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Découverte &amp; apprentissage</div>
+          <div class="wl-row"><span class="wl-fr">les nouvelles cultures <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">new cultures</span></div>
+          <div class="wl-row"><span class="wl-fr">les nouveaux métiers <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">new careers, professions</span></div>
+          <div class="wl-row"><span class="wl-fr">les expériences différentes <em>(fpl)</em></span><span class="wl-en">different experiences</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;apprentissage <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">learning</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie quotidienne <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">daily life</span></div>
+          <div class="wl-row"><span class="wl-fr">le modèle physique <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">physical ideal, body standard</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">s&#39;évader</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to escape from (daily life)</td></tr>
+          <tr><td class="vfr">valoriser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to promote, to glorify</td></tr>
+          <tr><td class="vfr">exposer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to expose to</td></tr>
+          <tr><td class="vfr">manipuler</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to manipulate</td></tr>
+          <tr><td class="vfr">stéréotyper</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to stereotype</td></tr>
+          <tr><td class="vfr">harceler</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to harass</td></tr>
+          <tr><td class="vfr">encourager</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to encourage to</td></tr>
+          <tr><td class="vfr">imiter</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to imitate, to copy</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; téléréalité et médias</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">trompeur(se)</span><span class="adj-en">deceptive, misleading</span></div>
+          <div class="adj-row"><span class="adj-fr">narcissique</span><span class="adj-en">narcissistic</span></div>
+          <div class="adj-row"><span class="adj-fr">dramatique</span><span class="adj-en">dramatic</span></div>
+          <div class="adj-row"><span class="adj-fr">irréaliste</span><span class="adj-en">unrealistic</span></div>
+          <div class="adj-row"><span class="adj-fr">inatteignable</span><span class="adj-en">unattainable</span></div>
+          <div class="adj-row"><span class="adj-fr">déplacé(e)</span><span class="adj-en">inappropriate, out of place</span></div>
+          <div class="adj-row"><span class="adj-fr">excessif(ve)</span><span class="adj-en">excessive</span></div>
+          <div class="adj-row"><span class="adj-fr">captivant(e)</span><span class="adj-en">captivating</span></div>
+          <div class="adj-row"><span class="adj-fr">superficiel(le)</span><span class="adj-en">superficial</span></div>
+          <div class="adj-row"><span class="adj-fr">addictif(ve)</span><span class="adj-en">addictive</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Les téléréalités</div>
+          <div class="contrast-item">permettre aux téléspectateurs de s&#39;évader de leur vie quotidienne en suivant des histoires et aventures variées répond à un besoin humain d&#39;évasion et de divertissement</div>
+          <div class="contrast-item">découvrir de nouveaux talents, de nouvelles cultures et de nouveaux métiers grâce aux émissions de téléréalité enrichit les connaissances du public</div>
+          <div class="contrast-item">se divertir en famille ou entre amis devant une émission de téléréalité favorise les moments de partage et de discussion collective</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Les téléréalités</div>
+          <div class="contrast-item">exposer les téléspectateurs à des comportements narcissiques et déplacés valorisés à l&#39;écran influence négativement les attitudes et les comportements du public</div>
+          <div class="contrast-item">recourir au montage trompeur pour dramatiser les situations manipule la réalité et fausse la perception qu&#39;ont les spectateurs de la vie ordinaire</div>
+          <div class="contrast-item">encourager la surconsommation et le gaspillage en montrant des participants recevoir des cadeaux coûteux promeut des valeurs matérialistes peu responsables</div>
+          <div class="contrast-item">exposer les participants au harcèlement sur les réseaux sociaux et à la surveillance des paparazzi porte atteinte à leur vie privée et à leur santé mentale</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">les téléréalités répondent à un besoin humain d&#39;évasion et de divertissement, mais tendent à valoriser des comportements narcissiques au détriment des valeurs de respect et d&#39;empathie</div>
+          <div class="chunk-en">reality TV meets a human need for escapism and entertainment, but tends to glorify narcissistic behaviour to the detriment of values of respect and empathy</div>
+          <div class="chunk-note">répondre à un besoin = formule C1 · au détriment de = expression C1 réutilisable · mais tendent à = nuance intégrée</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">le montage trompeur et la manipulation des images constituent une forme de désinformation qui fausse la perception de la réalité chez les spectateurs les plus vulnérables</div>
+          <div class="chunk-en">deceptive editing and image manipulation constitute a form of misinformation that distorts the perception of reality in the most vulnerable viewers</div>
+          <div class="chunk-note">constituer = verbe C1 · les plus vulnérables = superlatif précis · fausser la perception = expression recherchée</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que les téléréalités offrent un certain divertissement, il serait souhaitable que les chaînes de télévision encadrent davantage les contenus diffusés afin de protéger le public des modèles irréalistes</div>
+          <div class="chunk-en">although reality TV offers a degree of entertainment, it would be desirable for television channels to better regulate the content broadcast in order to protect the public from unrealistic models</div>
+          <div class="chunk-note">bien que + subjonctif · encadrer = verbe institutionnel · afin de = connecteur de but C1 · structure de conclusion modèle</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

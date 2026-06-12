@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Les publicités alimentaires pour les enfants</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Les publicités alimentaires pour les enfants &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Publicité &amp; persuasion &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les publicités alimentaires <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">food advertisements</span></div>
+          <div class="wl-row"><span class="wl-fr">les techniques de persuasion <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">persuasion techniques</span></div>
+          <div class="wl-row"><span class="wl-fr">les personnages de dessins animés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">cartoon characters</span></div>
+          <div class="wl-row"><span class="wl-fr">les bons de réduction <em>(mpl)</em></span><span class="wl-en">discount vouchers, coupons</span></div>
+          <div class="wl-row"><span class="wl-fr">les slogans <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">slogans</span></div>
+          <div class="wl-row"><span class="wl-fr">les offres spéciales <em>(fpl)</em></span><span class="wl-en">special offers</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Santé &amp; alimentation enfantine</div>
+          <div class="wl-row"><span class="wl-fr">la surconsommation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">overconsumption</span></div>
+          <div class="wl-row"><span class="wl-fr">les aliments peu sains <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">unhealthy foods</span></div>
+          <div class="wl-row"><span class="wl-fr">les aliments sucrés ou gras <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">sugary or fatty foods</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;alimentation saine <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">healthy eating</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;obésité infantile <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">childhood obesity</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;activité physique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">physical activity</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Enfants &amp; vulnérabilité</div>
+          <div class="wl-row"><span class="wl-fr">l&#39;innocence des enfants <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">children&#39;s innocence</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;exploitation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">exploitation</span></div>
+          <div class="wl-row"><span class="wl-fr">la créativité enfantine <em>(f)</em></span><span class="wl-en">children&#39;s creativity</span></div>
+          <div class="wl-row"><span class="wl-fr">la pression sur les parents <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">pressure on parents</span></div>
+          <div class="wl-row"><span class="wl-fr">le modèle physique inatteignable <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">unattainable physical ideal</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;image irréaliste <em>(f)</em></span><span class="wl-en">unrealistic image</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Éducation &amp; réglementation</div>
+          <div class="wl-row"><span class="wl-fr">l&#39;éducation à la consommation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">consumer education</span></div>
+          <div class="wl-row"><span class="wl-fr">les principes d&#39;alimentation saine <em>(mpl)</em></span><span class="wl-en">principles of healthy eating</span></div>
+          <div class="wl-row"><span class="wl-fr">la réglementation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">regulation</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;encadrement publicitaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">advertising regulation, oversight</span></div>
+          <div class="wl-row"><span class="wl-fr">les recettes amusantes <em>(fpl)</em></span><span class="wl-en">fun recipes</span></div>
+          <div class="wl-row"><span class="wl-fr">les produits gratuits <em>(mpl)</em></span><span class="wl-en">free products</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">inciter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to incite, to encourage to</td></tr>
+          <tr><td class="vfr">exploiter</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to exploit</td></tr>
+          <tr><td class="vfr">promouvoir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to promote</td></tr>
+          <tr><td class="vfr">associer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to associate with</td></tr>
+          <tr><td class="vfr">bénéficier</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to benefit from</td></tr>
+          <tr><td class="vfr">encadrer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to regulate, to supervise</td></tr>
+          <tr><td class="vfr">présenter</td><td class="vprep">comme</td><td class="vrel">—</td><td class="ven">to present as</td></tr>
+          <tr><td class="vfr">cibler</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to target</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; publicités et alimentation</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">attrayant(e)</span><span class="adj-en">attractive, appealing</span></div>
+          <div class="adj-row"><span class="adj-fr">peu sain(e)</span><span class="adj-en">unhealthy</span></div>
+          <div class="adj-row"><span class="adj-fr">sucré(e)</span><span class="adj-en">sugary, sweet</span></div>
+          <div class="adj-row"><span class="adj-fr">gras(se)</span><span class="adj-en">fatty, high in fat</span></div>
+          <div class="adj-row"><span class="adj-fr">trompeur(se)</span><span class="adj-en">misleading, deceptive</span></div>
+          <div class="adj-row"><span class="adj-fr">vulnérable</span><span class="adj-en">vulnerable</span></div>
+          <div class="adj-row"><span class="adj-fr">irréaliste</span><span class="adj-en">unrealistic</span></div>
+          <div class="adj-row"><span class="adj-fr">inatteignable</span><span class="adj-en">unattainable</span></div>
+          <div class="adj-row"><span class="adj-fr">créatif(ve)</span><span class="adj-en">creative</span></div>
+          <div class="adj-row"><span class="adj-fr">équilibré(e)</span><span class="adj-en">balanced</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Les publicités alimentaires pour les enfants</div>
+          <div class="contrast-item">promouvoir des fruits et légumes via des personnages attrayants ou des recettes amusantes encourage les enfants à adopter une alimentation plus saine</div>
+          <div class="contrast-item">éduquer les enfants aux principes d&#39;une alimentation équilibrée dès le plus jeune âge contribue à prévenir l&#39;obésité infantile à long terme</div>
+          <div class="contrast-item">associer l&#39;alimentation saine à des activités physiques amusantes dans les publicités développe la créativité enfantine et l&#39;intérêt pour le mouvement</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Les publicités alimentaires pour les enfants</div>
+          <div class="contrast-item">cibler des enfants avec des techniques de persuasion exploitant leur innocence pour les inciter à réclamer des aliments sucrés ou gras relève de l&#39;exploitation commerciale</div>
+          <div class="contrast-item">associer des aliments peu sains à des personnages de dessins animés attrayants fausse les choix alimentaires des enfants et nuit à leur santé</div>
+          <div class="contrast-item">présenter des aliments comme associés à un modèle physique inatteignable favorise une image irréaliste du corps chez les jeunes téléspectateurs</div>
+          <div class="contrast-item">exercer une pression indirecte sur les parents en incitant les enfants à demander des produits spécifiques génère des tensions familiales et des dépenses non planifiées</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">cibler des enfants avec des techniques de persuasion exploitant leur vulnérabilité constitue une forme d&#39;exploitation commerciale que la réglementation devrait davantage encadrer</div>
+          <div class="chunk-en">targeting children with persuasion techniques that exploit their vulnerability constitutes a form of commercial exploitation that regulation should better oversee</div>
+          <div class="chunk-note">constituer = verbe C1 · que la réglementation devrait = subjonctif implicite · encadrer = verbe institutionnel</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que certaines publicités alimentaires puissent encourager de bonnes habitudes, il serait urgent que les gouvernements interdisent la publicité pour les aliments peu sains ciblant les moins de douze ans</div>
+          <div class="chunk-en">although some food advertisements can encourage good habits, it would be urgent for governments to ban advertising for unhealthy foods targeting children under twelve</div>
+          <div class="chunk-note">bien que + subjonctif = concession C1 · il serait urgent que + subjonctif = appel fort à l&#39;action · structure de conclusion modèle</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">force est de constater que l&#39;exploitation de l&#39;innocence des enfants à des fins commerciales contribue à une hausse préoccupante de l&#39;obésité infantile dans les pays industrialisés</div>
+          <div class="chunk-en">it must be acknowledged that the exploitation of children&#39;s innocence for commercial purposes contributes to a worrying rise in childhood obesity in industrialised countries</div>
+          <div class="chunk-note">force est de constater que = formule d&#39;emphase C1 · à des fins commerciales = expression C1 · hausse préoccupante = collocation précise</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
