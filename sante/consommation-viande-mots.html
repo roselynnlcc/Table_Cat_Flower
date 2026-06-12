@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; La consommation de la viande</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">La consommation de la viande &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Valeur nutritive &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les protéines <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">proteins</span></div>
+          <div class="wl-row"><span class="wl-fr">les vitamines <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">vitamins</span></div>
+          <div class="wl-row"><span class="wl-fr">les minéraux <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">minerals</span></div>
+          <div class="wl-row"><span class="wl-fr">le fer <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">iron</span></div>
+          <div class="wl-row"><span class="wl-fr">la rassasiété <em>(f)</em></span><span class="wl-en">satiety, feeling of fullness</span></div>
+          <div class="wl-row"><span class="wl-fr">la croissance musculaire <em>(f)</em></span><span class="wl-en">muscle growth</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Impact environnemental</div>
+          <div class="wl-row"><span class="wl-fr">les gaz à effet de serre <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">greenhouse gases</span></div>
+          <div class="wl-row"><span class="wl-fr">la déforestation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">deforestation</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;élevage intensif <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">intensive farming</span></div>
+          <div class="wl-row"><span class="wl-fr">le bétail <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">livestock</span></div>
+          <div class="wl-row"><span class="wl-fr">les ressources en eau <em>(fpl)</em></span><span class="wl-en">water resources</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;empreinte carbone <em>(f)</em></span><span class="wl-en">carbon footprint</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Santé et risques</div>
+          <div class="wl-row"><span class="wl-fr">les maladies cardiaques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">heart diseases</span></div>
+          <div class="wl-row"><span class="wl-fr">le cancer du côlon <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">colon cancer</span></div>
+          <div class="wl-row"><span class="wl-fr">les agents pathogènes <em>(mpl)</em></span><span class="wl-en">pathogens</span></div>
+          <div class="wl-row"><span class="wl-fr">la contamination <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">contamination</span></div>
+          <div class="wl-row"><span class="wl-fr">la souffrance animale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">animal suffering</span></div>
+          <div class="wl-row"><span class="wl-fr">les conditions d&#39;élevage <em>(fpl)</em></span><span class="wl-en">farming conditions</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Production et coûts</div>
+          <div class="wl-row"><span class="wl-fr">le coût en ressources <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">resource cost</span></div>
+          <div class="wl-row"><span class="wl-fr">la viande rouge <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">red meat</span></div>
+          <div class="wl-row"><span class="wl-fr">la viande transformée <em>(f)</em></span><span class="wl-en">processed meat</span></div>
+          <div class="wl-row"><span class="wl-fr">les recettes <em>(fpl)</em></span><span class="wl-en">recipes</span></div>
+          <div class="wl-row"><span class="wl-fr">la cuisson <em>(f)</em></span><span class="wl-en">cooking, preparation</span></div>
+          <div class="wl-row"><span class="wl-fr">les légumes <em>(mpl)</em></span><span class="wl-en">vegetables</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to contribute to</td></tr>
+          <tr><td class="vfr">nuire</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to harm, to damage</td></tr>
+          <tr><td class="vfr">souffrir</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to suffer from</td></tr>
+          <tr><td class="vfr">se nourrir</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to feed on, to eat</td></tr>
+          <tr><td class="vfr">renoncer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to give up, to renounce</td></tr>
+          <tr><td class="vfr">augmenter</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to increase</td></tr>
+          <tr><td class="vfr">disposer</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to have available, to have access to</td></tr>
+          <tr><td class="vfr">incorporer</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to incorporate into</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; viande et alimentation</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">nutritif(ve)</span><span class="adj-en">nutritious</span></div>
+          <div class="adj-row"><span class="adj-fr">industriel(le)</span><span class="adj-en">industrial</span></div>
+          <div class="adj-row"><span class="adj-fr">intensif(ve)</span><span class="adj-en">intensive</span></div>
+          <div class="adj-row"><span class="adj-fr">rassasiant(e)</span><span class="adj-en">filling, satisfying</span></div>
+          <div class="adj-row"><span class="adj-fr">carné(e)</span><span class="adj-en">meat-based</span></div>
+          <div class="adj-row"><span class="adj-fr">transformé(e)</span><span class="adj-en">processed</span></div>
+          <div class="adj-row"><span class="adj-fr">éthique</span><span class="adj-en">ethical</span></div>
+          <div class="adj-row"><span class="adj-fr">cancérigène</span><span class="adj-en">carcinogenic</span></div>
+          <div class="adj-row"><span class="adj-fr">durable</span><span class="adj-en">sustainable</span></div>
+          <div class="adj-row"><span class="adj-fr">sauvage</span><span class="adj-en">wild, free-range</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; La consommation de la viande</div>
+          <div class="contrast-item">apporter des protéines de haute qualité et du fer contribue à la croissance musculaire et à l&#39;équilibre nutritionnel</div>
+          <div class="contrast-item">se nourrir de viande permet de se sentir rassasié plus longtemps et de réguler l&#39;appétit efficacement</div>
+          <div class="contrast-item">incorporer la viande dans de nombreuses recettes la rend facile à intégrer dans une alimentation variée</div>
+          <div class="contrast-item">consommer de la viande avec modération s&#39;inscrit dans une alimentation équilibrée reconnue par les professionnels de santé</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; La consommation de la viande</div>
+          <div class="contrast-item">contribuer aux émissions de gaz à effet de serre et à la déforestation via l&#39;élevage intensif aggrave la crise climatique</div>
+          <div class="contrast-item">consommer de la viande rouge en grande quantité augmente le risque de maladies cardiaques et de cancer du côlon</div>
+          <div class="contrast-item">maintenir des élevages industriels où les animaux ne disposent pas d&#39;espace suffisant soulève des questions éthiques majeures</div>
+          <div class="contrast-item">produire de la viande nécessite d&#39;énormes quantités d&#39;énergie et d&#39;eau au détriment d&#39;autres ressources alimentaires</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">l&#39;élevage intensif contribue de manière significative aux émissions de gaz à effet de serre, au détriment de la biodiversité</div>
+          <div class="chunk-en">intensive farming contributes significantly to greenhouse gas emissions, to the detriment of biodiversity</div>
+          <div class="chunk-note">au détriment de = expression C1 réutilisable · de manière significative = adverbe soutenu</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">renoncer à la viande rouge peut réduire considérablement le risque de développer des maladies cardiaques à long terme</div>
+          <div class="chunk-en">giving up red meat can considerably reduce the risk of developing heart disease in the long term</div>
+          <div class="chunk-note">renoncer à = verbe C1 · à long terme = expression clé · réduire considérablement = formulation soutenue</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que la viande apporte des protéines essentielles, il serait souhaitable que les individus réduisent leur consommation de viande rouge au profit d&#39;alternatives végétales</div>
+          <div class="chunk-en">although meat provides essential proteins, it would be advisable for individuals to reduce their red meat consumption in favour of plant-based alternatives</div>
+          <div class="chunk-note">bien que + subjonctif = concession C1 · au profit de = expression C1 · structure de conclusion modèle</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">force est de constater que les conditions d&#39;élevage industriel soulèvent des enjeux éthiques que la société ne peut plus ignorer</div>
+          <div class="chunk-en">it must be acknowledged that industrial farming conditions raise ethical issues that society can no longer ignore</div>
+          <div class="chunk-note">force est de constater que = formule d&#39;emphase C1 · soulever des enjeux = expression académique</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
