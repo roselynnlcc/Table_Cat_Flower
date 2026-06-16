@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Les jeux vidéo pour les enfants</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Les jeux vidéo pour les enfants &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Développement cognitif &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la logique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">logic, logical thinking</span></div>
+          <div class="wl-row"><span class="wl-fr">la coordination œil-main <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">hand-eye coordination</span></div>
+          <div class="wl-row"><span class="wl-fr">la persévérance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">perseverance</span></div>
+          <div class="wl-row"><span class="wl-fr">les choix stratégiques <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">strategic choices</span></div>
+          <div class="wl-row"><span class="wl-fr">les énigmes <em>(fpl)</em></span><span class="wl-en">puzzles, riddles</span></div>
+          <div class="wl-row"><span class="wl-fr">les objectifs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">goals, objectives</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Risques &amp; dépendance</div>
+          <div class="wl-row"><span class="wl-fr">la sédentarité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">sedentary lifestyle</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;addiction <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">addiction</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;agressivité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">aggressiveness</span></div>
+          <div class="wl-row"><span class="wl-fr">les troubles de l&#39;attention <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">attention disorders</span></div>
+          <div class="wl-row"><span class="wl-fr">les contenus violents <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">violent content</span></div>
+          <div class="wl-row"><span class="wl-fr">le temps d&#39;écran <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">screen time</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Social &amp; éducation</div>
+          <div class="wl-row"><span class="wl-fr">les jeux multijoueurs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">multiplayer games</span></div>
+          <div class="wl-row"><span class="wl-fr">la socialisation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">socialisation</span></div>
+          <div class="wl-row"><span class="wl-fr">les activités éducatives <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">educational activities</span></div>
+          <div class="wl-row"><span class="wl-fr">les activités sociales <em>(fpl)</em></span><span class="wl-en">social activities</span></div>
+          <div class="wl-row"><span class="wl-fr">les plateformes <em>(fpl)</em></span><span class="wl-en">platforms (gaming)</span></div>
+          <div class="wl-row"><span class="wl-fr">la négligence <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">neglect, negligence</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Accès &amp; contrôle parental</div>
+          <div class="wl-row"><span class="wl-fr">le contrôle parental <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">parental controls</span></div>
+          <div class="wl-row"><span class="wl-fr">les limites de temps <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">time limits</span></div>
+          <div class="wl-row"><span class="wl-fr">la facilité d&#39;accès <em>(f)</em></span><span class="wl-en">ease of access</span></div>
+          <div class="wl-row"><span class="wl-fr">la concentration <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">concentration, focus</span></div>
+          <div class="wl-row"><span class="wl-fr">les défis <em>(mpl)</em></span><span class="wl-en">challenges</span></div>
+          <div class="wl-row"><span class="wl-fr">les commandes <em>(fpl)</em></span><span class="wl-en">controls (game controller)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">résoudre</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to solve (puzzles, problems)</td></tr>
+          <tr><td class="vfr">surmonter</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to overcome (challenges)</td></tr>
+          <tr><td class="vfr">parvenir</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to manage to, to succeed in</td></tr>
+          <tr><td class="vfr">négliger</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to neglect (school, social life)</td></tr>
+          <tr><td class="vfr">privilégier</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to prioritise (games over education)</td></tr>
+          <tr><td class="vfr">exposer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to expose to (violent content)</td></tr>
+          <tr><td class="vfr">limiter</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to limit (screen time)</td></tr>
+          <tr><td class="vfr">développer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to develop (skills, perseverance)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">éducatif(ve)</span><span class="adj-en">educational</span></div>
+          <div class="adj-row"><span class="adj-fr">violent(e)</span><span class="adj-en">violent</span></div>
+          <div class="adj-row"><span class="adj-fr">addictif(ve)</span><span class="adj-en">addictive</span></div>
+          <div class="adj-row"><span class="adj-fr">sédentaire</span><span class="adj-en">sedentary</span></div>
+          <div class="adj-row"><span class="adj-fr">agressif(ve)</span><span class="adj-en">aggressive</span></div>
+          <div class="adj-row"><span class="adj-fr">cognitif(ve)</span><span class="adj-en">cognitive</span></div>
+          <div class="adj-row"><span class="adj-fr">stratégique</span><span class="adj-en">strategic</span></div>
+          <div class="adj-row"><span class="adj-fr">accessible</span><span class="adj-en">accessible, easy to access</span></div>
+          <div class="adj-row"><span class="adj-fr">multijoueur</span><span class="adj-en">multiplayer</span></div>
+          <div class="adj-row"><span class="adj-fr">néfaste</span><span class="adj-en">harmful, detrimental</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Les jeux vidéo pour les enfants</div>
+          <div class="contrast-item">résoudre des énigmes et faire des choix stratégiques dans les jeux vidéo développe la logique et les capacités de raisonnement des enfants</div>
+          <div class="contrast-item">améliorer la coordination œil-main et développer la persévérance en atteignant des objectifs progressifs sont des compétences transférables à d&#39;autres domaines de la vie</div>
+          <div class="contrast-item">jouer à des jeux multijoueurs avec des amis ou en famille favorise la socialisation et les échanges, même à distance</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Les jeux vidéo pour les enfants</div>
+          <div class="contrast-item">passer trop de temps assis devant un écran favorise la sédentarité et augmente le risque d&#39;addiction au détriment de la santé physique des enfants</div>
+          <div class="contrast-item">s&#39;exposer à des contenus violents influence négativement les comportements et peut développer des attitudes agressives chez les enfants les plus jeunes</div>
+          <div class="contrast-item">privilégier les jeux vidéo aux activités éducatives et sociales entraîne des troubles de l&#39;attention et une négligence des apprentissages scolaires fondamentaux</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que certains jeux vidéo développent des compétences cognitives réelles, il serait souhaitable que les parents limitent le temps d&#39;écran et encadrent le choix des contenus pour prévenir tout risque d&#39;addiction ou d&#39;exposition à la violence</div>
+          <div class="chunk-en">although some video games develop genuine cognitive skills, it would be desirable for parents to limit screen time and supervise content choices to prevent any risk of addiction or exposure to violence</div>
+          <div class="chunk-note">bien que + subjonctif · encadrer le choix = formule C1 · prévenir tout risque = formulation précise · structure de conclusion modèle</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">force est de constater que la facilité d&#39;accès aux jeux vidéo sur de multiples plateformes accroît le risque de sédentarité et de négligence des activités éducatives et sociales chez les jeunes</div>
+          <div class="chunk-en">it must be acknowledged that the ease of access to video games on multiple platforms increases the risk of a sedentary lifestyle and neglect of educational and social activities among young people</div>
+          <div class="chunk-note">force est de constater que = formule d&#39;emphase C1 · accroître = verbe soutenu · chez les jeunes = formulation C1</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
