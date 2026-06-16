@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF Canada — Banque d'Idées</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f7f4f0;--surface:#fff;--surface2:#f2ede8;--border:#e8e0d8;
+    --text:#1e1a16;--text-soft:#6b5f55;--text-muted:#a89888;
+    --accent:#c8703a;--radius:14px;--radius-sm:8px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding-bottom:40px;}
+
+  /* ── HEADER ── */
+  .header{background:var(--text);padding:20px 20px 10px;position:sticky;top:0;z-index:100;color:#fff;}
+  .header-row{display:flex;align-items:center;justify-content:space-between;}
+  .header h1{font-family:'Fraunces',serif;font-size:20px;font-weight:300;}
+  .header em{color:var(--accent);font-style:italic;}
+  .back-icon{font-size:20px;line-height:1;text-decoration:none;display:inline-flex;align-items:center;transition:transform .15s;}
+  .back-icon:hover{transform:scale(1.15);}
+
+  .motivation-bar{background:var(--text);padding:0 20px 10px;color:#fff;font-size:13px;font-weight:400;letter-spacing:0.3px;border-bottom:1px solid rgba(255,255,255,0.1);}
+
+  /* ── FILTER DROPDOWN BAR ── */
+  .filter-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:65px;z-index:90;}
+  .filter-label{font-size:12px;color:var(--text-muted);white-space:nowrap;}
+  .filter-select-wrap{position:relative;display:inline-flex;align-items:center;}
+  .filter-select{appearance:none;-webkit-appearance:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text);background:var(--surface2);border:1.5px solid var(--border);border-radius:20px;padding:6px 32px 6px 14px;cursor:pointer;outline:none;transition:border-color .15s;}
+  .filter-select:focus{border-color:var(--accent);}
+  .filter-chevron{position:absolute;right:11px;pointer-events:none;font-size:10px;color:var(--text-muted);}
+  .filter-count{font-size:12px;color:var(--text-muted);margin-left:4px;}
+
+  /* ── CARDS WRAP ── */
+  .cards-wrap{padding:16px;display:flex;flex-direction:column;gap:16px;max-width:700px;margin:0 auto;}
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider{font-family:'Fraunces',serif;font-size:15px;font-weight:400;color:var(--text-soft);padding:4px 0 2px;border-bottom:1px solid var(--border);margin-top:4px;}
+
+  /* ── TOPIC CARD  (mirrors q-card) ── */
+  .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+  .q-card-top{padding:16px;display:flex;flex-direction:column;gap:8px;}
+  .cat-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:600;}
+  .q-text{font-size:14px;font-weight:600;line-height:1.5;}
+
+  /* collapsed body */
+  .q-card-body{display:none;padding:0 16px 16px;}
+  .q-card-body.open{display:block;}
+
+  /* avantages / inconvénients two-col */
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 0;}
+  @media(max-width:600px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{border-radius:var(--radius-sm);border:1px solid var(--border);overflow:hidden;}
+  .card-pos-a{background-color:#f4faf7;}
+  .card-pos-b{background-color:#f0f6ff;}
+  .contrast-header{padding:6px 10px;font-size:10px;font-weight:700;text-transform:uppercase;border-bottom:1px solid var(--border);}
+  .contrast-header.pos-a{background:#eaf4ef;color:#2d6a4f;}
+  .contrast-header.pos-b{background:#ddeeff;color:#185fa5;}
+  .contrast-item{padding:7px 10px;font-size:14px;border-bottom:1px solid rgba(0,0,0,0.03);line-height:1.4;display:flex;align-items:center;gap:8px;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .speak-btn{margin-left:auto;flex-shrink:0;background:none;border:none;cursor:pointer;font-size:13px;opacity:0.4;padding:2px 4px;border-radius:4px;line-height:1;transition:opacity .15s;}
+  .speak-btn:hover,.speak-btn.speaking{opacity:1;}
+  .contrast-item::before{content:"•";color:var(--accent);font-weight:bold;flex-shrink:0;}
+
+
+
+  /* controls row */
+  .q-controls{display:flex;justify-content:flex-end;align-items:center;padding-top:12px;border-top:1px solid var(--border);margin-top:12px;}
+  .script-link{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;padding:6px 12px;background:#fdf0e8;border-radius:6px;border:1px solid #f0c8a8;}
+  .script-link:hover{background:#f8e0cc;}
+
+  .expand-btn{width:100%;padding:10px;background:none;border:none;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;}
+  .expand-btn:hover{color:var(--text-soft);}
+
+  /* card bottom row with mots button */
+  .card-actions{display:flex;justify-content:space-between;align-items:center;padding:0 16px 12px;gap:8px;}
+  .mots-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--accent);background:#fdf0e8;border:1px solid #f0c8a8;border-radius:6px;padding:5px 11px;cursor:pointer;transition:background .15s;}
+  .mots-btn:hover{background:#f8e0cc;}
+
+  /* ── MODAL DRAWER ── */
+  .modal-overlay{position:fixed;inset:0;background:rgba(30,26,22,.45);z-index:200;display:none;align-items:flex-end;}
+  .modal-overlay.open{display:flex;}
+  .modal-drawer{background:var(--bg);border-radius:20px 20px 0 0;width:100%;max-width:700px;margin:0 auto;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 -8px 40px rgba(0,0,0,.18);}
+  .modal-header{padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-shrink:0;}
+  .modal-header-text{display:flex;flex-direction:column;gap:3px;}
+  .modal-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);}
+  .modal-title{font-family:'Fraunces',serif;font-size:17px;font-weight:400;color:var(--text);line-height:1.35;}
+  .modal-close{font-size:22px;background:none;border:none;cursor:pointer;color:var(--text-muted);flex-shrink:0;line-height:1;padding:2px;}
+  .modal-body{overflow-y:auto;padding:16px 20px 32px;-webkit-overflow-scrolling:touch;}
+
+  /* section headings inside modal */
+  .lm-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin:20px 0 10px;}
+  .lm-section-title:first-child{margin-top:0;}
+
+  /* noun groups */
+  .noun-group{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:10px;}
+  .noun-group-header{padding:7px 12px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .noun-row{display:flex;align-items:baseline;justify-content:space-between;padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.04);gap:8px;}
+  .noun-row:last-child{border-bottom:none;}
+  .noun-fr{font-size:13.5px;font-weight:600;color:var(--text);}
+  .noun-gender{font-size:11px;color:var(--text-muted);font-weight:400;margin-left:3px;}
+  .noun-star{color:var(--accent);font-size:11px;margin-left:3px;}
+  .noun-en{font-size:12.5px;color:var(--text-soft);text-align:right;flex-shrink:0;}
+
+  /* verb table */
+  .verb-table{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;border-collapse:collapse;margin-bottom:10px;}
+  .verb-table thead tr{background:var(--surface2);}
+  .verb-table th{padding:7px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);text-align:left;border-bottom:1px solid var(--border);}
+  .verb-table td{padding:9px 10px;font-size:13px;border-bottom:1px solid rgba(0,0,0,.04);vertical-align:middle;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .verb-td-verb{font-weight:600;color:var(--text);}
+  .verb-td-prep{font-weight:700;color:var(--accent);}
+  .verb-td-pron{font-style:italic;color:var(--text-muted);}
+  .verb-td-sens{color:var(--text-soft);}
+
+  /* adjectives grid */
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:10px;}
+  .adj-cell{padding:9px 12px;border-bottom:1px solid rgba(0,0,0,.04);border-right:1px solid rgba(0,0,0,.04);}
+  .adj-cell:nth-child(2n){border-right:none;}
+  .adj-fr{font-size:13px;font-weight:600;color:var(--text);}
+  .adj-en{font-size:11.5px;color:var(--text-muted);margin-top:1px;}
+
+  /* paires de contraste */
+  .paire-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+  @media(max-width:480px){.paire-grid{grid-template-columns:1fr;}}
+  .paire-col{border-radius:var(--radius-sm);border:1px solid var(--border);overflow:hidden;}
+  .paire-header{padding:7px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border);}
+  .paire-header.oui{background:#eaf4ef;color:#2d6a4f;}
+  .paire-header.non{background:#e8f2ff;color:#185fa5;}
+  .paire-item{padding:8px 10px;font-size:13px;border-bottom:1px solid rgba(0,0,0,.04);color:var(--text);line-height:1.4;}
+  .paire-item:last-child{border-bottom:none;}
+
+  /* phrases figées */
+  .phrase-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 14px;margin-bottom:8px;}
+  .phrase-fr{font-size:13.5px;font-weight:600;color:var(--text);line-height:1.45;margin-bottom:5px;}
+  .phrase-en{font-size:12.5px;color:var(--text-soft);margin-bottom:5px;line-height:1.4;}
+  .phrase-note{font-size:11.5px;color:var(--text-muted);line-height:1.4;}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-row">
+    <h1>TCF Canada — <em>Banque d'Idées</em></h1>
+    <a class="back-icon" href="../index.html" title="Retour">🏠</a>
+    <!-- back link correct: ../index.html points to root index.html -->
+  </div>
+</header>
+<div class="motivation-bar">💡 Parcourez les idées, mémorisez les mots-clés, puis construisez votre script.</div>
+
+<!-- FILTER DROPDOWN -->
+<div class="filter-bar">
+  <span class="filter-label">Thème :</span>
+  <div class="filter-select-wrap">
+    <select class="filter-select" id="catSelect" onchange="filterCards()">
+      <option value="all">Tous les thèmes</option>
+      <option value="agriculture">Agriculture &amp; Environnement</option>
+      <option value="animaux">Animaux</option>
+      <option value="art">Art &amp; Culture</option>
+      <option value="villes">Villes &amp; Logements</option>
+      <option value="discrimination">Discrimination</option>
+      <option value="education">Éducation</option>
+      <option value="famille">Famille &amp; Parentalité</option>
+      <option value="sante">Santé &amp; Mode de vie</option>
+      <option value="immigration">Immigration</option>
+      <option value="medias">Médias &amp; Publicités</option>
+      <option value="consommation">Consommation</option>
+      <option value="sport">Sport</option>
+      <option value="techno">Technologie</option>
+      <option value="transports">Transports</option>
+      <option value="tourisme">Tourisme &amp; Voyage</option>
+      <option value="travail">Monde du Travail</option>
+    </select>
+    <span class="filter-chevron">▾</span>
+  </div>
+  <span class="filter-count" id="filterCount"></span>
+</div>
+
+<div class="cards-wrap" id="cardsWrap"></div>
+
+<!-- MODAL DRAWER -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-drawer" id="modalDrawer">
+    <div class="modal-header">
+      <div class="modal-header-text">
+        <span class="modal-tag" id="modalTag"></span>
+        <span class="modal-title" id="modalTitle"></span>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════
+const TOPICS = [
+
+  // ── AGRICULTURE & ENVIRONNEMENT ──────────
+  { id:1, cat:'agriculture', catLabel:'Agriculture & Env.', catColor:'#16a34a', catBg:'#f0fdf4',
+    title:"L'Alimentation biologique",
+    scriptUrl: null,
+    motsUrl: 'agriculture/alimentation-biologique-mots.html'
+  },
+
+  { id:2, cat:'agriculture', catLabel:'Agriculture & Env.', catColor:'#16a34a', catBg:'#f0fdf4',
+    title:"Les Énergies renouvelables",
+    scriptUrl: null,
+    motsUrl: 'agriculture/energies-renouvelables-mots.html'
+  },
+
+  { id:3, cat:'agriculture', catLabel:'Agriculture & Env.', catColor:'#16a34a', catBg:'#f0fdf4',
+    title:"Tri des déchets",
+    scriptUrl: null,
+    motsUrl: 'agriculture/tri-dechets-mots.html'
+  },
+
+  // ── ANIMAUX ──────────────────────────────
+  { id:4, cat:'animaux', catLabel:'Animaux', catColor:'#d97706', catBg:'#fffbeb',
+    title:"Les Zoos",
+    scriptUrl: null,
+    motsUrl: 'animaux/les-zoos-mots.html'
+  },
+
+  { id:5, cat:'animaux', catLabel:'Animaux', catColor:'#d97706', catBg:'#fffbeb',
+    title:"Avoir un animal domestique chez soi",
+    scriptUrl: "animal_personne_agee.html",
+    motsUrl: 'animaux/animal-domestique-mots.html'
+  },
+
+  { id:6, cat:'animaux', catLabel:'Animaux', catColor:'#d97706', catBg:'#fffbeb',
+    title:"Avoir un animal de compagnie au travail",
+    scriptUrl: null,
+    motsUrl: 'animaux/animal-compagnie-travail-mots.html'
+  },
+
+  // ── ART & CULTURE ─────────────────────────
+  { id:7, cat:'art', catLabel:'Art & Culture', catColor:'#7c3aed', catBg:'#f5f0ff',
+    title:"La cuisine comme moyen de découvrir d'autres cultures",
+    scriptUrl: null,
+    motsUrl: 'art/cuisine-cultures-mots.html'
+  },
+
+  { id:8, cat:'art', catLabel:'Art & Culture', catColor:'#7c3aed', catBg:'#f5f0ff',
+    title:"La gratuité des musées",
+    scriptUrl: null,
+    motsUrl: 'art/gratuite-musees-mots.html'
+  },
+
+  // ── ÉDUCATION ─────────────────────────────
+  { id:9, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"L'utilisation des téléphones portables à l'école",
+    scriptUrl: null,
+    motsUrl: 'education/telephones-ecole-mots.html'
+  },
+
+  { id:10, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"Les cours en ligne",
+    scriptUrl: null,
+    motsUrl: 'education/cours-en-ligne-mots.html'
+  },
+
+  { id:11, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"La scolarisation à domicile",
+    scriptUrl: null,
+    motsUrl: 'education/scolarisation-domicile-mots.html'
+  },
+
+  // ── FAMILLE & PARENTALITÉ ─────────────────
+  { id:12, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
+    title:"L'Internet pour les enfants",
+    scriptUrl: null,
+    motsUrl: 'famille/internet-enfants-mots.html'
+  },
+
+  { id:13, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
+    title:"L'éducation autoritaire (parents sévères)",
+    scriptUrl: null,
+    motsUrl: 'famille/education-autoritaire-mots.html'
+  },
+
+  // ── SANTÉ & MODE DE VIE ───────────────────
+  { id:14, cat:'sante', catLabel:'Santé', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"Alimentation végétarienne",
+    scriptUrl: "vegetarisme.html",
+    motsUrl: 'sante/vegetarisme-mots.html'
+  },
+
+  { id:15, cat:'sante', catLabel:'Santé', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"La Chirurgie esthétique",
+    scriptUrl: null,
+    motsUrl: 'sante/chirurgie-esthetique-mots.html'
+  },
+
+  // ── IMMIGRATION ───────────────────────────
+  { id:16, cat:'immigration', catLabel:'Immigration', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"L'immigration et l'intégration",
+    scriptUrl: null,
+    motsUrl: 'immigration/immigration-integration-mots.html'
+  },
+
+  // ── MÉDIAS ────────────────────────────────
+  { id:17, cat:'medias', catLabel:'Médias', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"La télévision",
+    scriptUrl: null,
+    motsUrl: 'medias/television-mots.html'
+  },
+
+  // ── SPORT ─────────────────────────────────
+  { id:18, cat:'sport', catLabel:'Sport', catColor:'#16a34a', catBg:'#f0fdf4',
+    title:"Les salaires de sportifs de haut niveau",
+    scriptUrl: "salaires-sportifs.html",
+    motsUrl: 'sport/salaires-sportifs-mots.html'
+  },
+
+  // ── TECHNOLOGIE ───────────────────────────
+  { id:19, cat:'techno', catLabel:'Technologie', catColor:'#d97706', catBg:'#fffbeb',
+    title:"Les réseaux sociaux",
+    scriptUrl: null,
+    motsUrl: 'techno/reseaux-sociaux-mots.html'
+  },
+
+  { id:20, cat:'techno', catLabel:'Technologie', catColor:'#d97706', catBg:'#fffbeb',
+    title:"Le télétravail",
+    scriptUrl: null,
+    motsUrl: 'techno/teletravail-mots.html'
+  },
+
+  // ── TRANSPORTS ────────────────────────────
+  { id:21, cat:'transports', catLabel:'Transports', catColor:'#16a34a', catBg:'#f0fdf4',
+    title:"Vivre sans voiture",
+    scriptUrl: "vivre_sans_voiture.html",
+    motsUrl: 'transports/vivre-sans-voiture-mots.html'
+  },
+
+  // ── TOURISME & VOYAGE ─────────────────────
+  { id:22, cat:'tourisme', catLabel:'Tourisme', catColor:'#7c3aed', catBg:'#f5f0ff',
+    title:"Voyager seul vs voyager accompagné",
+    scriptUrl: "voyage_solo.html",
+    motsUrl: 'tourisme/voyager-seul-mots.html'
+  },
+
+  // ── MONDE DU TRAVAIL ──────────────────────
+  { id:23, cat:'travail', catLabel:'Monde du Travail', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"Le salaire égal pour tous les employés",
+    scriptUrl: null,
+    motsUrl: 'travail/salaire-egal-mots.html'
+  },
+
+  { id:24, cat:'travail', catLabel:'Monde du Travail', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"Cuisiner : amateur vs professionnel",
+    scriptUrl: "cuisiner_regulierement.html",
+    motsUrl: 'travail/cuisiner-amateur-pro-mots.html'
+  },
+
+  // ── DISCRIMINATION ────────────────────────
+  { id:25, cat:'discrimination', catLabel:'Discrimination', catColor:'#9333ea', catBg:'#faf5ff',
+    title:"L'égalité des sexes au travail",
+    scriptUrl: null,
+    motsUrl: 'discrimination/egalite-sexes-travail-mots.html'
+  },
+
+  // ── ÉDUCATION (suite) ─────────────────────
+  { id:26, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"L'uniforme des étudiants",
+    scriptUrl: null,
+    motsUrl: 'education/uniforme-etudiants-mots.html'
+  },
+
+  { id:27, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"L'utilisation des téléphones portables à l'école",
+    scriptUrl: null,
+    motsUrl: 'education/telephones-ecole-mots.html'
+  },
+
+  { id:28, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"La télévision dans l'éducation des enfants",
+    scriptUrl: null,
+    motsUrl: 'education/television-education-mots.html'
+  },
+
+  { id:29, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"Les sorties pédagogiques pour les enfants",
+    scriptUrl: null,
+    motsUrl: 'education/sorties-pedagogiques-mots.html'
+  },
+
+  { id:30, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"Faire de longues études",
+    scriptUrl: null,
+    motsUrl: 'education/longues-etudes-mots.html'
+  },
+
+  { id:31, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"Les matières culturelles à l'école",
+    scriptUrl: null,
+    motsUrl: 'education/matieres-culturelles-mots.html'
+  },
+
+  // ── MONDE DU TRAVAIL (suite) ──────────────
+  { id:32, cat:'travail', catLabel:'Monde du Travail', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"L'utilisation d'une photo sur un CV",
+    scriptUrl: null,
+    motsUrl: 'travail/photo-cv-mots.html'
+  },
+
+  { id:33, cat:'travail', catLabel:'Monde du Travail', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"Les diplômes et le succès au travail",
+    scriptUrl: null,
+    motsUrl: 'travail/diplomes-succes-mots.html'
+  },
+
+  { id:34, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"Rendre les universités accessibles à tous",
+    scriptUrl: null,
+    motsUrl: 'education/universites-accessibles-mots.html'
+  },
+
+  // ── ÉDUCATION — Maitriser p.30-35 ─────────
+  { id:35, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"Travailler et étudier en même temps",
+    scriptUrl: null,
+    motsUrl: 'education/travailler-etudier-mots.html'
+  },
+
+  { id:36, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"Les livres pour l&#39;éducation",
+    scriptUrl: null,
+    motsUrl: 'education/livres-education-mots.html'
+  },
+
+  { id:37, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"La scolarisation à domicile",
+    scriptUrl: null,
+    motsUrl: 'education/scolarisation-domicile-mots.html'
+  },
+
+  { id:38, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"Les devoirs à la maison",
+    scriptUrl: null,
+    motsUrl: 'education/devoirs-maison-mots.html'
+  },
+
+  { id:39, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"Les cours en ligne",
+    scriptUrl: null,
+    motsUrl: 'education/cours-en-ligne-mots.html'
+  },
+
+  { id:40, cat:'education', catLabel:'Éducation', catColor:'#2563eb', catBg:'#eff6ff',
+    title:"La reprise des études à l&#39;âge adulte",
+    scriptUrl: null,
+    motsUrl: 'education/reprise-etudes-adulte-mots.html'
+  },
+
+  // ── FAMILLE & PARENTALITÉ — Maitriser p.37-39 ──
+  { id:41, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
+    title:"Les réseaux sociaux pour les enfants",
+    scriptUrl: null,
+    motsUrl: 'famille/reseaux-sociaux-enfants-mots.html'
+  },
+
+  { id:42, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
+    title:"Les téléphones portables pour les enfants",
+    scriptUrl: null,
+    motsUrl: 'famille/telephones-enfants-mots.html'
+  },
+
+  { id:43, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
+    title:"Être amis avec des membres de sa famille",
+    scriptUrl: null,
+    motsUrl: 'famille/amis-famille-mots.html'
+  },
+
+  { id:44, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
+    title:"Contrôler les fréquentations des enfants",
+    scriptUrl: null,
+    motsUrl: 'famille/controler-frequentations-enfants-mots.html'
+  },
+
+  { id:45, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
+    title:"La participation aux tâches ménagères",
+    scriptUrl: null,
+    motsUrl: 'famille/taches-menageres-famille-mots.html'
+  },
+
+  { id:46, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
+    title:"Travailler en famille",
+    scriptUrl: null,
+    motsUrl: 'famille/travailler-en-famille-mots.html'
+  },
+
+  { id:47, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
+    title:"Vivre avec ses parents après l&#39;âge de 25 ans",
+    scriptUrl: null,
+    motsUrl: 'famille/vivre-parents-apres-25-ans-mots.html'
+  },
+
+  { id:48, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
+    title:"Se faire des amis",
+    scriptUrl: null,
+    motsUrl: 'famille/se-faire-des-amis-mots.html'
+  },
+
+  { id:49, cat:'famille', catLabel:'Famille', catColor:'#dc2626', catBg:'#fff5f5',
+    title:"L&#39;éducation compréhensive (parents compréhensifs)",
+    scriptUrl: null,
+    motsUrl: 'famille/education-comprehensive-mots.html'
+  },
+
+  { id:50, cat:'sante', catLabel:'Santé', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"L&#39;importance de l&#39;apparence physique",
+    scriptUrl: null,
+    motsUrl: 'sante/apparence-physique-mots.html'
+  },
+
+  { id:51, cat:'sante', catLabel:'Santé', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"L&#39;alimentation végétarienne",
+    scriptUrl: null,
+    motsUrl: 'sante/alimentation-vegetarienne-mots.html'
+  },
+
+  { id:52, cat:'sante', catLabel:'Santé', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"L&#39;importance de rester jeune",
+    scriptUrl: null,
+    motsUrl: 'sante/importance-rester-jeune-mots.html'
+  },
+
+  { id:53, cat:'sante', catLabel:'Santé', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"Vivre sans médicaments",
+    scriptUrl: null,
+    motsUrl: 'sante/vivre-sans-medicaments-mots.html'
+  },
+
+  { id:54, cat:'sante', catLabel:'Santé', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"La consommation de la viande",
+    scriptUrl: null,
+    motsUrl: 'sante/consommation-viande-mots.html'
+  },
+
+  { id:55, cat:'immigration', catLabel:'Immigration', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"L&#39;immigration et l&#39;intégration dans un pays étranger",
+    scriptUrl: null,
+    motsUrl: 'immigration/immigration-integration-mots.html'
+  },
+
+  { id:56, cat:'immigration', catLabel:'Immigration', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"L&#39;importance de parler la langue du pays d&#39;immigration",
+    scriptUrl: null,
+    motsUrl: 'immigration/parler-langue-pays-immigration-mots.html'
+  },
+
+  { id:57, cat:'medias', catLabel:'Médias', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"La télévision",
+    scriptUrl: null,
+    motsUrl: 'medias/television-mots.html'
+  },
+
+  { id:58, cat:'medias', catLabel:'Médias', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"La participation des célébrités à la vie politique",
+    scriptUrl: null,
+    motsUrl: 'medias/celebrites-vie-politique-mots.html'
+  },
+
+  { id:59, cat:'medias', catLabel:'Médias', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"Les téléréalités",
+    scriptUrl: null,
+    motsUrl: 'medias/telerealites-mots.html'
+  },
+
+  { id:60, cat:'medias', catLabel:'Médias', catColor:'#0891b2', catBg:'#f0fafe',
+    title:"Les publicités alimentaires pour les enfants",
+    scriptUrl: null,
+    motsUrl: 'medias/publicites-alimentaires-enfants-mots.html'
+  },
+
+  { id:61, cat:'economique', catLabel:'Économique', catColor:'#7c3aed', catBg:'#f5f3ff',
+    title:"Faire ses achats en ligne",
+    scriptUrl: null,
+    motsUrl: 'economique/achats-en-ligne-mots.html'
+  },
+
+  { id:62, cat:'techno', catLabel:'Technologie', catColor:'#d97706', catBg:'#fffbeb',
+    title:"Le remplacement fréquent de téléphone portable",
+    scriptUrl: null,
+    motsUrl: 'techno/remplacement-telephone-mots.html'
+  },
+
+  { id:63, cat:'sport', catLabel:'Sport', catColor:'#16a34a', catBg:'#f0fdf4',
+    title:"Le sport pour les enfants",
+    scriptUrl: null,
+    motsUrl: 'sport/sport-enfants-mots.html'
+  },
+
+  { id:64, cat:'techno', catLabel:'Technologie', catColor:'#d97706', catBg:'#fffbeb',
+    title:"Les téléphones portables",
+    scriptUrl: null,
+    motsUrl: 'techno/telephones-portables-mots.html'
+  },
+
+  { id:65, cat:'techno', catLabel:'Technologie', catColor:'#d97706', catBg:'#fffbeb',
+    title:"L&#39;internet",
+    scriptUrl: null,
+    motsUrl: 'techno/internet-mots.html'
+  },
+
+  { id:66, cat:'techno', catLabel:'Technologie', catColor:'#d97706', catBg:'#fffbeb',
+    title:"L&#39;internet au travail",
+    scriptUrl: null,
+    motsUrl: 'techno/internet-travail-mots.html'
+  },
+
+  { id:67, cat:'techno', catLabel:'Technologie', catColor:'#d97706', catBg:'#fffbeb',
+    title:"Les jeux vidéo pour les enfants",
+    scriptUrl: null,
+    motsUrl: 'techno/jeux-video-enfants-mots.html'
+  },
+
+  { id:68, cat:'techno', catLabel:'Technologie', catColor:'#d97706', catBg:'#fffbeb',
+    title:"Les nouvelles technologies",
+    scriptUrl: null,
+    motsUrl: 'techno/nouvelles-technologies-mots.html'
+  },
+
+  { id:69, cat:'transports', catLabel:'Transports', catColor:'#16a34a', catBg:'#f0fdf4',
+    title:"Interdiction de la circulation des véhicules dans les villes",
+    scriptUrl: null,
+    motsUrl: 'transports/interdiction-circulation-villes-mots.html'
+  },
+
+  { id:70, cat:'transports', catLabel:'Transports', catColor:'#16a34a', catBg:'#f0fdf4',
+    title:"Les transports en commun / La gratuité des transports en commun",
+    scriptUrl: null,
+    motsUrl: 'transports/transports-commun-mots.html'
+  },
+
+  { id:71, cat:'transports', catLabel:'Transports', catColor:'#16a34a', catBg:'#f0fdf4',
+    title:"Le vélo comme moyen de transport",
+    scriptUrl: null,
+    motsUrl: 'transports/velo-moyen-transport-mots.html'
+  },
+
+  { id:72, cat:'tourisme', catLabel:'Tourisme', catColor:'#7c3aed', catBg:'#f5f0ff',
+    title:"Le tourisme",
+    scriptUrl: null,
+    motsUrl: 'tourisme/tourisme-mots.html'
+  },
+
+  { id:73, cat:'tourisme', catLabel:'Tourisme', catColor:'#7c3aed', catBg:'#f5f0ff',
+    title:"Le voyage",
+    scriptUrl: null,
+    motsUrl: 'tourisme/voyage-mots.html'
+  },
+
+  { id:74, cat:'travail', catLabel:'Monde du Travail', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"Le téléphone portable au travail",
+    scriptUrl: null,
+    motsUrl: 'travail/telephone-portable-travail-mots.html'
+  },
+
+  { id:75, cat:'travail', catLabel:'Monde du Travail', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"Les nouvelles technologies au monde de travail",
+    scriptUrl: null,
+    motsUrl: 'travail/nouvelles-technologies-monde-travail-mots.html'
+  },
+
+  { id:76, cat:'travail', catLabel:'Monde du Travail', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"Le salaire",
+    scriptUrl: null,
+    motsUrl: 'travail/salaire-mots.html'
+  },
+
+  { id:77, cat:'travail', catLabel:'Monde du Travail', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"Le changement de carrière",
+    scriptUrl: null,
+    motsUrl: 'travail/changement-carriere-mots.html'
+  },
+
+  { id:78, cat:'travail', catLabel:'Monde du Travail', catColor:'#be185d', catBg:'#fdf2f8',
+    title:"La sieste au travail",
+    scriptUrl: null,
+    motsUrl: 'travail/sieste-travail-mots.html'
+  }
+];
+
+// ══════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════
+function filterCards(){
+  const cat = document.getElementById('catSelect').value;
+  const filtered = cat === 'all' ? TOPICS : TOPICS.filter(t => t.cat === cat);
+  document.getElementById('filterCount').textContent = `${filtered.length} sujet${filtered.length>1?'s':''}`;
+  renderCards(filtered);
+}
+
+function renderCards(list){
+  const wrap = document.getElementById('cardsWrap');
+  let html = '';
+  let lastCat = null;
+
+  list.forEach(t => {
+    if(t.catLabel !== lastCat){
+      html += `<div class="section-divider">${t.catLabel}</div>`;
+      lastCat = t.catLabel;
+    }
+    html += `
+    <div class="q-card">
+      <div class="q-card-top">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <span class="cat-badge" style="background:${t.catBg};color:${t.catColor};">${t.catLabel}</span>
+        </div>
+        <div class="q-text">${t.title}</div>
+      </div>
+      <div class="q-card-body" id="body-${t.id}">
+        <div class="paire-display" id="paire-display-${t.id}"></div>
+      </div>
+      <div class="card-actions">
+        ${t.motsUrl
+          ? `<a href="${t.motsUrl}" class="mots-btn">📖 Liste de mots</a>`
+          : `<button class="mots-btn" onclick="openMots(event,${t.id})">📖 Liste de mots</button>`}
+        ${t.scriptUrl ? `<a href="../${t.scriptUrl}" class="script-link">Voir le script →</a>` : '<span></span>'}
+      </div>
+      <button class="expand-btn" onclick="toggleCard(${t.id})">
+        <span id="arr-${t.id}">▼ Développer</span>
+      </button>
+    </div>`;
+  });
+
+  wrap.innerHTML = html;
+  document.getElementById('filterCount').textContent = `${list.length} sujet${list.length>1?'s':''}`;
+}
+
+async function toggleCard(id){
+  const body = document.getElementById(`body-${id}`);
+  const btn  = document.getElementById(`arr-${id}`);
+  const isOpen = body.classList.toggle('open');
+  btn.textContent = isOpen ? '▲ Réduire' : '▼ Développer';
+
+  // If this card has a standalone mots page, fetch its contrast pairs on first open
+  if(isOpen){
+    const t = TOPICS.find(x => x.id === id);
+    const container = document.getElementById(`paire-display-${id}`);
+    if(t && t.motsUrl && container && container.innerHTML === ''){
+      container.innerHTML = `<small style="color:var(--text-muted);padding:8px 0;display:block;">Chargement...</small>`;
+      try{
+        const res  = await fetch(t.motsUrl);
+        const html = await res.text();
+        const doc  = new DOMParser().parseFromString(html, 'text/html');
+        const cards = doc.querySelectorAll('.contrast-card');
+        if(cards.length >= 2){
+          const build = (card, hdrClass, bgClass) => {
+            const hdr   = card.querySelector('.contrast-header');
+            const title = hdr ? hdr.innerText || hdr.textContent : '';
+            const items = Array.from(card.querySelectorAll('.contrast-item'))
+                              .map(i => `<div class="contrast-item">${i.innerText || i.textContent}<button class="speak-btn" onclick="speakFr(event,this)" title="Écouter">🔊</button></div>`).join('');
+            return `<div class="contrast-card ${bgClass}"><div class="contrast-header ${hdrClass}">${title}</div>${items}</div>`;
+          };
+          container.innerHTML = `<div class="contrast-grid" style="margin-top:12px;">
+            ${build(cards[0], 'pos-a', 'card-pos-a')}
+            ${build(cards[1], 'pos-b', 'card-pos-b')}
+          </div>`;
+        } else {
+          container.innerHTML = '';
+        }
+      } catch(e){
+        container.innerHTML = '';
+      }
+    }
+  }
+}
+
+// ══════════════════════════════════════════
+//  LISTE DE MOTS DATA (sample: topics 1 & 14)
+// ══════════════════════════════════════════
+const LISTE = {
+
+  1: { // L'Alimentation biologique
+    nouns: [
+      { group:"Agriculture et production", items:[
+        {fr:"la biodiversité", gender:"f", en:"biodiversity"},
+        {fr:"la rotation des cultures", gender:"f", en:"crop rotation"},
+        {fr:"les intrants chimiques", gender:"mpl", en:"chemical inputs"},
+        {fr:"les pesticides", gender:"mpl", en:"pesticides"},
+        {fr:"le rendement", gender:"m", en:"yield, output"},
+        {fr:"la certification", gender:"f", en:"certification"},
+        {fr:"les produits biologiques", gender:"mpl", en:"organic products"},
+        {fr:"l'exploitation agricole", gender:"f", en:"farm, agricultural holding"}
+      ]},
+      { group:"Économie et marché", items:[
+        {fr:"le coût de production", gender:"m", en:"production cost"},
+        {fr:"la main-d'œuvre", gender:"f", en:"labour, workforce"},
+        {fr:"le producteur local", gender:"m", en:"local producer"},
+        {fr:"les petites exploitations", gender:"fpl", en:"small farms"},
+        {fr:"la filière bio", gender:"f", en:"organic sector"},
+        {fr:"le label", gender:"m", en:"label, certification mark"}
+      ]},
+      { group:"Environnement et santé", items:[
+        {fr:"l'empreinte carbone", gender:"f", en:"carbon footprint"},
+        {fr:"la captation du carbone", gender:"f", en:"carbon capture"},
+        {fr:"la pollution des sols", gender:"f", en:"soil pollution"},
+        {fr:"les nutriments", gender:"mpl", en:"nutrients"},
+        {fr:"la qualité gustative", gender:"f", en:"taste quality"}
+      ]}
+    ],
+    verbes: [
+      {v:"contribuer", prep:"à", pron:"auquel", en:"to contribute to"},
+      {v:"favoriser", prep:"—", pron:"—", en:"to promote, to favour"},
+      {v:"réduire", prep:"—", pron:"—", en:"to reduce"},
+      {v:"dépendre", prep:"de", pron:"dont", en:"to depend on"},
+      {v:"nuire", prep:"à", pron:"auquel", en:"to harm, to be harmful to"},
+      {v:"recourir", prep:"à", pron:"auquel", en:"to resort to"},
+      {v:"s'adapter", prep:"à", pron:"auquel", en:"to adapt to"},
+      {v:"préserver", prep:"—", pron:"—", en:"to preserve"}
+    ],
+    adj: [
+      {fr:"biologique", en:"organic"},
+      {fr:"durable", en:"sustainable"},
+      {fr:"écologique", en:"ecological"},
+      {fr:"nutritif(ve)", en:"nutritious"},
+      {fr:"local(e)", en:"local"},
+      {fr:"conventionnel(le)", en:"conventional"},
+      {fr:"coûteux(se)", en:"costly, expensive"},
+      {fr:"certifié(e)", en:"certified"},
+      {fr:"rentable", en:"profitable"},
+      {fr:"saisonnier(ère)", en:"seasonal"}
+    ],
+    paires: {
+      ouiLabel:"POUR — L'AGRICULTURE BIOLOGIQUE",
+      nonLabel:"CONTRE — L'AGRICULTURE BIOLOGIQUE",
+      oui:[
+        "respecter les cycles naturels de la terre",
+        "produire sans intrants chimiques de synthèse",
+        "soutenir les petits producteurs locaux",
+        "préserver la biodiversité des sols",
+        "répondre à une demande croissante de consommateurs",
+        "contribuer à la lutte contre le changement climatique"
+      ],
+      non:[
+        "les rendements restent bien inférieurs au conventionnel",
+        "les coûts de production sont plus élevés",
+        "les prix découragent les consommateurs à faible revenu",
+        "la disponibilité reste limitée hors saisons",
+        "les certifications sont complexes et coûteuses",
+        "difficile de nourrir une population mondiale croissante"
+      ]
+    },
+    phrases: [
+      {fr:"l'agriculture biologique repose sur le respect des cycles naturels", en:"organic farming is based on respect for natural cycles", note:"reposer sur = s'appuyer sur · structure très soignée à l'oral"},
+      {fr:"de plus en plus de consommateurs font le lien entre alimentation et santé", en:"more and more consumers are making the connection between food and health", note:"faire le lien entre = expression C1 très utile · de plus en plus de + nom = tendance sociale"},
+      {fr:"sans certification officielle, il est difficile de garantir l'origine biologique d'un produit", en:"without official certification, it is difficult to guarantee the organic origin of a product", note:"sans + nom = tournure concessive · il est difficile de + infinitif = impersonnel soigné"},
+      {fr:"les produits issus de l'agriculture biologique coûtent en moyenne deux fois plus cher", en:"products from organic farming cost on average twice as much", note:"issu(e) de = participe passé utilisé comme adjectif · très courant B2–C1"}
+    ]
+  },
+
+  14: { // Alimentation végétarienne
+    nouns: [
+      { group:"Alimentation et nutrition", items:[
+        {fr:"la carence", gender:"f", en:"deficiency, lack"},
+        {fr:"les protéines végétales", gender:"fpl", en:"plant proteins"},
+        {fr:"les légumineuses", gender:"fpl", en:"legumes (lentils, beans...)"},
+        {fr:"le tofu", gender:"m", en:"tofu"},
+        {fr:"les substituts de viande", gender:"mpl", en:"meat substitutes"},
+        {fr:"les fibres alimentaires", gender:"fpl", en:"dietary fibre"},
+        {fr:"la vitamine B12", gender:"f", en:"vitamin B12"},
+        {fr:"le régime alimentaire", gender:"m", en:"diet"}
+      ]},
+      { group:"Environnement et éthique", items:[
+        {fr:"l'empreinte carbone", gender:"f", en:"carbon footprint"},
+        {fr:"le bien-être animal", gender:"m", en:"animal welfare"},
+        {fr:"l'élevage intensif", gender:"m", en:"intensive livestock farming"},
+        {fr:"la déforestation", gender:"f", en:"deforestation"},
+        {fr:"les gaz à effet de serre", gender:"mpl", en:"greenhouse gases"},
+        {fr:"la consommation d'eau", gender:"f", en:"water consumption"}
+      ]},
+      { group:"Société et mode de vie", items:[
+        {fr:"le végétarisme", gender:"m", en:"vegetarianism"},
+        {fr:"le véganisme", gender:"m", en:"veganism"},
+        {fr:"le flexitarisme", gender:"m", en:"flexitarianism"},
+        {fr:"le choix alimentaire", gender:"m", en:"food choice"},
+        {fr:"les habitudes culinaires", gender:"fpl", en:"cooking habits"},
+        {fr:"la prise de conscience", gender:"f", en:"awareness, realisation"}
+      ]}
+    ],
+    verbes: [
+      {v:"adopter", prep:"—", pron:"—", en:"to adopt"},
+      {v:"renoncer", prep:"à", pron:"auquel", en:"to give up, to renounce"},
+      {v:"manquer", prep:"de", pron:"dont", en:"to lack"},
+      {v:"compenser", prep:"—", pron:"—", en:"to compensate for"},
+      {v:"contribuer", prep:"à", pron:"auquel", en:"to contribute to"},
+      {v:"nuire", prep:"à", pron:"auquel", en:"to harm"},
+      {v:"opter", prep:"pour", pron:"pour lequel", en:"to opt for"},
+      {v:"se priver", prep:"de", pron:"dont", en:"to deprive oneself of"}
+    ],
+    adj: [
+      {fr:"végétarien(ne)", en:"vegetarian"},
+      {fr:"végétalien(ne)", en:"vegan"},
+      {fr:"équilibré(e)", en:"balanced"},
+      {fr:"carencé(e)", en:"deficient, lacking nutrients"},
+      {fr:"durable", en:"sustainable"},
+      {fr:"éthique", en:"ethical"},
+      {fr:"intensif(ve)", en:"intensive"},
+      {fr:"conscient(e)", en:"conscious, aware"},
+      {fr:"planétaire", en:"global, planetary"},
+      {fr:"croissant(e)", en:"growing, increasing"}
+    ],
+    paires: {
+      ouiLabel:"POUR — L'ALIMENTATION VÉGÉTARIENNE",
+      nonLabel:"CONTRE — L'ALIMENTATION VÉGÉTARIENNE",
+      oui:[
+        "réduire considérablement son empreinte carbone",
+        "respecter le bien-être des animaux d'élevage",
+        "diminuer les risques de maladies cardiovasculaires",
+        "faire des économies sur le budget alimentaire",
+        "enrichir sa palette culinaire avec des recettes nouvelles",
+        "répondre à une conscience écologique croissante"
+      ],
+      non:[
+        "risque de carences en fer, B12 et protéines",
+        "difficultés sociales lors des repas en famille ou au restaurant",
+        "substituts souvent chers et ultra-transformés",
+        "planification alimentaire rigoureuse et contraignante",
+        "impact économique négatif sur les éleveurs",
+        "alimentation végétarienne mal équilibrée reste problématique"
+      ]
+    },
+    phrases: [
+      {fr:"de plus en plus de personnes font le lien entre ce qu'elles mangent et leur bien-être", en:"more and more people are making the connection between what they eat and their well-being", note:"faire le lien entre = expression C1 très utile · de plus en plus de + nom = tendance sociale"},
+      {fr:"renoncer à la viande ne signifie pas forcément renoncer au plaisir gustatif", en:"giving up meat does not necessarily mean giving up the pleasure of taste", note:"ne pas forcément = nuance importante · renoncer à = verbe + préposition à mémoriser"},
+      {fr:"l'élevage intensif est l'une des principales causes des émissions de gaz à effet de serre", en:"intensive livestock farming is one of the main causes of greenhouse gas emissions", note:"l'une des principales = superlatif partitif · structure très utile pour citer des faits"},
+      {fr:"sans planification rigoureuse, un régime végétarien peut entraîner des carences nutritionnelles", en:"without careful planning, a vegetarian diet can lead to nutritional deficiencies", note:"sans + nom = tournure concessive · entraîner = verbe fort pour parler de conséquences"}
+    ]
+  }
+};
+
+// ══════════════════════════════════════════
+//  MODAL FUNCTIONS
+// ══════════════════════════════════════════
+function openMots(e, id){
+  e.stopPropagation();
+  const t = TOPICS.find(x=>x.id===id);
+  const d = LISTE[id];
+  document.getElementById('modalTag').textContent = t.catLabel + ' · Liste de mots';
+  document.getElementById('modalTitle').textContent = t.title;
+
+  if(!d){
+    document.getElementById('modalBody').innerHTML =
+      `<p style="color:var(--text-muted);font-size:13px;padding:20px 0;">Liste de mots à venir pour ce sujet.</p>`;
+  } else {
+    document.getElementById('modalBody').innerHTML = buildListe(d);
+  }
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e){
+  if(e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function buildListe(d){
+  let html = '';
+
+  // 1. NOMS
+  html += `<div class="lm-section-title">Noms — clés du sujet</div>`;
+  d.nouns.forEach(g => {
+    html += `<div class="noun-group">
+      <div class="noun-group-header">${g.group} &nbsp;★ = exam priority</div>`;
+    g.items.forEach(n => {
+      html += `<div class="noun-row">
+        <span class="noun-fr">${n.fr} <span class="noun-gender">(${n.gender})</span><span class="noun-star"> ★</span></span>
+        <span class="noun-en">${n.en}</span>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+
+  // 2. VERBES + PRÉPOSITIONS
+  html += `<div class="lm-section-title">Verbes + prépositions</div>`;
+  html += `<table class="verb-table"><thead><tr>
+    <th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th>
+  </tr></thead><tbody>`;
+  d.verbes.forEach(v => {
+    html += `<tr>
+      <td class="verb-td-verb">${v.v}</td>
+      <td class="verb-td-prep">${v.prep}</td>
+      <td class="verb-td-pron">${v.pron}</td>
+      <td class="verb-td-sens">${v.en}</td>
+    </tr>`;
+  });
+  html += `</tbody></table>`;
+
+  // 3. ADJECTIFS
+  html += `<div class="lm-section-title">Adjectifs utiles</div>`;
+  html += `<div class="adj-grid">`;
+  d.adj.forEach(a => {
+    html += `<div class="adj-cell"><div class="adj-fr">${a.fr}</div><div class="adj-en">${a.en}</div></div>`;
+  });
+  html += `</div>`;
+
+  // 4. PAIRES DE CONTRASTE
+  html += `<div class="lm-section-title">Paires de contraste</div>`;
+  html += `<div class="paire-grid">
+    <div class="paire-col">
+      <div class="paire-header oui">${d.paires.ouiLabel}</div>
+      ${d.paires.oui.map(p=>`<div class="paire-item">${p}</div>`).join('')}
+    </div>
+    <div class="paire-col">
+      <div class="paire-header non">${d.paires.nonLabel}</div>
+      ${d.paires.non.map(p=>`<div class="paire-item">${p}</div>`).join('')}
+    </div>
+  </div>`;
+
+  // 5. PHRASES FIGÉES C1
+  html += `<div class="lm-section-title">Phrases figées C1 — mémoriser en bloc</div>`;
+  d.phrases.forEach(p => {
+    html += `<div class="phrase-card">
+      <div class="phrase-fr">${p.fr}</div>
+      <div class="phrase-en">${p.en}</div>
+      <div class="phrase-note">${p.note}</div>
+    </div>`;
+  });
+
+  return html;
+}
+
+// init
+renderCards(TOPICS);
+
+// ── TTS speak button ──
+function speakFr(e, btn){
+  e.stopPropagation();
+  if(!window.speechSynthesis) return;
+  const text = btn.parentElement.childNodes[0].textContent.trim();
+  if(window.speechSynthesis.speaking){
+    window.speechSynthesis.cancel();
+    document.querySelectorAll('.speak-btn.speaking').forEach(b=>b.classList.remove('speaking'));
+    if(btn.classList.contains('speaking')){ btn.classList.remove('speaking'); return; }
+  }
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'fr-FR';
+  utt.rate = 0.9;
+  btn.classList.add('speaking');
+  utt.onend = () => btn.classList.remove('speaking');
+  utt.onerror = () => btn.classList.remove('speaking');
+  window.speechSynthesis.speak(utt);
+}
+</script>
+</body>
+</html>
