@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Les transports en commun</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Les transports en commun / La gratuité des transports en commun &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Accessibilité &amp; économies &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">les transports en commun <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">public transport</span></div>
+          <div class="wl-row"><span class="wl-fr">la pollution atmosphérique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">atmospheric pollution, air pollution</span></div>
+          <div class="wl-row"><span class="wl-fr">les économies financières <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">financial savings</span></div>
+          <div class="wl-row"><span class="wl-fr">les personnes à faibles revenus <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">low-income individuals</span></div>
+          <div class="wl-row"><span class="wl-fr">les personnes en situation de handicap <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">people with disabilities</span></div>
+          <div class="wl-row"><span class="wl-fr">la mobilité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mobility</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Organisation &amp; réseau</div>
+          <div class="wl-row"><span class="wl-fr">les horaires fixes <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">fixed schedules</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;abonnement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">subscription, season ticket</span></div>
+          <div class="wl-row"><span class="wl-fr">le billet <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">ticket</span></div>
+          <div class="wl-row"><span class="wl-fr">les passagers <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">passengers</span></div>
+          <div class="wl-row"><span class="wl-fr">les perturbations <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">disruptions (strikes, works)</span></div>
+          <div class="wl-row"><span class="wl-fr">la grève <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">strike</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Gratuité &amp; financement</div>
+          <div class="wl-row"><span class="wl-fr">la gratuité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">free access, zero-fare</span></div>
+          <div class="wl-row"><span class="wl-fr">les collectivités locales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">local authorities</span></div>
+          <div class="wl-row"><span class="wl-fr">les coûts d&#39;exploitation <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">operating costs</span></div>
+          <div class="wl-row"><span class="wl-fr">la demande <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">demand (for transport)</span></div>
+          <div class="wl-row"><span class="wl-fr">les surcharges <em>(fpl)</em></span><span class="wl-en">overcrowding, overloading</span></div>
+          <div class="wl-row"><span class="wl-fr">les fraudes <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">fare evasion, fraud</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Mobilité durable</div>
+          <div class="wl-row"><span class="wl-fr">la mobilité durable <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">sustainable mobility</span></div>
+          <div class="wl-row"><span class="wl-fr">les modes de transport actifs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">active transport modes</span></div>
+          <div class="wl-row"><span class="wl-fr">la marche <em>(f)</em></span><span class="wl-en">walking</span></div>
+          <div class="wl-row"><span class="wl-fr">le vélo <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">bicycle</span></div>
+          <div class="wl-row"><span class="wl-fr">les coûts d&#39;entretien et d&#39;essence <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">maintenance and fuel costs (car)</span></div>
+          <div class="wl-row"><span class="wl-fr">la clientèle <em>(f)</em></span><span class="wl-en">customers (for local businesses)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">contribuer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to contribute to (reducing pollution)</td></tr>
+          <tr><td class="vfr">planifier</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to plan (trips, journeys)</td></tr>
+          <tr><td class="vfr">s&#39;adapter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to adapt to (disruptions)</td></tr>
+          <tr><td class="vfr">financer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to fund (public transport)</td></tr>
+          <tr><td class="vfr">couvrir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to cover (operating costs)</td></tr>
+          <tr><td class="vfr">inciter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to encourage to (use public transport)</td></tr>
+          <tr><td class="vfr">respecter</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to respect (rules, other passengers)</td></tr>
+          <tr><td class="vfr">bénéficier</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to benefit from (free transport, savings)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">gratuit(e)</span><span class="adj-en">free</span></div>
+          <div class="adj-row"><span class="adj-fr">accessible</span><span class="adj-en">accessible</span></div>
+          <div class="adj-row"><span class="adj-fr">régulier(ère)</span><span class="adj-en">regular, reliable</span></div>
+          <div class="adj-row"><span class="adj-fr">surchargé(e)</span><span class="adj-en">overcrowded, overloaded</span></div>
+          <div class="adj-row"><span class="adj-fr">durable</span><span class="adj-en">sustainable</span></div>
+          <div class="adj-row"><span class="adj-fr">écologique</span><span class="adj-en">ecological, eco-friendly</span></div>
+          <div class="adj-row"><span class="adj-fr">coûteux(se)</span><span class="adj-en">costly (for local authorities)</span></div>
+          <div class="adj-row"><span class="adj-fr">dépendant(e)</span><span class="adj-en">dependent (on schedules)</span></div>
+          <div class="adj-row"><span class="adj-fr">efficace</span><span class="adj-en">effective, efficient</span></div>
+          <div class="adj-row"><span class="adj-fr">inclusif(ve)</span><span class="adj-en">inclusive</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Les transports en commun (et leur gratuité)</div>
+          <div class="contrast-item">contribuer à la réduction de la pollution atmosphérique en utilisant des moyens de transport plus respectueux de l&#39;environnement constitue un avantage collectif majeur</div>
+          <div class="contrast-item">rendre les transports en commun gratuits pour les personnes à faibles revenus ou en situation de handicap améliore l&#39;accessibilité et réduit les inégalités de mobilité</div>
+          <div class="contrast-item">permettre aux passagers de se reposer ou de travailler pendant le trajet grâce aux horaires fixes et réguliers des transports en commun représente un gain de temps précieux</div>
+          <div class="contrast-item">inciter les gens à utiliser les transports en commun plutôt que leur voiture individuelle stimule la mobilité durable et réduit la congestion urbaine</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Les transports en commun (et leur gratuité)</div>
+          <div class="contrast-item">dépendre des horaires fixes et ne pas pouvoir partir ou arriver à l&#39;heure souhaitée limite la liberté de déplacement par rapport à la voiture individuelle</div>
+          <div class="contrast-item">financer la gratuité des transports en commun représente des coûts d&#39;exploitation très élevés pour les collectivités locales qui ont du mal à couvrir ces dépenses</div>
+          <div class="contrast-item">subir des perturbations comme les grèves ou les travaux contraint les usagers à s&#39;adapter en urgence et génère un manque de fiabilité perçu</div>
+          <div class="contrast-item">augmenter la demande via la gratuité sans développer l&#39;offre entraîne des surcharges et des pannes plus fréquentes, nuisant à la qualité du service</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">rendre les transports en commun gratuits favorise l&#39;accessibilité pour les personnes à faibles revenus, mais risque de générer des surcharges et d&#39;alourdir les coûts d&#39;exploitation des collectivités locales</div>
+          <div class="chunk-en">making public transport free promotes accessibility for low-income individuals, but risks generating overcrowding and increasing the operating costs for local authorities</div>
+          <div class="chunk-note">alourdir les coûts = expression imagée C1 · générer des surcharges = formulation précise · collectivités locales = terme institutionnel</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que les transports en commun contribuent à la réduction de la pollution et des inégalités de mobilité, il serait souhaitable que les gouvernements investissent dans des réseaux plus fiables et mieux adaptés aux besoins des usagers</div>
+          <div class="chunk-en">although public transport contributes to reducing pollution and mobility inequalities, it would be desirable for governments to invest in more reliable networks better adapted to users&#39; needs</div>
+          <div class="chunk-note">bien que + subjonctif · inégalités de mobilité = expression C1 · mieux adaptés aux besoins = formulation nuancée · structure de conclusion modèle</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

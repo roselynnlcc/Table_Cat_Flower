@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Interdiction de la circulation des véhicules dans les villes</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Interdiction de la circulation des véhicules dans les villes &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Environnement &amp; qualité de vie &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la qualité de l&#39;air <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">air quality</span></div>
+          <div class="wl-row"><span class="wl-fr">les particules fines <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">fine particles, PM2.5</span></div>
+          <div class="wl-row"><span class="wl-fr">les émissions de gaz à effet de serre <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">greenhouse gas emissions</span></div>
+          <div class="wl-row"><span class="wl-fr">le bruit <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">noise</span></div>
+          <div class="wl-row"><span class="wl-fr">les nuisances <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">nuisances, disturbances</span></div>
+          <div class="wl-row"><span class="wl-fr">la qualité de vie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">quality of life</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Sécurité &amp; espace public</div>
+          <div class="wl-row"><span class="wl-fr">la sécurité routière <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">road safety</span></div>
+          <div class="wl-row"><span class="wl-fr">les accidents de la route <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">road accidents</span></div>
+          <div class="wl-row"><span class="wl-fr">les zones piétonnes <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">pedestrian zones</span></div>
+          <div class="wl-row"><span class="wl-fr">les pistes cyclables <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">cycling lanes</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;espace public <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">public space</span></div>
+          <div class="wl-row"><span class="wl-fr">les piétons <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">pedestrians</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Économie &amp; commerces</div>
+          <div class="wl-row"><span class="wl-fr">les entreprises <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">businesses, companies</span></div>
+          <div class="wl-row"><span class="wl-fr">la livraison par camion <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">truck delivery</span></div>
+          <div class="wl-row"><span class="wl-fr">la clientèle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">customers, clientele</span></div>
+          <div class="wl-row"><span class="wl-fr">les coûts d&#39;aménagement <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">infrastructure costs</span></div>
+          <div class="wl-row"><span class="wl-fr">les collectivités locales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">local authorities</span></div>
+          <div class="wl-row"><span class="wl-fr">les modes de transport actifs <em>(mpl)</em></span><span class="wl-en">active transport modes (cycling, walking)</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Mobilité &amp; accessibilité</div>
+          <div class="wl-row"><span class="wl-fr">la mobilité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mobility</span></div>
+          <div class="wl-row"><span class="wl-fr">les personnes âgées <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">elderly people</span></div>
+          <div class="wl-row"><span class="wl-fr">les problèmes de mobilité <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">mobility issues</span></div>
+          <div class="wl-row"><span class="wl-fr">les habitants en dehors de la ville <em>(mpl)</em></span><span class="wl-en">people living outside the city</span></div>
+          <div class="wl-row"><span class="wl-fr">les solutions de transport <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">transport solutions</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;aménagement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">urban planning, infrastructure</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">réduire</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to reduce (emissions, accidents)</td></tr>
+          <tr><td class="vfr">récupérer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to reclaim (public space)</td></tr>
+          <tr><td class="vfr">créer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to create (pedestrian zones, cycling lanes)</td></tr>
+          <tr><td class="vfr">dépendre</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to depend on (deliveries, car access)</td></tr>
+          <tr><td class="vfr">compenser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to compensate for (the ban)</td></tr>
+          <tr><td class="vfr">stimuler</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to encourage, to stimulate (public transport use)</td></tr>
+          <tr><td class="vfr">se rendre</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to get to (work, shops)</td></tr>
+          <tr><td class="vfr">mettre en place</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to put in place, to implement</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">piéton(ne)</span><span class="adj-en">pedestrian</span></div>
+          <div class="adj-row"><span class="adj-fr">cyclable</span><span class="adj-en">cycle-friendly</span></div>
+          <div class="adj-row"><span class="adj-fr">polluant(e)</span><span class="adj-en">polluting</span></div>
+          <div class="adj-row"><span class="adj-fr">efficace</span><span class="adj-en">effective, efficient</span></div>
+          <div class="adj-row"><span class="adj-fr">accessible</span><span class="adj-en">accessible</span></div>
+          <div class="adj-row"><span class="adj-fr">coûteux(se)</span><span class="adj-en">costly, expensive</span></div>
+          <div class="adj-row"><span class="adj-fr">nuisible</span><span class="adj-en">harmful, damaging</span></div>
+          <div class="adj-row"><span class="adj-fr">actif(ve)</span><span class="adj-en">active (transport mode)</span></div>
+          <div class="adj-row"><span class="adj-fr">urbain(e)</span><span class="adj-en">urban</span></div>
+          <div class="adj-row"><span class="adj-fr">durable</span><span class="adj-en">sustainable</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Interdire la circulation dans les villes</div>
+          <div class="contrast-item">réduire les émissions de gaz à effet de serre et les particules fines en interdisant les véhicules améliore durablement la qualité de l&#39;air et la santé des habitants</div>
+          <div class="contrast-item">récupérer l&#39;espace public pour les piétons et les cyclistes en créant des zones piétonnes et des pistes cyclables améliore la qualité de vie et la sécurité routière</div>
+          <div class="contrast-item">stimuler l&#39;utilisation des transports en commun et des modes de transport actifs comme le vélo contribue à une mobilité urbaine plus durable et plus respectueuse de l&#39;environnement</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Interdire la circulation dans les villes</div>
+          <div class="contrast-item">pénaliser les entreprises et les commerces qui dépendent de la livraison par camion ou de la clientèle se déplaçant en voiture nuit à l&#39;activité économique locale</div>
+          <div class="contrast-item">créer des difficultés pour les personnes âgées ou celles ayant des problèmes de mobilité qui ne peuvent se déplacer qu&#39;en voiture risque d&#39;exclure les plus vulnérables</div>
+          <div class="contrast-item">mettre en place des solutions de transport en commun efficaces pour compenser l&#39;interdiction représente des coûts d&#39;aménagement très élevés pour les collectivités locales</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que l&#39;interdiction de la circulation des véhicules dans les villes améliore la qualité de l&#39;air et la sécurité routière, il serait souhaitable que les gouvernements mettent en place des solutions de transport accessibles avant d&#39;imposer une telle mesure</div>
+          <div class="chunk-en">although banning vehicles from city centres improves air quality and road safety, it would be desirable for governments to put accessible transport solutions in place before imposing such a measure</div>
+          <div class="chunk-note">bien que + subjonctif · avant d&#39;imposer = formule de temporalité C1 · mettre en place = formule institutionnelle · structure de conclusion modèle</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">force est de constater que la circulation des véhicules en ville nuit à la qualité de l&#39;air, à la sécurité des piétons et à la qualité de vie des habitants, au détriment d&#39;une mobilité urbaine véritablement durable</div>
+          <div class="chunk-en">it must be acknowledged that vehicle traffic in cities harms air quality, pedestrian safety and residents&#39; quality of life, to the detriment of truly sustainable urban mobility</div>
+          <div class="chunk-note">force est de constater que = formule d&#39;emphase C1 · au détriment de = expression C1 réutilisable · véritablement = adverbe d&#39;insistance</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
