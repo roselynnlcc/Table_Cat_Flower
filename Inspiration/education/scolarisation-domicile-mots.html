@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; La scolarisation à domicile</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">La scolarisation à domicile &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Apprentissage personnalisé &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la formation personnalisée <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">personalised learning</span></div>
+          <div class="wl-row"><span class="wl-fr">le rythme d&#39;apprentissage <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">learning pace</span></div>
+          <div class="wl-row"><span class="wl-fr">la flexibilité des horaires <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">schedule flexibility</span></div>
+          <div class="wl-row"><span class="wl-fr">les centres d&#39;intérêt <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">areas of interest</span></div>
+          <div class="wl-row"><span class="wl-fr">la méthode d&#39;enseignement <em>(f)</em></span><span class="wl-en">teaching method</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;autonomie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">autonomy, independence</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Socialisation et vie collective</div>
+          <div class="wl-row"><span class="wl-fr">la socialisation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">socialisation</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie en communauté <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">community life</span></div>
+          <div class="wl-row"><span class="wl-fr">les camarades de classe <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">classmates</span></div>
+          <div class="wl-row"><span class="wl-fr">les activités collectives <em>(fpl)</em></span><span class="wl-en">group activities</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;isolement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">isolation</span></div>
+          <div class="wl-row"><span class="wl-fr">les échanges entre pairs <em>(mpl)</em></span><span class="wl-en">peer exchanges</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Encadrement et supervision</div>
+          <div class="wl-row"><span class="wl-fr">le soutien pédagogique <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">educational support</span></div>
+          <div class="wl-row"><span class="wl-fr">le feedback régulier <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">regular feedback</span></div>
+          <div class="wl-row"><span class="wl-fr">la discipline <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">discipline</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;organisation familiale <em>(f)</em></span><span class="wl-en">family organisation</span></div>
+          <div class="wl-row"><span class="wl-fr">le matériel pédagogique <em>(m)</em></span><span class="wl-en">teaching materials</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Équilibre scolaire-familial</div>
+          <div class="wl-row"><span class="wl-fr">l&#39;équilibre scolaire-familial <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">school-family balance</span></div>
+          <div class="wl-row"><span class="wl-fr">la responsabilisation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">building responsibility</span></div>
+          <div class="wl-row"><span class="wl-fr">les distractions <em>(fpl)</em></span><span class="wl-en">distractions</span></div>
+          <div class="wl-row"><span class="wl-fr">les perturbations <em>(fpl)</em></span><span class="wl-en">disruptions</span></div>
+          <div class="wl-row"><span class="wl-fr">la dépendance aux parents <em>(f)</em></span><span class="wl-en">dependency on parents</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">adapter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to adapt to</td></tr>
+          <tr><td class="vfr">prendre en main</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to take charge of</td></tr>
+          <tr><td class="vfr">priver</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to deprive of</td></tr>
+          <tr><td class="vfr">s&#39;affranchir</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to free oneself from</td></tr>
+          <tr><td class="vfr">confier</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to entrust to</td></tr>
+          <tr><td class="vfr">encadrer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to supervise, to guide</td></tr>
+          <tr><td class="vfr">côtoyer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to mix with, to be around</td></tr>
+          <tr><td class="vfr">favoriser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to foster, to promote</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; scolarisation à domicile</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">personnalisé(e)</span><span class="adj-en">personalised</span></div>
+          <div class="adj-row"><span class="adj-fr">flexible</span><span class="adj-en">flexible</span></div>
+          <div class="adj-row"><span class="adj-fr">isolé(e)</span><span class="adj-en">isolated</span></div>
+          <div class="adj-row"><span class="adj-fr">autonome</span><span class="adj-en">independent</span></div>
+          <div class="adj-row"><span class="adj-fr">dépendant(e)</span><span class="adj-en">dependent</span></div>
+          <div class="adj-row"><span class="adj-fr">encadré(e)</span><span class="adj-en">supervised, guided</span></div>
+          <div class="adj-row"><span class="adj-fr">responsable</span><span class="adj-en">responsible</span></div>
+          <div class="adj-row"><span class="adj-fr">coûteux(se)</span><span class="adj-en">costly</span></div>
+          <div class="adj-row"><span class="adj-fr">adapté(e)</span><span class="adj-en">adapted, tailored</span></div>
+          <div class="adj-row"><span class="adj-fr">rigoureux(se)</span><span class="adj-en">rigorous</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; La scolarisation à domicile</div>
+          <div class="contrast-item">adapter le rythme et le contenu aux besoins de l&#39;enfant favorise un apprentissage plus efficace</div>
+          <div class="contrast-item">la flexibilité des horaires permet de travailler selon les moments où l&#39;élève est le plus concentré</div>
+          <div class="contrast-item">confier à l&#39;élève la gestion de son apprentissage renforce son autonomie et sa responsabilisation</div>
+          <div class="contrast-item">s&#39;affranchir des distractions de la classe améliore la concentration et la qualité du travail</div>
+          <div class="contrast-item">un suivi personnalisé évite que l&#39;enfant ne décroche face à des difficultés non détectées</div>
+          <div class="contrast-item">choisir des matières liées aux passions de l&#39;enfant stimule sa motivation intrinsèque</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; La scolarisation à domicile</div>
+          <div class="contrast-item">priver l&#39;enfant de contact avec ses camarades nuit à son développement social et affectif</div>
+          <div class="contrast-item">l&#39;absence de soutien pédagogique constant laisse l&#39;élève seul face à ses difficultés</div>
+          <div class="contrast-item">le coût du matériel pédagogique représente une charge financière importante pour les familles</div>
+          <div class="contrast-item">maintenir un équilibre entre vie scolaire et vie familiale exige une organisation rigoureuse et soutenue</div>
+          <div class="contrast-item">le risque d&#39;isolement et de dépendance excessive aux parents peut freiner l&#39;émancipation de l&#39;enfant</div>
+          <div class="contrast-item">l&#39;absence d&#39;échanges entre pairs limite l&#39;apprentissage de la vie collective et du respect des règles</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">la scolarisation à domicile permet d&#39;adapter le rythme et les contenus aux besoins spécifiques de chaque enfant</div>
+          <div class="chunk-en">home schooling allows the pace and content to be adapted to the specific needs of each child</div>
+          <div class="chunk-note">adapter à = verbe + préposition à mémoriser · les besoins spécifiques de = formule C1 · argument fort pour Point 1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">priver un enfant de contacts réguliers avec ses pairs peut nuire à son développement social à long terme</div>
+          <div class="chunk-en">depriving a child of regular contact with peers can harm their social development in the long term</div>
+          <div class="chunk-note">priver de = verbe + préposition · nuire à = conséquence négative · à long terme = marqueur temporel C1 · bonne structure de nuance</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que la flexibilité des horaires constitue un avantage indéniable, la réussite de ce modèle dépend entièrement de l&#39;encadrement parental</div>
+          <div class="chunk-en">although schedule flexibility is an undeniable advantage, the success of this model depends entirely on parental supervision</div>
+          <div class="chunk-note">bien que + subjonctif = concession C1 · dépendre entièrement de = restriction forte · bonne formule d&#39;introduction de nuance</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">à mesure que l&#39;enfant grandit, le besoin de côtoyer d&#39;autres jeunes et de s&#39;intégrer dans un groupe devient essentiel</div>
+          <div class="chunk-en">as the child grows, the need to mix with other young people and integrate into a group becomes essential</div>
+          <div class="chunk-note">à mesure que = corrélation C1 · côtoyer = verbe soutenu · s&#39;intégrer dans = collocation forte</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

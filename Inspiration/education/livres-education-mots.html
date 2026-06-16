@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Les livres pour l&#39;éducation</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Les livres pour l&#39;éducation &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; clés du sujet</div>
+      <div class="wl-grid">
+
+        <div class="wl-card">
+          <div class="wl-card-header">Apprentissage et connaissances &nbsp;★ = exam priority</div>
+          <div class="wl-row"><span class="wl-fr">la source d&#39;information <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">source of information</span></div>
+          <div class="wl-row"><span class="wl-fr">la capacité de lecture <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">reading ability</span></div>
+          <div class="wl-row"><span class="wl-fr">la pensée critique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">critical thinking</span></div>
+          <div class="wl-row"><span class="wl-fr">la maîtrise de la langue <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">language mastery</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;imagination <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">imagination</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;apprentissage autonome <em>(m)</em></span><span class="wl-en">independent learning</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Limites et contraintes</div>
+          <div class="wl-row"><span class="wl-fr">le coût d&#39;achat <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">purchase cost</span></div>
+          <div class="wl-row"><span class="wl-fr">les informations obsolètes <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">outdated information</span></div>
+          <div class="wl-row"><span class="wl-fr">la difficulté de lecture <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">reading difficulty</span></div>
+          <div class="wl-row"><span class="wl-fr">la diversité des sources <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">diversity of sources</span></div>
+          <div class="wl-row"><span class="wl-fr">la vie réelle <em>(f)</em></span><span class="wl-en">real life</span></div>
+          <div class="wl-row"><span class="wl-fr">la dépendance <em>(f)</em></span><span class="wl-en">dependency, reliance</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Vocabulaire et expression</div>
+          <div class="wl-row"><span class="wl-fr">le vocabulaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">vocabulary</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;expression précise <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">precise expression</span></div>
+          <div class="wl-row"><span class="wl-fr">la compréhension <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">comprehension, understanding</span></div>
+          <div class="wl-row"><span class="wl-fr">les sujets précis <em>(mpl)</em></span><span class="wl-en">specific topics</span></div>
+          <div class="wl-row"><span class="wl-fr">les univers imaginaires <em>(mpl)</em></span><span class="wl-en">imaginary worlds</span></div>
+        </div>
+
+        <div class="wl-card">
+          <div class="wl-card-header">Contexte et accès</div>
+          <div class="wl-row"><span class="wl-fr">l&#39;école <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">school</span></div>
+          <div class="wl-row"><span class="wl-fr">le manuel scolaire <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">textbook</span></div>
+          <div class="wl-row"><span class="wl-fr">les ressources numériques <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">digital resources</span></div>
+          <div class="wl-row"><span class="wl-fr">l&#39;accès équitable <em>(m)</em></span><span class="wl-en">equitable access</span></div>
+          <div class="wl-row"><span class="wl-fr">les familles défavorisées <em>(fpl)</em></span><span class="wl-en">disadvantaged families</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + prépositions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbs + prepositions &#8212; relative pronoun in brackets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">s&#39;informer</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to find out about</td></tr>
+          <tr><td class="vfr">se perfectionner</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to improve oneself in</td></tr>
+          <tr><td class="vfr">stimuler</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to stimulate, to spark</td></tr>
+          <tr><td class="vfr">enrichir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to enrich</td></tr>
+          <tr><td class="vfr">s&#39;appuyer</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to rely on</td></tr>
+          <tr><td class="vfr">exclure</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to exclude</td></tr>
+          <tr><td class="vfr">développer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to develop</td></tr>
+          <tr><td class="vfr">favoriser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to promote, to foster</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs utiles</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Adjectifs &#8212; livres et éducation</div>
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">stimulant(e)</span><span class="adj-en">stimulating</span></div>
+          <div class="adj-row"><span class="adj-fr">enrichissant(e)</span><span class="adj-en">enriching</span></div>
+          <div class="adj-row"><span class="adj-fr">obsolète</span><span class="adj-en">outdated, obsolete</span></div>
+          <div class="adj-row"><span class="adj-fr">coûteux(se)</span><span class="adj-en">costly, expensive</span></div>
+          <div class="adj-row"><span class="adj-fr">autonome</span><span class="adj-en">independent</span></div>
+          <div class="adj-row"><span class="adj-fr">précis(e)</span><span class="adj-en">precise, accurate</span></div>
+          <div class="adj-row"><span class="adj-fr">diversifié(e)</span><span class="adj-en">diversified, varied</span></div>
+          <div class="adj-row"><span class="adj-fr">accessible</span><span class="adj-en">accessible</span></div>
+          <div class="adj-row"><span class="adj-fr">imaginaire</span><span class="adj-en">imaginary</span></div>
+          <div class="adj-row"><span class="adj-fr">critique</span><span class="adj-en">critical</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">Pour &#8212; Les livres dans l&#39;éducation</div>
+          <div class="contrast-item">lire stimule l&#39;imagination et permet de s&#39;évader dans des univers que la classe ne peut pas offrir</div>
+          <div class="contrast-item">les livres développent la pensée critique en amenant les élèves à réfléchir sur le sens des textes</div>
+          <div class="contrast-item">la lecture enrichit le vocabulaire et affine la maîtrise de la langue de façon durable</div>
+          <div class="contrast-item">les livres permettent d&#39;apprendre de façon autonome, en dehors des heures de classe</div>
+          <div class="contrast-item">s&#39;appuyer sur des ouvrages spécialisés permet de se perfectionner dans un domaine précis</div>
+          <div class="contrast-item">accéder à la lecture forge une habitude intellectuelle qui profite tout au long de la vie</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">Contre &#8212; Les livres dans l&#39;éducation</div>
+          <div class="contrast-item">le coût d&#39;achat des livres oblige certaines familles à investir dans des ressources coûteuses</div>
+          <div class="contrast-item">les informations obsolètes dans certains manuels risquent d&#39;induire les élèves en erreur</div>
+          <div class="contrast-item">les élèves qui ont des difficultés de lecture se trouvent exclus si le livre est le seul outil</div>
+          <div class="contrast-item">s&#39;appuyer uniquement sur les livres néglige la diversité des sources comme Internet ou les documentaires</div>
+          <div class="contrast-item">les contenus manquent parfois de lien avec la vie réelle et les exemples concrets des élèves</div>
+          <div class="contrast-item">une dépendance excessive aux livres peut freiner l&#39;esprit critique face à d&#39;autres formes de savoir</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Expressions C1 à retenir</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">les livres stimulent l&#39;imagination et favorisent le développement de la pensée critique chez les élèves</div>
+          <div class="chunk-en">books stimulate the imagination and foster the development of critical thinking in students</div>
+          <div class="chunk-note">stimuler + favoriser = double verbe fort · le développement de = nominalisation C1 · argument direct pour Point 1</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">s&#39;appuyer uniquement sur les livres risque d&#39;appauvrir la réflexion si d&#39;autres sources ne viennent pas compléter l&#39;apprentissage</div>
+          <div class="chunk-en">relying solely on books risks impoverishing thinking if other sources do not complement the learning</div>
+          <div class="chunk-note">s&#39;appuyer uniquement sur = restriction forte · si d&#39;autres... ne viennent pas = condition négative soignée · bonne structure de nuance</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">la lecture régulière contribue à l&#39;enrichissement du vocabulaire et à la maîtrise de l&#39;expression écrite et orale</div>
+          <div class="chunk-en">regular reading contributes to vocabulary enrichment and mastery of written and oral expression</div>
+          <div class="chunk-note">contribuer à + nominalisation = structure C1 · l&#39;expression écrite et orale = doublet soigné · argument fort pour Point 2</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">bien que les livres restent une ressource fondamentale, il serait souhaitable que les enseignants diversifient leurs outils pédagogiques</div>
+          <div class="chunk-en">although books remain a fundamental resource, it would be desirable for teachers to diversify their teaching tools</div>
+          <div class="chunk-note">bien que + subjonctif = concession C1 · il serait souhaitable que + subjonctif = appel à l&#39;action · phrase de conclusion idéale</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
