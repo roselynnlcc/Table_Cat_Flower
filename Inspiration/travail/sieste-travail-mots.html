@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; La sieste au travail</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">La sieste au travail &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+<div class="wl-section">
+<div class="wl-section-title">Noms &#8212; clés du sujet</div>
+<div class="wl-grid">
+<div class="wl-card"><div class="wl-card-header">Performance cognitive &amp; bien-être ★ = exam priority</div>
+<div class="wl-row"><span class="wl-fr">la performance cognitive <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">cognitive performance</span></div>
+<div class="wl-row"><span class="wl-fr">la fatigue <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">fatigue, tiredness</span></div>
+<div class="wl-row"><span class="wl-fr">la productivité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">productivity</span></div>
+<div class="wl-row"><span class="wl-fr">la prise de décision <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">decision-making</span></div>
+<div class="wl-row"><span class="wl-fr">la mémorisation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">memorisation, memory</span></div>
+<div class="wl-row"><span class="wl-fr">le bien-être général <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">general wellbeing</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Humeur &amp; énergie</div>
+<div class="wl-row"><span class="wl-fr">l&#39;humeur <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mood</span></div>
+<div class="wl-row"><span class="wl-fr">la motivation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">motivation</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;énergie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">energy</span></div>
+<div class="wl-row"><span class="wl-fr">la créativité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">creativity</span></div>
+<div class="wl-row"><span class="wl-fr">le stress <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">stress</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;équilibre veille-sommeil <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">sleep-wake balance</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Inconvénients &amp; résistance</div>
+<div class="wl-row"><span class="wl-fr">la routine de travail <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">work routine</span></div>
+<div class="wl-row"><span class="wl-fr">la somnolence excessive <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">excessive drowsiness</span></div>
+<div class="wl-row"><span class="wl-fr">les retards <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">delays, lateness</span></div>
+<div class="wl-row"><span class="wl-fr">les collègues <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">colleagues</span></div>
+<div class="wl-row"><span class="wl-fr">les préjugés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">prejudices, preconceptions</span></div>
+<div class="wl-row"><span class="wl-fr">les stéréotypes <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">stereotypes</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Culture &amp; organisation</div>
+<div class="wl-row"><span class="wl-fr">les environnements professionnels <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">professional environments</span></div>
+<div class="wl-row"><span class="wl-fr">les pratiques managériales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">management practices</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;acceptation culturelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">cultural acceptance</span></div>
+<div class="wl-row"><span class="wl-fr">la concentration <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">concentration, focus</span></div>
+<div class="wl-row"><span class="wl-fr">la résolution de problèmes <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">problem-solving</span></div>
+<div class="wl-row"><span class="wl-fr">la santé mentale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mental health</span></div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Verbes + prépositions</div>
+<div class="wl-card"><table class="verb-table">
+<tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+<tr><td class="vfr">s&#39;endormir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to fall asleep</td></tr>
+<tr><td class="vfr">se réveiller</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to wake up</td></tr>
+<tr><td class="vfr">perturber</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to disturb (routine, colleagues)</td></tr>
+<tr><td class="vfr">s&#39;adapter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to adapt to (napping at work)</td></tr>
+<tr><td class="vfr">améliorer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to improve (performance, mood)</td></tr>
+<tr><td class="vfr">réduire</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to reduce (fatigue, stress)</td></tr>
+<tr><td class="vfr">accepter</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to accept (the practice)</td></tr>
+<tr><td class="vfr">interrompre</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to interrupt (work routine)</td></tr>
+</table></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Adjectifs utiles</div>
+<div class="wl-card"><div class="adj-grid">
+<div class="adj-row"><span class="adj-fr">cognitif(ve)</span><span class="adj-en">cognitive</span></div>
+<div class="adj-row"><span class="adj-fr">excessif(ve)</span><span class="adj-en">excessive</span></div>
+<div class="adj-row"><span class="adj-fr">perturbateur(trice)</span><span class="adj-en">disruptive</span></div>
+<div class="adj-row"><span class="adj-fr">bénéfique</span><span class="adj-en">beneficial</span></div>
+<div class="adj-row"><span class="adj-fr">reposant(e)</span><span class="adj-en">restful</span></div>
+<div class="adj-row"><span class="adj-fr">somnolent(e)</span><span class="adj-en">drowsy</span></div>
+<div class="adj-row"><span class="adj-fr">culturel(le)</span><span class="adj-en">cultural</span></div>
+<div class="adj-row"><span class="adj-fr">productif(ve)</span><span class="adj-en">productive</span></div>
+<div class="adj-row"><span class="adj-fr">stéréotypé(e)</span><span class="adj-en">stereotyped</span></div>
+<div class="adj-row"><span class="adj-fr">reconnu(e)</span><span class="adj-en">recognised, accepted</span></div>
+</div></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Paires de contraste</div>
+<div class="contrast-grid">
+<div class="contrast-card"><div class="contrast-header contrast-header-a">Pour &#8212; La sieste au travail</div>
+<div class="contrast-item">améliorer la performance cognitive et physique en réduisant la fatigue grâce à une courte sieste augmente la productivité et la qualité du travail de l&#39;après-midi</div>
+<div class="contrast-item">favoriser une meilleure prise de décision et une résolution de problèmes plus efficace grâce à une sieste permet d&#39;aborder la seconde partie de la journée avec plus de lucidité</div>
+<div class="contrast-item">améliorer la santé mentale et le bien-être général en réduisant le stress et en maintenant un bon équilibre veille-sommeil favorise un meilleur engagement au travail</div>
+</div>
+<div class="contrast-card"><div class="contrast-header contrast-header-b">Contre &#8212; La sieste au travail</div>
+<div class="contrast-item">interrompre la routine de travail et perturber la productivité en causant des retards nuit à l&#39;organisation de la journée, notamment pour les postes à forte charge horaire</div>
+<div class="contrast-item">risquer de s&#39;endormir trop longtemps ou d&#39;avoir des difficultés à se réveiller génère une somnolence excessive qui peut être plus néfaste qu&#39;une absence de sieste</div>
+<div class="contrast-item">ne pas être accepté dans certains environnements professionnels en raison de préjugés ou de stéréotypes liés à la sieste crée une gêne sociale difficile à surmonter pour les employés concernés</div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Expressions C1 à retenir</div>
+<div class="chunk-list">
+<div class="chunk-card"><div class="chunk-fr">la sieste au travail améliore la performance cognitive et réduit la fatigue, mais elle reste difficile à intégrer dans les environnements professionnels marqués par des stéréotypes sur le manque de sérieux</div><div class="chunk-en">napping at work improves cognitive performance and reduces fatigue, but it remains difficult to integrate into professional environments marked by stereotypes about lack of seriousness</div><div class="chunk-note">marqués par des stéréotypes = formulation précise · difficile à intégrer = structure C1 · performance cognitive = terme clé</div></div>
+<div class="chunk-card"><div class="chunk-fr">bien que la sieste améliore le bien-être et la créativité des employés, il serait souhaitable que les entreprises mettent en place des espaces dédiés à la récupération afin de normaliser cette pratique et d&#39;optimiser la productivité globale</div><div class="chunk-en">although napping improves employee wellbeing and creativity, it would be desirable for companies to set up dedicated recovery spaces in order to normalise this practice and optimise overall productivity</div><div class="chunk-note">bien que + subjonctif · espaces dédiés à la récupération = formulation C1 · normaliser = verbe précis · structure de conclusion modèle</div></div>
+</div>
+</div>
+  </div>
+</div>
+</body>
+</html>
