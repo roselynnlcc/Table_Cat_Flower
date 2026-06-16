@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Le travail à l&#39;étranger</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Le travail à l&#39;étranger &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+<div class="wl-section">
+<div class="wl-section-title">Noms &#8212; clés du sujet</div>
+<div class="wl-grid">
+<div class="wl-card"><div class="wl-card-header">Opportunités &amp; expérience ★ = exam priority</div>
+<div class="wl-row"><span class="wl-fr">une nouvelle culture <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">a new culture</span></div>
+<div class="wl-row"><span class="wl-fr">les compétences transférables <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">transferable skills</span></div>
+<div class="wl-row"><span class="wl-fr">un environnement international <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">an international environment</span></div>
+<div class="wl-row"><span class="wl-fr">la progression professionnelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">professional advancement</span></div>
+<div class="wl-row"><span class="wl-fr">les responsabilités supplémentaires <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">additional responsibilities</span></div>
+<div class="wl-row"><span class="wl-fr">les gens de différents horizons <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">people from different backgrounds</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Difficultés &amp; adaptation</div>
+<div class="wl-row"><span class="wl-fr">le soutien social <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">social support</span></div>
+<div class="wl-row"><span class="wl-fr">le mode de vie <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">way of life, lifestyle</span></div>
+<div class="wl-row"><span class="wl-fr">la langue locale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">local language</span></div>
+<div class="wl-row"><span class="wl-fr">les problèmes de communication <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">communication problems</span></div>
+<div class="wl-row"><span class="wl-fr">le logement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">accommodation, housing</span></div>
+<div class="wl-row"><span class="wl-fr">les déplacements <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">travel, commuting</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Incertitude &amp; coûts</div>
+<div class="wl-row"><span class="wl-fr">la durée de séjour <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">length of stay</span></div>
+<div class="wl-row"><span class="wl-fr">le renouvellement de contrat <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">contract renewal</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;incertitude <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">uncertainty</span></div>
+<div class="wl-row"><span class="wl-fr">les dépenses supplémentaires <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">additional expenses</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;expatriation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">expatriation</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;entreprise étrangère <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">foreign company</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Langue &amp; identité</div>
+<div class="wl-row"><span class="wl-fr">l&#39;amélioration de la langue <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">language improvement</span></div>
+<div class="wl-row"><span class="wl-fr">le contexte professionnel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">professional context</span></div>
+<div class="wl-row"><span class="wl-fr">les liens familiaux <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">family ties</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;isolement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">isolation</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;épanouissement personnel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">personal fulfilment</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;ouverture d&#39;esprit <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">open-mindedness</span></div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Verbes + prépositions</div>
+<div class="wl-card"><table class="verb-table">
+<tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+<tr><td class="vfr">s&#39;adapter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to adapt to</td></tr>
+<tr><td class="vfr">progresser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to advance, to progress professionally</td></tr>
+<tr><td class="vfr">acquérir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to acquire (skills)</td></tr>
+<tr><td class="vfr">s&#39;habituer</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to get used to</td></tr>
+<tr><td class="vfr">communiquer</td><td class="vprep">dans</td><td class="vrel">dans laquelle</td><td class="ven">to communicate in (a language)</td></tr>
+<tr><td class="vfr">se sentir seul</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to feel lonely</td></tr>
+<tr><td class="vfr">renouveler</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to renew (a contract)</td></tr>
+<tr><td class="vfr">travailler</td><td class="vprep">à l&#39;étranger</td><td class="vrel">—</td><td class="ven">to work abroad</td></tr>
+</table></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Adjectifs utiles</div>
+<div class="wl-card"><div class="adj-grid">
+<div class="adj-row"><span class="adj-fr">dépaysant(e)</span><span class="adj-en">change of scenery, exotic</span></div>
+<div class="adj-row"><span class="adj-fr">enrichissant(e)</span><span class="adj-en">enriching</span></div>
+<div class="adj-row"><span class="adj-fr">isolé(e)</span><span class="adj-en">isolated</span></div>
+<div class="adj-row"><span class="adj-fr">incertain(e)</span><span class="adj-en">uncertain</span></div>
+<div class="adj-row"><span class="adj-fr">international(e)</span><span class="adj-en">international</span></div>
+<div class="adj-row"><span class="adj-fr">transférable</span><span class="adj-en">transferable</span></div>
+<div class="adj-row"><span class="adj-fr">exigeant(e)</span><span class="adj-en">demanding</span></div>
+<div class="adj-row"><span class="adj-fr">unique</span><span class="adj-en">unique</span></div>
+<div class="adj-row"><span class="adj-fr">difficile à maintenir</span><span class="adj-en">hard to sustain</span></div>
+<div class="adj-row"><span class="adj-fr">professionnel(le)</span><span class="adj-en">professional</span></div>
+</div></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Paires de contraste</div>
+<div class="contrast-grid">
+<div class="contrast-card"><div class="contrast-header contrast-header-a">Pour &#8212; Le travail à l&#39;étranger</div>
+<div class="contrast-item">découvrir une nouvelle culture en vivant et en travaillant à l&#39;étranger développe l&#39;ouverture d&#39;esprit et favorise l&#39;épanouissement personnel</div>
+<div class="contrast-item">progresser professionnellement en prenant des responsabilités supplémentaires dans une entreprise étrangère enrichit le CV et ouvre des opportunités de carrière à l&#39;international</div>
+<div class="contrast-item">acquérir des compétences transférables en apprenant à travailler dans un environnement international renforce l&#39;adaptabilité et la valeur professionnelle</div>
+</div>
+<div class="contrast-card"><div class="contrast-header contrast-header-b">Contre &#8212; Le travail à l&#39;étranger</div>
+<div class="contrast-item">se sentir seul et manquer de soutien social loin de sa famille et de ses amis nuit au bien-être émotionnel et peut compliquer l&#39;intégration dans le nouveau pays</div>
+<div class="contrast-item">rencontrer des problèmes de communication dans la langue locale génère des difficultés professionnelles et sociales difficiles à surmonter au quotidien</div>
+<div class="contrast-item">faire face à des dépenses supplémentaires liées au logement et aux déplacements augmente la charge financière et réduit l&#39;attractivité financière du poste à l&#39;étranger</div>
+<div class="contrast-item">vivre dans l&#39;incertitude quant à la durée du séjour et au renouvellement de contrat rend difficile tout projet de vie stable à long terme</div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Expressions C1 à retenir</div>
+<div class="chunk-list">
+<div class="chunk-card"><div class="chunk-fr">travailler à l&#39;étranger constitue une expérience unique qui enrichit à la fois les compétences professionnelles et la vision du monde, mais l&#39;isolement social et l&#39;incertitude contractuelle en font un choix difficile à maintenir sur le long terme</div><div class="chunk-en">working abroad is a unique experience that enriches both professional skills and one&#39;s worldview, but social isolation and contractual uncertainty make it a difficult choice to sustain in the long term</div><div class="chunk-note">constitue une expérience unique = formule C1 · à la fois = corrélation orale C1 · difficile à maintenir sur le long terme = formulation précise</div></div>
+<div class="chunk-card"><div class="chunk-fr">bien que le travail à l&#39;étranger offre des opportunités professionnelles indéniables, il serait souhaitable que les entreprises soutiennent davantage leurs employés expatriés afin de faciliter leur intégration et de garantir leur bien-être</div><div class="chunk-en">although working abroad offers undeniable professional opportunities, it would be desirable for companies to better support their expatriate employees in order to facilitate their integration and guarantee their wellbeing</div><div class="chunk-note">bien que + subjonctif · expatriés = terme clé · afin de = connecteur de but C1 · structure de conclusion modèle</div></div>
+</div>
+</div>
+  </div>
+</div>
+</body>
+</html>

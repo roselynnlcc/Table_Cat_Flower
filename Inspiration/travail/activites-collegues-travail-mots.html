@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Activités entre collègues au travail</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Activités entre collègues au travail &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+<div class="wl-section">
+<div class="wl-section-title">Noms &#8212; clés du sujet</div>
+<div class="wl-grid">
+<div class="wl-card"><div class="wl-card-header">Cohésion &amp; motivation ★ = exam priority</div>
+<div class="wl-row"><span class="wl-fr">la cohésion d&#39;équipe <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">team cohesion</span></div>
+<div class="wl-row"><span class="wl-fr">la communication entre employés <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">communication between employees</span></div>
+<div class="wl-row"><span class="wl-fr">la motivation des employés <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">employee motivation</span></div>
+<div class="wl-row"><span class="wl-fr">les moments de détente <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">moments of relaxation</span></div>
+<div class="wl-row"><span class="wl-fr">la convivialité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">conviviality, friendliness</span></div>
+<div class="wl-row"><span class="wl-fr">les souvenirs communs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">shared memories</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Talents &amp; découverte</div>
+<div class="wl-row"><span class="wl-fr">les talents cachés <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">hidden talents</span></div>
+<div class="wl-row"><span class="wl-fr">les compétences hors travail <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">skills outside work</span></div>
+<div class="wl-row"><span class="wl-fr">les moments de partage <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">moments of sharing</span></div>
+<div class="wl-row"><span class="wl-fr">la complicité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">closeness, team spirit</span></div>
+<div class="wl-row"><span class="wl-fr">les activités de team building <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">team-building activities</span></div>
+<div class="wl-row"><span class="wl-fr">les échanges <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">exchanges, interactions</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Risques &amp; inconvénients</div>
+<div class="wl-row"><span class="wl-fr">les dépenses supplémentaires <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">additional expenses</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;absentéisme <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">absenteeism</span></div>
+<div class="wl-row"><span class="wl-fr">les rivalités <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">rivalries</span></div>
+<div class="wl-row"><span class="wl-fr">les jalousies <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">jealousies</span></div>
+<div class="wl-row"><span class="wl-fr">les attentes irréalisables <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">unrealistic expectations</span></div>
+<div class="wl-row"><span class="wl-fr">les tensions entre employés <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">tensions between employees</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Organisation &amp; participation</div>
+<div class="wl-row"><span class="wl-fr">l&#39;organisation d&#39;activités <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">organising activities</span></div>
+<div class="wl-row"><span class="wl-fr">les goûts et préférences <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">tastes and preferences</span></div>
+<div class="wl-row"><span class="wl-fr">la durée <em>(f)</em></span><span class="wl-en">duration</span></div>
+<div class="wl-row"><span class="wl-fr">les coûts d&#39;organisation <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">organisation costs</span></div>
+<div class="wl-row"><span class="wl-fr">la participation <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">participation</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;entreprise <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">company, employer</span></div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Verbes + prépositions</div>
+<div class="wl-card"><table class="verb-table">
+<tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+<tr><td class="vfr">organiser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to organise (activities)</td></tr>
+<tr><td class="vfr">favoriser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to foster (communication, cohesion)</td></tr>
+<tr><td class="vfr">renforcer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to strengthen (team spirit)</td></tr>
+<tr><td class="vfr">mettre en avant</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to highlight (hidden skills)</td></tr>
+<tr><td class="vfr">créer des tensions</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to create tensions</td></tr>
+<tr><td class="vfr">répondre</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to meet (expectations)</td></tr>
+<tr><td class="vfr">maintenir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to sustain (activities over time)</td></tr>
+<tr><td class="vfr">préférer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to prefer (activities vs work)</td></tr>
+</table></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Adjectifs utiles</div>
+<div class="wl-card"><div class="adj-grid">
+<div class="adj-row"><span class="adj-fr">collectif(ve)</span><span class="adj-en">collective</span></div>
+<div class="adj-row"><span class="adj-fr">convivial(e)</span><span class="adj-en">convivial, friendly</span></div>
+<div class="adj-row"><span class="adj-fr">irréalisable</span><span class="adj-en">unrealistic, unattainable</span></div>
+<div class="adj-row"><span class="adj-fr">motivant(e)</span><span class="adj-en">motivating</span></div>
+<div class="adj-row"><span class="adj-fr">jaloux(se)</span><span class="adj-en">jealous</span></div>
+<div class="adj-row"><span class="adj-fr">coûteux(se)</span><span class="adj-en">costly</span></div>
+<div class="adj-row"><span class="adj-fr">régulier(ère)</span><span class="adj-en">regular</span></div>
+<div class="adj-row"><span class="adj-fr">efficace</span><span class="adj-en">effective, efficient</span></div>
+<div class="adj-row"><span class="adj-fr">rival(e)</span><span class="adj-en">rival</span></div>
+<div class="adj-row"><span class="adj-fr">soudé(e)</span><span class="adj-en">united, bonded (team)</span></div>
+</div></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Paires de contraste</div>
+<div class="contrast-grid">
+<div class="contrast-card"><div class="contrast-header contrast-header-a">Pour &#8212; Activités entre collègues au travail</div>
+<div class="contrast-item">améliorer la communication entre les employés en organisant des activités qui favorisent les échanges renforce la cohésion d&#39;équipe et améliore la qualité de travail collaboratif</div>
+<div class="contrast-item">augmenter la motivation des employés en créant des moments de détente et de convivialité au travail réduit le stress et améliore l&#39;ambiance générale dans l&#39;entreprise</div>
+<div class="contrast-item">découvrir les talents cachés des employés lors d&#39;activités extraprofessionnelles permet de mieux valoriser leurs compétences et de créer des liens de complicité durables</div>
+</div>
+<div class="contrast-card"><div class="contrast-header contrast-header-b">Contre &#8212; Activités entre collègues au travail</div>
+<div class="contrast-item">imposer des dépenses supplémentaires à l&#39;entreprise pour organiser des activités peut peser sur le budget et être difficile à justifier en période de contraintes financières</div>
+<div class="contrast-item">risquer de créer des rivalités ou des jalousies lors des activités organisées nuit à la cohésion d&#39;équipe et peut aggraver les tensions plutôt que de les résoudre</div>
+<div class="contrast-item">ne pas répondre aux attentes de tous les employés en organisant des activités qui ne plaisent pas à tous génère de la frustration et un sentiment d&#39;exclusion</div>
+<div class="contrast-item">créer des attentes irréalisables en lançant des activités qui ne peuvent pas être maintenues sur la durée déçoit les employés et peut nuire à la confiance envers l&#39;employeur</div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Expressions C1 à retenir</div>
+<div class="chunk-list">
+<div class="chunk-card"><div class="chunk-fr">les activités entre collègues renforcent la cohésion d&#39;équipe et la motivation, mais elles peuvent engendrer des jalousies ou des attentes irréalisables si elles ne sont pas organisées de manière inclusive et régulière</div><div class="chunk-en">team activities strengthen cohesion and motivation, but they can generate jealousies or unrealistic expectations if they are not organised in an inclusive and regular manner</div><div class="chunk-note">engendrer = verbe C1 · de manière inclusive = formulation précise · attentes irréalisables = expression clé</div></div>
+<div class="chunk-card"><div class="chunk-fr">bien que les activités entre collègues améliorent la qualité de vie au travail, il serait souhaitable que les entreprises consultent leurs employés avant de les organiser afin de s&#39;assurer qu&#39;elles correspondent aux besoins et aux goûts de tous</div><div class="chunk-en">although team activities improve quality of work life, it would be desirable for companies to consult their employees before organising them in order to ensure they meet everyone&#39;s needs and preferences</div><div class="chunk-note">bien que + subjonctif · consulter avant de = formule C1 · s&#39;assurer que = verbe de vérification · structure de conclusion modèle</div></div>
+</div>
+</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Travailler jusqu&#39;à un âge avancé</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Travailler jusqu&#39;à un âge avancé &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+<div class="wl-section">
+<div class="wl-section-title">Noms &#8212; clés du sujet</div>
+<div class="wl-grid">
+<div class="wl-card"><div class="wl-card-header">Santé &amp; longévité ★ = exam priority</div>
+<div class="wl-row"><span class="wl-fr">la durée de vie active <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">active working life</span></div>
+<div class="wl-row"><span class="wl-fr">la santé mentale et physique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">mental and physical health</span></div>
+<div class="wl-row"><span class="wl-fr">la croissance économique <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">economic growth</span></div>
+<div class="wl-row"><span class="wl-fr">le revenu <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">income, earnings</span></div>
+<div class="wl-row"><span class="wl-fr">les besoins financiers <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">financial needs</span></div>
+<div class="wl-row"><span class="wl-fr">les compétences et l&#39;expérience <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">skills and experience</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Transmission &amp; contribution</div>
+<div class="wl-row"><span class="wl-fr">le savoir <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">knowledge, expertise</span></div>
+<div class="wl-row"><span class="wl-fr">les jeunes travailleurs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">young workers</span></div>
+<div class="wl-row"><span class="wl-fr">la nouvelle génération <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">new generation</span></div>
+<div class="wl-row"><span class="wl-fr">les opportunités pour les jeunes <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">opportunities for young people</span></div>
+<div class="wl-row"><span class="wl-fr">les postes <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">positions, roles</span></div>
+<div class="wl-row"><span class="wl-fr">la transmission <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">transmission, passing on (of knowledge)</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Risques &amp; discrimination</div>
+<div class="wl-row"><span class="wl-fr">la discrimination à l&#39;embauche <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">hiring discrimination, ageism</span></div>
+<div class="wl-row"><span class="wl-fr">les nouvelles technologies <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">new technologies</span></div>
+<div class="wl-row"><span class="wl-fr">les nouvelles méthodes de travail <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">new working methods</span></div>
+<div class="wl-row"><span class="wl-fr">la fatigue <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">fatigue, tiredness</span></div>
+<div class="wl-row"><span class="wl-fr">les problèmes de santé <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">health problems</span></div>
+<div class="wl-row"><span class="wl-fr">les loisirs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">leisure, hobbies</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Équilibre &amp; adaptation</div>
+<div class="wl-row"><span class="wl-fr">les activités personnelles <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">personal activities</span></div>
+<div class="wl-row"><span class="wl-fr">le rythme de travail <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">work pace, rhythm</span></div>
+<div class="wl-row"><span class="wl-fr">les outils numériques <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">digital tools</span></div>
+<div class="wl-row"><span class="wl-fr">la retraite <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">retirement</span></div>
+<div class="wl-row"><span class="wl-fr">la vie active <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">active working life</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;épuisement <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">exhaustion, burnout</span></div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Verbes + prépositions</div>
+<div class="wl-card"><table class="verb-table">
+<tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+<tr><td class="vfr">continuer à travailler</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to continue working (at an advanced age)</td></tr>
+<tr><td class="vfr">transmettre</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to pass on (knowledge, expertise)</td></tr>
+<tr><td class="vfr">s&#39;adapter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to adapt to (new technologies)</td></tr>
+<tr><td class="vfr">bloquer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to block (opportunities for young workers)</td></tr>
+<tr><td class="vfr">subvenir</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to provide for (financial needs)</td></tr>
+<tr><td class="vfr">écarter</td><td class="vprep">pour</td><td class="vrel">—</td><td class="ven">to be sidelined (because of age)</td></tr>
+<tr><td class="vfr">s&#39;investir</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to invest oneself in</td></tr>
+<tr><td class="vfr">maintenir</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to maintain (income, health)</td></tr>
+</table></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Adjectifs utiles</div>
+<div class="wl-card"><div class="adj-grid">
+<div class="adj-row"><span class="adj-fr">actif(ve)</span><span class="adj-en">active</span></div>
+<div class="adj-row"><span class="adj-fr">expérimenté(e)</span><span class="adj-en">experienced</span></div>
+<div class="adj-row"><span class="adj-fr">épuisé(e)</span><span class="adj-en">exhausted</span></div>
+<div class="adj-row"><span class="adj-fr">discriminé(e)</span><span class="adj-en">discriminated against</span></div>
+<div class="adj-row"><span class="adj-fr">précieux(se)</span><span class="adj-en">valuable, precious</span></div>
+<div class="adj-row"><span class="adj-fr">à l&#39;aise avec</span><span class="adj-en">comfortable with</span></div>
+<div class="adj-row"><span class="adj-fr">stable</span><span class="adj-en">stable</span></div>
+<div class="adj-row"><span class="adj-fr">enrichissant(e)</span><span class="adj-en">enriching</span></div>
+<div class="adj-row"><span class="adj-fr">bloquant(e)</span><span class="adj-en">blocking, preventing</span></div>
+<div class="adj-row"><span class="adj-fr">qualifié(e)</span><span class="adj-en">qualified, skilled</span></div>
+</div></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Paires de contraste</div>
+<div class="contrast-grid">
+<div class="contrast-card"><div class="contrast-header contrast-header-a">Pour &#8212; Travailler jusqu&#39;à un âge avancé</div>
+<div class="contrast-item">maintenir une bonne santé mentale et physique en restant actif et en ayant un but dans la vie retarde les effets du vieillissement et favorise le bien-être global</div>
+<div class="contrast-item">contribuer à la croissance économique en utilisant les compétences et l&#39;expérience accumulées au cours d&#39;une longue carrière représente une ressource précieuse pour les entreprises</div>
+<div class="contrast-item">transmettre son savoir et son expérience à une nouvelle génération de travailleurs favorise la continuité des compétences et enrichit l&#39;ensemble de l&#39;organisation</div>
+</div>
+<div class="contrast-card"><div class="contrast-header contrast-header-b">Contre &#8212; Travailler jusqu&#39;à un âge avancé</div>
+<div class="contrast-item">risquer d&#39;être écarté à l&#39;embauche en raison de son âge expose les travailleurs seniors à une discrimination difficile à combattre malgré les protections légales</div>
+<div class="contrast-item">avoir du mal à s&#39;adapter aux nouvelles technologies et aux nouvelles méthodes de travail peut réduire l&#39;efficacité des travailleurs âgés et générer un sentiment d&#39;inadéquation</div>
+<div class="contrast-item">bloquer les opportunités pour les jeunes travailleurs en occupant des postes qui pourraient leur être destinés ralentit le renouvellement des équipes et la mobilité professionnelle</div>
+<div class="contrast-item">consacrer tout son temps au travail au détriment des loisirs et des activités personnelles nuit à l&#39;équilibre de vie et peut précipiter l&#39;épuisement physique et mental</div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Expressions C1 à retenir</div>
+<div class="chunk-list">
+<div class="chunk-card"><div class="chunk-fr">travailler jusqu&#39;à un âge avancé permet de maintenir un revenu et de transmettre son savoir, mais expose à des risques de discrimination et d&#39;épuisement qui nécessitent un encadrement légal renforcé</div><div class="chunk-en">working into old age allows one to maintain an income and pass on expertise, but exposes workers to risks of discrimination and burnout that require stronger legal protection</div><div class="chunk-note">transmettre son savoir = formule valorisante · encadrement légal renforcé = expression institutionnelle C1 · nécessiter = verbe précis</div></div>
+<div class="chunk-card"><div class="chunk-fr">bien que le travail à un âge avancé contribue à la croissance économique et au bien-être des seniors, il serait souhaitable que les gouvernements mettent en place des dispositifs de retraite progressive permettant un retrait graduel du marché du travail</div><div class="chunk-en">although working at an advanced age contributes to economic growth and the wellbeing of older workers, it would be desirable for governments to put in place progressive retirement schemes allowing a gradual withdrawal from the labour market</div><div class="chunk-note">bien que + subjonctif · retraite progressive = terme clé · dispositifs = terme institutionnel C1 · structure de conclusion modèle</div></div>
+</div>
+</div>
+  </div>
+</div>
+</body>
+</html>

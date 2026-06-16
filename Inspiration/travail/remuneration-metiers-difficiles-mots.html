@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; La rémunération des métiers difficiles</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">La rémunération des métiers difficiles &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+<div class="wl-section">
+<div class="wl-section-title">Noms &#8212; clés du sujet</div>
+<div class="wl-grid">
+<div class="wl-card"><div class="wl-card-header">Valorisation &amp; attractivité ★ = exam priority</div>
+<div class="wl-row"><span class="wl-fr">la valorisation des métiers <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">recognition, raising the status of professions</span></div>
+<div class="wl-row"><span class="wl-fr">la rémunération <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">pay, remuneration</span></div>
+<div class="wl-row"><span class="wl-fr">les conditions de travail <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">working conditions</span></div>
+<div class="wl-row"><span class="wl-fr">les conditions difficiles <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">difficult/harsh conditions</span></div>
+<div class="wl-row"><span class="wl-fr">les talents <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">talents</span></div>
+<div class="wl-row"><span class="wl-fr">la performance <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">performance</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Inégalités &amp; tensions</div>
+<div class="wl-row"><span class="wl-fr">l&#39;inégalité entre les métiers <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">inequality between professions</span></div>
+<div class="wl-row"><span class="wl-fr">les tensions entre salariés <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">tensions between employees</span></div>
+<div class="wl-row"><span class="wl-fr">la jalousie <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">jealousy</span></div>
+<div class="wl-row"><span class="wl-fr">les employeurs <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">employers</span></div>
+<div class="wl-row"><span class="wl-fr">les inégalités entre employeurs <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">inequalities between employers</span></div>
+<div class="wl-row"><span class="wl-fr">la qualité de vie au travail <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">quality of work life</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Coûts &amp; prix</div>
+<div class="wl-row"><span class="wl-fr">l&#39;augmentation des coûts <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">cost increase</span></div>
+<div class="wl-row"><span class="wl-fr">les prix des produits et services <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">prices of products and services</span></div>
+<div class="wl-row"><span class="wl-fr">la revalorisation salariale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">salary increase, pay rise</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;investissement dans le travail <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">investment in work</span></div>
+<div class="wl-row"><span class="wl-fr">les responsabilités <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">responsibilities</span></div>
+<div class="wl-row"><span class="wl-fr">la société <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">society</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Image &amp; société</div>
+<div class="wl-row"><span class="wl-fr">la valorisation de la profession <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">raising the status of a profession</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;image de la profession <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">image of the profession</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;importance sociale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">social importance</span></div>
+<div class="wl-row"><span class="wl-fr">le risque professionnel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">professional risk</span></div>
+<div class="wl-row"><span class="wl-fr">les pompiers <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">firefighters</span></div>
+<div class="wl-row"><span class="wl-fr">les infirmiers / infirmières <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">nurses</span></div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Verbes + prépositions</div>
+<div class="wl-card"><table class="verb-table">
+<tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+<tr><td class="vfr">valoriser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to value, to raise the status of</td></tr>
+<tr><td class="vfr">récompenser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to reward</td></tr>
+<tr><td class="vfr">attirer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to attract (talent)</td></tr>
+<tr><td class="vfr">mieux rémunérer</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to pay better</td></tr>
+<tr><td class="vfr">s&#39;investir</td><td class="vprep">dans</td><td class="vrel">dans lequel</td><td class="ven">to invest oneself in (work)</td></tr>
+<tr><td class="vfr">créer des tensions</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to create tensions</td></tr>
+<tr><td class="vfr">concentrer</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to focus on (pay rather than working conditions)</td></tr>
+<tr><td class="vfr">favoriser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to favour (certain employers)</td></tr>
+</table></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Adjectifs utiles</div>
+<div class="wl-card"><div class="adj-grid">
+<div class="adj-row"><span class="adj-fr">difficile</span><span class="adj-en">difficult, hard</span></div>
+<div class="adj-row"><span class="adj-fr">dangereux(se)</span><span class="adj-en">dangerous</span></div>
+<div class="adj-row"><span class="adj-fr">pénible</span><span class="adj-en">gruelling, arduous</span></div>
+<div class="adj-row"><span class="adj-fr">valorisé(e)</span><span class="adj-en">valued, recognised</span></div>
+<div class="adj-row"><span class="adj-fr">équitable</span><span class="adj-en">fair, equitable</span></div>
+<div class="adj-row"><span class="adj-fr">rémunéré(e)</span><span class="adj-en">paid, remunerated</span></div>
+<div class="adj-row"><span class="adj-fr">inégal(e)</span><span class="adj-en">unequal</span></div>
+<div class="adj-row"><span class="adj-fr">motivant(e)</span><span class="adj-en">motivating</span></div>
+<div class="adj-row"><span class="adj-fr">jaloux(se)</span><span class="adj-en">jealous</span></div>
+<div class="adj-row"><span class="adj-fr">essentiel(le)</span><span class="adj-en">essential</span></div>
+</div></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Paires de contraste</div>
+<div class="contrast-grid">
+<div class="contrast-card"><div class="contrast-header contrast-header-a">Pour &#8212; La rémunération des métiers difficiles</div>
+<div class="contrast-item">valoriser les métiers difficiles en les rémunérant mieux récompense financièrement les personnes qui exercent dans des conditions éprouvantes et reconnaît leur contribution essentielle à la société</div>
+<div class="contrast-item">attirer davantage de talents vers ces professions grâce à une rémunération plus élevée permet de combler les pénuries dans des secteurs essentiels comme la santé ou la sécurité</div>
+<div class="contrast-item">améliorer les conditions de vie des personnes mieux rémunérées dans ces métiers difficiles contribue à leur bien-être et les encourage à s&#39;investir davantage dans leur travail</div>
+</div>
+<div class="contrast-card"><div class="contrast-header contrast-header-b">Contre &#8212; La rémunération des métiers difficiles</div>
+<div class="contrast-item">créer une inégalité entre les métiers en mettant certaines professions en avant au détriment d&#39;autres génère des frustrations et accentue les divisions au sein du monde du travail</div>
+<div class="contrast-item">augmenter les coûts pour les employeurs qui doivent répercuter les hausses salariales sur les prix de leurs produits ou services risque de pénaliser les consommateurs finaux</div>
+<div class="contrast-item">risquer de créer des jalousies et des tensions entre les salariés rémunérés différemment nuit à la cohésion d&#39;équipe et à l&#39;ambiance de travail</div>
+<div class="contrast-item">se concentrer uniquement sur la rémunération au détriment d&#39;autres aspects de la qualité de vie au travail comme la reconnaissance ou l&#39;ambiance peut réduire la satisfaction globale</div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Expressions C1 à retenir</div>
+<div class="chunk-list">
+<div class="chunk-card"><div class="chunk-fr">une meilleure rémunération des métiers difficiles constitue un levier essentiel pour attirer des talents dans des secteurs sous-dotés et reconnaître leur contribution indispensable à la société</div><div class="chunk-en">better pay for difficult jobs is an essential lever for attracting talent to under-resourced sectors and recognising their indispensable contribution to society</div><div class="chunk-note">constituer un levier = expression imagée C1 · secteurs sous-dotés = formulation précise · contribution indispensable = collocation valorisante</div></div>
+<div class="chunk-card"><div class="chunk-fr">bien que la revalorisation salariale des métiers difficiles soit nécessaire, il serait souhaitable que les gouvernements veillent à ce qu&#39;elle ne crée pas de nouvelles inégalités entre les professions ni de tensions entre les employeurs</div><div class="chunk-en">although pay rises for difficult jobs are necessary, it would be desirable for governments to ensure that they do not create new inequalities between professions or tensions between employers</div><div class="chunk-note">bien que + subjonctif · veiller à ce que = formule institutionnelle C1 · structure de conclusion modèle</div></div>
+</div>
+</div>
+  </div>
+</div>
+</body>
+</html>

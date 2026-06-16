@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste de mots &#8212; Le salaire égal pour tous les employés</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root{--bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;--text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;--green:#2d6a4f;--green-bg:#eaf4ef;--accent:#c8955a;--radius:12px;--radius-sm:6px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+  .content{padding:20px 16px 48px;}
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="back-link" href="../Inspiration_index.html">&#8592; Retour à la Banque d&#39;Idées</a>
+  <h1>TCF Canada &#8212; <span>Tâche 3</span></h1>
+  <div class="question-title">Le salaire égal pour tous les employés &#8212; Liste de mots</div>
+</header>
+<div class="content">
+  <div class="wl-page">
+<div class="wl-section">
+<div class="wl-section-title">Noms &#8212; clés du sujet</div>
+<div class="wl-grid">
+<div class="wl-card"><div class="wl-card-header">Égalité &amp; équité ★ = exam priority</div>
+<div class="wl-row"><span class="wl-fr">l&#39;égalité des chances <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">equal opportunities</span></div>
+<div class="wl-row"><span class="wl-fr">la discrimination salariale <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">wage discrimination</span></div>
+<div class="wl-row"><span class="wl-fr">les inégalités salariales <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">wage inequalities</span></div>
+<div class="wl-row"><span class="wl-fr">les critères non professionnels <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">non-professional criteria (gender, age, race)</span></div>
+<div class="wl-row"><span class="wl-fr">la coopération <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">cooperation</span></div>
+<div class="wl-row"><span class="wl-fr">la solidarité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">solidarity</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Motivation &amp; performance</div>
+<div class="wl-row"><span class="wl-fr">la motivation des employés <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">employee motivation</span></div>
+<div class="wl-row"><span class="wl-fr">la satisfaction au travail <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">job satisfaction</span></div>
+<div class="wl-row"><span class="wl-fr">la performance individuelle <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">individual performance</span></div>
+<div class="wl-row"><span class="wl-fr">la performance collective <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">collective performance</span></div>
+<div class="wl-row"><span class="wl-fr">les niveaux de compétences <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">skill levels</span></div>
+<div class="wl-row"><span class="wl-fr">les niveaux d&#39;expérience <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">experience levels</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Image &amp; attractivité</div>
+<div class="wl-row"><span class="wl-fr">l&#39;image de l&#39;entreprise <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">company image</span></div>
+<div class="wl-row"><span class="wl-fr">la fidélisation des talents <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">talent retention</span></div>
+<div class="wl-row"><span class="wl-fr">la mobilité interne <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">internal mobility</span></div>
+<div class="wl-row"><span class="wl-fr">les niveaux de poste <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">job levels</span></div>
+<div class="wl-row"><span class="wl-fr">les responsabilités différentes <em>(fpl)</em><span class="wl-star">★</span></span><span class="wl-en">different responsibilities</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;équité <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">fairness, equity</span></div>
+</div>
+<div class="wl-card"><div class="wl-card-header">Concurrence &amp; rétention</div>
+<div class="wl-row"><span class="wl-fr">la rémunération plus élevée <em>(f)</em><span class="wl-star">★</span></span><span class="wl-en">higher pay</span></div>
+<div class="wl-row"><span class="wl-fr">les employés les plus performants <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">top-performing employees</span></div>
+<div class="wl-row"><span class="wl-fr">le traitement équitable <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">fair treatment</span></div>
+<div class="wl-row"><span class="wl-fr">les avantages <em>(mpl)</em><span class="wl-star">★</span></span><span class="wl-en">benefits, advantages</span></div>
+<div class="wl-row"><span class="wl-fr">l&#39;investissement personnel <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">personal investment (at work)</span></div>
+<div class="wl-row"><span class="wl-fr">le marché du travail <em>(m)</em><span class="wl-star">★</span></span><span class="wl-en">labour market</span></div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Verbes + prépositions</div>
+<div class="wl-card"><table class="verb-table">
+<tr><th>Verbe</th><th>Prép.</th><th>Pronom rel.</th><th>Sens</th></tr>
+<tr><td class="vfr">traiter équitablement</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to treat fairly</td></tr>
+<tr><td class="vfr">stimuler</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to stimulate (performance, motivation)</td></tr>
+<tr><td class="vfr">fidéliser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to retain (talent, employees)</td></tr>
+<tr><td class="vfr">récompenser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to reward (individual performance)</td></tr>
+<tr><td class="vfr">se surpasser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to outdo oneself, to go the extra mile</td></tr>
+<tr><td class="vfr">différencier</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to differentiate (salaries by responsibility)</td></tr>
+<tr><td class="vfr">favoriser</td><td class="vprep">—</td><td class="vrel">—</td><td class="ven">to favour (cooperation)</td></tr>
+<tr><td class="vfr">inciter</td><td class="vprep">à</td><td class="vrel">auquel</td><td class="ven">to encourage to (invest more)</td></tr>
+</table></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Adjectifs utiles</div>
+<div class="wl-card"><div class="adj-grid">
+<div class="adj-row"><span class="adj-fr">équitable</span><span class="adj-en">fair, equitable</span></div>
+<div class="adj-row"><span class="adj-fr">égal(e)</span><span class="adj-en">equal</span></div>
+<div class="adj-row"><span class="adj-fr">discriminatoire</span><span class="adj-en">discriminatory</span></div>
+<div class="adj-row"><span class="adj-fr">motivant(e)</span><span class="adj-en">motivating</span></div>
+<div class="adj-row"><span class="adj-fr">collectif(ve)</span><span class="adj-en">collective</span></div>
+<div class="adj-row"><span class="adj-fr">individuel(le)</span><span class="adj-en">individual</span></div>
+<div class="adj-row"><span class="adj-fr">performant(e)</span><span class="adj-en">high-performing</span></div>
+<div class="adj-row"><span class="adj-fr">attrayant(e)</span><span class="adj-en">attractive</span></div>
+<div class="adj-row"><span class="adj-fr">incitatif(ve)</span><span class="adj-en">incentivising</span></div>
+<div class="adj-row"><span class="adj-fr">uniforme</span><span class="adj-en">uniform</span></div>
+</div></div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Paires de contraste</div>
+<div class="contrast-grid">
+<div class="contrast-card"><div class="contrast-header contrast-header-a">Pour &#8212; Le salaire égal pour tous les employés</div>
+<div class="contrast-item">traiter tous les employés de manière équitable en accordant la même rémunération quel que soit le genre, l&#39;âge ou l&#39;origine favorise l&#39;égalité des chances et réduit la discrimination salariale</div>
+<div class="contrast-item">améliorer la motivation et la satisfaction au travail en sachant que tout le monde est traité de manière équitable renforce la cohésion d&#39;équipe et la coopération entre collègues</div>
+<div class="contrast-item">favoriser une image positive de l&#39;entreprise en montrant qu&#39;elle est équitable et respectueuse envers ses employés améliore son attractivité sur le marché du travail</div>
+</div>
+<div class="contrast-card"><div class="contrast-header contrast-header-b">Contre &#8212; Le salaire égal pour tous les employés</div>
+<div class="contrast-item">ne pas récompenser les performances individuelles en ignorant les différents niveaux de compétences et d&#39;expérience des employés risque de démotiver les travailleurs les plus investis</div>
+<div class="contrast-item">ne pas inciter les employés à se surpasser en supprimant la perspective d&#39;une rémunération plus élevée réduit l&#39;engagement individuel et la culture de l&#39;excellence</div>
+<div class="contrast-item">ne pas fidéliser les talents les plus performants qui peuvent trouver une meilleure rémunération ailleurs menace la compétitivité et la rétention des profils les plus qualifiés</div>
+<div class="contrast-item">bloquer la mobilité interne en n&#39;offrant pas de rémunérations différenciées selon les niveaux de responsabilité réduit les incitations à évoluer au sein de l&#39;entreprise</div>
+</div>
+</div>
+</div>
+<div class="wl-section">
+<div class="wl-section-title">Expressions C1 à retenir</div>
+<div class="chunk-list">
+<div class="chunk-card"><div class="chunk-fr">le salaire égal favorise l&#39;équité et la cohésion sociale, mais risque de décourager l&#39;excellence individuelle en ne récompensant pas les différences de compétences et d&#39;investissement personnel</div><div class="chunk-en">equal pay promotes equity and social cohesion, but risks discouraging individual excellence by not rewarding differences in skills and personal investment</div><div class="chunk-note">l&#39;équité et la cohésion sociale = formule C1 · décourager l&#39;excellence = formulation précise · investissement personnel = expression clé</div></div>
+<div class="chunk-card"><div class="chunk-fr">bien que le salaire égal réduise les discriminations et améliore la satisfaction collective, il serait souhaitable que les entreprises complètent ce système par des primes liées aux performances individuelles afin de préserver l&#39;émulation</div><div class="chunk-en">although equal pay reduces discrimination and improves collective satisfaction, it would be desirable for companies to complement this system with individual performance bonuses in order to preserve healthy competition</div><div class="chunk-note">bien que + subjonctif · primes liées aux performances = formule concrète · préserver l&#39;émulation = expression C1 · structure de conclusion modèle</div></div>
+</div>
+</div>
+  </div>
+</div>
+</body>
+</html>
