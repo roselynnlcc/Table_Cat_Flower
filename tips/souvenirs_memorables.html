@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boîte à Outils — Souvenirs Mémorables</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f5f2ee;
+  --cream-deep:#ece6dc;
+  --ink:#2b2622;
+  --ink-soft:#5c5650;
+  --orange:#c8955a;
+  --orange-deep:#a8743a;
+  --border:#ddd3c4;
+  --en-bg:#eef2f0;
+  --en-border:#b9cdc4;
+  --fr-bg:#fdf3e9;
+  --fr-border:#e8c79a;
+  --pitfall-bg:#fbeae8;
+  --pitfall-border:#e3a89e;
+  --card-shadow:0 1px 2px rgba(43,38,34,0.04), 0 8px 24px rgba(43,38,34,0.05);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  line-height:1.6;
+  padding-bottom:80px;
+}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+/* HERO */
+.hero{
+  padding:72px 24px 56px;
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  top:-40%;
+  right:-10%;
+  width:480px;height:480px;
+  background:radial-gradient(circle, rgba(200,149,90,0.13), transparent 70%);
+  pointer-events:none;
+}
+.eyebrow{
+  font-family:'DM Mono',monospace;
+  font-size:12.5px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--orange-deep);
+  margin:0 0 18px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.eyebrow::before{
+  content:"";
+  width:7px;height:7px;
+  background:var(--orange);
+  border-radius:50%;
+  display:inline-block;
+}
+.hero h1{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:clamp(34px,5vw,52px);
+  line-height:1.08;
+  margin:0 0 16px;
+  letter-spacing:-0.01em;
+}
+.hero h1 em{
+  font-style:italic;
+  font-weight:500;
+  color:var(--orange-deep);
+}
+.hero p.lede{
+  font-size:17px;
+  color:var(--ink-soft);
+  max-width:560px;
+  margin:0;
+}
+.translate-strip{
+  margin-top:36px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  font-family:'DM Mono',monospace;
+  font-size:13px;
+  color:var(--ink-soft);
+}
+.translate-strip .chip{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:7px 13px;
+}
+.translate-strip .arrow{color:var(--orange);font-size:16px;}
+
+/* NAV */
+.tocbar{
+  position:sticky;
+  top:0;
+  background:rgba(245,242,238,0.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  z-index:50;
+  padding:14px 24px;
+}
+.tocbar-inner{
+  max-width:920px;
+  margin:0 auto;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.tocbar-inner::-webkit-scrollbar{display:none;}
+.tocbar a{
+  flex:0 0 auto;
+  font-family:'DM Sans',sans-serif;
+  font-size:13.5px;
+  font-weight:500;
+  color:var(--ink-soft);
+  text-decoration:none;
+  padding:7px 14px;
+  border-radius:999px;
+  border:1px solid transparent;
+  white-space:nowrap;
+  transition:all .15s ease;
+}
+.tocbar a:hover{
+  border-color:var(--orange);
+  color:var(--orange-deep);
+  background:#fff;
+}
+
+/* SECTIONS */
+section{
+  padding:56px 0 8px;
+}
+.section-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  margin-bottom:28px;
+}
+.section-num{
+  font-family:'DM Mono',monospace;
+  font-size:13px;
+  color:var(--orange-deep);
+  border:1px solid var(--orange);
+  border-radius:6px;
+  padding:2px 8px;
+}
+.section-head h2{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:26px;
+  margin:0;
+  letter-spacing:-0.005em;
+}
+.section-sub{
+  color:var(--ink-soft);
+  font-size:15px;
+  margin:-14px 0 28px;
+  max-width:600px;
+}
+
+/* ANGLE CARDS (section 1) */
+.angle-grid{
+  display:grid;
+  gap:14px;
+}
+.angle-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:20px 22px;
+  box-shadow:var(--card-shadow);
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:20px;
+  align-items:start;
+}
+@media (max-width:640px){
+  .angle-card{grid-template-columns:1fr;gap:8px;}
+}
+.angle-tag{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-style:italic;
+  font-size:15.5px;
+  color:var(--orange-deep);
+  line-height:1.3;
+}
+.angle-concept{
+  font-size:12.5px;
+  font-family:'DM Mono',monospace;
+  color:var(--ink-soft);
+  display:block;
+  margin-top:6px;
+  font-style:normal;
+}
+.angle-example{
+  font-size:15.5px;
+  color:var(--ink);
+}
+.angle-example .fr{
+  font-weight:600;
+}
+
+/* METAPHOR SECTION */
+.hero-phrase{
+  background:linear-gradient(135deg, var(--fr-bg), #fff);
+  border:1px solid var(--fr-border);
+  border-radius:16px;
+  padding:28px 30px;
+  margin-bottom:20px;
+  position:relative;
+}
+.hero-phrase::before{
+  content:"★ à retenir par cœur";
+  position:absolute;
+  top:-11px;
+  left:24px;
+  background:var(--orange);
+  color:#fff;
+  font-family:'DM Mono',monospace;
+  font-size:10.5px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  padding:4px 10px;
+  border-radius:999px;
+}
+.hero-phrase p{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:19px;
+  margin:6px 0 0;
+  line-height:1.5;
+}
+.metaphor-pair{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:14px;
+}
+@media (max-width:640px){.metaphor-pair{grid-template-columns:1fr;}}
+.metaphor-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:18px 20px;
+  box-shadow:var(--card-shadow);
+}
+.metaphor-label{
+  font-family:'DM Mono',monospace;
+  font-size:11.5px;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--orange-deep);
+  margin-bottom:8px;
+  display:block;
+}
+.metaphor-card p{
+  margin:0;
+  font-size:15px;
+  font-style:italic;
+}
+
+/* TRANSLATION EXERCISES */
+.task-group{margin-bottom:32px;}
+.task-group-label{
+  font-family:'DM Mono',monospace;
+  font-size:12.5px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin-bottom:14px;
+  padding-bottom:10px;
+  border-bottom:1px dashed var(--border);
+}
+.ex-card{
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:14px;
+  background:#fff;
+  box-shadow:var(--card-shadow);
+}
+.ex-topic{
+  font-family:'DM Sans',sans-serif;
+  font-weight:600;
+  font-size:13.5px;
+  color:var(--ink-soft);
+  padding:12px 20px;
+  background:var(--cream-deep);
+  border-bottom:1px solid var(--border);
+}
+.ex-body{padding:18px 20px;}
+.ex-row{
+  display:grid;
+  grid-template-columns:34px 1fr;
+  gap:12px;
+  align-items:start;
+  padding:8px 0;
+}
+.ex-row + .ex-row{border-top:1px solid #f1ece4;}
+.ex-flag{
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  font-weight:600;
+  color:var(--ink-soft);
+  padding-top:3px;
+}
+.ex-row.en .ex-flag{color:#5a7a6c;}
+.ex-row.fr .ex-flag{color:var(--orange-deep);}
+.ex-row.en p{
+  background:var(--en-bg);
+  border-left:3px solid var(--en-border);
+  padding:9px 13px;
+  border-radius:0 8px 8px 0;
+  margin:0;
+  font-size:14.5px;
+  color:var(--ink-soft);
+}
+.ex-row.fr p{
+  background:var(--fr-bg);
+  border-left:3px solid var(--fr-border);
+  padding:9px 13px;
+  border-radius:0 8px 8px 0;
+  margin:0;
+  font-size:15.5px;
+  font-weight:500;
+}
+.ex-alt{
+  font-size:12.5px;
+  color:var(--ink-soft);
+  font-style:italic;
+  margin-top:4px;
+}
+
+/* PITFALLS */
+.pitfall-card{
+  background:var(--pitfall-bg);
+  border:1px solid var(--pitfall-border);
+  border-radius:14px;
+  padding:20px 22px;
+  margin-bottom:14px;
+}
+.pitfall-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:16.5px;
+}
+.pitfall-head::before{content:"⚠";font-size:15px;}
+.pitfall-rule{
+  font-size:14px;
+  color:var(--ink-soft);
+  margin-bottom:12px;
+}
+.compare-row{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.compare-line{
+  display:grid;
+  grid-template-columns:78px 1fr;
+  gap:10px;
+  font-size:14.5px;
+  align-items:start;
+}
+.compare-line.bad .tag{color:#b3433a;}
+.compare-line.good .tag{color:#3a7a52;}
+.compare-line .tag{
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  font-weight:600;
+  text-transform:uppercase;
+  padding-top:2px;
+}
+.compare-line.bad span.txt{text-decoration:line-through;color:#8a5750;}
+.compare-line.good span.txt{font-weight:600;}
+
+/* LEXIQUE */
+.lex-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:var(--card-shadow);
+}
+@media (max-width:640px){.lex-grid{grid-template-columns:1fr;}}
+.lex-item{
+  padding:16px 22px;
+  border-bottom:1px solid #f1ece4;
+}
+.lex-item:nth-child(odd){border-right:1px solid #f1ece4;}
+@media (max-width:640px){.lex-item:nth-child(odd){border-right:none;}}
+.lex-term{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-style:italic;
+  font-size:16px;
+  color:var(--orange-deep);
+}
+.lex-def{
+  font-size:14px;
+  color:var(--ink-soft);
+  margin-top:2px;
+}
+.lex-note{
+  font-size:12.5px;
+  color:#9a8f80;
+  font-style:italic;
+  margin-top:2px;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:60px 24px 20px;
+  color:#a89b8a;
+  font-size:13px;
+  font-family:'DM Mono',monospace;
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">TCF Canada · Expression Écrite</p>
+    <h1>Boîte à Outils :<br><em>Souvenirs Mémorables</em></h1>
+    <p class="lede">Cinq angles pour donner du sens à un souvenir, deux métaphores à retenir, sept traductions validées, et les pièges grammaticaux qui les accompagnent.</p>
+    <div class="translate-strip">
+      <span class="chip">a stressful challenge</span>
+      <span class="arrow">→</span>
+      <span class="chip">sortir de sa zone de confort</span>
+    </div>
+  </div>
+</div>
+
+<div class="tocbar">
+  <div class="tocbar-inner">
+    <a href="#angles">1 · Les 5 Angles</a>
+    <a href="#metaphores">2 · Métaphores</a>
+    <a href="#exercices">3 · Traductions</a>
+    <a href="#pieges">4 · Pièges</a>
+    <a href="#lexique">5 · Lexique</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="angles">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>Les 5 Angles pour Justifier un Souvenir Mémorable</h2>
+    </div>
+    <p class="section-sub">Chaque angle répond à une question différente : pourquoi ce souvenir compte-t-il vraiment ?</p>
+    <div class="angle-grid">
+
+      <div class="angle-card">
+        <div class="angle-tag">Le Pont Culturel
+          <span class="angle-concept">un rite de passage<br>(shared cultural transition)</span>
+        </div>
+        <div class="angle-example">« Conduire pour la première fois en hiver est un <span class="fr">véritable rite de passage</span> pour tous les nouveaux arrivants ici. »</div>
+      </div>
+
+      <div class="angle-card">
+        <div class="angle-tag">L'Accomplissement
+          <span class="angle-concept">un jalon / une étape<br>(personal milestone)</span>
+        </div>
+        <div class="angle-example">« Gérer seule ma première classe de primaire a marqué un <span class="fr">jalon majeur</span> dans ma carrière professionnelle. »</div>
+      </div>
+
+      <div class="angle-card">
+        <div class="angle-tag">La Nostalgie
+          <span class="angle-concept">le déclic sensoriel<br>(sensory trigger / memory)</span>
+        </div>
+        <div class="angle-example">« Ce parfum de brioche chaude m'a <span class="fr">instantanément ramenée en enfance</span>, à l'époque où je cuisinais en famille. »</div>
+      </div>
+
+      <div class="angle-card">
+        <div class="angle-tag">La Prise de Conscience
+          <span class="angle-concept">le déclic d'esprit<br>(eye-opener / realization)</span>
+        </div>
+        <div class="angle-example">« Commencer ma journée par une séance de yoga m'a <span class="fr">fait prendre conscience</span> de l'importance de ralentir. »</div>
+      </div>
+
+      <div class="angle-card">
+        <div class="angle-tag">Le Développement
+          <span class="angle-concept">la zone de confort<br>(pushing boundaries)</span>
+        </div>
+        <div class="angle-example">« Passer cet examen oral était un défi stressant, mais cela m'a permis de <span class="fr">sortir de ma zone de confort</span> et de progresser. »</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="metaphores">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Le Pouvoir des Métaphores — Spécial « S'mores »</h2>
+    </div>
+    <p class="section-sub">Une image concrète vaut souvent mieux qu'un adjectif abstrait.</p>
+
+    <div class="hero-phrase">
+      <p>« Une seule bouchée de ce s'more a suffi à nous ramener en enfance et à rendre ce moment magique et inoubliable. »</p>
+    </div>
+
+    <div class="metaphor-pair">
+      <div class="metaphor-card">
+        <span class="metaphor-label">比喻 · La Douceur</span>
+        <p>« Ce moment partagé en famille était un vrai délice, aussi doux et réconfortant que le chocolat fondant de nos s'mores. »</p>
+      </div>
+      <div class="metaphor-card">
+        <span class="metaphor-label">誇張 · Le Chaos Joyeux</span>
+        <p>« Entre le chocolat partout et les doigts collants, c'était une joyeuse pagaille, mais c'est exactement ce qui rend ces souvenirs si précieux. »</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="exercices">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>Les Exercices de Traduction Validés</h2>
+    </div>
+    <p class="section-sub">Sept phrases travaillées et confirmées, classées par tâche d'examen.</p>
+
+    <div class="task-group">
+      <div class="task-group-label">Tâche 1 · Messages Personnels &amp; Articles</div>
+
+      <div class="ex-card">
+        <div class="ex-topic">Sujet : Week-end à la campagne</div>
+        <div class="ex-body">
+          <div class="ex-row en"><span class="ex-flag">EN</span><p>Toasting marshmallows around a campfire was a true rite of passage that made this weekend unforgettable.</p></div>
+          <div class="ex-row fr"><span class="ex-flag">FR</span><p>Faire griller des guimauves autour d'un feu de camp était un véritable rite de passage qui a rendu ce week-end inoubliable.</p></div>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-topic">Sujet : Répondre à Martin (la vie universitaire)</div>
+        <div class="ex-body">
+          <div class="ex-row en"><span class="ex-flag">EN</span><p>Moving into the university residence was a major milestone that taught me how to live independently.</p></div>
+          <div class="ex-row fr"><span class="ex-flag">FR</span><p>Déménager dans la résidence universitaire était un jalon majeur qui m'a appris à vivre de manière indépendante.
+            <div class="ex-alt">ou : ...de façon autonome.</div>
+          </p></div>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-topic">Sujet : Lettre à une agence immobilière (Nice)</div>
+        <div class="ex-body">
+          <div class="ex-row en"><span class="ex-flag">EN</span><p>Finding the perfect apartment in Nice is an essential stage of life for my new professional project.</p></div>
+          <div class="ex-row fr"><span class="ex-flag">FR</span><p>Trouver l'appartement parfait à Nice est une étape indispensable de ma vie pour mon nouveau projet professionnel.</p></div>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-topic">Sujet : Article de journal « Bienvenue » (nouveau en ville)</div>
+        <div class="ex-body">
+          <div class="ex-row en"><span class="ex-flag">EN</span><p>Discovering the local markets instantly brought me back to childhood, reminding me of my family vacations.</p></div>
+          <div class="ex-row fr"><span class="ex-flag">FR</span><p>Découvrir les marchés locaux m'a instantanément ramenée en enfance, me rappelant mes vacances familiales.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-group">
+      <div class="task-group-label">Tâche 2 · Forums, Blogs &amp; Opinions</div>
+
+      <div class="ex-card">
+        <div class="ex-topic">Sujet : Le forum de la brocante</div>
+        <div class="ex-body">
+          <div class="ex-row en"><span class="ex-flag">EN</span><p>Participating in this flea market made me realize the importance of giving a second life to objects.</p></div>
+          <div class="ex-row fr"><span class="ex-flag">FR</span><p>Participer à cette brocante m'a fait prendre conscience de l'importance de donner une seconde vie aux objets.</p></div>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-topic">Sujet : Article de blog sur une personnalité admirée</div>
+        <div class="ex-body">
+          <div class="ex-row en"><span class="ex-flag">EN</span><p>Her choice to leave everything to help others was a real turning point that completely changed my perspective.</p></div>
+          <div class="ex-row fr"><span class="ex-flag">FR</span><p>Son choix de tout quitter pour aider les autres a été un véritable déclic qui a complètement changé ma perspective.</p></div>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-topic">Sujet : Essai d'opinion (partir un an à l'étranger)</div>
+        <div class="ex-body">
+          <div class="ex-row en"><span class="ex-flag">EN</span><p>Leaving everything to live abroad for a year is a stressful challenge, but it allows us to step out of our comfort zone.</p></div>
+          <div class="ex-row fr"><span class="ex-flag">FR</span><p>Tout quitter pour vivre à l'étranger pendant un an est un défi stressant, mais cela nous permet de sortir de notre zone de confort.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pieges">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>Points de Vigilance Grammaticale</h2>
+    </div>
+    <p class="section-sub">Les pièges classiques du TCF, et comment les éviter.</p>
+
+    <div class="pitfall-card">
+      <div class="pitfall-head">Rappeler vs Appeler (verbes COD)</div>
+      <div class="pitfall-rule">Le verbe <strong>rappeler</strong> construit son sens directement avec un COD — pas de préposition « de ».</div>
+      <div class="compare-row">
+        <div class="compare-line bad"><span class="tag">Incorrect</span><span class="txt">Cela me rappelle de mes vacances.</span></div>
+        <div class="compare-line good"><span class="tag">Correct</span><span class="txt">Ce marché de quartier est magnifique, cela me rappelle mes vacances d'enfance.</span></div>
+      </div>
+    </div>
+
+    <div class="pitfall-card">
+      <div class="pitfall-head">Commencer une phrase avec un verbe (-ing anglais)</div>
+      <div class="pitfall-rule">En anglais on utilise le participe présent (Toasting...). En français, on utilise obligatoirement l'<strong>infinitif</strong> comme sujet.</div>
+      <div class="compare-row">
+        <div class="compare-line bad"><span class="tag">Incorrect</span><span class="txt">Faisant griller des guimauves était amusant.</span></div>
+        <div class="compare-line good"><span class="tag">Correct</span><span class="txt">Faire griller des guimauves autour d'un feu de camp était un véritable rite de passage.</span></div>
+      </div>
+    </div>
+
+    <div class="pitfall-card">
+      <div class="pitfall-head">Exprimer l'impact d'une action globale (« it allows us to... »)</div>
+      <div class="pitfall-rule">Quand « it » fait référence à toute une phrase ou un concept abstrait antérieur, utilisez <strong>cela</strong> (ou « ça ») + pronom objet devant le verbe.</div>
+      <div class="compare-row">
+        <div class="compare-line bad"><span class="tag">Incorrect</span><span class="txt">Il se permet de sortir de sa zone de confort.</span></div>
+        <div class="compare-line good"><span class="tag">Correct</span><span class="txt">Tout quitter pour s'installer à l'étranger est un défi stressant, mais cela nous permet de grandir.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lexique">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2>Mini-Lexique Validé</h2>
+    </div>
+    <div class="lex-grid">
+      <div class="lex-item">
+        <div class="lex-term">une guimauve</div>
+        <div class="lex-def">a marshmallow</div>
+      </div>
+      <div class="lex-item">
+        <div class="lex-term">la brocante / le marché aux puces</div>
+        <div class="lex-def">flea market</div>
+      </div>
+      <div class="lex-item">
+        <div class="lex-term">à l'étranger</div>
+        <div class="lex-def">abroad</div>
+        <div class="lex-note">toujours avec la préposition « à »</div>
+      </div>
+      <div class="lex-item">
+        <div class="lex-term">pendant un an</div>
+        <div class="lex-def">for a year</div>
+        <div class="lex-note">durée définie</div>
+      </div>
+      <div class="lex-item">
+        <div class="lex-term">tout quitter</div>
+        <div class="lex-def">to leave everything behind</div>
+        <div class="lex-note">l'idiome parfait pour l'immigration / changement de vie</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>Banque d'Idées · Souvenirs Mémorables</footer>
+
+</body>
+</html>
