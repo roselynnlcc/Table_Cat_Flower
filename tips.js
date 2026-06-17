@@ -33,5 +33,12 @@ const TCF_TIPS = [
     subtitle: "Par thème · Suffixes · Irréguliers · Chunks TCF · Pièges",
     url: "tips/nominalisation.html",
     date: "2026-06-06"
+  },
+  {
+  id: 6,
+  title: "Souvenirs Mémorables",
+  subtitle: "5 angles de justification · métaphores · traductions validées",
+  url: "tips/souvenirs_memorables.html",
+  date: "2026-06-16"
   }
 ];
