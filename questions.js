@@ -216,12 +216,21 @@ const TCF_QUESTIONS = [
     status: "En cours"
   },
   {
-  id: 25,
-  cat: 'famille',
-  question: 'Selon vous, est-ce une bonne idée de partager un appartement à plusieurs ? Pourquoi ?',
-  scriptUrl: 'famille/colocation.html',
-  date: '2026-06-08',
-  stars: 2,
-  status: "À faire"
-}
+    id: 25,
+    cat: 'famille',
+    question: 'Selon vous, est-ce une bonne idée de partager un appartement à plusieurs ? Pourquoi ?',
+    scriptUrl: 'famille/colocation.html',
+    date: '2026-06-08',
+    stars: 2,
+    status: "À faire"
+  },
+  {
+    id: 26,
+    cat: 'economique',
+    question: 'Le principal facteur de succès professionnel dans sa compagnie est la maîtrise de son métier. Qu\'en pensez-vous ?',
+    scriptUrl: 'economique/maitrise_metier.html',
+    date: '2026-06-22',
+    stars: 2,
+    status: "Prêt"
+  }
 ];
