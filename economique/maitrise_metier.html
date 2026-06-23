@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCF &mdash; Le principal facteur de succ&egrave;s : ma&icirc;trise du m&eacute;tier ?</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+  :root {
+    --bg:#f5f2ee;--surface:#fff;--surface2:#f9f7f4;--border:#e5e0d8;
+    --text:#1a1714;--text-soft:#6b6460;--text-muted:#9d9590;
+    --pink-bg:#ffeef2;--pink-text:#8b1a35;
+    --blue-bg:#dbeeff;--blue-text:#1a3d7a;
+    --purple1-bg:#ede0ff;--purple1-text:#4a1a80;
+    --green:#2d6a4f;--green-bg:#eaf4ef;
+    --limegreen:#3F6212;--limegreen-bg:#ECFCCB;
+    --magenta:#9D174D;--magenta-bg:#FCE7F3;
+    --accent:#c8955a;--radius:12px;--radius-sm:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+  .site-header{background:var(--text);color:#fff;padding:20px 20px 16px;position:sticky;top:0;z-index:100;}
+  .site-header h1{font-family:'Fraunces',serif;font-size:18px;font-weight:300;color:#fff;}
+  .site-header h1 span{color:var(--accent);font-style:italic;}
+  .question-title{font-size:15px;font-weight:500;color:#fff;margin-top:8px;line-height:1.5;max-width:700px;}
+  .back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#aaa;text-decoration:none;margin-bottom:8px;transition:color .15s;}
+  .back-link:hover{color:var(--accent);}
+
+  .tab-nav{padding:0 16px;display:flex;gap:2px;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;scrollbar-width:none;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:10px 16px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap;}
+  .tab-btn:hover{color:var(--text);background:var(--surface2);}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent);font-weight:500;}
+
+  .content{display:none;padding:20px 16px 48px;}
+  .content.active{display:block;}
+
+  .scripts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:680px){.scripts-grid{grid-template-columns:1fr;}}
+  .single-view{max-width:620px;margin:0 auto;}
+
+  .script-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+  .card-header{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card-header-green{background:var(--green-bg);border-bottom:1px solid #c3e6d4;}
+  .card-header-blue{background:#e8f2ff;border-bottom:1px solid #c0d8f8;}
+  .card-title{font-family:'Fraunces',serif;font-size:14px;font-weight:400;line-height:1.4;}
+  .card-title-green{color:var(--green);}
+  .card-title-blue{color:#185fa5;}
+  .stance-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .badge-easy{background:var(--limegreen-bg);color:var(--limegreen);border:1px solid #bef264;}
+  .badge-hard{background:var(--magenta-bg);color:var(--magenta);border:1px solid #f9a8d4;}
+
+  .stage-toggle{display:flex;gap:6px;padding:12px 18px 4px;flex-wrap:wrap;}
+  .stage-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:3px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text-soft);cursor:pointer;transition:all .15s;}
+  .stage-btn:hover{border-color:var(--accent);color:var(--text);}
+  .stage-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:500;}
+
+  .stage-content{display:none;}
+  .stage-content.active{display:block;}
+
+  .block{padding:14px 18px;border-bottom:1px solid var(--border);}
+  .block:last-child{border-bottom:none;}
+  .block-nuance{background:#fff;}
+  .block-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .timing{font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1px 7px;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;}
+  .script-text{font-size:14px;line-height:1.85;color:var(--text);}
+  .script-text p{margin-bottom:10px;}
+  .script-text p:last-child{margin-bottom:0;}
+  .para-wrap{position:relative;margin-bottom:10px;}
+  .para-wrap:last-child{margin-bottom:0;}
+  .para-wrap p{margin-bottom:0;}
+  .hl-pink{background:var(--pink-bg);color:var(--pink-text);border-radius:3px;padding:0 2px;}
+  .hl-blue{background:var(--blue-bg);color:var(--blue-text);border-radius:3px;padding:0 2px;}
+  .hl-p1{background:var(--purple1-bg);color:var(--purple1-text);border-radius:3px;padding:0 2px;font-style:normal;}
+  .en-note{margin-top:8px;padding:6px 10px;background:var(--surface2);border-left:3px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:11.5px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+  .wc{margin-top:6px;font-size:10.5px;color:var(--green);text-align:right;}
+
+  .h{color:#fff;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px;text-decoration-thickness:1px;}
+  .hl-pink .h{color:var(--pink-bg);text-decoration-color:#e8b4c4;}
+  .hl-blue .h{color:var(--blue-bg);text-decoration-color:#a8ccee;}
+  .hl-p1 .h{color:var(--purple1-bg);text-decoration-color:#c4a8e8;}
+
+  .wl-page{max-width:860px;}
+  .wl-section{margin-bottom:28px;}
+  .wl-section-title{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--accent);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+  .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:580px){.wl-grid{grid-template-columns:1fr;}}
+  .wl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .wl-card-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface2);border-bottom:1px solid var(--border);}
+  .wl-row{display:flex;align-items:baseline;gap:8px;padding:7px 13px;border-bottom:0.5px solid var(--border);transition:background .1s;}
+  .wl-row:last-child{border-bottom:none;}
+  .wl-row:hover{background:var(--surface2);}
+  .wl-fr{font-weight:500;font-size:13px;min-width:200px;color:var(--text);}
+  .wl-fr em{font-weight:400;font-size:11.5px;color:var(--text-muted);font-style:normal;}
+  .wl-star{color:var(--accent);font-size:10px;margin-left:3px;}
+  .wl-en{font-size:12px;color:var(--text-soft);flex:1;}
+
+  .verb-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .verb-table th{padding:7px 12px;background:var(--surface2);text-align:left;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);}
+  .verb-table td{padding:7px 12px;border-bottom:0.5px solid var(--border);vertical-align:top;}
+  .verb-table tr:last-child td{border-bottom:none;}
+  .vfr{font-weight:500;color:var(--text);}
+  .vprep{color:var(--accent);font-weight:600;}
+  .vrel{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .ven{color:var(--text-soft);}
+
+  .adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+  .adj-row{display:flex;justify-content:space-between;padding:6px 13px;border-bottom:0.5px solid var(--border);font-size:13px;}
+  .adj-row:last-child{border-bottom:none;}
+  .adj-fr{font-weight:500;}
+  .adj-en{color:var(--text-soft);font-size:12px;}
+
+  .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:520px){.contrast-grid{grid-template-columns:1fr;}}
+  .contrast-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .contrast-header{padding:7px 13px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);}
+  .contrast-header-a{background:var(--green-bg);color:var(--green);}
+  .contrast-header-b{background:#e8f2ff;color:#185fa5;}
+  .contrast-item{padding:7px 13px;border-bottom:0.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);}
+  .contrast-item:last-child{border-bottom:none;}
+
+  .chunk-list{display:flex;flex-direction:column;gap:10px;}
+  .chunk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+  .chunk-fr{font-style:normal;font-weight:500;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.6;}
+  .chunk-en{font-size:12px;color:var(--text-soft);margin-bottom:4px;}
+  .chunk-note{font-size:11px;color:var(--text-muted);}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="../index.html">&#8592; Retour</a>
+  <h1>TCF Canada &#8212; <span>T&acirc;che 3</span></h1>
+  <div class="question-title">Le principal facteur de succ&egrave;s professionnel dans sa compagnie est la ma&icirc;trise de son m&eacute;tier. Qu&rsquo;en pensez-vous&nbsp;?</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('both',this)">C&#244;te &#224; c&#244;te</button>
+  <button class="tab-btn" onclick="showTab('posA',this)">Position A &#10003;</button>
+  <button class="tab-btn" onclick="showTab('posB',this)">&#127919; Position B &#10007; &#127919;</button>
+  <button class="tab-btn" onclick="showTab('words',this)">Liste de mots</button>
+</nav>
+
+<div id="both" class="content active"><div class="scripts-grid" id="bothGrid"></div></div>
+
+<!-- Position A — no toggle -->
+<div id="posA" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-green">
+        <div class="card-title card-title-green">&#10003; Position A &#8212; OUI, la ma&icirc;trise du m&eacute;tier est le facteur principal de r&eacute;ussite</div>
+        <span class="stance-badge badge-hard">Plus ardu</span>
+      </div>
+      <div class="block">
+        <div class="block-label">Introduction <span class="timing">~40s</span></div>
+        <div class="script-text"><p>Pour commencer, merci pour votre question&#160;! C&rsquo;est un sujet tr&egrave;s int&eacute;ressant, car il concerne presque tout le monde &eacute;tant donn&eacute; qu&rsquo;il est l&eacute;gitime de se demander si le principal facteur de succ&egrave;s professionnel dans une compagnie est r&eacute;ellement la ma&icirc;trise de son m&eacute;tier, et les avis sont divergents. Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que <span class="hl-pink">la ma&icirc;trise de son m&eacute;tier est effectivement le facteur principal de r&eacute;ussite professionnelle</span>, &agrave; un certain point. Alors, je vais expliquer mes raisons.</p></div>
+      </div>
+      <div class="block">
+        <div class="block-label">Point 1 &#8212; Cr&eacute;dibilit&eacute; et confiance <span class="timing">~1 min</span></div>
+        <div class="script-text"><p>Tout d&rsquo;abord, il convient de souligner que <span class="hl-pink">ma&icirc;triser parfaitement son m&eacute;tier inspire imm&eacute;diatement confiance aux coll&egrave;gues et aux sup&eacute;rieurs.</span> Un employ&eacute; qui d&eacute;montre une r&eacute;elle expertise technique devient une r&eacute;f&eacute;rence sur laquelle l&rsquo;&eacute;quipe peut s&rsquo;appuyer, ce qui renforce sa cr&eacute;dibilit&eacute; au sein de l&rsquo;entreprise. Cette cr&eacute;dibilit&eacute; ouvre ensuite la porte &agrave; davantage de responsabilit&eacute;s et de reconnaissance. Par exemple, <span class="hl-pink">un ing&eacute;nieur reconnu pour la qualit&eacute; de son travail est plus rapidement consult&eacute; lors des d&eacute;cisions importantes.</span></p></div>
+        <div class="wc">~76 mots &#10003;</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Point 2 &#8212; Gestion de l&rsquo;impr&eacute;vu <span class="timing">~1 min</span></div>
+        <div class="script-text"><p>De plus, <span class="hl-pink">face &agrave; une situation technique impr&eacute;vue, seul un employ&eacute; qui ma&icirc;trise vraiment son m&eacute;tier peut trouver une solution efficace.</span> Dans ces moments-l&agrave;, ni le r&eacute;seau ni le charisme ne suffisent&nbsp;; c&rsquo;est la comp&eacute;tence r&eacute;elle qui permet de r&eacute;soudre le probl&egrave;me rapidement et d&rsquo;&eacute;viter des cons&eacute;quences co&ucirc;teuses. Cette capacit&eacute; &agrave; g&eacute;rer l&rsquo;impr&eacute;vu devient un atout d&eacute;cisif en p&eacute;riode de crise. Prenons l&rsquo;exemple d&rsquo;une panne de production&nbsp;: <span class="hl-pink">c&rsquo;est l&rsquo;expert technique qui sauve la situation.</span></p></div>
+        <div class="wc">~74 mots &#10003;</div>
+      </div>
+      <div class="block block-nuance">
+        <div class="block-label">Nuance &#8212; Comp&eacute;tences relationnelles en compl&eacute;ment <span class="timing">~1 min</span></div>
+        <div class="script-text"><p>Il est certes vrai que dans les postes &agrave; forte interaction humaine, comme le management ou la vente, <span class="hl-blue">le savoir-&ecirc;tre et la communication peuvent peser autant que l&rsquo;expertise technique.</span> Un employ&eacute; brillant sur le plan technique mais incapable de collaborer avec son &eacute;quipe ou d&rsquo;&eacute;couter ses clients risque de freiner sa propre progression. <span class="hl-blue">Dans ces contextes, la r&eacute;ussite d&eacute;pend alors d&rsquo;un &eacute;quilibre entre comp&eacute;tence et qualit&eacute;s relationnelles.</span></p></div>
+        <div class="en-note">&#128172; <em>le savoir-&ecirc;tre</em> = interpersonal skills, soft skills &#183; <em>peser autant que</em> = to weigh as much as, to matter as much as &#183; <em>freiner</em> = to hold back, to slow down</div>
+        <div class="wc">~67 mots &#10003;</div>
+      </div>
+      <div class="block">
+        <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+        <div class="script-text">
+          <p>En conclusion, bien que <span class="hl-blue">les comp&eacute;tences relationnelles</span> pr&eacute;sentent certains avantages, notamment <span class="hl-blue">le renforcement de la collaboration,</span> il n&rsquo;en demeure pas moins que les avantages de la ma&icirc;trise technique sont ind&eacute;niables, comme <span class="hl-pink">le renforcement de la confiance et la r&eacute;solution des impr&eacute;vus.</span></p>
+          <p>Tout bien consid&eacute;r&eacute;, il serait souhaitable que <span class="hl-p1">les entreprises valorisent en priorit&eacute; le d&eacute;veloppement de l&rsquo;expertise technique de leurs employ&eacute;s afin qu&rsquo;ils puissent faire face &agrave; toutes les situations professionnelles.</span></p>
+          <p>Merci pour votre attention.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🎯 Position B — with stage toggle -->
+<div id="posB" class="content">
+  <div class="single-view">
+    <div class="script-card">
+      <div class="card-header card-header-blue">
+        <div class="card-title card-title-blue">&#127919; &#10007; Position B &#8212; NON, d&rsquo;autres facteurs comptent davantage &#127919;</div>
+        <span class="stance-badge badge-easy">Plus facile &agrave; d&eacute;fendre</span>
+      </div>
+      <div class="stage-toggle">
+        <button class="stage-btn active" onclick="showStage('sb0',this)">Complet</button>
+        <button class="stage-btn" onclick="showStage('sb1',this)">&#201;tape 1</button>
+        <button class="stage-btn" onclick="showStage('sb2',this)">&#201;tape 2</button>
+        <button class="stage-btn" onclick="showStage('sb3',this)">&#201;tape 3</button>
+      </div>
+
+      <!-- COMPLET -->
+      <div id="sb0" class="stage-content active">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text"><p>Pour commencer, merci pour votre question&#160;! C&rsquo;est un sujet tr&egrave;s int&eacute;ressant, car il concerne presque tout le monde &eacute;tant donn&eacute; qu&rsquo;il est l&eacute;gitime de se demander si le principal facteur de succ&egrave;s professionnel dans une compagnie est r&eacute;ellement la ma&icirc;trise de son m&eacute;tier, et les avis sont divergents. Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que <span class="hl-pink">ce sont surtout les comp&eacute;tences relationnelles et humaines qui d&eacute;terminent la r&eacute;ussite professionnelle</span>, &agrave; un certain point. Alors, je vais expliquer mes raisons.</p></div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 &#8212; Comp&eacute;tences relationnelles et r&eacute;sultats commerciaux <span class="timing">~1 min</span></div>
+          <div class="script-text"><p>Tout d&rsquo;abord, il convient de souligner que <span class="hl-pink">la capacit&eacute; &agrave; collaborer et &agrave; cr&eacute;er une relation de confiance avec les clients influence directement les r&eacute;sultats commerciaux.</span> Un employ&eacute; sociable et &agrave; l&rsquo;&eacute;coute parvient souvent &agrave; convaincre un client h&eacute;sitant ou &agrave; fid&eacute;liser un partenaire, l&agrave; o&ugrave; la seule comp&eacute;tence technique resterait insuffisante. Ces qualit&eacute;s relationnelles g&eacute;n&egrave;rent ainsi davantage de ventes que l&rsquo;expertise seule. Prenons le cas d&rsquo;un commercial&nbsp;: <span class="hl-pink">c&rsquo;est sa capacit&eacute; &agrave; cr&eacute;er du lien qui conclut la vente.</span></p></div>
+          <div class="en-note">&#128172; <em>fid&eacute;liser</em> = to retain, to build loyalty with &#183; <em>h&eacute;sitant</em> = hesitant, on the fence &#183; <em>cr&eacute;er du lien</em> = to build a connection (spoken C1 expression)</div>
+          <div class="wc">~79 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 &#8212; Leadership et gestion d&rsquo;&eacute;quipe <span class="timing">~1 min</span></div>
+          <div class="script-text"><p>De plus, <span class="hl-pink">la capacit&eacute; &agrave; motiver, d&eacute;l&eacute;guer et organiser le travail d&rsquo;une &eacute;quipe produit souvent plus de valeur que l&rsquo;expertise technique d&rsquo;une seule personne.</span> Un bon leader sait r&eacute;partir les t&acirc;ches selon les forces de chacun et cr&eacute;er un environnement o&ugrave; l&rsquo;&eacute;quipe enti&egrave;re progresse, ce qui multiplie les r&eacute;sultats. <span class="hl-pink">Cette comp&eacute;tence de gestion devient alors plus d&eacute;terminante pour la r&eacute;ussite globale de l&rsquo;entreprise que la ma&icirc;trise individuelle d&rsquo;un m&eacute;tier.</span></p></div>
+          <div class="en-note">&#128172; <em>d&eacute;l&eacute;guer</em> = to delegate &#183; <em>r&eacute;partir les t&acirc;ches</em> = to distribute tasks &#183; <em>d&eacute;terminant</em> = decisive, determining</div>
+          <div class="wc">~69 mots &#10003;</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance &#8212; Secteurs hautement sp&eacute;cialis&eacute;s <span class="timing">~1 min</span></div>
+          <div class="script-text"><p>Il est certes vrai que dans certains secteurs hautement sp&eacute;cialis&eacute;s, comme la m&eacute;decine, l&rsquo;ing&eacute;nierie ou le droit, <span class="hl-blue">l&rsquo;expertise technique reste le crit&egrave;re d&eacute;cisif de la r&eacute;ussite.</span> Dans ces domaines pr&eacute;cis, aucune comp&eacute;tence relationnelle ni aucun talent de leadership ne peut compenser un manque r&eacute;el de connaissances techniques, car des vies ou des projets entiers d&eacute;pendent de cette expertise. <span class="hl-blue">Le poids de la ma&icirc;trise technique varie donc fortement selon le secteur d&rsquo;activit&eacute;.</span></p></div>
+          <div class="en-note">&#128172; <em>hautement sp&eacute;cialis&eacute;</em> = highly specialised &#183; <em>compenser</em> = to compensate for, to make up for &#183; <em>le crit&egrave;re d&eacute;cisif</em> = the decisive criterion</div>
+          <div class="wc">~71 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <p>En conclusion, bien que la ma&icirc;trise technique pr&eacute;sente certains avantages dans les secteurs hautement sp&eacute;cialis&eacute;s, comme <span class="hl-blue">la fiabilit&eacute; des d&eacute;cisions critiques,</span> il n&rsquo;en demeure pas moins que les avantages des comp&eacute;tences humaines sont ind&eacute;niables, notamment <span class="hl-pink">le d&eacute;veloppement des ventes et le renforcement du leadership.</span></p>
+            <p>Tout bien consid&eacute;r&eacute;, il faudrait que <span class="hl-p1">les entreprises accordent une place plus importante au d&eacute;veloppement des comp&eacute;tences relationnelles et manag&eacute;riales dans la formation de leurs employ&eacute;s.</span></p>
+            <p>Merci pour votre attention.</p>
+          </div>
+        </div>
+      </div><!-- /sb0 -->
+
+      <!-- ÉTAPE 1 -->
+      <div id="sb1" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question&#160;! C&rsquo;est un sujet tr&egrave;s int&eacute;ressant, car il concerne presque tout le monde &eacute;tant donn&eacute; qu&rsquo;il est l&eacute;gitime de se demander si le principal facteur de succ&egrave;s professionnel dans une compagnie est r&eacute;ellement la ma&icirc;trise de son m&eacute;tier, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que <span class="hl-pink">ce sont surtout les comp&eacute;tences <span class="h">relationnelles</span> et humaines qui d&eacute;terminent la <span class="h">r&eacute;ussite</span> professionnelle</span>, &agrave; un certain point. Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 &#8212; Comp&eacute;tences relationnelles et r&eacute;sultats commerciaux <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d&rsquo;abord, il convient de souligner que <span class="hl-pink">la capacit&eacute; &agrave; <span class="h">collaborer</span> et &agrave; cr&eacute;er une relation de <span class="h">confiance</span> avec les clients influence directement les r&eacute;sultats <span class="h">commerciaux</span>.</span></p></div>
+            <div class="para-wrap"><p>Un employ&eacute; <span class="h">sociable</span> et &agrave; l&rsquo;&eacute;coute parvient souvent &agrave; convaincre un client <span class="h">h&eacute;sitant</span> ou &agrave; fid&eacute;liser un <span class="h">partenaire</span>, l&agrave; o&ugrave; la seule comp&eacute;tence technique resterait <span class="h">insuffisante</span>. Ces qualit&eacute;s relationnelles g&eacute;n&egrave;rent ainsi <span class="h">davantage</span> de ventes que l&rsquo;expertise seule.</p></div>
+            <div class="para-wrap"><p>Prenons le cas d&rsquo;un commercial&nbsp;: <span class="hl-pink">c&rsquo;est sa capacit&eacute; &agrave; cr&eacute;er du lien qui conclut la vente.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>fid&eacute;liser</em> = to retain, to build loyalty with &#183; <em>h&eacute;sitant</em> = hesitant, on the fence &#183; <em>cr&eacute;er du lien</em> = to build a connection (spoken C1 expression)</div>
+          <div class="wc">~79 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 &#8212; Leadership et gestion d&rsquo;&eacute;quipe <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">la capacit&eacute; &agrave; motiver, <span class="h">d&eacute;l&eacute;guer</span> et organiser le travail d&rsquo;une &eacute;quipe produit souvent plus de <span class="h">valeur</span> que l&rsquo;expertise technique d&rsquo;une seule personne.</span></p></div>
+            <div class="para-wrap"><p>Un bon leader sait <span class="h">r&eacute;partir les t&acirc;ches</span> selon les <span class="h">forces</span> de chacun et cr&eacute;er un environnement o&ugrave; l&rsquo;&eacute;quipe <span class="h">enti&egrave;re</span> progresse, ce qui <span class="h">multiplie</span> les r&eacute;sultats.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Cette comp&eacute;tence de gestion devient alors plus d&eacute;terminante pour la r&eacute;ussite globale de l&rsquo;entreprise que la ma&icirc;trise individuelle d&rsquo;un m&eacute;tier.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>d&eacute;l&eacute;guer</em> = to delegate &#183; <em>r&eacute;partir les t&acirc;ches</em> = to distribute tasks &#183; <em>d&eacute;terminant</em> = decisive, determining</div>
+          <div class="wc">~69 mots &#10003;</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance &#8212; Secteurs hautement sp&eacute;cialis&eacute;s <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que dans certains secteurs <span class="h">hautement</span> sp&eacute;cialis&eacute;s, comme la m&eacute;decine, l&rsquo;ing&eacute;nierie ou le droit, <span class="hl-blue">l&rsquo;expertise technique reste le crit&egrave;re <span class="h">d&eacute;cisif</span> de la r&eacute;ussite.</span></p></div>
+            <div class="para-wrap"><p>Dans ces domaines pr&eacute;cis, aucune comp&eacute;tence relationnelle ni aucun talent de leadership ne peut <span class="h">compenser</span> un manque r&eacute;el de connaissances techniques, car des vies ou des projets entiers d&eacute;pendent de cette expertise.</p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Le poids de la ma&icirc;trise technique varie donc <span class="h">fortement</span> selon le <span class="h">secteur</span> d&rsquo;activit&eacute;.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>hautement sp&eacute;cialis&eacute;</em> = highly specialised &#183; <em>compenser</em> = to compensate for, to make up for &#183; <em>le crit&egrave;re d&eacute;cisif</em> = the decisive criterion</div>
+          <div class="wc">~71 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que la ma&icirc;trise technique pr&eacute;sente certains avantages dans les secteurs hautement <span class="h">sp&eacute;cialis&eacute;s</span>, comme <span class="hl-blue">la fiabilit&eacute; des d&eacute;cisions <span class="h">critiques</span>,</span> il n&rsquo;en demeure pas moins que les avantages des comp&eacute;tences <span class="h">humaines</span> sont ind&eacute;niables, notamment <span class="hl-pink">le d&eacute;veloppement des <span class="h">ventes</span> et le renforcement du <span class="h">leadership</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&eacute;r&eacute;, il faudrait que <span class="hl-p1">les entreprises accordent une place plus importante au d&eacute;veloppement des comp&eacute;tences <span class="h">relationnelles</span> et <span class="h">manag&eacute;riales</span> dans la formation de leurs employ&eacute;s.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /sb1 -->
+
+      <!-- ÉTAPE 2 -->
+      <div id="sb2" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question&#160;! C&rsquo;est un sujet tr&egrave;s int&eacute;ressant, car il concerne presque tout le monde &eacute;tant donn&eacute; qu&rsquo;il est l&eacute;gitime de se demander si le principal facteur de succ&egrave;s professionnel dans une compagnie est r&eacute;ellement la ma&icirc;trise de son m&eacute;tier, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que <span class="hl-pink">ce sont surtout les comp&eacute;tences <span class="h">relationnelles</span> et <span class="h">humaines</span> qui d&eacute;terminent la <span class="h">r&eacute;ussite professionnelle</span></span>, &agrave; un certain point. Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 &#8212; Comp&eacute;tences relationnelles et r&eacute;sultats commerciaux <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d&rsquo;abord, il convient de souligner que <span class="hl-pink">la capacit&eacute; &agrave; <span class="h">collaborer</span> et &agrave; <span class="h">cr&eacute;er une relation de confiance</span> avec les clients influence directement les r&eacute;sultats <span class="h">commerciaux</span>.</span></p></div>
+            <div class="para-wrap"><p>Un employ&eacute; <span class="h">sociable</span> et &agrave; l&rsquo;<span class="h">&eacute;coute parvient</span> souvent &agrave; convaincre un client <span class="h">h&eacute;sitant</span> ou &agrave; <span class="h">fid&eacute;liser un partenaire</span>, l&agrave; o&ugrave; la seule comp&eacute;tence technique resterait <span class="h">insuffisante</span>. Ces qualit&eacute;s relationnelles g&eacute;n&egrave;rent ainsi <span class="h">davantage</span> de ventes que l&rsquo;expertise seule.</p></div>
+            <div class="para-wrap"><p>Prenons le cas d&rsquo;un commercial&nbsp;: <span class="hl-pink">c&rsquo;est sa capacit&eacute; &agrave; <span class="h">cr&eacute;er du lien</span> qui conclut la <span class="h">vente</span>.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>fid&eacute;liser</em> = to retain, to build loyalty with &#183; <em>h&eacute;sitant</em> = hesitant, on the fence &#183; <em>cr&eacute;er du lien</em> = to build a connection (spoken C1 expression)</div>
+          <div class="wc">~79 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 &#8212; Leadership et gestion d&rsquo;&eacute;quipe <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">la capacit&eacute; &agrave; <span class="h">motiver</span>, <span class="h">d&eacute;l&eacute;guer</span> et <span class="h">organiser</span> le travail d&rsquo;une &eacute;quipe produit souvent plus de <span class="h">valeur</span> que l&rsquo;expertise technique d&rsquo;une seule personne.</span></p></div>
+            <div class="para-wrap"><p>Un bon leader sait <span class="h">r&eacute;partir les t&acirc;ches</span> selon les <span class="h">forces</span> de chacun et cr&eacute;er un environnement o&ugrave; l&rsquo;&eacute;quipe enti&egrave;re <span class="h">progresse</span>, ce qui <span class="h">multiplie</span> les r&eacute;sultats.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Cette comp&eacute;tence de gestion devient alors plus <span class="h">d&eacute;terminante</span> pour la r&eacute;ussite globale de l&rsquo;entreprise que la <span class="h">ma&icirc;trise individuelle d&rsquo;un m&eacute;tier</span>.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>d&eacute;l&eacute;guer</em> = to delegate &#183; <em>r&eacute;partir les t&acirc;ches</em> = to distribute tasks &#183; <em>d&eacute;terminant</em> = decisive, determining</div>
+          <div class="wc">~69 mots &#10003;</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance &#8212; Secteurs hautement sp&eacute;cialis&eacute;s <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que dans certains secteurs <span class="h">hautement</span> sp&eacute;cialis&eacute;s, comme la m&eacute;decine, l&rsquo;ing&eacute;nierie ou le droit, <span class="hl-blue">l&rsquo;expertise technique reste le <span class="h">crit&egrave;re d&eacute;cisif</span> de la r&eacute;ussite.</span></p></div>
+            <div class="para-wrap"><p>Dans ces domaines pr&eacute;cis, aucune <span class="h">comp&eacute;tence relationnelle</span> ni aucun <span class="h">talent de leadership</span> ne peut compenser un manque r&eacute;el de connaissances techniques, car des vies ou des projets entiers d&eacute;pendent de cette expertise.</p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Le poids de la ma&icirc;trise technique varie donc <span class="h">fortement</span> selon le <span class="h">secteur</span> d&rsquo;activit&eacute;.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>hautement sp&eacute;cialis&eacute;</em> = highly specialised &#183; <em>compenser</em> = to compensate for, to make up for &#183; <em>le crit&egrave;re d&eacute;cisif</em> = the decisive criterion</div>
+          <div class="wc">~71 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que la ma&icirc;trise technique pr&eacute;sente certains avantages dans les secteurs hautement <span class="h">sp&eacute;cialis&eacute;s</span>, comme <span class="hl-blue">la <span class="h">fiabilit&eacute;</span> des d&eacute;cisions critiques,</span> il n&rsquo;en demeure pas moins que les avantages des comp&eacute;tences <span class="h">humaines</span> sont ind&eacute;niables, notamment <span class="hl-pink"><span class="h">le d&eacute;veloppement des ventes</span> et <span class="h">le renforcement du leadership</span>.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&eacute;r&eacute;, il faudrait que <span class="hl-p1">les entreprises <span class="h">accordent</span> une place plus importante au d&eacute;veloppement des comp&eacute;tences <span class="h">relationnelles</span> et <span class="h">manag&eacute;riales</span> dans la <span class="h">formation</span> de leurs employ&eacute;s.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /sb2 -->
+
+      <!-- ÉTAPE 3 -->
+      <div id="sb3" class="stage-content">
+        <div class="block">
+          <div class="block-label">Introduction <span class="timing">~40s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Pour commencer, merci pour votre question&#160;! C&rsquo;est un sujet tr&egrave;s int&eacute;ressant, car il concerne presque tout le monde &eacute;tant donn&eacute; qu&rsquo;il est l&eacute;gitime de se demander <span class="h">si le principal facteur de succ&egrave;s professionnel dans une compagnie est r&eacute;ellement la ma&icirc;trise de son m&eacute;tier</span>, et les avis sont divergents.</p></div>
+            <div class="para-wrap"><p>Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que <span class="hl-pink"><span class="h">ce sont surtout les comp&eacute;tences relationnelles et humaines qui d&eacute;terminent la r&eacute;ussite professionnelle</span></span>, &agrave; un certain point. Alors, je vais expliquer mes raisons.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 1 &#8212; Comp&eacute;tences relationnelles et r&eacute;sultats commerciaux <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Tout d&rsquo;abord, il convient de souligner que <span class="hl-pink">la capacit&eacute; &agrave; collaborer et &agrave; cr&eacute;er une relation de confiance avec les clients influence directement les r&eacute;sultats commerciaux.</span></p></div>
+            <div class="para-wrap"><p>Un employ&eacute; <span class="h">sociable</span> et &agrave; <span class="h">l&rsquo;&eacute;coute parvient</span> souvent &agrave; convaincre <span class="h">un client h&eacute;sitant</span> ou &agrave; fid&eacute;liser <span class="h">un partenaire</span>, l&agrave; o&ugrave; la seule comp&eacute;tence technique resterait <span class="h">insuffisante</span>. Ces qualit&eacute;s relationnelles g&eacute;n&egrave;rent ainsi davantage de ventes que l&rsquo;expertise seule.</p></div>
+            <div class="para-wrap"><p>Prenons le cas d&rsquo;un commercial&nbsp;: <span class="hl-pink">c&rsquo;est sa capacit&eacute; &agrave; <span class="h">cr&eacute;er du lien</span> qui <span class="h">conclut la vente</span>.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>fid&eacute;liser</em> = to retain, to build loyalty with &#183; <em>h&eacute;sitant</em> = hesitant, on the fence &#183; <em>cr&eacute;er du lien</em> = to build a connection (spoken C1 expression)</div>
+          <div class="wc">~79 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Point 2 &#8212; Leadership et gestion d&rsquo;&eacute;quipe <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>De plus, <span class="hl-pink">la capacit&eacute; &agrave; motiver, d&eacute;l&eacute;guer et organiser le travail d&rsquo;une &eacute;quipe produit souvent plus de valeur que l&rsquo;expertise technique d&rsquo;une seule personne.</span></p></div>
+            <div class="para-wrap"><p>Un bon leader sait <span class="h">r&eacute;partir les t&acirc;ches</span> selon <span class="h">les forces de chacun</span> et cr&eacute;er un environnement o&ugrave; l&rsquo;&eacute;quipe enti&egrave;re progresse, ce qui <span class="h">multiplie les r&eacute;sultats</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-pink">Cette comp&eacute;tence de gestion devient alors plus d&eacute;terminante pour la r&eacute;ussite globale de l&rsquo;entreprise que la <span class="h">ma&icirc;trise individuelle d&rsquo;un m&eacute;tier</span>.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>d&eacute;l&eacute;guer</em> = to delegate &#183; <em>r&eacute;partir les t&acirc;ches</em> = to distribute tasks &#183; <em>d&eacute;terminant</em> = decisive, determining</div>
+          <div class="wc">~69 mots &#10003;</div>
+        </div>
+        <div class="block block-nuance">
+          <div class="block-label">Nuance &#8212; Secteurs hautement sp&eacute;cialis&eacute;s <span class="timing">~1 min</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>Il est certes vrai que dans certains secteurs hautement sp&eacute;cialis&eacute;s, comme la m&eacute;decine, l&rsquo;ing&eacute;nierie ou le droit, <span class="hl-blue">l&rsquo;expertise technique reste le crit&egrave;re d&eacute;cisif de la r&eacute;ussite.</span></p></div>
+            <div class="para-wrap"><p>Dans ces domaines pr&eacute;cis, aucune <span class="h">comp&eacute;tence relationnelle</span> ni aucun <span class="h">talent de leadership</span> ne peut compenser un manque r&eacute;el de connaissances techniques, car <span class="h">des vies ou des projets entiers d&eacute;pendent de cette expertise</span>.</p></div>
+            <div class="para-wrap"><p><span class="hl-blue">Le poids de la ma&icirc;trise technique varie donc fortement selon le secteur d&rsquo;activit&eacute;.</span></p></div>
+          </div>
+          <div class="en-note">&#128172; <em>hautement sp&eacute;cialis&eacute;</em> = highly specialised &#183; <em>compenser</em> = to compensate for, to make up for &#183; <em>le crit&egrave;re d&eacute;cisif</em> = the decisive criterion</div>
+          <div class="wc">~71 mots &#10003;</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+          <div class="script-text">
+            <div class="para-wrap"><p>En conclusion, bien que la ma&icirc;trise technique pr&eacute;sente certains avantages dans les secteurs hautement sp&eacute;cialis&eacute;s, comme <span class="hl-blue">la fiabilit&eacute; des d&eacute;cisions critiques,</span> il n&rsquo;en demeure pas moins que les avantages des comp&eacute;tences humaines sont ind&eacute;niables, notamment <span class="hl-pink">le d&eacute;veloppement des ventes et le renforcement du leadership.</span></p></div>
+            <div class="para-wrap"><p>Tout bien consid&eacute;r&eacute;, il faudrait que <span class="hl-p1">les entreprises accordent une place plus importante au d&eacute;veloppement des comp&eacute;tences relationnelles et manag&eacute;riales dans la formation de leurs employ&eacute;s.</span></p></div>
+            <div class="para-wrap"><p>Merci pour votre attention.</p></div>
+          </div>
+        </div>
+      </div><!-- /sb3 -->
+
+    </div><!-- /script-card -->
+  </div><!-- /single-view -->
+</div><!-- /posB -->
+
+<!-- WORD LIST -->
+<div id="words" class="content">
+  <div class="wl-page">
+
+    <div class="wl-section">
+      <div class="wl-section-title">Noms &#8212; cl&eacute;s du sujet</div>
+      <div class="wl-grid">
+        <div class="wl-card">
+          <div class="wl-card-header">Comp&eacute;tences professionnelles &#9733; = priorit&eacute; examen</div>
+          <div class="wl-row"><span class="wl-fr">la ma&icirc;trise <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">mastery, command (of a skill)</span></div>
+          <div class="wl-row"><span class="wl-fr">l&rsquo;expertise technique <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">technical expertise</span></div>
+          <div class="wl-row"><span class="wl-fr">le savoir-faire <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">know-how, practical skill</span></div>
+          <div class="wl-row"><span class="wl-fr">le savoir-&ecirc;tre <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">interpersonal / soft skills</span></div>
+          <div class="wl-row"><span class="wl-fr">la comp&eacute;tence relationnelle <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">interpersonal skill</span></div>
+          <div class="wl-row"><span class="wl-fr">la cr&eacute;dibilit&eacute; <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">credibility</span></div>
+          <div class="wl-row"><span class="wl-fr">la reconnaissance <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">recognition, acknowledgement</span></div>
+          <div class="wl-row"><span class="wl-fr">la formation <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">training, professional development</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Leadership et &eacute;quipe</div>
+          <div class="wl-row"><span class="wl-fr">le leadership <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">leadership</span></div>
+          <div class="wl-row"><span class="wl-fr">la gestion d&rsquo;&eacute;quipe <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">team management</span></div>
+          <div class="wl-row"><span class="wl-fr">la d&eacute;l&eacute;gation <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">delegation (of tasks)</span></div>
+          <div class="wl-row"><span class="wl-fr">la r&eacute;partition des t&acirc;ches <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">distribution of tasks</span></div>
+          <div class="wl-row"><span class="wl-fr">les r&eacute;sultats commerciaux <em>(mpl)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">commercial results, sales performance</span></div>
+          <div class="wl-row"><span class="wl-fr">la relation de confiance <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">a trust-based relationship</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Secteurs et situations</div>
+          <div class="wl-row"><span class="wl-fr">le secteur d&rsquo;activit&eacute; <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">industry, field of activity</span></div>
+          <div class="wl-row"><span class="wl-fr">le crit&egrave;re d&eacute;cisif <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">decisive criterion</span></div>
+          <div class="wl-row"><span class="wl-fr">l&rsquo;impr&eacute;vu <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">unexpected situation, unforeseen event</span></div>
+          <div class="wl-row"><span class="wl-fr">la panne de production <em>(f)</em></span><span class="wl-en">production breakdown</span></div>
+          <div class="wl-row"><span class="wl-fr">le partenaire commercial <em>(m)</em></span><span class="wl-en">business partner</span></div>
+        </div>
+        <div class="wl-card">
+          <div class="wl-card-header">Succ&egrave;s et r&eacute;ussite</div>
+          <div class="wl-row"><span class="wl-fr">la r&eacute;ussite professionnelle <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">professional success</span></div>
+          <div class="wl-row"><span class="wl-fr">l&rsquo;atout d&eacute;cisif <em>(m)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">decisive asset, key strength</span></div>
+          <div class="wl-row"><span class="wl-fr">la progression <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">advancement, career progression</span></div>
+          <div class="wl-row"><span class="wl-fr">la valeur ajout&eacute;e <em>(f)</em><span class="wl-star">&#9733;</span></span><span class="wl-en">added value</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Verbes + pr&eacute;positions</div>
+      <div class="wl-card">
+        <div class="wl-card-header">Verbes + pr&eacute;positions &#8212; pronom relatif entre crochets</div>
+        <table class="verb-table">
+          <tr><th>Verbe</th><th>Pr&eacute;p.</th><th>Pronom rel.</th><th>Sens</th></tr>
+          <tr><td class="vfr">ma&icirc;triser</td><td class="vprep">&#8212;</td><td class="vrel">que</td><td class="ven">to master, to have command of</td></tr>
+          <tr><td class="vfr">s&rsquo;appuyer</td><td class="vprep">sur</td><td class="vrel">sur lequel</td><td class="ven">to rely on, to lean on</td></tr>
+          <tr><td class="vfr">fid&eacute;liser</td><td class="vprep">&#8212;</td><td class="vrel">que</td><td class="ven">to retain, to build loyalty with</td></tr>
+          <tr><td class="vfr">convaincre</td><td class="vprep">de</td><td class="vrel">dont</td><td class="ven">to convince (of)</td></tr>
+          <tr><td class="vfr">d&eacute;l&eacute;guer</td><td class="vprep">&#8212;</td><td class="vrel">que</td><td class="ven">to delegate</td></tr>
+          <tr><td class="vfr">r&eacute;partir</td><td class="vprep">&#8212;</td><td class="vrel">que</td><td class="ven">to distribute, to allocate</td></tr>
+          <tr><td class="vfr">compenser</td><td class="vprep">&#8212;</td><td class="vrel">que</td><td class="ven">to compensate for, to make up for</td></tr>
+          <tr><td class="vfr">multiplier</td><td class="vprep">&#8212;</td><td class="vrel">que</td><td class="ven">to multiply, to increase greatly</td></tr>
+          <tr><td class="vfr">freiner</td><td class="vprep">&#8212;</td><td class="vrel">que</td><td class="ven">to hinder, to hold back</td></tr>
+          <tr><td class="vfr">accorder (de l&rsquo;importance)</td><td class="vprep">&#224;</td><td class="vrel">auquel</td><td class="ven">to give importance to, to grant</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Adjectifs</div>
+      <div class="wl-card">
+        <div class="adj-grid">
+          <div class="adj-row"><span class="adj-fr">sociable</span><span class="adj-en">sociable, people-oriented</span></div>
+          <div class="adj-row"><span class="adj-fr">h&eacute;sitant / h&eacute;sitante</span><span class="adj-en">hesitant, undecided</span></div>
+          <div class="adj-row"><span class="adj-fr">insuffisant / insuffisante</span><span class="adj-en">insufficient, not enough</span></div>
+          <div class="adj-row"><span class="adj-fr">d&eacute;terminant / d&eacute;terminante</span><span class="adj-en">decisive, determining</span></div>
+          <div class="adj-row"><span class="adj-fr">hautement sp&eacute;cialis&eacute;</span><span class="adj-en">highly specialised</span></div>
+          <div class="adj-row"><span class="adj-fr">d&eacute;cisif / d&eacute;cisive</span><span class="adj-en">decisive, critical</span></div>
+          <div class="adj-row"><span class="adj-fr">co&ucirc;teux / co&ucirc;teuse</span><span class="adj-en">costly, expensive</span></div>
+          <div class="adj-row"><span class="adj-fr">manag&eacute;rial / manag&eacute;riale</span><span class="adj-en">managerial</span></div>
+          <div class="adj-row"><span class="adj-fr">individuel / individuelle</span><span class="adj-en">individual</span></div>
+          <div class="adj-row"><span class="adj-fr">fiable</span><span class="adj-en">reliable, trustworthy</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Paires de contraste</div>
+      <div class="contrast-grid">
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-a">OUI &#8212; la ma&icirc;trise du m&eacute;tier est le facteur principal</div>
+          <div class="contrast-item">Ma&icirc;triser son m&eacute;tier inspire imm&eacute;diatement confiance aux coll&egrave;gues et aux sup&eacute;rieurs.</div>
+          <div class="contrast-item">Seul un employ&eacute; comp&eacute;tent peut g&eacute;rer efficacement une situation technique impr&eacute;vue.</div>
+          <div class="contrast-item">L&rsquo;expertise technique ouvre la porte &agrave; davantage de responsabilit&eacute;s et de reconnaissance.</div>
+          <div class="contrast-item">En p&eacute;riode de crise, c&rsquo;est la comp&eacute;tence r&eacute;elle qui r&egrave;sle le probl&egrave;me, pas le charisme.</div>
+        </div>
+        <div class="contrast-card">
+          <div class="contrast-header contrast-header-b">NON &#8212; d&rsquo;autres facteurs comptent davantage</div>
+          <div class="contrast-item">La capacit&eacute; &agrave; cr&eacute;er une relation de confiance avec les clients g&eacute;n&egrave;re davantage de ventes que l&rsquo;expertise seule.</div>
+          <div class="contrast-item">Un bon leader sait r&eacute;partir les t&acirc;ches et multiplier les r&eacute;sultats de toute l&rsquo;&eacute;quipe.</div>
+          <div class="contrast-item">Les comp&eacute;tences manag&eacute;riales produisent plus de valeur que l&rsquo;expertise d&rsquo;une seule personne.</div>
+          <div class="contrast-item">Dans les secteurs sp&eacute;cialis&eacute;s, la ma&icirc;trise technique reste d&eacute;cisive, mais elle ne s&rsquo;applique pas &agrave; tous les m&eacute;tiers.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wl-section">
+      <div class="wl-section-title">Phrases fig&eacute;es C1 &#8212; m&eacute;moriser en bloc</div>
+      <div class="chunk-list">
+        <div class="chunk-card">
+          <div class="chunk-fr">cr&eacute;er du lien</div>
+          <div class="chunk-en">to build a connection / to forge a bond</div>
+          <div class="chunk-note">registre parl&eacute; C1 &#183; tr&egrave;s utile pour les sujets professionnels et sociaux &#183; plus naturel que &laquo;&nbsp;d&eacute;velopper des relations&nbsp;&raquo;</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il convient de souligner que</div>
+          <div class="chunk-en">it is worth highlighting that / it should be noted that</div>
+          <div class="chunk-note">registre professionnel C1 &#183; id&eacute;al pour ouvrir un point sur un sujet &eacute;conomique ou institutionnel</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">l&agrave; o&ugrave; [A] resterait insuffisant(e)</div>
+          <div class="chunk-en">where [A] would remain insufficient</div>
+          <div class="chunk-note">structure de contraste implicite &#183; &eacute;vite de r&eacute;p&eacute;ter &laquo;&nbsp;mais&nbsp;&raquo; &#183; tr&egrave;s utile pour opposer deux comp&eacute;tences</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">peser autant que</div>
+          <div class="chunk-en">to matter as much as / to carry as much weight as</div>
+          <div class="chunk-note">utile pour la nuance &#183; &eacute;vite &laquo;&nbsp;&ecirc;tre aussi important que&nbsp;&raquo; &#183; registre soutenu mais naturel &agrave; l&rsquo;oral</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">il faudrait que les entreprises accordent + subjonctif</div>
+          <div class="chunk-en">companies should grant / give (importance to)</div>
+          <div class="chunk-note">structure C1 pour la conclusion collective &#183; <em>accorder</em> + COD + &agrave; = to give something to someone</div>
+        </div>
+        <div class="chunk-card">
+          <div class="chunk-fr">ni le r&eacute;seau ni le charisme ne suffisent</div>
+          <div class="chunk-en">neither connections nor charisma are enough</div>
+          <div class="chunk-note"><em>ni&hellip; ni&hellip;</em> = C1 corr&eacute;latif &#183; tr&egrave;s efficace pour &eacute;carter des contre-arguments en une phrase</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scriptASummary = `<div class="script-card">
+  <div class="card-header card-header-green">
+    <div class="card-title card-title-green">&#10003; Position A &mdash; OUI, la ma&icirc;trise du m&eacute;tier est le facteur principal de r&eacute;ussite</div>
+    <span class="stance-badge badge-hard">Plus ardu</span>
+  </div>
+  <div class="block">
+    <div class="block-label">Introduction <span class="timing">~40s</span></div>
+    <div class="script-text"><p>Pour commencer, merci pour votre question&nbsp;! C&rsquo;est un sujet tr&egrave;s int&eacute;ressant, car il concerne presque tout le monde &eacute;tant donn&eacute; qu&rsquo;il est l&eacute;gitime de se demander si le principal facteur de succ&egrave;s professionnel dans une compagnie est r&eacute;ellement la ma&icirc;trise de son m&eacute;tier, et les avis sont divergents. Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que <span class="hl-pink">la ma&icirc;trise de son m&eacute;tier est effectivement le facteur principal de r&eacute;ussite professionnelle</span>, &agrave; un certain point. Alors, je vais expliquer mes raisons.</p></div>
+  </div>
+  <div class="block">
+    <div class="block-label">Point 1 &mdash; Cr&eacute;dibilit&eacute; et confiance <span class="timing">~1 min</span></div>
+    <div class="script-text"><p>Tout d&rsquo;abord, il convient de souligner que <span class="hl-pink">ma&icirc;triser parfaitement son m&eacute;tier inspire imm&eacute;diatement confiance aux coll&egrave;gues et aux sup&eacute;rieurs.</span> Un employ&eacute; qui d&eacute;montre une r&eacute;elle expertise technique devient une r&eacute;f&eacute;rence sur laquelle l&rsquo;&eacute;quipe peut s&rsquo;appuyer, ce qui renforce sa cr&eacute;dibilit&eacute; au sein de l&rsquo;entreprise. Cette cr&eacute;dibilit&eacute; ouvre ensuite la porte &agrave; davantage de responsabilit&eacute;s et de reconnaissance. Par exemple, <span class="hl-pink">un ing&eacute;nieur reconnu pour la qualit&eacute; de son travail est plus rapidement consult&eacute; lors des d&eacute;cisions importantes.</span></p></div>
+    <div class="wc">~76 mots &#10003;</div>
+  </div>
+  <div class="block">
+    <div class="block-label">Point 2 &mdash; Gestion de l&rsquo;impr&eacute;vu <span class="timing">~1 min</span></div>
+    <div class="script-text"><p>De plus, <span class="hl-pink">face &agrave; une situation technique impr&eacute;vue, seul un employ&eacute; qui ma&icirc;trise vraiment son m&eacute;tier peut trouver une solution efficace.</span> Dans ces moments-l&agrave;, ni le r&eacute;seau ni le charisme ne suffisent&nbsp;; c&rsquo;est la comp&eacute;tence r&eacute;elle qui permet de r&eacute;soudre le probl&egrave;me rapidement et d&rsquo;&eacute;viter des cons&eacute;quences co&ucirc;teuses. Cette capacit&eacute; &agrave; g&eacute;rer l&rsquo;impr&eacute;vu devient un atout d&eacute;cisif en p&eacute;riode de crise. Prenons l&rsquo;exemple d&rsquo;une panne de production&nbsp;: <span class="hl-pink">c&rsquo;est l&rsquo;expert technique qui sauve la situation.</span></p></div>
+    <div class="wc">~74 mots &#10003;</div>
+  </div>
+  <div class="block block-nuance">
+    <div class="block-label">Nuance &mdash; Comp&eacute;tences relationnelles en compl&eacute;ment <span class="timing">~1 min</span></div>
+    <div class="script-text"><p>Il est certes vrai que dans les postes &agrave; forte interaction humaine, comme le management ou la vente, <span class="hl-blue">le savoir-&ecirc;tre et la communication peuvent peser autant que l&rsquo;expertise technique.</span> Un employ&eacute; brillant sur le plan technique mais incapable de collaborer avec son &eacute;quipe ou d&rsquo;&eacute;couter ses clients risque de freiner sa propre progression. <span class="hl-blue">Dans ces contextes, la r&eacute;ussite d&eacute;pend alors d&rsquo;un &eacute;quilibre entre comp&eacute;tence et qualit&eacute;s relationnelles.</span></p></div>
+    <div class="wc">~67 mots &#10003;</div>
+  </div>
+  <div class="block">
+    <div class="block-label">Conclusion <span class="timing">~50s</span></div>
+    <div class="script-text">
+      <p>En conclusion, bien que <span class="hl-blue">les comp&eacute;tences relationnelles</span> pr&eacute;sentent certains avantages, notamment <span class="hl-blue">le renforcement de la collaboration,</span> il n&rsquo;en demeure pas moins que les avantages de la ma&icirc;trise technique sont ind&eacute;niables, comme <span class="hl-pink">le renforcement de la confiance et la r&eacute;solution des impr&eacute;vus.</span></p>
+      <p>Tout bien consid&eacute;r&eacute;, il serait souhaitable que <span class="hl-p1">les entreprises valorisent en priorit&eacute; le d&eacute;veloppement de l&rsquo;expertise technique de leurs employ&eacute;s afin qu&rsquo;ils puissent faire face &agrave; toutes les situations professionnelles.</span></p>
+      <p>Merci pour votre attention.</p>
+    </div>
+  </div>
+</div>`;
+
+const scriptB = {
+  header:"&#127919; &#10007; Position B &mdash; NON, d&rsquo;autres facteurs comptent davantage &#127919;",
+  headerClass:"card-header-blue", titleClass:"card-title-blue",
+  badge:"Plus facile &agrave; d&eacute;fendre", badgeClass:"badge-easy",
+  blocks:[
+    { label:"Introduction", timing:"~40s", nuance:false,
+      text:`<p>Pour commencer, merci pour votre question&nbsp;! C&rsquo;est un sujet tr&egrave;s int&eacute;ressant, car il concerne presque tout le monde &eacute;tant donn&eacute; qu&rsquo;il est l&eacute;gitime de se demander si le principal facteur de succ&egrave;s professionnel dans une compagnie est r&eacute;ellement la ma&icirc;trise de son m&eacute;tier, et les avis sont divergents. Personnellement, cela d&eacute;pend de la situation. Mais, &agrave; mon sens, je crois que <span class="hl-pink">ce sont surtout les comp&eacute;tences relationnelles et humaines qui d&eacute;terminent la r&eacute;ussite professionnelle</span>, &agrave; un certain point. Alors, je vais expliquer mes raisons.</p>`, note:"" },
+    { label:"Point 1 &mdash; Comp&eacute;tences relationnelles et r&eacute;sultats commerciaux", timing:"~1 min", nuance:false, wc:"~79 mots &#10003;",
+      text:`<p>Tout d&rsquo;abord, il convient de souligner que <span class="hl-pink">la capacit&eacute; &agrave; collaborer et &agrave; cr&eacute;er une relation de confiance avec les clients influence directement les r&eacute;sultats commerciaux.</span> Un employ&eacute; sociable et &agrave; l&rsquo;&eacute;coute parvient souvent &agrave; convaincre un client h&eacute;sitant ou &agrave; fid&eacute;liser un partenaire, l&agrave; o&ugrave; la seule comp&eacute;tence technique resterait insuffisante. Ces qualit&eacute;s relationnelles g&eacute;n&egrave;rent ainsi davantage de ventes que l&rsquo;expertise seule. Prenons le cas d&rsquo;un commercial&nbsp;: <span class="hl-pink">c&rsquo;est sa capacit&eacute; &agrave; cr&eacute;er du lien qui conclut la vente.</span></p>`,
+      note:"&#128172; <em>fid&eacute;liser</em> = to retain, to build loyalty with &middot; <em>h&eacute;sitant</em> = hesitant, on the fence &middot; <em>cr&eacute;er du lien</em> = to build a connection (spoken C1 expression)" },
+    { label:"Point 2 &mdash; Leadership et gestion d&rsquo;&eacute;quipe", timing:"~1 min", nuance:false, wc:"~69 mots &#10003;",
+      text:`<p>De plus, <span class="hl-pink">la capacit&eacute; &agrave; motiver, d&eacute;l&eacute;guer et organiser le travail d&rsquo;une &eacute;quipe produit souvent plus de valeur que l&rsquo;expertise technique d&rsquo;une seule personne.</span> Un bon leader sait r&eacute;partir les t&acirc;ches selon les forces de chacun et cr&eacute;er un environnement o&ugrave; l&rsquo;&eacute;quipe enti&egrave;re progresse, ce qui multiplie les r&eacute;sultats. <span class="hl-pink">Cette comp&eacute;tence de gestion devient alors plus d&eacute;terminante pour la r&eacute;ussite globale de l&rsquo;entreprise que la ma&icirc;trise individuelle d&rsquo;un m&eacute;tier.</span></p>`,
+      note:"&#128172; <em>d&eacute;l&eacute;guer</em> = to delegate &middot; <em>r&eacute;partir les t&acirc;ches</em> = to distribute tasks &middot; <em>d&eacute;terminant</em> = decisive, determining" },
+    { label:"Nuance &mdash; Secteurs hautement sp&eacute;cialis&eacute;s", timing:"~1 min", nuance:true, wc:"~71 mots &#10003;",
+      text:`<p>Il est certes vrai que dans certains secteurs hautement sp&eacute;cialis&eacute;s, comme la m&eacute;decine, l&rsquo;ing&eacute;nierie ou le droit, <span class="hl-blue">l&rsquo;expertise technique reste le crit&egrave;re d&eacute;cisif de la r&eacute;ussite.</span> Dans ces domaines pr&eacute;cis, aucune comp&eacute;tence relationnelle ni aucun talent de leadership ne peut compenser un manque r&eacute;el de connaissances techniques, car des vies ou des projets entiers d&eacute;pendent de cette expertise. <span class="hl-blue">Le poids de la ma&icirc;trise technique varie donc fortement selon le secteur d&rsquo;activit&eacute;.</span></p>`,
+      note:"&#128172; <em>hautement sp&eacute;cialis&eacute;</em> = highly specialised &middot; <em>compenser</em> = to compensate for, to make up for &middot; <em>le crit&egrave;re d&eacute;cisif</em> = the decisive criterion" },
+    { label:"Conclusion", timing:"~50s", nuance:false,
+      text:`<p>En conclusion, bien que la ma&icirc;trise technique pr&eacute;sente certains avantages dans les secteurs hautement sp&eacute;cialis&eacute;s, comme <span class="hl-blue">la fiabilit&eacute; des d&eacute;cisions critiques,</span> il n&rsquo;en demeure pas moins que les avantages des comp&eacute;tences humaines sont ind&eacute;niables, notamment <span class="hl-pink">le d&eacute;veloppement des ventes et le renforcement du leadership.</span></p>
+<p>Tout bien consid&eacute;r&eacute;, il faudrait que <span class="hl-p1">les entreprises accordent une place plus importante au d&eacute;veloppement des comp&eacute;tences relationnelles et manag&eacute;riales dans la formation de leurs employ&eacute;s.</span></p>
+<p>Merci pour votre attention.</p>`, note:"" }
+  ]
+};
+
+function buildCard(s){
+  const blocks=s.blocks.map(b=>`
+    <div class="block ${b.nuance?'block-nuance':''}">
+      <div class="block-label">${b.label} <span class="timing">${b.timing}</span></div>
+      <div class="script-text">${b.text}</div>
+      ${b.note?`<div class="en-note">${b.note}</div>`:''}
+      ${b.wc?`<div class="wc">${b.wc}</div>`:''}
+    </div>`).join('');
+  return`<div class="script-card">
+    <div class="card-header ${s.headerClass}">
+      <div class="card-title ${s.titleClass}">${s.header}</div>
+      <span class="stance-badge ${s.badgeClass}">${s.badge}</span>
+    </div>${blocks}</div>`;}
+
+document.getElementById('bothGrid').innerHTML = scriptASummary + buildCard(scriptB);
+
+function showTab(id,btn){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showStage(id,btn){
+  document.querySelectorAll('#posB .stage-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('#posB .stage-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
